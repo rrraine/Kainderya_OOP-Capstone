@@ -5,6 +5,7 @@ import tile.TileManager;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.image.BufferedImage;
 
 // works as the game screen
 // The Runnable Interface implements functions that are to be executed by a Thread
@@ -15,22 +16,28 @@ public class GamePanel extends JPanel implements Runnable {
     final int scale = 3; // scale to screen res
     public final int tileSize = originalTileSize * scale; // ACTUAL TILE: 48 x 48 pixels
 
-    // ASPECT RATIO: 16:12
+    // ASPECT RATIO: 20:16
     public final int maxScreenCol = 16; // 16 tiles per row
     public final int maxScreenRow = 12; // 12 tiles per column
 
     // TOTAL SCREEN RESOLUTION: 1536 x 864 pixels
-    public final int screenWidth = tileSize * maxScreenCol; // 768 pixels
+    public final int screenWidth = tileSize * maxScreenCol; // 960 pixels
     public final int screenHeight = tileSize * maxScreenRow; // 576 pixels
 
-    // GAME VARIABLES
+    // WORLD SETTINGS
+    public final int maxWorldCol = 50;
+    public final int maxWorldRow = 50;
+    public final int worldWidth = tileSize * maxWorldCol;
+    public final int worldHeight = tileSize * maxWorldRow;
+
+    // GAME SETTINGS
     Thread gameThread; // CONCEPT OF TIME FOR PROGRAM TASKS EXECUTION
     KeyHandler keyH = new KeyHandler(); // KEYBOARD INPUTS
     TileManager tileM = new TileManager(this);
     final int FPS = 60;
 
     // PLAYER OBJECT
-    Player player = new Player(this, keyH);
+    public Player player = new Player(this, keyH);
 
 
     public GamePanel() {
@@ -91,6 +98,7 @@ public class GamePanel extends JPanel implements Runnable {
 
         player.update();
     }
+
     public void paintComponent(Graphics g) {
 
         // this method is a built-in from JComponent Class

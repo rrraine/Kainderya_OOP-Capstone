@@ -4,7 +4,8 @@ import java.awt.image.BufferedImage;
 
 public abstract class Entity {
 
-    public int x, y;
+    // ENTITY COORDINATES IN WORLD
+    public int worldX, worldY;
     public int speed;
 
     // SPRITE
