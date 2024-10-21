@@ -34,6 +34,8 @@ public class GamePanel extends JPanel implements Runnable {
     Thread gameThread; // CONCEPT OF TIME FOR PROGRAM TASKS EXECUTION
     KeyHandler keyH = new KeyHandler(); // KEYBOARD INPUTS
     TileManager tileM = new TileManager(this);
+    public CollisionChecker cChecker = new CollisionChecker(this);
+
     final int FPS = 60;
 
     // PLAYER OBJECT

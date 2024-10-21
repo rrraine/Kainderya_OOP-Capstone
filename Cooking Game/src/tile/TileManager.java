@@ -13,9 +13,9 @@ import java.util.Objects;
 public class TileManager implements TileName {
 
     GamePanel gp;
-    Tile[] tile;
+    public Tile[] tile;
 
-    int[][] mapTileNum;
+    public int[][] mapTileNum;
 
     public TileManager(GamePanel gp) {
 
@@ -36,15 +36,18 @@ public class TileManager implements TileName {
 
             tile[TileName.WALL] = new Tile();
             tile[TileName.WALL].image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/wall.png")));
+            tile[TileName.WALL].collision = true;
 
             tile[TileName.WATER] = new Tile();
             tile[TileName.WATER].image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/water.png")));
+            tile[TileName.WATER].collision = true;
 
             tile[TileName.EARTH] = new Tile();
             tile[TileName.EARTH].image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/earth.png")));
 
             tile[TileName.TREE] = new Tile();
             tile[TileName.TREE].image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/tree.png")));
+            tile[TileName.TREE].collision = true;
 
             tile[TileName.SAND] = new Tile();
             tile[TileName.SAND].image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/sand.png")));
