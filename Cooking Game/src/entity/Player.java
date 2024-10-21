@@ -53,6 +53,8 @@ public class Player extends Entity {
 
         if (keyH.upPressed || keyH.downPressed || keyH.leftPressed || keyH.rightPressed) {
 
+            System.out.println("Character is moving");
+
             // UPDATE COORDINATES EVERY FRAME
             if (keyH.upPressed) {
                 direction = "up";
