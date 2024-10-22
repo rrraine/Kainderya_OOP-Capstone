@@ -20,7 +20,7 @@ public class Player extends Entity {
     public final int screenY;
 
     // NUM OF ITEMS PLAYER HAS
-    int hasKey = 0;
+    public int hasKey = 0;
 
     public Player(GamePanel gp, KeyHandler keyH) {
 
@@ -144,30 +144,39 @@ public class Player extends Entity {
             switch (objName) {
 
                 case "Key":
-                    gp.playSoundEffect(1);
+                    gp.playSFX(1);
                     hasKey++;
                     gp.obj[i] = null;
-                    System.out.println("Key: " + hasKey);
+                    gp.ui.showMessage("Key obtained!");
                     break;
 
                 case "Door":
                     if (hasKey > 0) {
-                        gp.playSoundEffect(3);
-                        // CHANGE TO COLLISION = FALSE IF U DONT WANT TO DELETE OBJ
+                        gp.playSFX(3);
+                        // CHANGE TO COLLISION = FALSE IF U DON'T WANT TO DELETE OBJ
                         gp.obj[i] = null;
-                        System.out.println("Door opened");
                         hasKey--;
+                        gp.ui.showMessage("Door opened!");
                     }
-                    System.out.println("Key: " + hasKey);
+                    else {
+                        gp.ui.showMessage("Find a key!");
+                    }
                     break;
 
                 case "Boots":
                     if (gp.obj[i] instanceof OBJ_Boots) {
 
-                        gp.playSoundEffect(2);
+                        gp.playSFX(2);
                         speed += ((OBJ_Boots)gp.obj[i]).speedIncrease;
                     }
                     gp.obj[i] = null;
+                    gp.ui.showMessage("Speed up!");
+                    break;
+
+                case "Chest":
+                    gp.ui.gameFinished = true;
+                    gp.stopMusic();
+                    gp.playSFX(4);
                     break;
             }
         }

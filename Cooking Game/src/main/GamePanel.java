@@ -35,9 +35,11 @@ public class GamePanel extends JPanel implements Runnable {
     // GAME SETTINGS SYSTEM
     TileManager tileM = new TileManager(this);
     KeyHandler keyH = new KeyHandler(); // KEYBOARD INPUTS
-    Sound sound = new Sound();
+    Sound music = new Sound();
+    Sound sfx = new Sound();
     public CollisionChecker cChecker = new CollisionChecker(this);
     public AssetSetter aSetter = new AssetSetter(this);
+    public UI ui = new UI(this);
     Thread gameThread; // CONCEPT OF TIME FOR PROGRAM TASKS EXECUTION
 
     // OBJECTS AND ENTITY
@@ -134,22 +136,25 @@ public class GamePanel extends JPanel implements Runnable {
         // DRAW PLAYER
         player.draw(g2);
 
+        // DRAW UI
+        ui.draw(g2);
+
         g2.dispose(); // good practice to dispose this graphics to release any system resources it was using and save memory
     }
 
     public void playMusic(int i) {
 
-        sound.setFile(i);
-        sound.play();
-        sound.loop();
+        music.setFile(i);
+        music.play();
+        music.loop();
     }
     public void stopMusic() {
 
-        sound.stop();
+        music.stop();
     }
-    public void playSoundEffect(int i) {
+    public void playSFX(int i) {
 
-        sound.setFile(i);
-        sound.play();
+        sfx.setFile(i);
+        sfx.play();
     }
 }
