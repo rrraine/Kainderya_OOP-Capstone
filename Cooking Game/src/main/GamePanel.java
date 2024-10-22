@@ -32,16 +32,18 @@ public class GamePanel extends JPanel implements Runnable {
     public final int worldWidth = tileSize * maxWorldCol;
     public final int worldHeight = tileSize * maxWorldRow;
 
-    // GAME SETTINGS
-    Thread gameThread; // CONCEPT OF TIME FOR PROGRAM TASKS EXECUTION
-    KeyHandler keyH = new KeyHandler(); // KEYBOARD INPUTS
+    // GAME SETTINGS SYSTEM
     TileManager tileM = new TileManager(this);
+    KeyHandler keyH = new KeyHandler(); // KEYBOARD INPUTS
+    Sound sound = new Sound();
     public CollisionChecker cChecker = new CollisionChecker(this);
     public AssetSetter aSetter = new AssetSetter(this);
+    Thread gameThread; // CONCEPT OF TIME FOR PROGRAM TASKS EXECUTION
 
-    // OBJECTS
+    // OBJECTS AND ENTITY
     public Player player = new Player(this, keyH);
     public SuperObject obj[] = new SuperObject[10];
+
 
 
     public GamePanel() {
@@ -57,7 +59,11 @@ public class GamePanel extends JPanel implements Runnable {
 
     public void setUpGame() {
 
+        // SET OBJECT IN WORLD
         aSetter.setObject();
+
+        // PLAY MUSIC
+        playMusic(5);
     }
 
     public void startGameThread() {
@@ -129,5 +135,21 @@ public class GamePanel extends JPanel implements Runnable {
         player.draw(g2);
 
         g2.dispose(); // good practice to dispose this graphics to release any system resources it was using and save memory
+    }
+
+    public void playMusic(int i) {
+
+        sound.setFile(i);
+        sound.play();
+        sound.loop();
+    }
+    public void stopMusic() {
+
+        sound.stop();
+    }
+    public void playSoundEffect(int i) {
+
+        sound.setFile(i);
+        sound.play();
     }
 }

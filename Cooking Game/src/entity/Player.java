@@ -32,7 +32,7 @@ public class Player extends Entity {
         screenY = gp.screenHeight / 2 - (gp.tileSize /2);
 
         // COLLISION DIMENSIONS
-        solidArea = new Rectangle(11, 16, 26, 31);
+        solidArea = new Rectangle(15, 20, 18, 26);
         // DEFAULT COLLISION
         solidAreaDefaultX = solidArea.x;
         solidAreaDefaultY = solidArea.y;
@@ -144,6 +144,7 @@ public class Player extends Entity {
             switch (objName) {
 
                 case "Key":
+                    gp.playSoundEffect(1);
                     hasKey++;
                     gp.obj[i] = null;
                     System.out.println("Key: " + hasKey);
@@ -151,6 +152,7 @@ public class Player extends Entity {
 
                 case "Door":
                     if (hasKey > 0) {
+                        gp.playSoundEffect(3);
                         // CHANGE TO COLLISION = FALSE IF U DONT WANT TO DELETE OBJ
                         gp.obj[i] = null;
                         System.out.println("Door opened");
@@ -162,6 +164,7 @@ public class Player extends Entity {
                 case "Boots":
                     if (gp.obj[i] instanceof OBJ_Boots) {
 
+                        gp.playSoundEffect(2);
                         speed += ((OBJ_Boots)gp.obj[i]).speedIncrease;
                     }
                     gp.obj[i] = null;
