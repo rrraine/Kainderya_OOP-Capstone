@@ -1,15 +1,17 @@
 package main;
 
 import entity.Player;
+import object.SuperObject;
 import tile.TileManager;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.image.BufferedImage;
 
 // works as the game screen
 // The Runnable Interface implements functions that are to be executed by a Thread
 public class GamePanel extends JPanel implements Runnable {
+
+    final int FPS = 60;
 
     // SCREEN SETTINGS
     final int originalTileSize = 16; // 16x16 tile
@@ -35,11 +37,11 @@ public class GamePanel extends JPanel implements Runnable {
     KeyHandler keyH = new KeyHandler(); // KEYBOARD INPUTS
     TileManager tileM = new TileManager(this);
     public CollisionChecker cChecker = new CollisionChecker(this);
+    public AssetSetter aSetter = new AssetSetter(this);
 
-    final int FPS = 60;
-
-    // PLAYER OBJECT
+    // OBJECTS
     public Player player = new Player(this, keyH);
+    public SuperObject obj[] = new SuperObject[10];
 
 
     public GamePanel() {
@@ -51,6 +53,11 @@ public class GamePanel extends JPanel implements Runnable {
         this.setDoubleBuffered(true); // not sure what this does
         this.addKeyListener(keyH); // listens for key inputs
         this.setFocusable(true); // GamePanel can be "focused" to receive key inputs
+    }
+
+    public void setUpGame() {
+
+        aSetter.setObject();
     }
 
     public void startGameThread() {
@@ -108,7 +115,17 @@ public class GamePanel extends JPanel implements Runnable {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g; // typecast Graphics Class to provide better 2D attributes
 
+        // DRAW TILE
         tileM.draw(g2);
+
+        // DRAW ITEMS
+        for (SuperObject superObject : obj) {
+            if (superObject != null) {
+                superObject.draw(g2, this);
+            }
+        }
+
+        // DRAW PLAYER
         player.draw(g2);
 
         g2.dispose(); // good practice to dispose this graphics to release any system resources it was using and save memory

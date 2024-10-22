@@ -23,6 +23,8 @@ public class Main {
         window.setLocationRelativeTo(null);
         window.setVisible(true);
 
+        // LOAD OBJ IN WORLD
+        gamePanel.setUpGame();
         gamePanel.startGameThread();
     }
 }
