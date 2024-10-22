@@ -2,6 +2,7 @@ package entity;
 
 import main.GamePanel;
 import main.KeyHandler;
+import object.OBJ_Boots;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -45,7 +46,7 @@ public class Player extends Entity {
         // STARTING POSITION
         worldX = gp.tileSize * 23;
         worldY = gp.tileSize * 21;
-        speed = 6;
+        speed = 5;
         direction = "down";
     }
 
@@ -156,6 +157,14 @@ public class Player extends Entity {
                         hasKey--;
                     }
                     System.out.println("Key: " + hasKey);
+                    break;
+
+                case "Boots":
+                    if (gp.obj[i] instanceof OBJ_Boots) {
+
+                        speed += ((OBJ_Boots)gp.obj[i]).speedIncrease;
+                    }
+                    gp.obj[i] = null;
                     break;
             }
         }

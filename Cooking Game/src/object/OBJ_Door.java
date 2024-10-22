@@ -16,6 +16,7 @@ public class OBJ_Door extends SuperObject {
             e.printStackTrace();
         }
 
+        // HAS DEFAULT COLLISION, FALSE IF KEY IS USED
         collision = true;
     }
 }

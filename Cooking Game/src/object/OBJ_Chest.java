@@ -15,5 +15,7 @@ public class OBJ_Chest extends SuperObject {
         catch (Exception e) {
             e.printStackTrace();
         }
+
+        // REMOVES DOOR COLLISION
     }
 }
