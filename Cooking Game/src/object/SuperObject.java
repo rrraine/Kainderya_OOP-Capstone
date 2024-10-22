@@ -9,8 +9,14 @@ public abstract class SuperObject {
 
     public BufferedImage image;
     public String name;
-    public boolean Collision = false;
+    public boolean collision = false;
     public int worldX, worldY; // ABSOLUTE POS IN WORLD
+
+    // COLLISION DIMENSIONS
+    public Rectangle solidArea = new Rectangle(0, 0, 48, 48);
+    // DEFAULT COLLISION
+    public int solidAreaDefaultX = 0;
+    public int solidAreaDefaultY = 0;
 
     public void draw(Graphics2D g2, GamePanel gp) {
 

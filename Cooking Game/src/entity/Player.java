@@ -18,6 +18,9 @@ public class Player extends Entity {
     public final int screenX;
     public final int screenY;
 
+    // NUM OF ITEMS PLAYER HAS
+    int hasKey = 0;
+
     public Player(GamePanel gp, KeyHandler keyH) {
 
         this.gp = gp;
@@ -29,6 +32,9 @@ public class Player extends Entity {
 
         // COLLISION DIMENSIONS
         solidArea = new Rectangle(11, 16, 26, 31);
+        // DEFAULT COLLISION
+        solidAreaDefaultX = solidArea.x;
+        solidAreaDefaultY = solidArea.y;
 
         setDefaultValues();
         getPlayerImage();
@@ -84,6 +90,10 @@ public class Player extends Entity {
             collisionOn = false;
             gp.cChecker.checkTile(this);
 
+            // CHECK OBJECT COLLISION
+            int objectIndex = gp.cChecker.checkObject(this, true);
+            pickUpObject(objectIndex);
+
             // IF COLLISION IS FALSE, PLAYER CAN MOVE
             if (!collisionOn) {
 
@@ -121,6 +131,36 @@ public class Player extends Entity {
             }
         }
     }
+
+    public void pickUpObject(int i) {
+
+        // INDEX 999 IF OBJ UNTOUCHED
+        if (i != 999) {
+
+            // DELETE TOUCHED OBJ FROM WORLD
+            String objName = gp.obj[i].name;
+
+            switch (objName) {
+
+                case "Key":
+                    hasKey++;
+                    gp.obj[i] = null;
+                    System.out.println("Key: " + hasKey);
+                    break;
+
+                case "Door":
+                    if (hasKey > 0) {
+                        // CHANGE TO COLLISION = FALSE IF U DONT WANT TO DELETE OBJ
+                        gp.obj[i] = null;
+                        System.out.println("Door opened");
+                        hasKey--;
+                    }
+                    System.out.println("Key: " + hasKey);
+                    break;
+            }
+        }
+    }
+
     public void draw(Graphics2D g2) {
 
         BufferedImage image = null;
