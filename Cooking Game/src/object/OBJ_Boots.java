@@ -5,7 +5,7 @@ import java.util.Objects;
 
 public class OBJ_Boots extends SuperObject {
 
-    public int speedIncrease = 3;
+    public int speedIncrease = 2;
 
     public OBJ_Boots() {
 

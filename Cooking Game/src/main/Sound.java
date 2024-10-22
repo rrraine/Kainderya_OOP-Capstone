@@ -3,12 +3,14 @@ package main;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
+import javax.sound.sampled.FloatControl;
 import java.net.URL;
 
 public class Sound {
 
     Clip clip; // OPEN AUDIO FILE
     URL soundURL[] = new URL[30]; // STORE SOUND PATH
+    FloatControl volume;
 
     public Sound() {
 
@@ -28,22 +30,33 @@ public class Sound {
             AudioInputStream ais = AudioSystem.getAudioInputStream(soundURL[i]);
             clip = AudioSystem.getClip();
             clip.open(ais);
+
+            volume = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
         }
         catch (Exception e) {
-
+            e.printStackTrace();
         }
 
     }
     public void play() {
-
-        clip.start();
+        if (clip != null) {
+            clip.start();
+        }
     }
     public void loop() {
-
-        clip.loop(Clip.LOOP_CONTINUOUSLY);
+        if (clip != null) {
+            clip.loop(Clip.LOOP_CONTINUOUSLY);
+        }
     }
     public void stop() {
-
-        clip.stop();
+        if (clip != null && clip.isRunning()) {
+            clip.stop();
+            clip.close();
+        }
+    }
+    public void adjustVolume(float vol) {
+        if (volume != null) {
+            volume.setValue(vol);
+        }
     }
 }
