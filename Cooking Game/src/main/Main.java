@@ -5,26 +5,26 @@ import javax.swing.*;
 public class Main {
     public static void main(String[] args) {
 
-        JFrame window = new JFrame();
+        // ~ FIELDS
+        JFrame window;
+        GamePanel gamePanel;
 
-        // lets window close when user clicks "x" button
-        window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        // disables resizable window
-        window.setResizable(false);
+
+        window = new JFrame(); // WINDOW FRAME ON WHICH GAMEPANEL RUNS
+        window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // ENABLES WINDOW TO BE CLOSED
+        window.setResizable(false); // DISABLES RESIZABLE WINDOW
         window.setTitle("Cooking Game");
 
-        GamePanel gamePanel = new GamePanel();
-        window.add(gamePanel);
+        gamePanel = new GamePanel();
 
-        // sets the window's size as specified in the GamePanel
-        window.pack();
 
-        // set window location at the screen center
-        window.setLocationRelativeTo(null);
+        window.add(gamePanel); // RUN GAMEPANEL ON WINDOW
+        window.pack(); // SETS WINDOW SIZE
+        window.setLocationRelativeTo(null); // SET WINDOW AT CENTER OF SCREEN
         window.setVisible(true);
 
-        // LOAD OBJ IN WORLD
-        gamePanel.setUpGame();
-        gamePanel.startGameThread();
+
+        gamePanel.setUpGame(); // PRELOAD NECESSARY STUFF IN WORLD BEFORE GAME STARTS
+        gamePanel.startGameThread(); // START GAME
     }
 }

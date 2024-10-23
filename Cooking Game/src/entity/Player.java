@@ -12,6 +12,7 @@ import java.util.Objects;
 
 public class Player extends Entity {
 
+    // ~ FIELDS
     GamePanel gp;
     KeyHandler keyH;
 
@@ -21,6 +22,8 @@ public class Player extends Entity {
 
     // NUM OF ITEMS PLAYER HAS
     public int hasKey = 0;
+
+    // ~ METHODS
 
     public Player(GamePanel gp, KeyHandler keyH) {
 

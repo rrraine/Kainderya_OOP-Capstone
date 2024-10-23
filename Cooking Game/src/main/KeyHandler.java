@@ -3,19 +3,21 @@ package main;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-// KeyListener Interface is the listener interface for receiving keystrokes (keyboard events)
 public class KeyHandler implements KeyListener {
 
+    // ~ FIELDS
     public boolean upPressed, downPressed, leftPressed, rightPressed;
 
+    // ~ METHODS
+
     @Override
-    public void keyTyped(KeyEvent e) {} // useless
+    public void keyTyped(KeyEvent e) {} // USELESS
 
     @Override
     public void keyPressed(KeyEvent e) {
-        int code = e.getKeyCode(); // returns the code of the key that was pressed
+        int code = e.getKeyCode();
 
-        // Keybindings when pressed
+        // RECORDS IF USER IS PRESSING KEY TILE
         if (code == KeyEvent.VK_W) {
             upPressed = true;
         }
@@ -34,7 +36,7 @@ public class KeyHandler implements KeyListener {
     public void keyReleased(KeyEvent e) {
         int code = e.getKeyCode();
 
-        // Keybindings when released
+        // RECORDS IF USER RELEASES KEY TILE
         if (code == KeyEvent.VK_W) {
             upPressed = false;
         }

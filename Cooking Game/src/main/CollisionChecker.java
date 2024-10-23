@@ -4,22 +4,26 @@ import entity.Entity;
 
 public class CollisionChecker {
 
+    // ~ FIELDS
     GamePanel gp;
 
+    // ~ METHODS
     public CollisionChecker(GamePanel gp) {
 
         this.gp = gp;
     }
 
+    // CHECK IF ENTITY IS COLLIDING AGAINST SOLID TILES CALLED BY PLAYER
     public void checkTile(Entity en) {
 
-        // COLLISION BOX COORDINATES RELATIVE TO WORLD LOCATION
+        // ENTITY'S COLLISION BOX COORDINATES RELATIVE TO WORLD LOCATION
         int entityLeftWorldX = en.worldX + en.solidArea.x;
         int entityRightWorldX = en.worldX + en.solidArea.x + en.solidArea.width;
         int entityTopWorldY = en.worldY + en.solidArea.y;
         int entityBottomWorldY = en.worldY + en.solidArea.y + en.solidArea.height;
 
-        // DETECT COLLISION
+        // ENTITY'S COLLISION SIDES, FORMING A BOX
+        // CHECK DOCS FOR VISUALIZATION
         int entityLeftCol = entityLeftWorldX / gp.tileSize;
         int entityRightCol = entityRightWorldX / gp.tileSize;
         int entityTopRow = entityTopWorldY / gp.tileSize;
@@ -27,7 +31,7 @@ public class CollisionChecker {
 
         int tileNum1, tileNum2;
 
-        // PREDICT COLLISION BY EVERY FACING POINT OF THE COLLISION BOX
+        // PREDICT COLLISION BY EVERY FACING SIDES OF BOX
         switch (en.direction) {
 
             case "up":
@@ -72,7 +76,7 @@ public class CollisionChecker {
         }
     }
 
-    // RETURN INDEX OF OBJ THE PLAYER IS COLLIDING AGAINST
+    // CHECK IF ENTITY IS COLLIDING AGAINST SUBEROBJECTS CALLED BY PLAYER
     public int checkObject(Entity en, boolean player) {
 
         int index = 999;
@@ -85,7 +89,7 @@ public class CollisionChecker {
                 en.solidArea.x = en.worldX + en.solidArea.x;
                 en.solidArea.y = en.worldY + en.solidArea.y;
 
-                // GET OBJ'S SOLID AREA POS
+                // GET SUPEROBJECT'S SOLID AREA POS
                 gp.obj[i].solidArea.x = gp.obj[i].worldX + gp.obj[i].solidArea.x;
                 gp.obj[i].solidArea.y = gp.obj[i].worldY+ gp.obj[i].solidArea.y;
 
@@ -96,7 +100,7 @@ public class CollisionChecker {
                             if (gp.obj[i].collision) {
                                 en.collisionOn = true;
                             }
-                            // IF PLAYER ONLY, OBJ CAN BE PICKED UP
+                            // IF PLAYER ONLY, SUPEROBJECT CAN BE PICKED UP
                             if (player) {
                                 index = i;
                             }
@@ -150,6 +154,7 @@ public class CollisionChecker {
             }
         }
 
+        // RETURN INDEX OF ITEM FROM THE SUPEROBJECT ARRAY
         return index;
     }
 }

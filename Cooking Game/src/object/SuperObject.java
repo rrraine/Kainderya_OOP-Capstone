@@ -7,6 +7,7 @@ import java.awt.image.BufferedImage;
 
 public abstract class SuperObject {
 
+    // ~ FIELDS
     public BufferedImage image;
     public String name;
     public boolean collision = false;
@@ -14,10 +15,12 @@ public abstract class SuperObject {
 
     // COLLISION DIMENSIONS
     public Rectangle solidArea = new Rectangle(0, 0, 48, 48);
+
     // DEFAULT COLLISION
     public int solidAreaDefaultX = 0;
     public int solidAreaDefaultY = 0;
 
+    // ~ METHODS
     public void draw(Graphics2D g2, GamePanel gp) {
 
         // DRAW ITEM AT SET LOCATION IN WORLD

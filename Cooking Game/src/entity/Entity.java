@@ -5,6 +5,8 @@ import java.awt.image.BufferedImage;
 
 public abstract class Entity {
 
+    // ~ FIELDS
+
     // ENTITY COORDINATES IN WORLD
     public int worldX, worldY;
     public int speed;

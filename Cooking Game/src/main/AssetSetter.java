@@ -7,15 +7,17 @@ import object.OBJ_Key;
 
 public class AssetSetter {
 
+    // ~ FIELDS
     GamePanel gp;
 
+    // ~ METHODS
     public AssetSetter (GamePanel gp) {
         this.gp = gp;
     }
 
     public void setObject() {
 
-        // SET ITEM IN THE WORLD
+        // SET SUPEROBJECT ITEMS IN THE WORLD
         gp.obj[0] = new OBJ_Key();
         gp.obj[0].worldX = gp.tileSize * 23; // COL 23
         gp.obj[0].worldY = gp.tileSize * 7; // ROW 7

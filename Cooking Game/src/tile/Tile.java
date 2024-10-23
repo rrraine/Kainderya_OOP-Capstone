@@ -7,9 +7,11 @@ import java.awt.image.ImageProducer;
 
 public class Tile extends Image {
 
+    // ~ FIELDS
     public BufferedImage image;
     public boolean collision = false;
 
+    // ~ USELESS METHODS
     @Override
     public int getWidth(ImageObserver observer) {
         return 0;

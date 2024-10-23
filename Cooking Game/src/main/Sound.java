@@ -8,10 +8,14 @@ import java.net.URL;
 
 public class Sound {
 
-    Clip clip; // OPEN AUDIO FILE
-    URL soundURL[] = new URL[30]; // STORE SOUND PATH
+    // ~ FIELDS
+    Clip clip; // STORE AUDIO FILE
+    URL soundURL[] = new URL[30]; // STORE SOUND PATH DIRECTORY
     FloatControl volume;
 
+    // ~ METHODS
+
+    // IMPORT AUDIO AND STORE THEM IN AN ARRAY
     public Sound() {
 
         soundURL[0] = getClass().getResource("/sounds/BlueBoyAdventure.wav");

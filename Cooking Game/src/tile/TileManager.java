@@ -12,11 +12,13 @@ import java.util.Objects;
 
 public class TileManager implements TileName {
 
+    // ~ FIELDS
     GamePanel gp;
     public Tile[] tile;
 
     public int[][] mapTileNum;
 
+    // ~ METHODS
     public TileManager(GamePanel gp) {
 
         this.gp = gp;
