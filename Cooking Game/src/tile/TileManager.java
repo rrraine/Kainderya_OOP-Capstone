@@ -1,11 +1,10 @@
 package tile;
 
 import main.GamePanel;
-import main.UtilityTool;
+import main.Utility;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
-import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -44,12 +43,10 @@ public class TileManager implements TileName {
     // HANDLE INSTANTIATION, IMPORT IMAGE, SCALE, AND COLLISION SETTING
     public void setup(int i, String imageName, boolean collision) {
 
-        UtilityTool uTool = new UtilityTool();
-
         try {
             tile[i] = new Tile();
             tile[i].image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/" + imageName + ".png")));
-            tile[i].image = uTool.scaleImage(tile[i].image,gp.tileSize, gp.tileSize);
+            tile[i].image = Utility.scaleImage(tile[i].image,gp.tileSize, gp.tileSize);
             tile[i].collision = collision;
         }
         catch (IOException e) {

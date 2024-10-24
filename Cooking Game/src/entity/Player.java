@@ -2,7 +2,7 @@ package entity;
 
 import main.GamePanel;
 import main.KeyHandler;
-import main.UtilityTool;
+import main.Utility;
 import object.OBJ_Boots;
 
 import javax.imageio.ImageIO;
@@ -68,13 +68,12 @@ public class Player extends Entity {
     }
     public BufferedImage setUp(String avatar, String imageName) {
 
-        UtilityTool uTool = new UtilityTool();
         BufferedImage image = null;
 
         try {
 
             image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/player/" + avatar + "/" + imageName + ".png")));
-            image = uTool.scaleImage(image, gp.tileSize, gp.tileSize);
+            image = Utility.scaleImage(image, gp.tileSize, gp.tileSize);
         }
         catch (IOException e) {
             e.printStackTrace();

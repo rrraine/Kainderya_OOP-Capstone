@@ -1,6 +1,7 @@
 package object;
 
 import main.GamePanel;
+import main.Utility;
 
 import javax.imageio.ImageIO;
 import java.util.Objects;
@@ -18,7 +19,7 @@ public class OBJ_Boots extends SuperObject {
         try {
 
             image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/objects/boots.png")));
-            uTool.scaleImage(image, gp.tileSize, gp.tileSize);
+            Utility.scaleImage(image, gp.tileSize, gp.tileSize);
         }
         catch (Exception e) {
             e.printStackTrace();
