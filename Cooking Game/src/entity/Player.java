@@ -57,15 +57,16 @@ public class Player extends Entity {
 
         try {
 
-            // load images
-            up1 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/player/boy_up_1.png")));
-            up2 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/player/boy_up_2.png")));
-            down1 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/player/boy_down_1.png")));
-            down2 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/player/boy_down_2.png")));
-            left1 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/player/boy_left_1.png")));
-            left2 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/player/boy_left_2.png")));
-            right1 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/player/boy_right_1.png")));
-            right2 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/player/boy_right_2.png")));
+            // LOAD IMAGES
+            idle = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/player/cook1/cook1_idle.png")));
+            up1 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/player/cook1/cook1_up1.png")));
+            up2 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/player/cook1/cook1_up2.png")));
+            down1 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/player/cook1/cook1_down1.png")));
+            down2 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/player/cook1/cook1_down2.png")));
+            left1 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/player/cook1/cook1_left1.png")));
+            left2 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/player/cook1/cook1_left2.png")));
+            right1 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/player/cook1/cook1_right1.png")));
+            right2 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/player/cook1/cook1_right2.png")));
         }
         catch (IOException e) {
             e.printStackTrace();
@@ -74,21 +75,26 @@ public class Player extends Entity {
 
     public void update() {
 
+        // DETECT DIRECTION BY KEYSTROKE
         if (keyH.upPressed || keyH.downPressed || keyH.leftPressed || keyH.rightPressed) {
 
-            // DETECT DIRECTION BY KEYSTROKE
             if (keyH.upPressed) {
                 direction = "up";
+                lastDirection = "up";
             }
             else if (keyH.downPressed) {
                 direction = "down";
+                lastDirection = "down";
             }
             else if (keyH.leftPressed) {
                 direction = "left";
+                lastDirection = "left";
             }
             else if (keyH.rightPressed) {
                 direction = "right";
+                lastDirection = "right";
             }
+
 
             // CHECK TILE COLLISION
             collisionOn = false;
@@ -132,6 +138,28 @@ public class Player extends Entity {
                     spriteNum = 1;
                 }
                 spriteCounter = 0;
+            }
+        }
+        // DETECT DIRECTION BY LAST RECORDED DIRECTION
+        else {
+            if (!lastDirection.isBlank()) {
+
+                switch (lastDirection) {
+
+                    case "up":
+                        direction = "upIdle";
+                        break;
+                    case "down":
+                        direction = "downIdle";
+                        break;
+                    case "left":
+                        direction = "leftIdle";
+                        break;
+                    case "right":
+                        direction = "rightIdle";
+                        break;
+
+                }
             }
         }
     }
@@ -190,6 +218,8 @@ public class Player extends Entity {
         BufferedImage image = null;
 
         switch (direction) {
+
+            // MOVEMENT
             case "up":
                 if (spriteNum == 1) {
                     image = up1;
@@ -224,6 +254,20 @@ public class Player extends Entity {
                 if (spriteNum == 2) {
                     image = right2;
                 }
+                break;
+
+            // IDLE
+            case "upIdle":
+                image = up1;
+                break;
+            case "downIdle":
+                image = idle;
+                break;
+            case "leftIdle":
+                image = left1;
+                break;
+            case "rightIdle":
+                image = right1;
                 break;
         }
         g2.drawImage(image, screenX, screenY, gp.tileSize, gp.tileSize, null);

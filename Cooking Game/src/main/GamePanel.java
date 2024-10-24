@@ -70,7 +70,7 @@ public class GamePanel extends JPanel implements Runnable {
 
         // DEPLOY OBJECTS IN WORLD AND PLAY MUSIC
         aSetter.setObject();
-        playMusic(5);
+        playMusic(0);
     }
 
     // START THE GAME CALLED BY MAIN
