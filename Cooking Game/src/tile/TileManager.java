@@ -64,14 +64,14 @@ public class TileManager implements TileName {
 
         try {
 
-            // import and read the map matrix
+            // IMPORT FILE AND READ THE MAP MATRIX
             InputStream is = getClass().getResourceAsStream(filePath);
             BufferedReader br = new BufferedReader(new InputStreamReader(Objects.requireNonNull(is)));
 
             int col = 0;
             int row = 0;
 
-            // read one row line of the map matrix data
+            // READ 1 ROW LINE OF THE MAP MATRIX DATA
             while (col < gp.maxWorldCol && row < gp.maxWorldRow) {
 
                 String line = br.readLine();
@@ -119,7 +119,7 @@ public class TileManager implements TileName {
             int screenX = worldX - gp.player.worldX + gp.player.screenX;
             int screenY = worldY - gp.player.worldY + gp.player.screenY;
 
-            // IMPROVED RENDERING: Only draw tiles player can see in screen
+            // IMPROVED RENDERING: ONLY DRAW TILES PLAYER CAN SEE ON SCREEN
             if (worldX + gp.tileSize > gp.player.worldX - gp.player.screenX &&
                 worldX - gp.tileSize < gp.player.worldX + gp.player.screenX &&
                 worldY + gp.tileSize > gp.player.worldY - gp.player.screenY &&
