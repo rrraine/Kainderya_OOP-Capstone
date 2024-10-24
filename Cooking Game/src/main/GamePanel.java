@@ -50,19 +50,29 @@ public class GamePanel extends JPanel implements Runnable {
     // ~ FIELDS END HERE
     // ~ METHODS
 
+<<<<<<< Updated upstream
     // CONSTRUCTOR
+=======
+    // constructor to create the game screen, called in main
+>>>>>>> Stashed changes
     public GamePanel() {
 
         // SET DIMENSIONS AND COLOR OF THE FRAME
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
         this.setBackground(Color.black);
 
+<<<<<<< Updated upstream
         this.setDoubleBuffered(true);
 
         // LISTEN FOR KEYSTROKES
         this.addKeyListener(keyH);
         // ALLOWS RECEIVING OF KEYSTROKES
         this.setFocusable(true);
+=======
+        this.setDoubleBuffered(true); // not sure what this does, ano raw for improves game's rending performance
+        this.addKeyListener(keyH); // listens for key inputs
+        this.setFocusable(true); // GamePanel can be "focused" to receive key inputs
+>>>>>>> Stashed changes
     }
 
     // PRELOAD OBJECTS IN WORLD CALLED BY MAIN
@@ -76,12 +86,18 @@ public class GamePanel extends JPanel implements Runnable {
     // START THE GAME CALLED BY MAIN
     public void startGameThread() {
 
+<<<<<<< Updated upstream
         // PASS GAMEPANEL AND CALLS RUN() OF RUNNABLE
         gameThread = new Thread(this);
         gameThread.start();
+=======
+        gameThread = new Thread(this); // pass THIS entire class to the gameThread
+        gameThread.start(); // automatically calls the run method of Runnable Interface
+>>>>>>> Stashed changes
     }
+
     @Override
-    public void run() {
+    public void run() { // a method of Runnable interface
 
         // DELTA ACCUMULATOR METHOD
         double drawInterval = (double) 1000000000 / FPS;
