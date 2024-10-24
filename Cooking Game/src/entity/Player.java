@@ -2,6 +2,7 @@ package entity;
 
 import main.GamePanel;
 import main.KeyHandler;
+import main.UtilityTool;
 import object.OBJ_Boots;
 
 import javax.imageio.ImageIO;
@@ -55,24 +56,31 @@ public class Player extends Entity {
 
     public void getPlayerImage() {
 
+        idle = setUp("cook1", "cook1_idle");
+        up1 = setUp("cook1", "cook1_up1");
+        up2 = setUp("cook1", "cook1_up2");
+        down1 = setUp("cook1", "cook1_down1");
+        down2 = setUp("cook1", "cook1_down2");
+        left1 = setUp("cook1", "cook1_left1");
+        left2 = setUp("cook1", "cook1_left2");
+        right1 = setUp("cook1", "cook1_right1");
+        right2 = setUp("cook1", "cook1_right2");
+    }
+    public BufferedImage setUp(String avatar, String imageName) {
+
+        UtilityTool uTool = new UtilityTool();
+        BufferedImage image = null;
+
         try {
 
-            // LOAD IMAGES
-            idle = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/player/cook1/cook1_idle.png")));
-            up1 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/player/cook1/cook1_up1.png")));
-            up2 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/player/cook1/cook1_up2.png")));
-            down1 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/player/cook1/cook1_down1.png")));
-            down2 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/player/cook1/cook1_down2.png")));
-            left1 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/player/cook1/cook1_left1.png")));
-            left2 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/player/cook1/cook1_left2.png")));
-            right1 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/player/cook1/cook1_right1.png")));
-            right2 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/player/cook1/cook1_right2.png")));
+            image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/player/" + avatar + "/" + imageName + ".png")));
+            image = uTool.scaleImage(image, gp.tileSize, gp.tileSize);
         }
         catch (IOException e) {
             e.printStackTrace();
         }
+        return image;
     }
-
     public void update() {
 
         // DETECT DIRECTION BY KEYSTROKE TO UPDATE MOVING POSES
@@ -243,6 +251,6 @@ public class Player extends Entity {
                 }
                 break;
         }
-        g2.drawImage(image, screenX, screenY, gp.tileSize, gp.tileSize, null);
+        g2.drawImage(image, screenX, screenY, null);
     }
 }

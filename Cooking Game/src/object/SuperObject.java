@@ -1,6 +1,7 @@
 package object;
 
 import main.GamePanel;
+import main.UtilityTool;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -19,6 +20,9 @@ public abstract class SuperObject {
     // DEFAULT COLLISION
     public int solidAreaDefaultX = 0;
     public int solidAreaDefaultY = 0;
+
+    // UTILITY
+    UtilityTool uTool = new UtilityTool();
 
     // ~ METHODS
     public void draw(Graphics2D g2, GamePanel gp) {
