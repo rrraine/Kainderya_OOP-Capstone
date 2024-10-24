@@ -1,11 +1,15 @@
 package main;
 
+import entity.Entity;
+import entity.NPC;
 import entity.Player;
 import object.SuperObject;
 import tile.TileManager;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class GamePanel extends JPanel implements Runnable {
 
@@ -35,7 +39,7 @@ public class GamePanel extends JPanel implements Runnable {
 
     // GAME SETTINGS SYSTEM
     TileManager tileM = new TileManager(this);
-    KeyHandler keyH = new KeyHandler();
+    KeyHandler keyH = new KeyHandler(this);
     Sound music = new Sound();
     Sound sfx = new Sound();
     public CollisionChecker cChecker = new CollisionChecker(this);
@@ -45,7 +49,13 @@ public class GamePanel extends JPanel implements Runnable {
 
     // OBJECTS AND ENTITY
     public Player player = new Player(this, keyH);
+    public List<NPC> npc = new ArrayList<>();
     public SuperObject obj[] = new SuperObject[10];
+
+    // GAME STATE
+    public int gameState;
+    public final int playState = 1;
+    public final int pauseState = 2;
 
     // ~ FIELDS END HERE
     // ~ METHODS
@@ -70,7 +80,10 @@ public class GamePanel extends JPanel implements Runnable {
 
         // DEPLOY OBJECTS IN WORLD AND PLAY MUSIC
         aSetter.setObject();
+        aSetter.setNPC();
         playMusic(0);
+        stopMusic();
+        gameState = playState;
     }
 
     // START THE GAME CALLED BY MAIN
@@ -116,7 +129,12 @@ public class GamePanel extends JPanel implements Runnable {
     // 1) UPDATE: UPDATE INFO LIKE MOVING PLAYER POSITION
     public void update() {
 
-        player.update();
+        if (gameState == playState) {
+            player.update();
+        }
+        if (gameState == pauseState) {
+            // TODO
+        }
     }
     // 2) DRAW: DRAW THE FRAME WITH UPDATED INFO
     public void paintComponent(Graphics g) {
@@ -134,6 +152,13 @@ public class GamePanel extends JPanel implements Runnable {
         for (SuperObject superObject : obj) {
             if (superObject != null) {
                 superObject.draw(g2, this);
+            }
+        }
+
+        // DRAW NPC
+        for (NPC n : npc) {
+            if (n != null) {
+                n.draw(g2);
             }
         }
 

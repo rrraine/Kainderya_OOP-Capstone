@@ -1,5 +1,7 @@
 package main;
 
+import entity.Entity;
+import entity.NPC;
 import object.OBJ_Boots;
 import object.OBJ_Chest;
 import object.OBJ_Door;
@@ -49,5 +51,19 @@ public class AssetSetter {
         gp.obj[7] = new OBJ_Boots(gp);
         gp.obj[7].worldX = gp.tileSize * 37;
         gp.obj[7].worldY = gp.tileSize * 42;
+    }
+
+    public void setNPC() {
+
+        try {
+
+            gp.npc.add(0, new NPC.StudentFemale(gp));
+            gp.npc.get(0).worldX = gp.tileSize * 21;
+            gp.npc.get(0).worldY = gp.tileSize * 21;
+        }
+        catch (NullPointerException e) {
+            System.err.println("Accessing null element at gp.npc: " + e.getMessage());
+        }
+
     }
 }

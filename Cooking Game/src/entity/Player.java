@@ -14,21 +14,17 @@ import java.util.Objects;
 public class Player extends Entity {
 
     // ~ FIELDS
-    GamePanel gp;
     KeyHandler keyH;
 
     // PLAYER SCREEN COORDINATES ALWAYS IN CENTER
     public final int screenX;
     public final int screenY;
 
-    // NUM OF ITEMS PLAYER HAS
-    public int hasKey = 0;
-
     // ~ METHODS
 
     public Player(GamePanel gp, KeyHandler keyH) {
 
-        this.gp = gp;
+        super(gp);
         this.keyH = keyH;
 
         // PLAYER CENTERED ON SCREEN
@@ -42,7 +38,7 @@ public class Player extends Entity {
         solidAreaDefaultY = solidArea.y;
 
         setDefaultValues();
-        getPlayerImage();
+        getAvatarImage();
     }
 
     public void setDefaultValues() {
@@ -54,31 +50,18 @@ public class Player extends Entity {
         direction = "down";
     }
 
-    public void getPlayerImage() {
+    @Override
+    public void getAvatarImage() {
 
-        idle = setUp("cook1", "cook1_idle");
-        up1 = setUp("cook1", "cook1_up1");
-        up2 = setUp("cook1", "cook1_up2");
-        down1 = setUp("cook1", "cook1_down1");
-        down2 = setUp("cook1", "cook1_down2");
-        left1 = setUp("cook1", "cook1_left1");
-        left2 = setUp("cook1", "cook1_left2");
-        right1 = setUp("cook1", "cook1_right1");
-        right2 = setUp("cook1", "cook1_right2");
-    }
-    public BufferedImage setUp(String avatar, String imageName) {
-
-        BufferedImage image = null;
-
-        try {
-
-            image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/player/" + avatar + "/" + imageName + ".png")));
-            image = Utility.scaleImage(image, gp.tileSize, gp.tileSize);
-        }
-        catch (IOException e) {
-            e.printStackTrace();
-        }
-        return image;
+        idle = setUpAvatar("player","cook1", "idle");
+        up1 = setUpAvatar("player","cook1", "up1");
+        up2 = setUpAvatar("player","cook1", "up2");
+        down1 = setUpAvatar("player","cook1", "down1");
+        down2 = setUpAvatar("player","cook1", "down2");
+        left1 = setUpAvatar("player","cook1", "left1");
+        left2 = setUpAvatar("player","cook1", "left2");
+        right1 = setUpAvatar("player","cook1", "right1");
+        right2 = setUpAvatar("player","cook1", "right2");
     }
     public void update() {
 
@@ -161,46 +144,46 @@ public class Player extends Entity {
         if (i != 999) {
 
             // DELETE TOUCHED OBJ FROM WORLD
-            String objName = gp.obj[i].name;
-
-            switch (objName) {
-
-                case "Key":
-                    gp.playSFX(1);
-                    hasKey++;
-                    gp.obj[i] = null;
-                    gp.ui.showMessage("Key obtained!");
-                    break;
-
-                case "Door":
-                    if (hasKey > 0) {
-                        gp.playSFX(3);
-                        // CHANGE TO COLLISION = FALSE IF U DON'T WANT TO DELETE OBJ
-                        gp.obj[i] = null;
-                        hasKey--;
-                        gp.ui.showMessage("Door opened!");
-                    }
-                    else {
-                        gp.ui.showMessage("Find a key!");
-                    }
-                    break;
-
-                case "Boots":
-                    if (gp.obj[i] instanceof OBJ_Boots) {
-
-                        gp.playSFX(2);
-                        speed += ((OBJ_Boots)gp.obj[i]).speedIncrease;
-                    }
-                    gp.obj[i] = null;
-                    gp.ui.showMessage("Speed up!");
-                    break;
-
-                case "Chest":
-                    gp.ui.gameFinished = true;
-                    gp.stopMusic();
-                    gp.playSFX(4);
-                    break;
-            }
+            //String objName = gp.obj[i].name;
+//
+//            switch (objName) {
+//
+//                case "Key":
+//                    gp.playSFX(1);
+//                    hasKey++;
+//                    gp.obj[i] = null;
+//                    gp.ui.showMessage("Key obtained!");
+//                    break;
+//
+//                case "Door":
+//                    if (hasKey > 0) {
+//                        gp.playSFX(3);
+//                        // CHANGE TO COLLISION = FALSE IF U DON'T WANT TO DELETE OBJ
+//                        gp.obj[i] = null;
+//                        hasKey--;
+//                        gp.ui.showMessage("Door opened!");
+//                    }
+//                    else {
+//                        gp.ui.showMessage("Find a key!");
+//                    }
+//                    break;
+//
+//                case "Boots":
+//                    if (gp.obj[i] instanceof OBJ_Boots) {
+//
+//                        gp.playSFX(2);
+//                        speed += ((OBJ_Boots)gp.obj[i]).speedIncrease;
+//                    }
+//                    gp.obj[i] = null;
+//                    gp.ui.showMessage("Speed up!");
+//                    break;
+//
+//                case "Chest":
+//                    gp.ui.gameFinished = true;
+//                    gp.stopMusic();
+//                    gp.playSFX(4);
+//                    break;
+//            }
         }
     }
 
