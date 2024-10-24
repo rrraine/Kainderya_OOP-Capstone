@@ -21,7 +21,6 @@ public class Player extends Entity {
     public final int screenY;
 
     // ~ METHODS
-
     public Player(GamePanel gp, KeyHandler keyH) {
 
         super(gp);
@@ -63,6 +62,7 @@ public class Player extends Entity {
         right1 = setUpAvatar("player","cook1", "right1");
         right2 = setUpAvatar("player","cook1", "right2");
     }
+    @Override
     public void update() {
 
         // DETECT DIRECTION BY KEYSTROKE TO UPDATE MOVING POSES
@@ -89,6 +89,10 @@ public class Player extends Entity {
             // CHECK OBJECT COLLISION
             int objectIndex = gp.cChecker.checkObject(this, true);
             pickUpObject(objectIndex);
+
+            // CHECK NPC COLLISION
+            int npcIndex = gp.cChecker.checkEntity(this, gp.npc);
+            interactNPC(npcIndex);
 
             // IF COLLISION IS FALSE, PLAYER CAN MOVE
             if (!collisionOn) {
@@ -184,6 +188,13 @@ public class Player extends Entity {
 //                    gp.playSFX(4);
 //                    break;
 //            }
+        }
+    }
+
+    private void interactNPC(int i) {
+
+        if (i != 999) {
+            System.out.println("COLLIDING AGFAINST NPCS");
         }
     }
 

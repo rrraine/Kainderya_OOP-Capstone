@@ -1,6 +1,9 @@
 package main;
 
 import entity.Entity;
+import entity.NPC;
+
+import java.util.List;
 
 public class CollisionChecker {
 
@@ -156,5 +159,114 @@ public class CollisionChecker {
 
         // RETURN INDEX OF ITEM FROM THE SUPEROBJECT ARRAY
         return index;
+    }
+
+    // NPC COLLISION
+    public int checkEntity(Entity en, List<NPC> npc) {
+
+        int index = 999;
+
+        for (int i = 0; i < npc.size(); i++) {
+
+            if (npc.get(i) != null) {
+
+                // GET ENTITY'S SOLID AREA POS
+                en.solidArea.x = en.worldX + en.solidArea.x;
+                en.solidArea.y = en.worldY + en.solidArea.y;
+
+                // GET NPC SOLID AREA POS
+                npc.get(i).solidArea.x = npc.get(i).worldX + npc.get(i).solidArea.x;
+                npc.get(i).solidArea.y = npc.get(i).worldY+ npc.get(i).solidArea.y;
+
+                switch (en.direction) {
+                    case "up":
+                        en.solidArea.y -= en.speed;
+                        if (en.solidArea.intersects(npc.get(i).solidArea)) {
+                            en.collisionOn = true;
+                            index = i;
+                        }
+                        break;
+
+                    case "down":
+                        en.solidArea.y += en.speed;
+                        if (en.solidArea.intersects(npc.get(i).solidArea)) {
+                            en.collisionOn = true;
+                            index = i;
+                        }
+                        break;
+
+                    case "left":
+                        en.solidArea.x -= en.speed;
+                        if (en.solidArea.intersects(npc.get(i).solidArea)) {
+                            en.collisionOn = true;
+                            index = i;
+                        }
+                        break;
+
+                    case "right":
+                        en.solidArea.x += en.speed;
+                        if (en.solidArea.intersects(npc.get(i).solidArea)) {
+                            en.collisionOn = true;
+                            index = i;
+                        }
+                        break;
+                }
+
+                en.solidArea.x = en.solidAreaDefaultX;
+                en.solidArea.y = en.solidAreaDefaultY;
+                npc.get(i).solidArea.x = npc.get(i).solidAreaDefaultX;
+                npc.get(i).solidArea.y = npc.get(i).solidAreaDefaultY;
+            }
+        }
+
+        // RETURN INDEX OF ITEM FROM THE NPC ARRAY
+        return index;
+    }
+
+    // NPC TO PLAYER COLLISION
+    public void checkNPC2Player(NPC en) {
+
+        // GET ENTITY'S SOLID AREA POS
+        en.solidArea.x = en.worldX + en.solidArea.x;
+        en.solidArea.y = en.worldY + en.solidArea.y;
+
+        // GET SUPEROBJECT'S SOLID AREA POS
+        gp.player.solidArea.x = gp.player.worldX + gp.player.solidArea.x;
+        gp.player.solidArea.y = gp.player.worldY+ gp.player.solidArea.y;
+
+        switch (en.direction) {
+            case "up":
+                en.solidArea.y -= en.speed;
+                if (en.solidArea.intersects(gp.player.solidArea))
+                        en.collisionOn = true;
+
+                break;
+
+            case "down":
+                en.solidArea.y += en.speed;
+                if (en.solidArea.intersects(gp.player.solidArea))
+                        en.collisionOn = true;
+
+                break;
+
+            case "left":
+                en.solidArea.x -= en.speed;
+                if (en.solidArea.intersects(gp.player.solidArea))
+                        en.collisionOn = true;
+
+                break;
+
+            case "right":
+                en.solidArea.x += en.speed;
+                if (en.solidArea.intersects(gp.player.solidArea))
+                        en.collisionOn = true;
+
+                break;
+        }
+
+        en.solidArea.x = en.solidAreaDefaultX;
+        en.solidArea.y = en.solidAreaDefaultY;
+        gp.player.solidArea.x = gp.player.solidAreaDefaultX;
+        gp.player.solidArea.y = gp.player.solidAreaDefaultY;
     }
 }

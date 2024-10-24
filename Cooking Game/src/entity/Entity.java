@@ -37,6 +37,8 @@ public abstract class Entity {
         this.gp = gp;
     }
 
+    public abstract void update();
+
     public void draw(Graphics2D g2) {
 
         BufferedImage image = null;
@@ -58,7 +60,7 @@ public abstract class Entity {
 
                     // MOVEMENT
                     case "up":
-                        if (spriteNum == 1 || spriteNum == 3) {
+                        if (spriteNum == 1) {
                             image = up1;
                         }
                         if (spriteNum == 2) {
@@ -73,13 +75,10 @@ public abstract class Entity {
                         if (spriteNum == 2) {
                             image = down2;
                         }
-                        if (spriteNum == 3) {
-                            image = idle;
-                        }
                         break;
 
                     case "left":
-                        if (spriteNum == 1 || spriteNum == 3) {
+                        if (spriteNum == 1) {
                             image = left1;
                         }
                         if (spriteNum == 2) {
@@ -88,12 +87,16 @@ public abstract class Entity {
                         break;
 
                     case "right":
-                        if (spriteNum == 1 || spriteNum == 3) {
+                        if (spriteNum == 1) {
                             image = right1;
                         }
                         if (spriteNum == 2) {
                             image = right2;
                         }
+                        break;
+
+                    case "idle":
+                        image = idle;
                         break;
                 }
 
