@@ -75,24 +75,20 @@ public class Player extends Entity {
 
     public void update() {
 
-        // DETECT DIRECTION BY KEYSTROKE
+        // DETECT DIRECTION BY KEYSTROKE TO UPDATE MOVING POSES
         if (keyH.upPressed || keyH.downPressed || keyH.leftPressed || keyH.rightPressed) {
 
             if (keyH.upPressed) {
                 direction = "up";
-                lastDirection = "up";
             }
             else if (keyH.downPressed) {
                 direction = "down";
-                lastDirection = "down";
             }
             else if (keyH.leftPressed) {
                 direction = "left";
-                lastDirection = "left";
             }
             else if (keyH.rightPressed) {
                 direction = "right";
-                lastDirection = "right";
             }
 
 
@@ -128,38 +124,26 @@ public class Player extends Entity {
             }
 
 
-            // ALTERNATE SPRITE IMAGE EVERY 12 FRAMES
+            // ALTERNATE SPRITE MOVE POSES EVERY 12 FRAMES
             spriteCounter++;
             if (spriteCounter > 12) {
-                if (spriteNum == 1) {
+                if (spriteNum == 1 || spriteNum == 3) {
                     spriteNum = 2;
                 }
-                else if (spriteNum == 2) {
+                else if (spriteNum == 2 || spriteNum == 3) {
                     spriteNum = 1;
                 }
                 spriteCounter = 0;
             }
         }
-        // DETECT DIRECTION BY LAST RECORDED DIRECTION
+        // IDLE POSE
         else {
-            if (!lastDirection.isBlank()) {
 
-                switch (lastDirection) {
+            standCounter++;
 
-                    case "up":
-                        direction = "upIdle";
-                        break;
-                    case "down":
-                        direction = "downIdle";
-                        break;
-                    case "left":
-                        direction = "leftIdle";
-                        break;
-                    case "right":
-                        direction = "rightIdle";
-                        break;
-
-                }
+            if (standCounter == 20) {
+                spriteNum = 3;
+                standCounter = 0;
             }
         }
     }
@@ -221,7 +205,7 @@ public class Player extends Entity {
 
             // MOVEMENT
             case "up":
-                if (spriteNum == 1) {
+                if (spriteNum == 1 || spriteNum == 3) {
                     image = up1;
                 }
                 if (spriteNum == 2) {
@@ -236,10 +220,13 @@ public class Player extends Entity {
                 if (spriteNum == 2) {
                     image = down2;
                 }
+                if (spriteNum == 3) {
+                    image = idle;
+                }
                 break;
 
             case "left":
-                if (spriteNum == 1) {
+                if (spriteNum == 1 || spriteNum == 3) {
                     image = left1;
                 }
                 if (spriteNum == 2) {
@@ -248,26 +235,12 @@ public class Player extends Entity {
                 break;
 
             case "right":
-                if (spriteNum == 1) {
+                if (spriteNum == 1 || spriteNum == 3) {
                     image = right1;
                 }
                 if (spriteNum == 2) {
                     image = right2;
                 }
-                break;
-
-            // IDLE
-            case "upIdle":
-                image = up1;
-                break;
-            case "downIdle":
-                image = idle;
-                break;
-            case "leftIdle":
-                image = left1;
-                break;
-            case "rightIdle":
-                image = right1;
                 break;
         }
         g2.drawImage(image, screenX, screenY, gp.tileSize, gp.tileSize, null);
