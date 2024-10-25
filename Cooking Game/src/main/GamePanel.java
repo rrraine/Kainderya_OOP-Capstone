@@ -1,6 +1,5 @@
 package main;
 
-import entity.Entity;
 import entity.NPC;
 import entity.Player;
 import object.SuperObject;
@@ -9,6 +8,7 @@ import tile.TileManager;
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.ConcurrentModificationException;
 import java.util.List;
 
 public class GamePanel extends JPanel implements Runnable {
@@ -42,15 +42,13 @@ public class GamePanel extends JPanel implements Runnable {
     KeyHandler keyH = new KeyHandler(this);
     Sound music = new Sound();
     Sound sfx = new Sound();
-    public CollisionChecker cChecker = new CollisionChecker(this);
-    public AssetSetter aSetter = new AssetSetter(this);
     public UI ui = new UI(this);
     Thread gameThread;
 
     // OBJECTS AND ENTITY
     public Player player = new Player(this, keyH);
-    public List<NPC> npc = new ArrayList<>();
-    public SuperObject obj[] = new SuperObject[10];
+    private List<NPC> npc = new ArrayList<>();
+    private List<SuperObject> obj = new ArrayList<>();
 
     // GAME STATE
     public int gameState;
@@ -79,10 +77,12 @@ public class GamePanel extends JPanel implements Runnable {
     public void setUpGame() {
 
         // DEPLOY OBJECTS IN WORLD AND PLAY MUSIC
-        aSetter.setObject();
-        aSetter.setNPC();
+        Utility.deploySuperObjectInMap(this, tileSize, obj);
+        Utility.deployNPCInMap(this, tileSize, getNpc());
+
         playMusic(0);
-        stopMusic();
+        music.stopSound();
+
         gameState = playState;
     }
 
@@ -95,7 +95,8 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     @Override
-    public void run() { // a method of Runnable interface
+    public void run() {
+        // a method of Runnable interface
 
         // DELTA ACCUMULATOR METHOD
         double drawInterval = (double) 1000000000 / FPS;
@@ -126,14 +127,14 @@ public class GamePanel extends JPanel implements Runnable {
             }
         }
     }
-    // 1) UPDATE: UPDATE INFO LIKE MOVING PLAYER POSITION
-    public void update() {
+
+    // 1) UPDATE: UPDATE INFO & MOVEMENTS
+    private void update() {
 
         if (gameState == playState) {
 
             player.update();
-
-            for (NPC n : npc) {
+            for (NPC n : getNpc()) {
                 if (n != null) {
                     n.update();
                 }
@@ -143,59 +144,66 @@ public class GamePanel extends JPanel implements Runnable {
             // TODO
         }
     }
-    // 2) DRAW: DRAW THE FRAME WITH UPDATED INFO
+
+    // 2) DRAW: DRAW FRAME WITH UPDATED INFO
     public void paintComponent(Graphics g) {
 
-        // CLASS GRAPHICS: PROVIDES FUNCTIONS TO DRAW OBJECTS
-        super.paintComponent(g);
+        super.paintComponent(g); // PROVIDES FUNCTIONS TO DRAW OBJECTS
+        Graphics2D g2 = (Graphics2D) g; // TYPECAST TO PROVIDE BETTER 2D
 
-        // TYPECAST TO CLASS GRAPHICS2D TO PROVIDE BETTER 2D STUFF
-        Graphics2D g2 = (Graphics2D) g;
-
-        // DRAW TILE
+        // 1. DRAW TILES
         tileM.draw(g2);
 
-        // DRAW ITEMS
-        for (SuperObject superObject : obj) {
-            if (superObject != null) {
-                superObject.draw(g2, this);
+        // 2. DRAW SUPEROBJECTS
+        try {
+            for (SuperObject object : obj) {
+
+                object.draw(g2);
+                System.out.println(object + " successfully drawn");
             }
+        } catch (ConcurrentModificationException e) {
+            System.err.println("Trouble attempting to draw: " + e.getMessage());
         }
 
-        // DRAW NPC
-        for (NPC n : npc) {
+        // 3. DRAW NPC
+        for (NPC n : getNpc()) {
             if (n != null) {
                 n.draw(g2);
             }
         }
 
-        // DRAW PLAYER
+        // 4. DRAW PLAYER
         player.draw(g2);
 
-        // DRAW UI
+        // 5. DRAW UI
         ui.draw(g2);
 
-        // GOOD PRACTICE TO RELEASE SYSTEM RESOURCES USED BY GRAPHICS2D AND SAVE MEMORY
+        // GOOD PRACTICE TO RELEASE USED RES
         g2.dispose();
     }
 
-    // PLAY BG MUSIC CALLED BY SETUPGAME()
-    public void playMusic(int i) {
+    // PLAY BG MUSIC
+    private void playMusic(int i) {
 
-        music.setFile(i);
-        music.adjustVolume(-18); // DECIBELS
-        music.play();
-        music.loop();
+        music.setSound(i);
+        music.adjustSoundVolume(-18); // DECIBELS
+        music.playSound();
+        music.loopSound();
     }
-    // STOP BS MUSIC WHEN GAME LOOP ENDS
-    public void stopMusic() {
 
-        music.stop();
-    }
-    // PLAY SFX MUSIC CALLED BY PLAYER WHEN THEY INTERACT
+    // PLAY SFX MUSIC ON EVENTS
     public void playSFX(int i) {
 
-        sfx.setFile(i);
-        sfx.play();
+        sfx.setSound(i);
+        sfx.playSound();
+    }
+
+
+    // GETTERS & SETTERS
+    public List<NPC> getNpc() {
+        return npc;
+    }
+    public List<SuperObject> getObj() {
+        return obj;
     }
 }

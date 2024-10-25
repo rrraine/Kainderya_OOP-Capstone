@@ -1,5 +1,7 @@
 package entity;
 
+import interfaces.Drawable;
+import interfaces.Observable;
 import main.GamePanel;
 import main.Utility;
 
@@ -9,29 +11,33 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.Objects;
 
-public abstract class Entity {
+public abstract class Entity implements Drawable, Observable {
 
-    // ~ FIELDS
+    // ~ FIELDS ---------------------------------------------------
     GamePanel gp;
 
-    // ENTITY COORDINATES IN WORLD
-    public int worldX, worldY;
-    public int speed;
+    // ABSOLUTE POS IN MAP
+    int worldX;
+    int worldY;
+    int speed;
 
     // SPRITE
-    public BufferedImage idle, up1, up2, down1, down2, left1, left2, right1, right2;
-    public String direction;
-    public int standCounter;
-    public int spriteCounter;
-    public int spriteNum;
+    BufferedImage idle, up1, up2, down1, down2, left1, left2, right1, right2;
+    String direction;
+    int standCounter;
+    int spriteCounter;
+    int spriteNum;
 
     // COLLISION ASPECTS
-    public Rectangle solidArea;
-    public int solidAreaDefaultX, solidAreaDefaultY;
-    public boolean collisionOn;
+    Rectangle solidArea;
+    int solidAreaDefaultX;
+    int solidAreaDefaultY;
+    boolean collisionOn;
 
 
-    // ~ METHODS
+    // ~ METHODS ---------------------------------------------------
+
+    // CONSTRUCTOR ---------------------------------------------------
     public Entity(GamePanel gp, int speed, String direction) {
 
         this.gp = gp;
@@ -43,10 +49,14 @@ public abstract class Entity {
         spriteNum = 1;
         solidArea = new Rectangle(0, 0, 48, 48);
         collisionOn = false;
+
+
     }
 
+    // FROM INTERFACE: DRAWABLE ---------------------------------------------------
+    @Override
     public abstract void update();
-
+    @Override
     public void draw(Graphics2D g2) {
 
         BufferedImage image = null;
@@ -54,15 +64,11 @@ public abstract class Entity {
         try {
 
             // DRAW ITEM AT SET LOCATION IN WORLD
-            int screenX = worldX - gp.player.worldX + gp.player.screenX;
-            int screenY = worldY - gp.player.worldY + gp.player.screenY;
+            int screenX = worldX - gp.player.worldX + gp.player.getPlayerCenteredScreenX();
+            int screenY = worldY - gp.player.worldY + gp.player.getPlayerCenteredScreenY();
 
-            // IMPROVED RENDERING: Only draw tiles player can see in screen
-            if (worldX + gp.tileSize > gp.player.worldX - gp.player.screenX &&
-                    worldX - gp.tileSize < gp.player.worldX + gp.player.screenX &&
-                    worldY + gp.tileSize > gp.player.worldY - gp.player.screenY &&
-                    worldY - gp.tileSize < gp.player.worldY + gp.player.screenY) {
-
+            // IMPROVED RENDERING
+            if (inView(gp.tileSize, gp.player, worldX, worldY)) {
 
                 switch (direction) {
 
@@ -121,8 +127,9 @@ public abstract class Entity {
     }
 }
 
-    public abstract void getAvatarImage();
-    public BufferedImage setUpAvatar(String type, String avatar, String imageName) {
+    // FROM THIS CLASS ---------------------------------------------------
+    abstract void getAvatarImage();
+    BufferedImage setUpAvatar(String type, String avatar, String imageName) {
 
         BufferedImage image = null;
 
@@ -136,4 +143,38 @@ public abstract class Entity {
         }
         return image;
     }
+
+    // GETTERS & SETTERS ---------------------------------------------------
+    public int getSpeed() {
+        return speed;
+    }
+    public String getDirection() {
+        return direction;
+    }
+    public int getWorldX() {
+        return worldX;
+    }
+    public int getWorldY() {
+        return worldY;
+    }
+    public Rectangle getSolidArea() {
+        return solidArea;
+    }
+    public int getSolidAreaDefaultX() {
+        return solidAreaDefaultX;
+    }
+    public int getSolidAreaDefaultY() {
+        return solidAreaDefaultY;
+    }
+
+    public void setWorldX(int worldX) {
+        this.worldX = worldX;
+    }
+    public void setWorldY(int worldY) {
+        this.worldY = worldY;
+    }
+    public void setCollisionOn(boolean collisionOn) {
+        this.collisionOn = collisionOn;
+    }
+
 }

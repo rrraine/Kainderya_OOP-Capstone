@@ -1,63 +1,67 @@
 package main;
 
+import interfaces.Importable;
+
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.FloatControl;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 
-public class Sound {
+public class Sound implements Importable {
 
     // ~ FIELDS
     Clip clip; // STORE AUDIO FILE
-    URL soundURL[] = new URL[30]; // STORE SOUND PATH DIRECTORY
+    List<URL> soundURL = new ArrayList<>(); // STORE SOUND PATH DIRECTORY
     FloatControl volume;
 
     // ~ METHODS
 
-    // IMPORT AUDIO AND STORE THEM IN AN ARRAY
+    // CONSTRUCTOR
     public Sound() {
 
-        soundURL[0] = getClass().getResource("/sounds/BlueBoyAdventure.wav");
-        soundURL[1] = getClass().getResource("/sounds/coin.wav");
-        soundURL[2] = getClass().getResource("/sounds/powerup.wav");
-        soundURL[3] = getClass().getResource("/sounds/unlock.wav");
-        soundURL[4] = getClass().getResource("/sounds/fanfare.wav");
+        soundURL.add(0, importSound("sounds", "BlueBoyAdventure"));
+        soundURL.add(1, importSound("sounds", "coin"));
+        soundURL.add(2, importSound("sounds", "powerup"));
+        soundURL.add(3, importSound("sounds", "unlock"));
+        soundURL.add(4, importSound("sounds", "fanfare"));
     }
 
-    // FORMAT TO OPEN AUDIO FILE
-    public void setFile(int i) {
+    // OPEN & SETUP AUDIO FILE
+    public void setSound(int i) {
 
         try {
 
-            AudioInputStream ais = AudioSystem.getAudioInputStream(soundURL[i]);
+            AudioInputStream ais = AudioSystem.getAudioInputStream(soundURL.get(i));
             clip = AudioSystem.getClip();
             clip.open(ais);
 
             volume = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
         }
         catch (Exception e) {
-            e.printStackTrace();
+            System.err.println("Trouble setting up audio (soundURL[" + i + "]): " + e.getMessage());
         }
 
     }
-    public void play() {
+    public void playSound() {
         if (clip != null) {
             clip.start();
         }
     }
-    public void loop() {
+    public void loopSound() {
         if (clip != null) {
             clip.loop(Clip.LOOP_CONTINUOUSLY);
         }
     }
-    public void stop() {
+    public void stopSound() {
         if (clip != null && clip.isRunning()) {
             clip.stop();
             clip.close();
         }
     }
-    public void adjustVolume(float vol) {
+    public void adjustSoundVolume(float vol) {
         if (volume != null) {
             volume.setValue(vol);
         }

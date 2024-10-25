@@ -3,29 +3,29 @@ package entity;
 import main.GamePanel;
 import main.Utility;
 
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.util.Objects;
 import java.util.Random;
 
 public abstract class NPC extends Entity {
 
+    // ~ FIELDS ---------------------------------------------------
     protected int actionInterval = 0;
 
+    // ~ METHODS -------------------------------------------------
 
+    // CONSTRUCTOR ----------------------------------------------
     public NPC (GamePanel gp, int speed, String direction) {
         super(gp, speed, direction);
     }
 
-    public abstract void setNPCAction();
+    // FROM CLASS: ENTITY ------------------------------------------
+    @Override
     public void update() {
 
         setNPCAction();
         collisionOn = false;
-        gp.cChecker.checkTile(this);
-        gp.cChecker.checkObject(this, false);
-        gp.cChecker.checkNPC2Player(this);
+        Utility.entityHitsTile(this, gp);
+        int objIndex = Utility.entityHitsSuperObject(this, gp.getObj());
+        Utility.NPCHitsPlayer(this, gp.player);
 
         // IF COLLISION IS FALSE, NPC CAN MOVE
         if (!collisionOn) {
@@ -63,7 +63,7 @@ public abstract class NPC extends Entity {
             if (spriteCounter > 12) {
                 if (spriteNum == 1 || spriteNum == 3) {
                     spriteNum = 2;
-                } else if (spriteNum == 2 || spriteNum == 3) {
+                } else if (spriteNum == 2) {
                     spriteNum = 1;
                 }
                 spriteCounter = 0;
@@ -71,6 +71,12 @@ public abstract class NPC extends Entity {
         }
     }
 
+    // FROM THIS CLASS ----------------------------------------------
+    public abstract void setNPCAction();
+
+
+
+    // INNER STATIC CLASSES ----------------------------------------
     public static class StudentFemale extends NPC {
 
         public StudentFemale (GamePanel gp) {
@@ -78,8 +84,9 @@ public abstract class NPC extends Entity {
             getAvatarImage();
         }
 
+        // FROM CLASS: ENTITY ----------------------------------------
         @Override
-        public void getAvatarImage() {
+        void getAvatarImage() {
 
             idle = setUpAvatar("npc","studentFemale", "idle");
             up1 = setUpAvatar("npc","studentFemale", "up1");
@@ -92,6 +99,7 @@ public abstract class NPC extends Entity {
             right2 = setUpAvatar("npc","studentFemale", "right2");
         }
 
+        // FROM CLASS: NPC ----------------------------------------
         @Override
         public void setNPCAction() {
             // NPC RANDOM BEHAVIOR
@@ -122,7 +130,6 @@ public abstract class NPC extends Entity {
                 actionInterval = 0;
             }
         }
-
 
     }
 }
