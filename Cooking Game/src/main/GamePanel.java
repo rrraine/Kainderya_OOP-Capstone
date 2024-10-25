@@ -16,16 +16,16 @@ public class GamePanel extends JPanel implements Runnable {
     // ~ FIELDS
 
     // FRAME RATE
-    final int FPS = 60;
+    private final int FPS = 60;
 
     // SCREEN SETTINGS
-    final int originalTileSize = 16;
-    final int scale = 3;
+    private final int originalTileSize = 16;
+    private final int scale = 3;
     public final int tileSize = originalTileSize * scale; // ACTUAL TILE: 48 x 48
 
     // ASPECT RATIO
-    public final int maxScreenCol = 16; // (16) TILES PER ROW
-    public final int maxScreenRow = 12; // (12) TILES PER COL
+    private final int maxScreenCol = 16; // (16) TILES PER ROW
+    private final int maxScreenRow = 12; // (12) TILES PER COL
 
     // SCREEN RESOLUTION
     public final int screenWidth = tileSize * maxScreenCol; // 768
@@ -34,8 +34,8 @@ public class GamePanel extends JPanel implements Runnable {
     // WORLD SETTINGS
     public final int maxWorldCol = 50;
     public final int maxWorldRow = 50;
-    public final int worldWidth = tileSize * maxWorldCol;
-    public final int worldHeight = tileSize * maxWorldRow;
+    //public final int worldWidth = tileSize * maxWorldCol;
+    //public final int worldHeight = tileSize * maxWorldRow;
 
     // GAME SETTINGS SYSTEM
     TileManager tileM = new TileManager(this);
