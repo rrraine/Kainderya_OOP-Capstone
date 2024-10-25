@@ -4,7 +4,6 @@ import interfaces.Drawable;
 import interfaces.Importable;
 import interfaces.Observable;
 import main.GamePanel;
-import main.Utility;
 
 import java.awt.*;
 import java.io.BufferedReader;
@@ -48,9 +47,12 @@ public class TileManager implements Importable, Drawable, Observable {
 
             int tileNum = mapTileNum[worldCol][worldRow];
 
+            // World XY: POSITION OF TILE ON THE MAP
             int worldX = worldCol * gp.tileSize;
-            int worldY = worldRow * gp.tileSize; // World XY: POSITION OF TILE ON THE MAP
-            int screenX = worldX - gp.player.getWorldX() + gp.player.getPlayerCenteredScreenX(); // Screen XY: POSITION OF TILE ON THE SCREEN
+            int worldY = worldRow * gp.tileSize;
+
+            // Screen XY: POSITION OF TILE ON THE SCREEN
+            int screenX = worldX - gp.player.getWorldX() + gp.player.getPlayerCenteredScreenX();
             int screenY = worldY - gp.player.getWorldY() + gp.player.getPlayerCenteredScreenY();
 
             // IMPROVED RENDERING

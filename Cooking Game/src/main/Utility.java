@@ -12,7 +12,7 @@ import java.util.List;
 
 public class Utility {
 
-    // IMAGE SCALING
+    // IMAGE SCALING -------------------------------------------------
 
     public static BufferedImage scaleImage(BufferedImage original, int width, int height) {
 
@@ -24,7 +24,7 @@ public class Utility {
         return scaledImage;
     }
 
-    // ----------------------------------------------------------- //
+    // -----------------------------------------------------------
 
     // ASSET SETTER: DEPLOY ASSETS IN MAP THRU COORDINATES
 
@@ -81,7 +81,7 @@ public class Utility {
         }
     }
 
-    // ----------------------------------------------------------- //
+    // -----------------------------------------------------------
 
     // COLLISION CHECKER: DETECT & ENFORCE COLLISION BETWEEN 2 COLLIDING ASSETS
 

@@ -12,14 +12,14 @@ import java.util.List;
 
 public class Sound implements Importable {
 
-    // ~ FIELDS
+    // ~ FIELDS -----------------------------------------------------------------
     Clip clip; // STORE AUDIO FILE
     List<URL> soundURL = new ArrayList<>(); // STORE SOUND PATH DIRECTORY
     FloatControl volume;
 
-    // ~ METHODS
+    // ~ METHODS -----------------------------------------------------------------
 
-    // CONSTRUCTOR
+    // CONSTRUCTOR -----------------------------------------------------------------
     public Sound() {
 
         soundURL.add(0, importSound("sounds", "BlueBoyAdventure"));
@@ -29,7 +29,7 @@ public class Sound implements Importable {
         soundURL.add(4, importSound("sounds", "fanfare"));
     }
 
-    // OPEN & SETUP AUDIO FILE
+    // FROM THIS CLASS ------------------------------------------------------------
     public void setSound(int i) {
 
         try {

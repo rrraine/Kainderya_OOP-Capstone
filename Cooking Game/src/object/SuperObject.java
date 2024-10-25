@@ -9,12 +9,12 @@ import java.awt.image.BufferedImage;
 
 public abstract class SuperObject implements Drawable, Observable {
 
-    // ~ FIELDS
+    // ~ FIELDS --------------------------------------------------------------
     GamePanel gp;
 
     BufferedImage image;
     String name;
-    boolean collision = false;
+    boolean collision;
 
     // ABSOLUTE POS IN MAP
     int worldX;
@@ -27,20 +27,24 @@ public abstract class SuperObject implements Drawable, Observable {
     int solidAreaDefaultX;
     int solidAreaDefaultY;
 
-    // ~ METHODS
 
-    // CONSTRUCTOR
+    // ~ METHODS --------------------------------------------------------------
+
+
+    // CONSTRUCTOR --------------------------------------------------------------
     public SuperObject(GamePanel gp, String name) {
 
         this.gp = gp;
         this.name = name;
 
+        collision = false;
         solidArea = new Rectangle(0, 0, 48, 48);
         solidAreaDefaultX = 0;
         solidAreaDefaultY = 0;
     }
 
-    // FROM INTERFACE: DRAWABLE
+
+    // FROM INTERFACE: DRAWABLE --------------------------------------------------------------
     @Override
     public void update() {}
     @Override
@@ -56,7 +60,8 @@ public abstract class SuperObject implements Drawable, Observable {
         }
     }
 
-    // FOR DEBUGGING PURPOSES
+
+    // FOR DEBUGGING PURPOSES --------------------------------------------------------------
     @Override
     public String toString() {
         return "SuperObject{" +
@@ -64,48 +69,28 @@ public abstract class SuperObject implements Drawable, Observable {
                 '}';
     }
 
-    // GETTERS & SETTERS
+
+    // GETTERS & SETTERS --------------------------------------------------------------
     public boolean isCollision() {
         return collision;
     }
-
     public int getWorldX() {
         return worldX;
     }
-
     public void setWorldX(int worldX) {
         this.worldX = worldX;
     }
-
     public int getWorldY() {
         return worldY;
     }
-
-    public void setWorldY(int worldY) {
-        this.worldY = worldY;
-    }
-
     public Rectangle getSolidArea() {
         return solidArea;
     }
-
-    public void setSolidArea(Rectangle solidArea) {
-        this.solidArea = solidArea;
-    }
-
     public int getSolidAreaDefaultX() {
         return solidAreaDefaultX;
     }
-
-    public void setSolidAreaDefaultX(int solidAreaDefaultX) {
-        this.solidAreaDefaultX = solidAreaDefaultX;
-    }
-
     public int getSolidAreaDefaultY() {
         return solidAreaDefaultY;
     }
 
-    public void setSolidAreaDefaultY(int solidAreaDefaultY) {
-        this.solidAreaDefaultY = solidAreaDefaultY;
-    }
 }

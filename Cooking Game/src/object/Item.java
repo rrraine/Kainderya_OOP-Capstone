@@ -5,12 +5,12 @@ import main.GamePanel;
 
 public abstract class Item extends SuperObject {
 
-    // CONSTRUCTOR
+    // CONSTRUCTOR --------------------------------------------
     public Item(GamePanel gp, String name) {
         super(gp, name);
     }
 
-    // INNER STATIC CLASSES
+    // INNER STATIC CLASSES -----------------------------------
     public static class Key extends Item implements Importable {
 
         // CONSTRUCTOR

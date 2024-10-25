@@ -1,50 +1,60 @@
 package main;
 
-
+import interfaces.Drawable;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.text.DecimalFormat;
 
-public class UI {
+public class UI implements Drawable {
 
-    // ~ FIELDS
+    // ~ FIELDS -----------------------------------------------------------------
+
     GamePanel gp;
     Graphics2D g2;
+
+    // FONTS & TIME FORMATS
     Font arial_40, arial_80B;
-    //BufferedImage keyImage;
-    int messageCounter = 0;
+    DecimalFormat timeFormat;
 
-    public boolean messageOn = false;
-    public String message = "";
-
-    public boolean gameFinished = false;
-
+    //ICONS & TIME
+    BufferedImage icon;
     double playTime;
-    DecimalFormat dFormat = new DecimalFormat("#0");
 
-    // ~ METHODS
+    // NOTIFICATIONS
+    public String notif;
+    public boolean notifOn;
+    int notifDuration;
 
+    // GAME STATE
+    public boolean gameFinished;
+
+
+    // ~ METHODS -----------------------------------------------------------------
+
+    // CONSTRUCTOR -----------------------------------------------------------------
     public UI(GamePanel gp) {
-        this.gp = gp;
 
-        // SET UP FONT NAME, STYLE, SIZE
+        this.gp = gp;
+        notifDuration = 0;
+        notifOn = false;
+        notif = "";
+        gameFinished = false;
+        timeFormat = new DecimalFormat("#0");
+
+        // FONT SETUP
         arial_40 = new Font("Arial", Font.PLAIN, 40);
         arial_80B = new Font("Arial", Font.BOLD, 80);
 
-        // INSTANTIATE KEY TO DISPLAY AS UI
+        // ICON SETUP
         //OBJ_Key key = new OBJ_Key(gp);
         //keyImage = key.image;
     }
 
-    // CONTROLS DISPLAY OF MESSAGE NOTIFS
-    public void showMessage(String text) {
-
-        message = text;
-        messageOn = true;
-    }
-
-    // DRAW THE UI CALLED BY GAMEPANEL
+    // FROM INTERFACE: DRAWABLE -----------------------------------------------------
+    @Override
+    public void update() {} // USELESS
+    @Override
     public void draw(Graphics2D g2) {
 
         this.g2 = g2;
@@ -60,6 +70,19 @@ public class UI {
             drawPauseScreen();
         }
     }
+
+    // FROM THIS CLASS -------------------------------------------------------------
+    public void showNotification(String text) {
+    // CONTROLS DISPLAY OF NOTIFS
+
+        notif = text;
+        notifOn = true;
+    }
+    private int getXForCenteredText(String text) {
+
+        int length = (int)g2.getFontMetrics().getStringBounds(text, g2).getWidth();
+        return gp.screenWidth / 2 - length / 2;
+    }
     public void drawPauseScreen() {
 
         g2.setFont(g2.getFont().deriveFont(Font.PLAIN,80F));
@@ -69,9 +92,5 @@ public class UI {
 
         g2.drawString(text, x, y);
     }
-    private int getXForCenteredText(String text) {
 
-        int length = (int)g2.getFontMetrics().getStringBounds(text, g2).getWidth();
-        return gp.screenWidth / 2 - length / 2;
-    }
 }

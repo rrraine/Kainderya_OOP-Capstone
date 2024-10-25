@@ -26,5 +26,8 @@ public class Main {
 
         gamePanel.setUpGame(); // PRELOAD NECESSARY STUFF IN WORLD BEFORE GAME STARTS
         gamePanel.startGameThread(); // START GAME
+
+        // DEBUGGING PURPOSES ------------------------------------
+        System.out.println("\nNEW FEATURE: Press ESC to Pause");
     }
 }

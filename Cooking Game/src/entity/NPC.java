@@ -75,8 +75,8 @@ public abstract class NPC extends Entity {
     public abstract void setNPCAction();
 
 
-
     // INNER STATIC CLASSES ----------------------------------------
+
     public static class StudentFemale extends NPC {
 
         public StudentFemale (GamePanel gp) {

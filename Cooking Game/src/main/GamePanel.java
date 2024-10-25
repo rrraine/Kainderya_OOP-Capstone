@@ -13,7 +13,7 @@ import java.util.List;
 
 public class GamePanel extends JPanel implements Runnable {
 
-    // ~ FIELDS
+    // ~ FIELDS ---------------------------------------------------------------------------
 
     // FRAME RATE
     private final int FPS = 60;
@@ -56,10 +56,9 @@ public class GamePanel extends JPanel implements Runnable {
     public final int pauseState = 2;
 
     // ~ FIELDS END HERE
+    // ~ METHODS ---------------------------------------------------------------------------
 
-    // ~ METHODS
-
-    // CONSTRUCTOR
+    // CONSTRUCTOR ---------------------------------------------------------------------------
     public GamePanel() {
 
         // SET DIMENSIONS AND COLOR OF THE FRAME
@@ -74,27 +73,8 @@ public class GamePanel extends JPanel implements Runnable {
         this.setFocusable(true);
     }
 
-    // PRELOAD OBJECTS IN WORLD CALLED BY MAIN
-    public void setUpGame() {
 
-        // DEPLOY OBJECTS IN WORLD AND PLAY MUSIC
-        Utility.deploySuperObjectInMap(this, tileSize, obj);
-        Utility.deployNPCInMap(this, tileSize, getNpc());
-
-        playMusic(0);
-        music.stopSound();
-
-        gameState = playState;
-    }
-
-    // START THE GAME CALLED BY MAIN
-    public void startGameThread() {
-
-        // PASS GAMEPANEL AND CALLS RUN() OF RUNNABLE
-        gameThread = new Thread(this);
-        gameThread.start();
-    }
-
+    // FROM INTERFACE: RUNNABLE ----------------------------------------------------------------
     @Override
     public void run() {
         // a method of Runnable interface
@@ -129,7 +109,33 @@ public class GamePanel extends JPanel implements Runnable {
         }
     }
 
-    // 1) UPDATE: UPDATE INFO & MOVEMENTS
+
+
+    // FROM THIS CLASS ------------------------------------------------------------------------
+
+    // CORE METHODS ------------------------------------------------------------------------
+    // 1) PRELOAD OBJECTS IN WORLD CALLED BY MAIN
+    public void setUpGame() {
+
+        // DEPLOY OBJECTS IN WORLD AND PLAY MUSIC
+        Utility.deploySuperObjectInMap(this, tileSize, obj);
+        Utility.deployNPCInMap(this, tileSize, getNpc());
+
+        playMusic(0);
+        music.stopSound();
+
+        gameState = playState;
+    }
+
+    // 2) START THE GAME CALLED BY MAIN
+    public void startGameThread() {
+
+        // PASS GAMEPANEL AND CALLS RUN() OF RUNNABLE
+        gameThread = new Thread(this);
+        gameThread.start();
+    }
+
+    // 3) UPDATE: UPDATE INFO & MOVEMENTS
     private void update() {
 
         if (gameState == playState) {
@@ -146,7 +152,7 @@ public class GamePanel extends JPanel implements Runnable {
         }
     }
 
-    // 2) DRAW: DRAW FRAME WITH UPDATED INFO
+    // 4) DRAW: DRAW FRAME WITH UPDATED INFO
     public void paintComponent(Graphics g) {
 
         super.paintComponent(g); // PROVIDES FUNCTIONS TO DRAW OBJECTS
@@ -183,6 +189,8 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
 
+
+    // AUXILIARY METHODS ------------------------------------------------------------------------
     // PLAY BG MUSIC
     private void playMusic(int i) {
 
@@ -199,11 +207,13 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
 
-    // GETTERS & SETTERS
+
+    // GETTERS & SETTERS ------------------------------------------------------------------------
     public List<NPC> getNpc() {
         return npc;
     }
     public List<SuperObject> getObj() {
         return obj;
     }
+
 }
