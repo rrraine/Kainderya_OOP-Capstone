@@ -14,9 +14,7 @@ public class KeyHandler implements KeyListener {
         this.gp = gp;
     }
 
-    @Override
-    public void keyTyped(KeyEvent e) {} // USELESS
-
+   // FROM INTERFACE: KEYLISTENER ------------------------------------------------
     @Override
     public void keyPressed(KeyEvent e) {
         int code = e.getKeyCode();
@@ -34,7 +32,10 @@ public class KeyHandler implements KeyListener {
         if (code == KeyEvent.VK_D) {
             rightPressed = true;
         }
-        if (code == KeyEvent.VK_ESCAPE) {
+//        if (code == KeyEvent.VK_ESCAPE) {
+//            gp.gameState = gp.optionState;
+//        }
+        if (code == KeyEvent.VK_P) {
             if (gp.gameState == gp.playState) {
                 gp.gameState = gp.pauseState;
             }
@@ -62,4 +63,8 @@ public class KeyHandler implements KeyListener {
             rightPressed = false;
         }
     }
+
+    @Override
+    public void keyTyped(KeyEvent e) {} // USELESS
+
 }

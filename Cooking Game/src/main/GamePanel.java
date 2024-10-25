@@ -7,6 +7,7 @@ import tile.TileManager;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.ConcurrentModificationException;
 import java.util.List;
@@ -24,18 +25,22 @@ public class GamePanel extends JPanel implements Runnable {
     public final int tileSize = originalTileSize * scale; // ACTUAL TILE: 48 x 48
 
     // ASPECT RATIO
-    private final int maxScreenCol = 16; // (16) TILES PER ROW
+    private final int maxScreenCol = 20; // (16) TILES PER ROW
     private final int maxScreenRow = 12; // (12) TILES PER COL
 
-    // SCREEN RESOLUTION
-    public final int screenWidth = tileSize * maxScreenCol; // 768
+    // STANDARD SCREEN RESOLUTION: 1
+    public final int screenWidth = tileSize * maxScreenCol; // 960
     public final int screenHeight = tileSize * maxScreenRow; // 576
 
     // WORLD SETTINGS
     public final int maxWorldCol = 50;
     public final int maxWorldRow = 50;
-    //public final int worldWidth = tileSize * maxWorldCol;
-    //public final int worldHeight = tileSize * maxWorldRow;
+
+    // FULL SCREEN RESOLUTION: 2
+    private int fullScreenWidth = screenWidth;
+    private int fullScrenHeight = screenHeight;
+    BufferedImage tempScreen;
+    Graphics2D g2;
 
     // GAME SETTINGS SYSTEM
     TileManager tileM = new TileManager(this);
@@ -54,6 +59,7 @@ public class GamePanel extends JPanel implements Runnable {
     public int gameState;
     public final int playState = 1;
     public final int pauseState = 2;
+    public final int optionState = 3;
 
     // ~ FIELDS END HERE
     // ~ METHODS ---------------------------------------------------------------------------
@@ -101,7 +107,10 @@ public class GamePanel extends JPanel implements Runnable {
             if (delta >= 1) {
 
                 update();
-                repaint(); // CALLS PAINTCOMPONENT()
+                drawTempScreen();
+                drawFullScreen();
+                //repaint(); // CALLS PAINTCOMPONENT()
+
                 delta--;
 
                 drawCount++;
@@ -113,18 +122,29 @@ public class GamePanel extends JPanel implements Runnable {
 
     // FROM THIS CLASS ------------------------------------------------------------------------
 
+
     // CORE METHODS ------------------------------------------------------------------------
-    // 1) PRELOAD OBJECTS IN WORLD CALLED BY MAIN
+
+    // 1) PRELOAD STUFF
     public void setUpGame() {
 
-        // DEPLOY OBJECTS IN WORLD AND PLAY MUSIC
+        // 1. LOAD OBJECTS AND NPC
         Utility.deploySuperObjectInMap(this, tileSize, obj);
         Utility.deployNPCInMap(this, tileSize, getNpc());
 
+        // 2. LOAD MUSIC
         playMusic(0);
         music.stopSound();
 
+        // 3. LOAD GAME STATE
         gameState = playState;
+
+        // 4. LOAD FULL SCREEN
+        tempScreen = new BufferedImage(screenWidth, screenHeight, BufferedImage.TYPE_INT_ARGB);
+        g2 = (Graphics2D) tempScreen.getGraphics();
+
+        // 5. SET FULL SCREEN
+        setFullScreen();
     }
 
     // 2) START THE GAME CALLED BY MAIN
@@ -152,11 +172,8 @@ public class GamePanel extends JPanel implements Runnable {
         }
     }
 
-    // 4) DRAW: DRAW FRAME WITH UPDATED INFO
-    public void paintComponent(Graphics g) {
-
-        super.paintComponent(g); // PROVIDES FUNCTIONS TO DRAW OBJECTS
-        Graphics2D g2 = (Graphics2D) g; // TYPECAST TO PROVIDE BETTER 2D
+    // 4.1) LOAD UPDATED INFO TO BUFFERED TEMP SCREEN
+    private void drawTempScreen() {
 
         // 1. DRAW TILES
         tileM.draw(g2);
@@ -183,14 +200,67 @@ public class GamePanel extends JPanel implements Runnable {
 
         // 5. DRAW UI
         ui.draw(g2);
-
-        // GOOD PRACTICE TO RELEASE USED RES
-        g2.dispose();
     }
+    // 4.2) LOAD TEMP SCREEN TO ACTUAL FULL SCREEN
+    private void drawFullScreen() {
+
+        Graphics g = getGraphics();
+        g.drawImage(tempScreen, 0, 0, fullScreenWidth, fullScrenHeight, null);
+        g.dispose();
+    }
+
+    // 4.1) DRAW: DRAW FRAME WITH UPDATED INFO
+//    public void paintComponent(Graphics g) {
+//
+//        super.paintComponent(g); // PROVIDES FUNCTIONS TO DRAW OBJECTS
+//        Graphics2D g2 = (Graphics2D) g; // TYPECAST TO PROVIDE BETTER 2D
+//
+//        // 1. DRAW TILES
+//        tileM.draw(g2);
+//
+//        // 2. DRAW SUPEROBJECTS : TODO CLEAN THIS
+//        try {
+//            for (SuperObject object : obj) {
+//
+//                object.draw(g2);
+//            }
+//        } catch (ConcurrentModificationException e) {
+//            System.err.println("Trouble attempting to draw: " + e.getMessage());
+//        }
+//
+//        // 3. DRAW NPC
+//        for (NPC n : getNpc()) {
+//            if (n != null) {
+//                n.draw(g2);
+//            }
+//        }
+//
+//        // 4. DRAW PLAYER
+//        player.draw(g2);
+//
+//        // 5. DRAW UI
+//        ui.draw(g2);
+//
+//        // GOOD PRACTICE TO RELEASE USED RES
+//        g2.dispose();
+//    }
 
 
 
     // AUXILIARY METHODS ------------------------------------------------------------------------
+
+    private void setFullScreen() {
+
+        // GET LOCAL SCREEN DEVICE INFO
+        GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+        GraphicsDevice gd = ge.getDefaultScreenDevice();
+        gd.setFullScreenWindow(Main.window);
+
+        // GET FULL SCREEN WIDTH & HEIGHT
+        fullScreenWidth = Main.window.getWidth();
+        fullScrenHeight = Main.window.getHeight();
+    }
+
     // PLAY BG MUSIC
     private void playMusic(int i) {
 

@@ -3,10 +3,12 @@ package main;
 import javax.swing.*;
 
 public class Main {
+
+    static JFrame window;
+
     public static void main(String[] args) {
 
         // ~ FIELDS
-        JFrame window;
         GamePanel gamePanel;
 
 
@@ -14,6 +16,7 @@ public class Main {
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // ENABLES WINDOW TO BE CLOSED
         window.setResizable(false); // DISABLES RESIZABLE WINDOW
         window.setTitle("Cooking Game");
+        window.setUndecorated(true);
 
         gamePanel = new GamePanel();
 
@@ -28,6 +31,6 @@ public class Main {
         gamePanel.startGameThread(); // START GAME
 
         // DEBUGGING PURPOSES ------------------------------------
-        System.out.println("\nNEW FEATURE: Press ESC to Pause");
+        System.out.println("\nFEATURE: Press P to Pause");
     }
 }
