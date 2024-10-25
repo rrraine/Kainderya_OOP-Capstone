@@ -21,20 +21,28 @@ public abstract class Entity {
     // SPRITE
     public BufferedImage idle, up1, up2, down1, down2, left1, left2, right1, right2;
     public String direction;
-    public int standCounter = 0;
-    public int spriteCounter = 0;
-    public int spriteNum = 1;
+    public int standCounter;
+    public int spriteCounter;
+    public int spriteNum;
 
     // COLLISION ASPECTS
-    public Rectangle solidArea = new Rectangle(0, 0, 48, 48);
+    public Rectangle solidArea;
     public int solidAreaDefaultX, solidAreaDefaultY;
-    public boolean collisionOn = false;
+    public boolean collisionOn;
 
 
     // ~ METHODS
-    public Entity(GamePanel gp) {
+    public Entity(GamePanel gp, int speed, String direction) {
 
         this.gp = gp;
+
+        this.speed = speed;
+        this.direction = direction;
+
+        standCounter = spriteCounter = 0;
+        spriteNum = 1;
+        solidArea = new Rectangle(0, 0, 48, 48);
+        collisionOn = false;
     }
 
     public abstract void update();

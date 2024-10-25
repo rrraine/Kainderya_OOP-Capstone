@@ -23,7 +23,7 @@ public class Player extends Entity {
     // ~ METHODS
     public Player(GamePanel gp, KeyHandler keyH) {
 
-        super(gp);
+        super(gp, 5, "down");
         this.keyH = keyH;
 
         // PLAYER CENTERED ON SCREEN
@@ -45,8 +45,6 @@ public class Player extends Entity {
         // STARTING POSITION
         worldX = gp.tileSize * 23;
         worldY = gp.tileSize * 21;
-        speed = 5;
-        direction = "down";
     }
 
     @Override

@@ -14,11 +14,8 @@ public abstract class NPC extends Entity {
     protected int actionInterval = 0;
 
 
-    public NPC (GamePanel gp, String direction, int speed) {
-        super(gp);
-
-        this.direction = direction;
-        this.speed = speed;
+    public NPC (GamePanel gp, int speed, String direction) {
+        super(gp, speed, direction);
     }
 
     public abstract void setNPCAction();
@@ -77,7 +74,7 @@ public abstract class NPC extends Entity {
     public static class StudentFemale extends NPC {
 
         public StudentFemale (GamePanel gp) {
-            super(gp, "idle", 1);
+            super(gp, 1, "idle");
             getAvatarImage();
         }
 
