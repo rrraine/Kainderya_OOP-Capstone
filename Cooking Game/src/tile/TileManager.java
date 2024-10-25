@@ -1,72 +1,113 @@
 package tile;
 
+import interfaces.Drawable;
+import interfaces.Importable;
+import interfaces.Observable;
 import main.GamePanel;
 import main.Utility;
 
-import javax.imageio.ImageIO;
 import java.awt.*;
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.Objects;
 
-public class TileManager implements TileName {
+public class TileManager implements Importable, Drawable, Observable {
 
-    // ~ FIELDS
+    // ~ FIELDS -------------------------------------------------
     GamePanel gp;
     public Tile[] tile;
-
     public int[][] mapTileNum;
 
-    // ~ METHODS
+    // ~ METHODS -------------------------------------------------
+
+
+    // CONSTRUCTOR -------------------------------------------------
     public TileManager(GamePanel gp) {
 
         this.gp = gp;
         tile = new Tile[10]; // stores different types of tile
         mapTileNum = new int[gp.maxWorldCol][gp.maxWorldRow]; // stores the map matrix
 
-        getTileImage();
+        tileSetup();
         loadMap("/maps/world01.txt");
     }
 
-    public void getTileImage() {
 
-        setup(0, "grass", false);
-        setup(1, "wall", true);
-        setup(2, "water", true);
-        setup(3, "earth", false);
-        setup(4, "tree", true);
-        setup(5, "sand", false);
+    // FROM INTERFACE: DRAWABLE ---------------------------------------
+    @Override
+    public void update() {} // USELESS AS TILES ARE STATIONARY
+    @Override
+    public void draw(Graphics2D g2) {
+
+        int worldCol = 0;
+        int worldRow = 0;
+
+        // CAMERA FUNCTION
+        while (worldCol < gp.maxWorldCol && worldRow < gp.maxWorldRow) {
+
+            int tileNum = mapTileNum[worldCol][worldRow];
+
+            int worldX = worldCol * gp.tileSize;
+            int worldY = worldRow * gp.tileSize; // World XY: POSITION OF TILE ON THE MAP
+            int screenX = worldX - gp.player.getWorldX() + gp.player.getPlayerCenteredScreenX(); // Screen XY: POSITION OF TILE ON THE SCREEN
+            int screenY = worldY - gp.player.getWorldY() + gp.player.getPlayerCenteredScreenY();
+
+            // IMPROVED RENDERING
+            if (inView(gp.tileSize, gp.player, worldX, worldY)) {
+                g2.drawImage(tile[tileNum].image, screenX, screenY,null);
+            }
+
+            worldCol++;
+
+            if (worldCol == gp.maxWorldCol) {
+                worldCol = 0;
+                worldRow++;
+            }
+        }
+    }
+
+    // FROM THIS CLASS -------------------------------------------------
+
+    // TILE INSTANTIATION, IMPORTING, AND COLLISION SETTING
+    private void tileSetup() {
+
+        tile[0] = new Tile();
+        tile[0].image = importImage("tiles", "grass", gp.tileSize);
+        tile[0].collision = false;
+
+        tile[1] = new Tile();
+        tile[1].image = importImage("tiles", "wall", gp.tileSize);
+        tile[1].collision = true;
+
+        tile[2] = new Tile();
+        tile[2].image = importImage("tiles", "water", gp.tileSize);
+        tile[2].collision = true;
+
+        tile[3] = new Tile();
+        tile[3].image = importImage("tiles", "earth", gp.tileSize);
+        tile[3].collision = false;
+
+        tile[4] = new Tile();
+        tile[4].image = importImage("tiles", "tree", gp.tileSize);
+        tile[4].collision = true;
+
+        tile[5] = new Tile();
+        tile[5].image = importImage("tiles", "sand", gp.tileSize);
+        tile[5].collision = false;
 
     }
-    // HANDLE INSTANTIATION, IMPORT IMAGE, SCALE, AND COLLISION SETTING
-    public void setup(int i, String imageName, boolean collision) {
 
-        try {
-            tile[i] = new Tile();
-            tile[i].image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/" + imageName + ".png")));
-            tile[i].image = Utility.scaleImage(tile[i].image,gp.tileSize, gp.tileSize);
-            tile[i].collision = collision;
-        }
-        catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+    // IMPORT MAP AND READ ITS MATRIX
+    private void loadMap(String filePath) {
 
-    // MAP FUNCTION
-    public void loadMap(String filePath) {
-
-        try {
-
-            // IMPORT FILE AND READ THE MAP MATRIX
-            InputStream is = getClass().getResourceAsStream(filePath);
-            BufferedReader br = new BufferedReader(new InputStreamReader(Objects.requireNonNull(is)));
+        try (InputStream is = getClass().getResourceAsStream(filePath);
+              BufferedReader br = new BufferedReader(new InputStreamReader(Objects.requireNonNull(is)))) {
 
             int col = 0;
             int row = 0;
 
-            // READ 1 ROW LINE OF THE MAP MATRIX DATA
+            // READ 1 ROW LINE OF MATRIX
             while (col < gp.maxWorldCol && row < gp.maxWorldRow) {
 
                 String line = br.readLine();
@@ -88,48 +129,10 @@ public class TileManager implements TileName {
                     row++;
                 }
             }
-            br.close();
-
         }
         catch (Exception e) {
-
-
+            System.err.println("Trouble reading and loading map into game: " + e.getMessage());
         }
     }
 
-    public void draw(Graphics2D g2) {
-
-        int worldCol = 0;
-        int worldRow = 0;
-
-        // CAMERA FUNCTION
-        while (worldCol < gp.maxWorldCol && worldRow < gp.maxWorldRow) {
-
-            int tileNum = mapTileNum[worldCol][worldRow];
-
-            // World XY: POSITION OF TILE ON THE MAP
-            // Screen XY: POSITION OF TILE ON THE SCREEN
-            int worldX = worldCol * gp.tileSize;
-            int worldY = worldRow * gp.tileSize;
-            int screenX = worldX - gp.player.getWorldX() + gp.player.getPlayerCenteredScreenX();
-            int screenY = worldY - gp.player.getWorldY() + gp.player.getPlayerCenteredScreenY();
-
-            // IMPROVED RENDERING: ONLY DRAW TILES PLAYER CAN SEE ON SCREEN
-            if (worldX + gp.tileSize > gp.player.getWorldX() - gp.player.getPlayerCenteredScreenX() &&
-                worldX - gp.tileSize < gp.player.getWorldX() + gp.player.getPlayerCenteredScreenX() &&
-                worldY + gp.tileSize > gp.player.getWorldY() - gp.player.getPlayerCenteredScreenY() &&
-                worldY - gp.tileSize < gp.player.getWorldY() + gp.player.getPlayerCenteredScreenY()) {
-
-                g2.drawImage(tile[tileNum].image, screenX, screenY,null);
-            }
-
-            worldCol++;
-
-            if (worldCol == gp.maxWorldCol) {
-                worldCol = 0;
-                worldRow++;
-            }
-        }
-
-    }
 }

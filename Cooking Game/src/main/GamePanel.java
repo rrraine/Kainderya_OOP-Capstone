@@ -47,8 +47,8 @@ public class GamePanel extends JPanel implements Runnable {
 
     // OBJECTS AND ENTITY
     public Player player = new Player(this, keyH);
-    private List<NPC> npc = new ArrayList<>();
-    private List<SuperObject> obj = new ArrayList<>();
+    private final List<NPC> npc = new ArrayList<>();
+    private final List<SuperObject> obj = new ArrayList<>();
 
     // GAME STATE
     public int gameState;
@@ -56,6 +56,7 @@ public class GamePanel extends JPanel implements Runnable {
     public final int pauseState = 2;
 
     // ~ FIELDS END HERE
+
     // ~ METHODS
 
     // CONSTRUCTOR
@@ -154,12 +155,11 @@ public class GamePanel extends JPanel implements Runnable {
         // 1. DRAW TILES
         tileM.draw(g2);
 
-        // 2. DRAW SUPEROBJECTS
+        // 2. DRAW SUPEROBJECTS : TODO CLEAN THIS
         try {
             for (SuperObject object : obj) {
 
                 object.draw(g2);
-                System.out.println(object + " successfully drawn");
             }
         } catch (ConcurrentModificationException e) {
             System.err.println("Trouble attempting to draw: " + e.getMessage());
@@ -182,6 +182,7 @@ public class GamePanel extends JPanel implements Runnable {
         g2.dispose();
     }
 
+
     // PLAY BG MUSIC
     private void playMusic(int i) {
 
@@ -190,7 +191,6 @@ public class GamePanel extends JPanel implements Runnable {
         music.playSound();
         music.loopSound();
     }
-
     // PLAY SFX MUSIC ON EVENTS
     public void playSFX(int i) {
 

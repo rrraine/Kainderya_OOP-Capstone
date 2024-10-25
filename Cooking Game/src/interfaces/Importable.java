@@ -10,22 +10,22 @@ import java.util.Objects;
 public interface Importable {
     // FOR CLASSES THAT REQUIRE IMPORTING OF EXTERNAL FILES AND RESOURCES
 
+    // PRESET FORMATS
     default BufferedImage importImage(String path, String image, int tileSize) {
 
         BufferedImage importedImage = null;
 
         try {
             importedImage = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/" + path + "/" + image + ".png")));
-            Utility.scaleImage(importedImage, tileSize, tileSize);
+            importedImage = Utility.scaleImage(importedImage, tileSize, tileSize);
         }
         catch (Exception e) {
             System.err.println("Trouble importing image (" + image + "): " + e.getMessage());
         }
 
-        System.out.println("Image (" + image + ") successfully imported");
+        System.out.println("Tile (" + image + ") imported");
         return importedImage;
     }
-
     default URL importSound(String path, String audio) {
 
         URL sound = null;
@@ -41,7 +41,7 @@ public interface Importable {
             System.err.println("Trouble importing sound (" + audio + "): " + e.getMessage());
         }
 
-        System.out.println("Sound (" + audio + ") successfully imported");
+        System.out.println("Sound (" + audio + ") imported");
         return sound;
     }
 }
