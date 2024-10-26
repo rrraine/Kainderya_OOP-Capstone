@@ -3,7 +3,10 @@ package interfaces;
 import main.Utility;
 
 import javax.imageio.ImageIO;
+import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.io.InputStream;
 import java.net.URL;
 import java.util.Objects;
 
@@ -43,5 +46,20 @@ public interface Importable {
 
         System.out.println("Sound (" + audio + ") imported");
         return sound;
+    }
+    default Font importFont(String font) {
+
+        Font importedFont = null;
+
+        try(InputStream is = getClass().getResourceAsStream("/fonts/" + font + ".ttf")) {
+            assert is != null;
+            importedFont = Font.createFont(Font.TRUETYPE_FONT, is);
+
+        } catch (IOException | FontFormatException e) {
+            System.err.println("Trouble importing font (" + font + "): " + e.getMessage());
+        }
+
+        System.out.println("Font (" + font + ") imported");
+        return importedFont;
     }
 }

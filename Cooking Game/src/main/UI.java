@@ -1,12 +1,13 @@
 package main;
 
 import interfaces.Drawable;
+import interfaces.Importable;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.text.DecimalFormat;
 
-public class UI implements Drawable {
+public class UI implements Drawable, Importable {
 
     // ~ FIELDS -----------------------------------------------------------------
 
@@ -14,7 +15,7 @@ public class UI implements Drawable {
     Graphics2D g2;
 
     // FONTS & TIME FORMATS
-    Font arial_40, arial_80B;
+    Font fredokaSemiBold;
     DecimalFormat timeFormat;
 
     //ICONS & TIME
@@ -43,8 +44,7 @@ public class UI implements Drawable {
         timeFormat = new DecimalFormat("#0");
 
         // FONT SETUP
-        arial_40 = new Font("Arial", Font.PLAIN, 40);
-        arial_80B = new Font("Arial", Font.BOLD, 80);
+        fredokaSemiBold = importFont("Fredoka-SemiBold");
 
         // ICON SETUP
         //OBJ_Key key = new OBJ_Key(gp);
@@ -59,7 +59,7 @@ public class UI implements Drawable {
 
         this.g2 = g2;
 
-        g2.setFont(arial_40);
+        g2.setFont(fredokaSemiBold);
         g2.setColor(Color.white);
 
         if (gp.gameState == gp.playState) {
