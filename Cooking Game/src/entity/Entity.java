@@ -177,4 +177,7 @@ public abstract class Entity implements Drawable, Observable {
         this.collisionOn = collisionOn;
     }
 
+    public BufferedImage getIdle() {
+        return idle;
+    }
 }

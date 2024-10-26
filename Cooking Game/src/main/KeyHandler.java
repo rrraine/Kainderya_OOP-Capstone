@@ -7,7 +7,7 @@ public class KeyHandler implements KeyListener {
 
     // ~ FIELDS -----------------------------------------------------------------
     GamePanel gp;
-    public boolean upPressed, downPressed, leftPressed, rightPressed;
+    public boolean upPressed, downPressed, leftPressed, rightPressed, enterPressed;
 
     // ~ METHODS -----------------------------------------------------------------
     public KeyHandler(GamePanel gp) {
@@ -19,7 +19,40 @@ public class KeyHandler implements KeyListener {
     public void keyPressed(KeyEvent e) {
         int code = e.getKeyCode();
 
-        // RECORDS IF USER IS PRESSING KEY TILE
+        // HOME STATE
+        if (gp.state == GamePanel.gameState.HOME) {
+
+            if (code == KeyEvent.VK_W) {
+               gp.ui.setCommand(gp.ui.getCommand() -1);
+               if (gp.ui.getCommand() < 0) {
+                   gp.ui.setCommand(2);
+               }
+            }
+            if (code == KeyEvent.VK_S) {
+                gp.ui.setCommand(gp.ui.getCommand() +1);
+                if (gp.ui.getCommand() > 2) {
+                    gp.ui.setCommand(0);
+                }
+            }
+
+            // KEY EXECUTION
+            if (code == KeyEvent.VK_ENTER) {
+                if (gp.ui.getCommand() == 0) {
+                    // NEW GAME
+                    gp.state = GamePanel.gameState.PLAY;
+                    gp.music.playSound();
+                }
+                else if (gp.ui.getCommand() == 1) {
+                    // TODO CUSTOMIZE
+                }
+                else if (gp.ui.getCommand() == 2) {
+                    // QUIT
+                    System.exit(0);
+                }
+            }
+        }
+
+        // PLAY STATE
         if (code == KeyEvent.VK_W) {
             upPressed = true;
         }
@@ -33,19 +66,14 @@ public class KeyHandler implements KeyListener {
             rightPressed = true;
         }
         if (code == KeyEvent.VK_ESCAPE) {
-            if (gp.gameState == gp.playState) {
-                gp.gameState = gp.optionState;
-            }
-            else if (gp.gameState == gp.optionState) {
-                gp.gameState = gp.playState;
-            }
+            optionState(code);
         }
         if (code == KeyEvent.VK_P) {
-            if (gp.gameState == gp.playState) {
-                gp.gameState = gp.pauseState;
+            if (gp.state == GamePanel.gameState.PLAY) {
+                gp.state = GamePanel.gameState.PAUSE;
             }
-            else if (gp.gameState == gp.pauseState) {
-                gp.gameState = gp.playState;
+            else if (gp.state == GamePanel.gameState.PAUSE) {
+                gp.state = GamePanel.gameState.PLAY;
             }
         }
     }
@@ -71,5 +99,43 @@ public class KeyHandler implements KeyListener {
 
     @Override
     public void keyTyped(KeyEvent e) {} // USELESS
+
+    // GAME STATE CONTROLS
+    public void optionState(int code) {
+
+        if (gp.state == GamePanel.gameState.PLAY) {
+            gp.state = GamePanel.gameState.OPTIONS;
+        }
+        else if (gp.state == GamePanel.gameState.OPTIONS) {
+            gp.state = GamePanel.gameState.PLAY;
+        }
+        if (code == KeyEvent.VK_ENTER) {
+            enterPressed = true;
+        }
+
+        int maxCommand = 0;
+        switch (gp.ui.getSubstate()) {
+            case UI.UIstate.SETTINGS:
+                maxCommand = 4;
+        }
+        System.out.println(code);
+        if (code == KeyEvent.VK_W) {
+            System.out.println("HELLO");
+            gp.ui.setCommand(gp.ui.getCommand()-1);
+            gp.playSFX(2);
+            if (gp.ui.getCommand() < 0) {
+                gp.ui.setCommand(maxCommand);
+            }
+        }
+        if (code == KeyEvent.VK_S) {
+            gp.ui.setCommand(gp.ui.getCommand()+1);
+            gp.playSFX(2);
+            if (gp.ui.getCommand() > maxCommand) {
+                gp.ui.setCommand(0);
+            }
+        }
+
+
+    }
 
 }

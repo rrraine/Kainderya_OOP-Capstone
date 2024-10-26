@@ -58,10 +58,12 @@ public class GamePanel extends JPanel implements Runnable {
     private final List<SuperObject> obj = new ArrayList<>();
 
     // GAME STATE
-    public int gameState;
-    public final int playState = 1;
-    public final int pauseState = 2;
-    public final int optionState = 3;
+    //public int gameState;
+//    public final int playState = 1;
+//    public final int pauseState = 2;
+//    public final int optionState = 3;
+    public gameState state;
+    public enum gameState { HOME, PLAY, PAUSE, OPTIONS }
 
     // ~ FIELDS END HERE
     // ~ METHODS ---------------------------------------------------------------------------
@@ -135,11 +137,11 @@ public class GamePanel extends JPanel implements Runnable {
         Utility.AssetSetter.deployNPCInMap(this, tileSize, getNpc());
 
         // 2. LOAD MUSIC
-        playMusic(0);
-        music.stopSound();
+        //playMusic(0);
+        //music.stopSound();
 
         // 3. LOAD GAME STATE
-        gameState = playState;
+        state = gameState.HOME;
 
         // 4. LOAD FULL SCREEN
         tempScreen = new BufferedImage(screenWidth, screenHeight, BufferedImage.TYPE_INT_ARGB);
@@ -160,7 +162,7 @@ public class GamePanel extends JPanel implements Runnable {
     // 3) UPDATE: UPDATE INFO & MOVEMENTS
     private void update() {
 
-        if (gameState == playState) {
+        if (state == gameState.PLAY) {
             time.update();
             player.update();
             for (NPC n : getNpc()) {
@@ -169,7 +171,7 @@ public class GamePanel extends JPanel implements Runnable {
                 }
             }
         }
-        if (gameState == pauseState) {
+        if (state == gameState.PAUSE) {
             // TODO
         }
     }
@@ -177,31 +179,39 @@ public class GamePanel extends JPanel implements Runnable {
     // 4.1) LOAD UPDATED INFO TO BUFFERED TEMP SCREEN
     private void drawTempScreen() {
 
-        // 1. DRAW TILES
-        tileM.draw(g2);
+        // HOME SCREEN
+        if (state == gameState.HOME) {
+            ui.draw(g2);
+        }
+        else {
+            // 1. DRAW TILES
+            tileM.draw(g2);
 
-        // 2. DRAW SUPEROBJECTS : TODO CLEAN THIS
-        try {
-            for (SuperObject object : obj) {
+            // 2. DRAW SUPEROBJECTS : TODO CLEAN THIS
+            try {
+                for (SuperObject object : obj) {
 
-                object.draw(g2);
+                    object.draw(g2);
+                }
+            } catch (ConcurrentModificationException e) {
+                System.err.println("Trouble attempting to draw: " + e.getMessage());
             }
-        } catch (ConcurrentModificationException e) {
-            System.err.println("Trouble attempting to draw: " + e.getMessage());
+
+            // 3. DRAW NPC
+            for (NPC n : getNpc()) {
+                if (n != null) {
+                    n.draw(g2);
+                }
+            }
+
+            // 4. DRAW PLAYER
+            player.draw(g2);
+
+            // 5. DRAW UI
+            ui.draw(g2);
         }
 
-        // 3. DRAW NPC
-        for (NPC n : getNpc()) {
-            if (n != null) {
-                n.draw(g2);
-            }
-        }
 
-        // 4. DRAW PLAYER
-        player.draw(g2);
-
-        // 5. DRAW UI
-        ui.draw(g2);
     }
     // 4.2) LOAD TEMP SCREEN TO ACTUAL FULL SCREEN
     private void drawFullScreen() {

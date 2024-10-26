@@ -3,6 +3,7 @@ package entity;
 import main.GamePanel;
 import main.Utility;
 
+import java.awt.image.BufferedImage;
 import java.util.Random;
 
 public abstract class NPC extends Entity {
@@ -74,7 +75,6 @@ public abstract class NPC extends Entity {
     // FROM THIS CLASS ----------------------------------------------
     public abstract void setNPCAction();
 
-
     // INNER STATIC CLASSES ----------------------------------------
 
     public static class StudentFemale extends NPC {
@@ -129,7 +129,7 @@ public abstract class NPC extends Entity {
 
                 actionInterval = 0;
             }
-        }
 
+        }
     }
 }
