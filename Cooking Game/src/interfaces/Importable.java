@@ -14,11 +14,11 @@ public interface Importable {
     // FOR CLASSES THAT REQUIRE IMPORTING OF EXTERNAL FILES AND RESOURCES
 
     // PRESET FORMATS
-    default BufferedImage importImage(String path, String image, int tileSize) {
+    default BufferedImage importImage(String path, String type, String image, int tileSize) {
 
         BufferedImage importedImage = null;
 
-        try (InputStream is = getClass().getResourceAsStream("/" + path + "/" + image + ".png")) {
+        try (InputStream is = getClass().getResourceAsStream("/" + path + "/" + type + "/" + image + ".png")) {
 
             if (is == null)
                 throw new IOException("Resource not found: " + path + "/" + image + ".png");
@@ -28,7 +28,7 @@ public interface Importable {
             if (importedImage == null)
                 throw new IOException("Failed to read: " + path + "/" + image + ".png");
 
-            importedImage = Utility.scaleImage(importedImage, tileSize, tileSize);
+            importedImage = Utility.Scaler.scaleImage(importedImage, tileSize, tileSize);
 
         } catch (IOException e) {
             System.err.println(e.getMessage());

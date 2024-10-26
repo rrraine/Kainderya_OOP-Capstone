@@ -20,7 +20,6 @@ public class UI implements Drawable, Importable {
 
     //ICONS & TIME
     BufferedImage icon;
-    double playTime;
 
     // NOTIFICATIONS
     public String notif;
@@ -63,7 +62,7 @@ public class UI implements Drawable, Importable {
         g2.setColor(Color.white);
 
         if (gp.gameState == gp.playState) {
-            // TODO PLAYSTATE
+            drawPlayScreen();
         }
 
         if (gp.gameState == gp.pauseState) {
@@ -83,6 +82,9 @@ public class UI implements Drawable, Importable {
         int length = (int)g2.getFontMetrics().getStringBounds(text, g2).getWidth();
         return gp.screenWidth / 2 - length / 2;
     }
+    private void drawPlayScreen() {
+
+    }
     public void drawPauseScreen() {
 
         g2.setFont(g2.getFont().deriveFont(Font.PLAIN,80F));
@@ -92,5 +94,5 @@ public class UI implements Drawable, Importable {
 
         g2.drawString(text, x, y);
     }
-
+    
 }

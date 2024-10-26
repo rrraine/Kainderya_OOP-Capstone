@@ -64,15 +64,15 @@ public class Player extends Entity {
 
             // CHECK TILE COLLISION
             collisionOn = false;
-            Utility.entityHitsTile(this, gp);
-            Utility.entityHitsTile(this, gp);
+            Utility.CollisionChecker.entityHitsTile(this, gp);
+            Utility.CollisionChecker.entityHitsTile(this, gp);
 
             // CHECK OBJECT COLLISION
-            int objIndex = Utility.entityHitsSuperObject(this, gp.getObj());
+            int objIndex = Utility.CollisionChecker.entityHitsSuperObject(this, gp.getObj());
             interactSuperObject(objIndex);
 
             // CHECK NPC COLLISION
-            int npcIndex = Utility.entityHitsNPC(this, gp.getNpc());
+            int npcIndex = Utility.CollisionChecker.entityHitsNPC(this, gp.getNpc());
             interactNPC(npcIndex);
 
             // IF COLLISION IS FALSE, PLAYER CAN MOVE

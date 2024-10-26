@@ -136,7 +136,7 @@ public abstract class Entity implements Drawable, Observable {
         try {
 
             image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/" + type + "/" + avatar + "/" + imageName + ".png")));
-            image = Utility.scaleImage(image, gp.tileSize, gp.tileSize);
+            image = Utility.Scaler.scaleImage(image, gp.tileSize, gp.tileSize);
         }
         catch (IOException e) {
             System.err.println("Trouble finding avatar path: " + e.getMessage());

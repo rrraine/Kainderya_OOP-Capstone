@@ -17,7 +17,7 @@ public class GamePanel extends JPanel implements Runnable {
     // ~ FIELDS ---------------------------------------------------------------------------
 
     // FRAME RATE
-    private final int FPS = 60;
+    public final int FPS = 60;
 
     // SCREEN SETTINGS
     private final int originalTileSize = 16;
@@ -129,8 +129,8 @@ public class GamePanel extends JPanel implements Runnable {
     public void setUpGame() {
 
         // 1. LOAD OBJECTS AND NPC
-        Utility.deploySuperObjectInMap(this, tileSize, obj);
-        Utility.deployNPCInMap(this, tileSize, getNpc());
+        Utility.AssetSetter.deploySuperObjectInMap(this, tileSize, obj);
+        Utility.AssetSetter.deployNPCInMap(this, tileSize, getNpc());
 
         // 2. LOAD MUSIC
         playMusic(0);
