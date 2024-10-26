@@ -18,12 +18,25 @@ public interface Importable {
 
         BufferedImage importedImage = null;
 
-        try {
-            importedImage = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/" + path + "/" + image + ".png")));
+        try (InputStream is = getClass().getResourceAsStream("/" + path + "/" + image + ".png")) {
+
+            if (is == null)
+                throw new IOException("Resource not found: " + path + "/" + image + ".png");
+
+            importedImage = ImageIO.read(Objects.requireNonNull(is));
+
+            if (importedImage == null)
+                throw new IOException("Failed to read: " + path + "/" + image + ".png");
+
             importedImage = Utility.scaleImage(importedImage, tileSize, tileSize);
-        }
-        catch (Exception e) {
-            System.err.println("Trouble importing image (" + image + "): " + e.getMessage());
+
+        } catch (IOException e) {
+            System.err.println(e.getMessage());
+        } catch (IllegalArgumentException | NullPointerException e) {
+            System.err.println("Illegal argument / attempt to pass null: " + path + "/" + image + ".png");
+        } catch (Exception e) {
+            System.err.println("Unexpected error (" + image + "): " + e.getMessage());
+            e.printStackTrace();
         }
 
         System.out.println("Tile (" + image + ") imported");
@@ -52,10 +65,9 @@ public interface Importable {
         Font importedFont = null;
 
         try(InputStream is = getClass().getResourceAsStream("/fonts/" + font + ".ttf")) {
-            assert is != null;
-            importedFont = Font.createFont(Font.TRUETYPE_FONT, is);
+            importedFont = Font.createFont(Font.TRUETYPE_FONT, Objects.requireNonNull(is));
 
-        } catch (IOException | FontFormatException e) {
+        } catch (IOException | FontFormatException | NullPointerException e) {
             System.err.println("Trouble importing font (" + font + "): " + e.getMessage());
         }
 
