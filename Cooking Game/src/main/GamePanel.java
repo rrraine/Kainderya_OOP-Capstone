@@ -2,6 +2,7 @@ package main;
 
 import entity.NPC;
 import entity.Player;
+import game.Time;
 import object.SuperObject;
 import tile.TileManager;
 
@@ -17,7 +18,7 @@ public class GamePanel extends JPanel implements Runnable {
     // ~ FIELDS ---------------------------------------------------------------------------
 
     // FRAME RATE
-    public final int FPS = 60;
+    public static final int FPS = 60;
 
     // SCREEN SETTINGS
     private final int originalTileSize = 16;
@@ -47,7 +48,8 @@ public class GamePanel extends JPanel implements Runnable {
     KeyHandler keyH = new KeyHandler(this);
     Sound music = new Sound();
     Sound sfx = new Sound();
-    public UI ui = new UI(this);
+    Time time = new Time(this);
+    UI ui = new UI(this, time);
     Thread gameThread;
 
     // OBJECTS AND ENTITY
@@ -159,7 +161,7 @@ public class GamePanel extends JPanel implements Runnable {
     private void update() {
 
         if (gameState == playState) {
-
+            time.update();
             player.update();
             for (NPC n : getNpc()) {
                 if (n != null) {
@@ -285,5 +287,4 @@ public class GamePanel extends JPanel implements Runnable {
     public List<SuperObject> getObj() {
         return obj;
     }
-
 }

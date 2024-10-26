@@ -32,9 +32,14 @@ public class KeyHandler implements KeyListener {
         if (code == KeyEvent.VK_D) {
             rightPressed = true;
         }
-//        if (code == KeyEvent.VK_ESCAPE) {
-//            gp.gameState = gp.optionState;
-//        }
+        if (code == KeyEvent.VK_ESCAPE) {
+            if (gp.gameState == gp.playState) {
+                gp.gameState = gp.optionState;
+            }
+            else if (gp.gameState == gp.optionState) {
+                gp.gameState = gp.playState;
+            }
+        }
         if (code == KeyEvent.VK_P) {
             if (gp.gameState == gp.playState) {
                 gp.gameState = gp.pauseState;
