@@ -137,7 +137,7 @@ public class GamePanel extends JPanel implements Runnable {
         Utility.AssetSetter.deployNPCInMap(this, tileSize, getNpc());
 
         // 2. LOAD MUSIC
-        //playMusic(0);
+        playMusic(0);
         //music.stopSound();
 
         // 3. LOAD GAME STATE
