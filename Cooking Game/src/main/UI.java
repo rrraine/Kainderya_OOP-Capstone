@@ -35,6 +35,7 @@ public class UI implements Drawable, Importable {
     // UI SUBSTATES
     private UIstate substate;
     public enum UIstate { SETTINGS, FULLSCREEN, MUSIC, VOLUME, QUIT, RESUME }
+    public int homeUISubstate = 0;
 
 
 
@@ -191,67 +192,115 @@ public class UI implements Drawable, Importable {
 
     // UI STATES
     private void homeUI() {
+
         // BG
         g2.setColor(new Color(70, 120, 80));
         g2.fillRect(0, 0, gp.screenWidth, gp.screenHeight);
 
-        // TITLE
-        g2.setFont(g2.getFont().deriveFont(Font.BOLD, 96F));
-        String text = "Kusina ni VJ";
-        int x = getXForCenteredText(text);
-        int y = gp.tileSize * 3;
+        if (homeUISubstate == 0) {
+            // TITLE
+            g2.setFont(g2.getFont().deriveFont(Font.BOLD, 96F));
+            String text = "Kusina ni VJ";
+            int x = getXForCenteredText(text);
+            int y = gp.tileSize * 3;
 
-        // SHADOW TEXT COLOR
-        g2.setColor(Color.gray);
-        g2.drawString(text, x + 5, y + 5);
+            // SHADOW TEXT COLOR
+            g2.setColor(Color.gray);
+            g2.drawString(text, x + 5, y + 5);
 
-        // MAIN TEXT COLOR
-        g2.setColor(Color.WHITE);
-        g2.drawString(text, x, y);
+            // MAIN TEXT COLOR
+            g2.setColor(Color.WHITE);
+            g2.drawString(text, x, y);
 
-        // ICON
-        x = gp.screenWidth / 2 - (gp.tileSize*2)/2 - 20;
-        y += gp.tileSize * 2 - 20;
-        g2.drawImage(gp.getNpc().get(0).getIdle(), x, y, gp.tileSize * 3, gp.tileSize * 3, null);
+            // ICON
+            x = gp.screenWidth / 2 - (gp.tileSize*2)/2 - 20;
+            y += gp.tileSize * 2 - 20;
+            g2.drawImage(gp.getNpc().get(0).getIdle(), x, y, gp.tileSize * 3, gp.tileSize * 3, null);
 
-        // NEW GAME
-        g2.setFont(g2.getFont().deriveFont(Font.BOLD, 48F));
-        text = "NEW GAME";
-        x = getXForCenteredText(text);
-        y += gp.tileSize * 4 + 30;
-        g2.drawString(text, x, y);
-        if (command == 0) {
-            g2.drawString(">", x - gp.tileSize, y);
-            g2.drawString("<", x + (gp.tileSize * 6) - 5, y);
-            g2.setStroke(new BasicStroke(1.2F));
-            g2.drawLine(x, y + 5, x + 265, y + 5);
+            // NEW GAME
+            g2.setFont(g2.getFont().deriveFont(Font.BOLD, 48F));
+            text = "NEW GAME";
+            x = getXForCenteredText(text);
+            y += gp.tileSize * 4 + 30;
+            g2.drawString(text, x, y);
+            if (command == 0) {
+                g2.drawString(">", x - gp.tileSize, y);
+                g2.drawString("<", x + (gp.tileSize * 6) - 5, y);
+                g2.setStroke(new BasicStroke(1.2F));
+                g2.drawLine(x, y + 5, x + 265, y + 5);
+            }
+
+            // CUSTOMIZE
+            g2.setFont(g2.getFont().deriveFont(Font.BOLD, 48F));
+            text = "CREDITS";
+            x = getXForCenteredText(text);
+            y += gp.tileSize;
+            g2.drawString(text, x, y);
+            if (command == 1) {
+                g2.drawString(">", x - gp.tileSize, y);
+                g2.drawString("<", x + (gp.tileSize * 5) - 20, y);
+                g2.setStroke(new BasicStroke(1.2F));
+                g2.drawLine(x, y + 5, x + (gp.tileSize * 4), y + 5);
+            }
+
+            // QUIT
+            g2.setFont(g2.getFont().deriveFont(Font.BOLD, 48F));
+            text = "QUIT";
+            x = getXForCenteredText(text);
+            y += gp.tileSize;
+            g2.drawString(text, x, y);
+            if (command == 2) {
+                g2.drawString(">", x - gp.tileSize, y);
+                g2.drawString("<", x + (gp.tileSize * 2) + 45, y);
+                g2.setStroke(new BasicStroke(1.2F));
+                g2.drawLine(x, y + 5, x + (gp.tileSize * 2) + 15, y + 5);
+            }
+        }
+        else if (homeUISubstate == 1) {
+
+            // BG
+            g2.setColor(Color.WHITE);
+            g2.setFont(g2.getFont().deriveFont(42F));
+
+            String text = "Select Avatar";
+            int x = getXForCenteredText(text);
+            int y = gp.tileSize * 3;
+            g2.drawString(text, x, y);
+
+            text = "Boy 1";
+            x = getXForCenteredText(text);
+            y += gp.tileSize * 3;
+            g2.drawString(text, x, y);
+            if (command == 0) {
+                g2.drawString(">", x - gp.tileSize, y);
+            }
+
+            text = "Boy 2";
+            x = getXForCenteredText(text);
+            y += gp.tileSize;
+            g2.drawString(text, x, y);
+            if (command == 1) {
+                g2.drawString(">", x - gp.tileSize, y);
+            }
+
+            text = "Girl 1";
+            x = getXForCenteredText(text);
+            y += gp.tileSize;
+            g2.drawString(text, x, y);
+            if (command == 2) {
+                g2.drawString(">", x - gp.tileSize, y);
+            }
+
+            text = "Girl 2";
+            x = getXForCenteredText(text);
+            y += gp.tileSize;
+            g2.drawString(text, x, y);
+            if (command == 3) {
+                g2.drawString(">", x - gp.tileSize, y);
+            }
+
         }
 
-        // CUSTOMIZE
-        g2.setFont(g2.getFont().deriveFont(Font.BOLD, 48F));
-        text = "CREDITS";
-        x = getXForCenteredText(text);
-        y += gp.tileSize;
-        g2.drawString(text, x, y);
-        if (command == 1) {
-            g2.drawString(">", x - gp.tileSize, y);
-            g2.drawString("<", x + (gp.tileSize * 5) - 20, y);
-            g2.setStroke(new BasicStroke(1.2F));
-            g2.drawLine(x, y + 5, x + (gp.tileSize * 4), y + 5);
-        }
-
-        // QUIT
-        g2.setFont(g2.getFont().deriveFont(Font.BOLD, 48F));
-        text = "QUIT";
-        x = getXForCenteredText(text);
-        y += gp.tileSize;
-        g2.drawString(text, x, y);
-        if (command == 2) {
-            g2.drawString(">", x - gp.tileSize, y);
-            g2.drawString("<", x + (gp.tileSize * 2) + 45, y);
-            g2.setStroke(new BasicStroke(1.2F));
-            g2.drawLine(x, y + 5, x + (gp.tileSize * 2) + 15, y + 5);
-        }
     }
     private void playUI(){}
 

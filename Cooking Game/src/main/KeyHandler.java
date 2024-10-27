@@ -22,34 +22,83 @@ public class KeyHandler implements KeyListener {
         // HOME STATE
         if (gp.state == GamePanel.gameState.HOME) {
 
-            if (code == KeyEvent.VK_W) {
-               gp.ui.setCommand(gp.ui.getCommand() -1);
-               if (gp.ui.getCommand() < 0) {
-                   gp.ui.setCommand(2);
-               }
-            }
-            if (code == KeyEvent.VK_S) {
-                gp.ui.setCommand(gp.ui.getCommand() +1);
-                if (gp.ui.getCommand() > 2) {
-                    gp.ui.setCommand(0);
+            if (gp.ui.homeUISubstate == 0) {
+
+                if (code == KeyEvent.VK_W) {
+                    gp.ui.setCommand(gp.ui.getCommand() -1);
+                    if (gp.ui.getCommand() < 0) {
+                        gp.ui.setCommand(2);
+                    }
+                }
+                if (code == KeyEvent.VK_S) {
+                    gp.ui.setCommand(gp.ui.getCommand() +1);
+                    if (gp.ui.getCommand() > 2) {
+                        gp.ui.setCommand(0);
+                    }
+                }
+
+                // KEY EXECUTION
+                if (code == KeyEvent.VK_ENTER) {
+                    if (gp.ui.getCommand() == 0) {
+                        gp.playSFX(2);
+                        gp.ui.homeUISubstate = 1;
+                        // NEW GAME
+                        gp.music.playSound();
+                    }
+                    else if (gp.ui.getCommand() == 1) {
+                        // TODO CUSTOMIZE
+                        gp.playSFX(2);
+                    }
+                    else if (gp.ui.getCommand() == 2) {
+                        // QUIT
+                        gp.playSFX(2);
+                        System.exit(0);
+                    }
                 }
             }
 
-            // KEY EXECUTION
-            if (code == KeyEvent.VK_ENTER) {
-                if (gp.ui.getCommand() == 0) {
-                    // NEW GAME
+            else if (gp.ui.homeUISubstate == 1) {
+
+                if (code == KeyEvent.VK_W) {
+                    gp.ui.setCommand(gp.ui.getCommand() -1);
+                    if (gp.ui.getCommand() < 0) {
+                        gp.ui.setCommand(3);
+                    }
+                }
+                if (code == KeyEvent.VK_S) {
+                    gp.ui.setCommand(gp.ui.getCommand() +1);
+                    if (gp.ui.getCommand() > 3) {
+                        gp.ui.setCommand(0);
+                    }
+                }
+                // KEY EXECUTION
+                if (code == KeyEvent.VK_ENTER) {
+                    if (gp.ui.getCommand() == 0) {
+                        gp.playSFX(2);
+                    }
+                    else if (gp.ui.getCommand() == 1) {
+                        // TODO CUSTOMIZE
+                        gp.playSFX(2);
+                    }
+                    else if (gp.ui.getCommand() == 2) {
+                        // QUIT
+                        gp.playSFX(2);
+                    }
+                    else if (gp.ui.getCommand() == 3) {
+                        // QUIT
+                        gp.playSFX(2);
+                    }
+
                     gp.state = GamePanel.gameState.PLAY;
-                    gp.music.playSound();
-                }
-                else if (gp.ui.getCommand() == 1) {
-                    // TODO CUSTOMIZE
-                }
-                else if (gp.ui.getCommand() == 2) {
-                    // QUIT
-                    System.exit(0);
                 }
             }
+
+
+        }
+
+        // OPTIONS STATE
+        if (gp.state == GamePanel.gameState.OPTIONS) {
+            optionState(code);
         }
 
         // PLAY STATE
