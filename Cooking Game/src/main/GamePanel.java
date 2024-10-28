@@ -40,7 +40,7 @@ public class GamePanel extends JPanel implements Runnable {
 
     // FULL SCREEN RESOLUTION
     private int fullScreenWidth = screenWidth;
-    private int fullScrenHeight = screenHeight;
+    private int fullScreenHeight = screenHeight;
     BufferedImage tempScreen;
     boolean fullScreenOn;
 
@@ -62,6 +62,7 @@ public class GamePanel extends JPanel implements Runnable {
     // GAME STATE
     public state gameState;
     public enum state { HOME, PLAY, PAUSE, OPTIONS }
+    private boolean newGame;
 
     // ~ FIELDS END HERE
 
@@ -79,6 +80,8 @@ public class GamePanel extends JPanel implements Runnable {
         this.addKeyListener(keyB);
         // ALLOWS RECEIVING OF KEYSTROKES
         this.setFocusable(true);
+
+        newGame = false;
     }
     // SINGLETON INITIALIZE
     public static GamePanel initialize() {
@@ -140,8 +143,8 @@ public class GamePanel extends JPanel implements Runnable {
         Utility.AssetSetter.deployNPCInMap(this, tileSize, getNpc());
 
         // 2. LOAD MUSIC
-        playMusic(0);
-        //music.stopSound();
+        playBGMusic(0);
+        music.stopSound();
 
         // 3. LOAD GAME STATE
         gameState = state.HOME;
@@ -162,10 +165,16 @@ public class GamePanel extends JPanel implements Runnable {
         gameThread.start();
     }
 
-    // 3) UPDATE: UPDATE INFO & MOVEMENTS
+    // 3) UPDATE: UPDATE INFO & MOVEMENTS ------------
     private void update() {
 
+        if (gameState == state.HOME) {
+            if (!newGame)
+                newGame();
+        }
         if (gameState == state.PLAY) {
+            newGame = false;
+
             time.update();
             player.update();
             for (NPC n : getNpc()) {
@@ -173,9 +182,6 @@ public class GamePanel extends JPanel implements Runnable {
                     n.update();
                 }
             }
-        }
-        if (gameState == state.PAUSE) {
-            // TODO
         }
     }
 
@@ -216,10 +222,15 @@ public class GamePanel extends JPanel implements Runnable {
     private void drawFullScreen() {
 
         Graphics g = getGraphics();
-        g.drawImage(tempScreen, 0, 0, fullScreenWidth, fullScrenHeight, null);
+        g.drawImage(tempScreen, 0, 0, fullScreenWidth, fullScreenHeight, null);
         g.dispose();
     }
 
+    // NEW GAME INSTANCE
+    private void newGame() {
+        newGame = true;
+        time.reinitialize();
+    }
 
     // AUXILIARY METHODS ------------------------------------------------------------------------
 
@@ -232,14 +243,14 @@ public class GamePanel extends JPanel implements Runnable {
 
         // GET FULL SCREEN WIDTH & HEIGHT
         fullScreenWidth = Main.window.getWidth();
-        fullScrenHeight = Main.window.getHeight();
+        fullScreenHeight = Main.window.getHeight();
     }
 
     // PLAY BG MUSIC
-    private void playMusic(int i) {
+    private void playBGMusic(int i) {
 
         music.setSound(i);
-        music.adjustSoundVolume(-18); // DECIBELS
+        music.adjustSoundVolume(-3); // DECIBELS
         music.playSound();
         music.loopSound();
     }
