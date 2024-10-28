@@ -14,6 +14,8 @@ import java.util.Objects;
 public class TileManager implements Importable, Drawable, Observable {
 
     // ~ FIELDS -------------------------------------------------
+    private static TileManager instance;
+
     GamePanel gp;
     public Tile[] tile;
     public int[][] mapTileNum;
@@ -22,7 +24,7 @@ public class TileManager implements Importable, Drawable, Observable {
 
 
     // CONSTRUCTOR -------------------------------------------------
-    public TileManager(GamePanel gp) {
+    private TileManager(GamePanel gp) {
 
         this.gp = gp;
         tile = new Tile[10]; // stores different types of tile
@@ -30,6 +32,13 @@ public class TileManager implements Importable, Drawable, Observable {
 
         tileSetup();
         loadMap("/maps/world01.txt");
+    }
+    // SINGLETON INSTANTIATE --------------------------------------
+    public static TileManager instantiate(GamePanel gp) {
+        if (instance == null) {
+            instance = new TileManager(gp);
+        }
+        return instance;
     }
 
 

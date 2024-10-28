@@ -8,6 +8,7 @@ import object.SuperObject;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Utility {
@@ -334,6 +335,33 @@ public class Utility {
             en.getSolidArea().y = en.getSolidAreaDefaultY();
             player.getSolidArea().x = player.getSolidAreaDefaultX();
             player.getSolidArea().y = player.getSolidAreaDefaultY();
+        }
+    }
+
+    // ------------------------------------------------------------
+
+    // HANDLES TEXT OR IMAGE ALIGNMENT
+    public static class Aligner {
+
+        public static int centerText(String text, GamePanel gp, Graphics2D g2) {
+            int length = (int)g2.getFontMetrics().getStringBounds(text, g2).getWidth();
+            return gp.screenWidth / 2 - length / 2;
+        }
+        public static List<Integer> centerCursor(String text, int x, int y, GamePanel gp, Graphics2D g2) {
+            List<Integer> coordinates = new ArrayList<>();
+
+            int endX = x + g2.getFontMetrics().stringWidth(text);
+
+            coordinates.add(0, x - gp.tileSize); // CURSOR LEFT X
+            coordinates.add(1, y); // CURSOR LEFT Y
+            coordinates.add(2, endX + (gp.tileSize /2)); // CURSOR RIGHT X
+            coordinates.add(3, y); // CURSOR RIGHT Y
+            coordinates.add(4, x); // UNDERLINE LEFT X
+            coordinates.add(5, y +5); // UNDERLINE LEFT Y
+            coordinates.add(6, endX); // UNDERLINE RIGHT X
+            coordinates.add(7, y+5); // UNDERLINE RIGHT Y
+
+            return coordinates;
         }
     }
 

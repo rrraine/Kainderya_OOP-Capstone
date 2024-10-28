@@ -12,16 +12,16 @@ public class Main {
         GamePanel gamePanel;
 
 
-        window = new JFrame(); // WINDOW FRAME ON WHICH GAMEPANEL RUNS
+        window = new JFrame(); // WINDOW FRAME ON WHICH GAME PANEL RUNS
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // ENABLES WINDOW TO BE CLOSED
         window.setResizable(false); // DISABLES RESIZABLE WINDOW
         window.setTitle("Cooking Game");
         window.setUndecorated(true);
 
-        gamePanel = new GamePanel();
+        gamePanel = GamePanel.initialize();
 
 
-        window.add(gamePanel); // RUN GAMEPANEL ON WINDOW
+        window.add(gamePanel); // RUN GAME PANEL ON WINDOW
         window.pack(); // SETS WINDOW SIZE
         window.setLocationRelativeTo(null); // SET WINDOW AT CENTER OF SCREEN
         window.setVisible(true);
@@ -31,6 +31,5 @@ public class Main {
         gamePanel.startGameThread(); // START GAME
 
         // DEBUGGING PURPOSES ------------------------------------
-        System.out.println("\nFEATURE: Press P to Pause");
     }
 }

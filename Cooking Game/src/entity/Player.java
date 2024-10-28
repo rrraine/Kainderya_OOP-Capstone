@@ -1,7 +1,7 @@
 package entity;
 
 import main.GamePanel;
-import main.KeyHandler;
+import main.KeyBindings;
 import main.Utility;
 
 import java.awt.*;
@@ -10,7 +10,7 @@ import java.awt.image.BufferedImage;
 public class Player extends Entity {
 
     // ~ FIELDS ---------------------------------------------------
-    private final KeyHandler keyH;
+    private final KeyBindings keyH;
 
     // PLAYER SCREEN COORDINATES ALWAYS IN CENTER
     private final int playerCenteredScreenX;
@@ -19,7 +19,7 @@ public class Player extends Entity {
     // ~ METHODS ---------------------------------------------------
 
     // CONSTRUCTOR ---------------------------------------------------
-    public Player(GamePanel gp, KeyHandler keyH) {
+    public Player(GamePanel gp, KeyBindings keyH) {
 
         super(gp, 5, "down");
 
@@ -46,15 +46,15 @@ public class Player extends Entity {
     public void update() {
 
         // DETECT DIRECTION BY KEYSTROKE TO UPDATE MOVING POSES
-        if (keyH.upPressed || keyH.downPressed || keyH.leftPressed || keyH.rightPressed) {
+        if (keyH.isUpPressed() || keyH.isDownPressed() || keyH.isLeftPressed() || keyH.isRightPressed()) {
 
-            if (keyH.upPressed) {
+            if (keyH.isUpPressed()) {
                 direction = "up";
             }
-            else if (keyH.downPressed) {
+            else if (keyH.isDownPressed()) {
                 direction = "down";
             }
-            else if (keyH.leftPressed) {
+            else if (keyH.isLeftPressed()) {
                 direction = "left";
             }
             else {

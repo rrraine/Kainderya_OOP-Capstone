@@ -16,6 +16,7 @@ import java.util.List;
 public class GamePanel extends JPanel implements Runnable {
 
     // ~ FIELDS ---------------------------------------------------------------------------
+    private static GamePanel instance;
 
     // FRAME RATE
     public static final int FPS = 60;
@@ -37,39 +38,36 @@ public class GamePanel extends JPanel implements Runnable {
     public final int maxWorldCol = 50;
     public final int maxWorldRow = 50;
 
-    // FULL SCREEN RESOLUTION: 2
+    // FULL SCREEN RESOLUTION
     private int fullScreenWidth = screenWidth;
     private int fullScrenHeight = screenHeight;
     BufferedImage tempScreen;
-    Graphics2D g2;
+    boolean fullScreenOn;
 
     // GAME SETTINGS SYSTEM
-    TileManager tileM = new TileManager(this);
-    KeyHandler keyH = new KeyHandler(this);
+    Graphics2D g2;
+    TileManager tileM = TileManager.instantiate(this);
     Sound music = new Sound();
     Sound sfx = new Sound();
-    Time time = new Time(this);
-    UI ui = new UI(this, time);
+    Time time = Time.instantiate(this);
+    UIManager uiM = UIManager.instantiate(this, time);
+    KeyBindings keyB = KeyBindings.instantiate(this, uiM);
     Thread gameThread;
 
     // OBJECTS AND ENTITY
-    public Player player = new Player(this, keyH);
+    public Player player = new Player(this, keyB);
     private final List<NPC> npc = new ArrayList<>();
     private final List<SuperObject> obj = new ArrayList<>();
 
     // GAME STATE
-    //public int gameState;
-//    public final int playState = 1;
-//    public final int pauseState = 2;
-//    public final int optionState = 3;
-    public gameState state;
-    public enum gameState { HOME, PLAY, PAUSE, OPTIONS }
+    public state gameState;
+    public enum state { HOME, PLAY, PAUSE, OPTIONS }
 
     // ~ FIELDS END HERE
-    // ~ METHODS ---------------------------------------------------------------------------
+
 
     // CONSTRUCTOR ---------------------------------------------------------------------------
-    public GamePanel() {
+    private GamePanel() {
 
         // SET DIMENSIONS AND COLOR OF THE FRAME
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
@@ -78,9 +76,16 @@ public class GamePanel extends JPanel implements Runnable {
         this.setDoubleBuffered(true);
 
         // LISTEN FOR KEYSTROKES
-        this.addKeyListener(keyH);
+        this.addKeyListener(keyB);
         // ALLOWS RECEIVING OF KEYSTROKES
         this.setFocusable(true);
+    }
+    // SINGLETON INITIALIZE
+    public static GamePanel initialize() {
+        if (instance == null) {
+            instance = new GamePanel();
+        }
+        return instance;
     }
 
 
@@ -113,8 +118,6 @@ public class GamePanel extends JPanel implements Runnable {
                 update();
                 drawTempScreen();
                 drawFullScreen();
-                //repaint(); // CALLS PAINTCOMPONENT()
-
                 delta--;
 
                 drawCount++;
@@ -141,7 +144,7 @@ public class GamePanel extends JPanel implements Runnable {
         //music.stopSound();
 
         // 3. LOAD GAME STATE
-        state = gameState.HOME;
+        gameState = state.HOME;
 
         // 4. LOAD FULL SCREEN
         tempScreen = new BufferedImage(screenWidth, screenHeight, BufferedImage.TYPE_INT_ARGB);
@@ -162,7 +165,7 @@ public class GamePanel extends JPanel implements Runnable {
     // 3) UPDATE: UPDATE INFO & MOVEMENTS
     private void update() {
 
-        if (state == gameState.PLAY) {
+        if (gameState == state.PLAY) {
             time.update();
             player.update();
             for (NPC n : getNpc()) {
@@ -171,7 +174,7 @@ public class GamePanel extends JPanel implements Runnable {
                 }
             }
         }
-        if (state == gameState.PAUSE) {
+        if (gameState == state.PAUSE) {
             // TODO
         }
     }
@@ -179,11 +182,9 @@ public class GamePanel extends JPanel implements Runnable {
     // 4.1) LOAD UPDATED INFO TO BUFFERED TEMP SCREEN
     private void drawTempScreen() {
 
-        // HOME SCREEN
-        if (state == gameState.HOME) {
-            ui.draw(g2);
-        }
-        else {
+        uiM.draw(g2);
+
+        if (gameState == state.PLAY) {
             // 1. DRAW TILES
             tileM.draw(g2);
 
@@ -208,10 +209,8 @@ public class GamePanel extends JPanel implements Runnable {
             player.draw(g2);
 
             // 5. DRAW UI
-            ui.draw(g2);
+            uiM.draw(g2);
         }
-
-
     }
     // 4.2) LOAD TEMP SCREEN TO ACTUAL FULL SCREEN
     private void drawFullScreen() {
@@ -220,43 +219,6 @@ public class GamePanel extends JPanel implements Runnable {
         g.drawImage(tempScreen, 0, 0, fullScreenWidth, fullScrenHeight, null);
         g.dispose();
     }
-
-    // 4.1) DRAW: DRAW FRAME WITH UPDATED INFO
-//    public void paintComponent(Graphics g) {
-//
-//        super.paintComponent(g); // PROVIDES FUNCTIONS TO DRAW OBJECTS
-//        Graphics2D g2 = (Graphics2D) g; // TYPECAST TO PROVIDE BETTER 2D
-//
-//        // 1. DRAW TILES
-//        tileM.draw(g2);
-//
-//        // 2. DRAW SUPEROBJECTS : TODO CLEAN THIS
-//        try {
-//            for (SuperObject object : obj) {
-//
-//                object.draw(g2);
-//            }
-//        } catch (ConcurrentModificationException e) {
-//            System.err.println("Trouble attempting to draw: " + e.getMessage());
-//        }
-//
-//        // 3. DRAW NPC
-//        for (NPC n : getNpc()) {
-//            if (n != null) {
-//                n.draw(g2);
-//            }
-//        }
-//
-//        // 4. DRAW PLAYER
-//        player.draw(g2);
-//
-//        // 5. DRAW UI
-//        ui.draw(g2);
-//
-//        // GOOD PRACTICE TO RELEASE USED RES
-//        g2.dispose();
-//    }
-
 
 
     // AUXILIARY METHODS ------------------------------------------------------------------------

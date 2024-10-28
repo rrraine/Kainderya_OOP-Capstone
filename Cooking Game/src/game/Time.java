@@ -8,6 +8,8 @@ import java.text.DecimalFormat;
 
 public class Time implements Drawable {
 
+    private static Time instance;
+
     GamePanel gp;
     DecimalFormat timeFormat;
 
@@ -25,7 +27,7 @@ public class Time implements Drawable {
 
 
     // CONSTRUCTOR -------------------------------------------------------------------
-    public Time(GamePanel gp) {
+    private Time(GamePanel gp) {
         this.gp = gp;
 
         double minutes, seconds;
@@ -59,6 +61,13 @@ public class Time implements Drawable {
 
         seconds = 4;
         fillingDrink = GamePanel.FPS * seconds;
+    }
+    // SINGLETON INSTANTIATOR --------------------------------------------------
+    public static Time instantiate(GamePanel gp) {
+        if (instance == null) {
+            instance = new Time(gp);
+        }
+        return instance;
     }
 
     // FROM INTERFACE: DRAWABLE -------------------------------------------------
