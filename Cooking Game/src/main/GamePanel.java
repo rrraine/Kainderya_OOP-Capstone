@@ -57,12 +57,12 @@ public class GamePanel extends JPanel implements Runnable {
 
     // OBJECTS AND ENTITY
     public Player player = new Player(this, keyB);
-    private final List<NPC> npc = new ArrayList<>();
-    private final List<SuperObject> obj = new ArrayList<>();
+    final List<NPC> npc = new ArrayList<>();
+    final List<SuperObject> obj = new ArrayList<>();
 
     // GAME STATE
     public state gameState;
-    public enum state { HOME, PLAY, PAUSE, OPTIONS }
+    public enum state { HOME, PLAY, PAUSE, OPTIONS, DIALOGUE }
     private boolean newGame;
 
     // ~ FIELDS END HERE
@@ -130,10 +130,6 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
 
-
-    // FROM THIS CLASS ------------------------------------------------------------------------
-
-
     // CORE METHODS ------------------------------------------------------------------------
 
     // 1) PRELOAD STUFF
@@ -141,7 +137,7 @@ public class GamePanel extends JPanel implements Runnable {
 
         // 1. LOAD OBJECTS AND NPC
         Utility.AssetSetter.deploySuperObjectInMap(this, tileSize, obj);
-        Utility.AssetSetter.deployNPCInMap(this, tileSize, getNpc());
+        Utility.AssetSetter.deployNPCInMap(this, tileSize, npc);
 
         // 2. LOAD MUSIC
         playBGMusic(0);
@@ -178,7 +174,7 @@ public class GamePanel extends JPanel implements Runnable {
 
             time.update();
             player.update();
-            for (NPC n : getNpc()) {
+            for (NPC n : npc) {
                 if (n != null) {
                     n.update();
                 }
@@ -186,19 +182,19 @@ public class GamePanel extends JPanel implements Runnable {
         }
     }
 
-    // 4.1) LOAD UPDATED INFO TO BUFFERED TEMP SCREEN
+    // 4.1) RENDER UPDATED INFO TO BUFFERED TEMP SCREEN
     private void drawTempScreen() {
 
         uiM.draw(g2);
 
         if (gameState == state.PLAY) {
+
             // 1. DRAW TILES
             tileM.draw(g2);
-
-            // 2. DRAW SUPEROBJECTS : TODO CLEAN THIS
+            // 2. DRAW SUPER-OBJECTS : TODO CLEAN THIS
             try {
                 for (SuperObject object : obj) {
-
+                    System.out.println(object);
                     object.draw(g2);
                 }
             } catch (ConcurrentModificationException e) {
@@ -206,7 +202,7 @@ public class GamePanel extends JPanel implements Runnable {
             }
 
             // 3. DRAW NPC
-            for (NPC n : getNpc()) {
+            for (NPC n : npc) {
                 if (n != null) {
                     n.draw(g2);
                 }
@@ -227,14 +223,15 @@ public class GamePanel extends JPanel implements Runnable {
         g.dispose();
     }
 
+
     // NEW GAME INSTANCE
     private void newGame() {
         newGame = true;
         time.reinitialize();
     }
 
-    // AUXILIARY METHODS ------------------------------------------------------------------------
 
+    // AUXILIARY METHODS ------------------------------------------------------------------------
     private void setFullScreen() {
 
         // GET LOCAL SCREEN DEVICE INFO
@@ -246,7 +243,6 @@ public class GamePanel extends JPanel implements Runnable {
         fullScreenWidth = Main.window.getWidth();
         fullScreenHeight = Main.window.getHeight();
     }
-
     // PLAY BG MUSIC
     private void playBGMusic(int i) {
 

@@ -10,7 +10,7 @@ import java.awt.image.BufferedImage;
 public class Player extends Entity {
 
     // ~ FIELDS ---------------------------------------------------
-    private final KeyBindings keyH;
+    private final KeyBindings keyB;
 
     // PLAYER SCREEN COORDINATES ALWAYS IN CENTER
     private final int playerCenteredScreenX;
@@ -19,11 +19,11 @@ public class Player extends Entity {
     // ~ METHODS ---------------------------------------------------
 
     // CONSTRUCTOR ---------------------------------------------------
-    public Player(GamePanel gp, KeyBindings keyH) {
+    public Player(GamePanel gp, KeyBindings keyB) {
 
         super(gp, 5, "down");
 
-        this.keyH = keyH;
+        this.keyB = keyB;
 
         // PLAYER CENTERED ON SCREEN
         playerCenteredScreenX = gp.screenWidth / 2 - (gp.tileSize /2);
@@ -45,46 +45,37 @@ public class Player extends Entity {
     @Override
     public void update() {
 
-        // DETECT DIRECTION BY KEYSTROKE TO UPDATE MOVING POSES
-        if (keyH.isUpPressed() || keyH.isDownPressed() || keyH.isLeftPressed() || keyH.isRightPressed()) {
+        // if moving
+        if (keyB.isUpPressed() || keyB.isDownPressed() || keyB.isLeftPressed() || keyB.isRightPressed() ||
+            keyB.isEnterPressed()) {
 
-            if (keyH.isUpPressed()) {
-                direction = "up";
-            }
-            else if (keyH.isDownPressed()) {
-                direction = "down";
-            }
-            else if (keyH.isLeftPressed()) {
-                direction = "left";
-            }
-            else {
-                direction = "right";
-            }
+            // update movements
+            if (keyB.isUpPressed()) { direction = "up"; }
+            else if (keyB.isDownPressed()) { direction = "down"; }
+            else if (keyB.isLeftPressed()) { direction = "left"; }
+            else { direction = "right"; }
 
 
-            // CHECK TILE COLLISION
+            // check tile collision
             collisionOn = false;
             Utility.CollisionChecker.entityHitsTile(this, gp);
             Utility.CollisionChecker.entityHitsTile(this, gp);
 
-            // CHECK OBJECT COLLISION
+            // check super-object collision
             int objIndex = Utility.CollisionChecker.entityHitsSuperObject(this, gp.getObj());
             interactSuperObject(objIndex);
 
-            // CHECK NPC COLLISION
+            // check npc collision
             int npcIndex = Utility.CollisionChecker.entityHitsNPC(this, gp.getNpc());
             interactNPC(npcIndex);
 
-            // CHECK EVENT COLLISION
+            // check event collision
             Utility.CollisionChecker.entityHitsEvent(this, gp);
 
-            keyH.setEnterPressed(false);
-
-            // IF COLLISION IS FALSE, PLAYER CAN MOVE
-            if (!collisionOn) {
+            // if no collision, player can move
+            if (!collisionOn && !keyB.isEnterPressed()) {
 
                 switch (direction) {
-
                     case "up":
                         worldY -= speed;
                         break;
@@ -103,8 +94,9 @@ public class Player extends Entity {
                 }
             }
 
+            keyB.setEnterPressed(false);
 
-            // ALTERNATE SPRITE MOVE POSES EVERY 12 FRAMES
+            // alternate sprite poses every 12 frames
             spriteCounter++;
             if (spriteCounter > 12) {
                 if (spriteNum == 1 || spriteNum == 3) {
@@ -116,11 +108,9 @@ public class Player extends Entity {
                 spriteCounter = 0;
             }
         }
-        // IDLE POSE
+        // else idle
         else {
-
             standCounter++;
-
             if (standCounter == 20) {
                 spriteNum = 3;
                 standCounter = 0;
@@ -134,44 +124,26 @@ public class Player extends Entity {
 
         switch (direction) {
 
-            // MOVEMENT
+            // sprite images
             case "up":
-                if (spriteNum == 1 || spriteNum == 3) {
-                    image = up1;
-                }
-                if (spriteNum == 2) {
-                    image = up2;
-                }
+                if (spriteNum == 1 || spriteNum == 3) { image = up1; }
+                if (spriteNum == 2) { image = up2; }
                 break;
 
             case "down":
-                if (spriteNum == 1) {
-                    image = down1;
-                }
-                if (spriteNum == 2) {
-                    image = down2;
-                }
-                if (spriteNum == 3) {
-                    image = idle;
-                }
+                if (spriteNum == 1) { image = down1; }
+                if (spriteNum == 2) { image = down2; }
+                if (spriteNum == 3) { image = idle; }
                 break;
 
             case "left":
-                if (spriteNum == 1 || spriteNum == 3) {
-                    image = left1;
-                }
-                if (spriteNum == 2) {
-                    image = left2;
-                }
+                if (spriteNum == 1 || spriteNum == 3) { image = left1; }
+                if (spriteNum == 2) { image = left2; }
                 break;
 
             case "right":
-                if (spriteNum == 1 || spriteNum == 3) {
-                    image = right1;
-                }
-                if (spriteNum == 2) {
-                    image = right2;
-                }
+                if (spriteNum == 1 || spriteNum == 3) { image = right1; }
+                if (spriteNum == 2) { image = right2; }
                 break;
         }
         g2.drawImage(image, playerCenteredScreenX, playerCenteredScreenY, null);

@@ -31,5 +31,8 @@ public class Main {
         gamePanel.startGameThread(); // START GAME
 
         // DEBUGGING PURPOSES ------------------------------------
+        System.out.println("Options: ESC");
+        System.out.println("Pause: P");
+        System.out.println("Execute: ENTER / F");
     }
 }

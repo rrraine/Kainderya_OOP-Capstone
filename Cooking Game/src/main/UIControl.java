@@ -18,6 +18,7 @@ public class UIControl implements Drawable {
     private final UI.PlayUI playUI;
     private final UI.PauseUI pauseUI;
     private final UI.OptionsUI optionsUI;
+    private final UI.DialogueUI dialogueUI;
 
     // CONSTRUCTOR ------------------------------------------------------------
     private UIControl(GamePanel gp, Time time) {
@@ -28,6 +29,7 @@ public class UIControl implements Drawable {
         playUI = ui.getPlayUI();
         pauseUI = ui.getPauseUI();
         optionsUI = ui.getOptionsUI();
+        dialogueUI = ui.getDialogueUI();
     }
     // SINGLETON INSTANTIATOR --------------------------------------------------
     public static UIControl instantiate(GamePanel gp, Time time) {
@@ -61,33 +63,23 @@ public class UIControl implements Drawable {
             case OPTIONS:
                 optionsUI.draw();
                 break;
+
+            case DIALOGUE:
+                dialogueUI.draw();
+                break;
         }
     }
 
     // UI GETTERS ----------------------------------------------------------------
-    public UI.OptionsUI getOptionsUI() {
-        return optionsUI;
-    }
-    public UI.PauseUI getPauseUI() {
-        return pauseUI;
-    }
-    public UI.PlayUI getPlayUI() {
-        return playUI;
-    }
-    public UI.HomeUI getHomeUI() {
-        return homeUI;
-    }
+    public UI.OptionsUI getOptionsUI() { return optionsUI; }
+    public UI.PauseUI getPauseUI() { return pauseUI; }
+    public UI.PlayUI getPlayUI() { return playUI; }
+    public UI.HomeUI getHomeUI() { return homeUI; }
 
     // COMMAND GETTERS & SETTERS
-    public int getCommand() {
-        return ui.getCommand();
-    }
-    public void setCommand(int command) {
-        ui.setCommand(command);
-    }
+    public int getCommand() { return ui.getCommand(); }
+    public void setCommand(int command) { ui.setCommand(command); }
 
     // OTHER GETTERS & SETTERS
-    public void setNotif(String notif) {
-        ui.setNotif(notif);
-    }
+    public void setNotif(String notif) { ui.setNotif(notif); }
 }

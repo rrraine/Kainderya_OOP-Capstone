@@ -99,7 +99,7 @@ public class KeyBindings implements KeyListener {
                 }
             }
             // EXECUTE
-            if (code == KeyEvent.VK_ENTER) {
+            if (code == KeyEvent.VK_ENTER || code == KeyEvent.VK_F) {
                 gp.playSFX(2);
                 if (uiM.getCommand() == 0) {
                     gp.playSFX(2);
@@ -138,7 +138,7 @@ public class KeyBindings implements KeyListener {
                 }
             }
             // EXECUTE
-            if (code == KeyEvent.VK_ENTER) {
+            if (code == KeyEvent.VK_ENTER || code == KeyEvent.VK_F) {
                 gp.playSFX(2);
                 if (uiM.getCommand() == 0) {
                     gp.playSFX(2);
@@ -162,22 +162,18 @@ public class KeyBindings implements KeyListener {
     }
     private void playBindings(int code) {
 
-        if (code == KeyEvent.VK_W) {
-            upPressed = true;
-        }
-        if (code == KeyEvent.VK_S) {
-            downPressed = true;
-        }
-        if (code == KeyEvent.VK_A) {
-            leftPressed = true;
-        }
-        if (code == KeyEvent.VK_D) {
-            rightPressed = true;
-        }
+        // movement
+        if (code == KeyEvent.VK_W) { upPressed = true; }
+        if (code == KeyEvent.VK_S) { downPressed = true; }
+        if (code == KeyEvent.VK_A) { leftPressed = true; }
+        if (code == KeyEvent.VK_D) { rightPressed = true; }
+
+        // options
         if (code == KeyEvent.VK_ESCAPE) {
             gp.playSFX(2);
             gp.gameState = GamePanel.state.OPTIONS;
         }
+        // pause
         if (code == KeyEvent.VK_P) {
             gp.playSFX(2);
             gp.gameState = GamePanel.state.PAUSE;
@@ -195,7 +191,7 @@ public class KeyBindings implements KeyListener {
         if (code == KeyEvent.VK_ESCAPE) {
             gp.gameState = GamePanel.state.PLAY;
         }
-        if (code == KeyEvent.VK_ENTER) {
+        if (code == KeyEvent.VK_ENTER || code == KeyEvent.VK_F) {
             enterPressed = true;
         }
 

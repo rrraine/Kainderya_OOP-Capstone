@@ -11,6 +11,7 @@ public abstract class SuperObject implements Drawable, Observable {
 
     // ~ FIELDS --------------------------------------------------------------
     GamePanel gp;
+    Graphics2D g2;
 
     BufferedImage image;
     String name;
@@ -26,9 +27,6 @@ public abstract class SuperObject implements Drawable, Observable {
     // DEFAULT COLLISION
     int solidAreaDefaultX;
     int solidAreaDefaultY;
-
-
-    // ~ METHODS --------------------------------------------------------------
 
 
     // CONSTRUCTOR --------------------------------------------------------------
@@ -58,6 +56,7 @@ public abstract class SuperObject implements Drawable, Observable {
         if (inView(gp.tileSize, gp.player, worldX, worldY)) {
             g2.drawImage(image, screenX, screenY, gp.tileSize, gp.tileSize, null);
         }
+
     }
 
 
@@ -71,26 +70,13 @@ public abstract class SuperObject implements Drawable, Observable {
 
 
     // GETTERS & SETTERS --------------------------------------------------------------
-    public boolean isCollision() {
-        return collision;
-    }
-    public int getWorldX() {
-        return worldX;
-    }
-    public void setWorldX(int worldX) {
-        this.worldX = worldX;
-    }
-    public int getWorldY() {
-        return worldY;
-    }
-    public Rectangle getSolidArea() {
-        return solidArea;
-    }
-    public int getSolidAreaDefaultX() {
-        return solidAreaDefaultX;
-    }
-    public int getSolidAreaDefaultY() {
-        return solidAreaDefaultY;
-    }
+    public boolean isCollision() { return collision; }
+    public int getWorldX() { return worldX; }
+    public void setWorldX(int worldX) { this.worldX = worldX; }
+    public int getWorldY() { return worldY; }
+    public void setWorldY(int worldY) { this.worldY = worldY; }
+    public Rectangle getSolidArea() { return solidArea; }
+    public int getSolidAreaDefaultX() { return solidAreaDefaultX; }
+    public int getSolidAreaDefaultY() { return solidAreaDefaultY; }
 
 }

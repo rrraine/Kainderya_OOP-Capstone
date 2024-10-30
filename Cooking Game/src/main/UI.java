@@ -33,10 +33,11 @@ public class UI implements Drawable, Importable {
     private int command;
 
     // INNER UI VERSIONS
-    public final HomeUI homeUI;
-    public final PlayUI playUI;
-    public final PauseUI pauseUI;
-    public final OptionsUI optionsUI;
+    private final HomeUI homeUI;
+    private final PlayUI playUI;
+    private final PauseUI pauseUI;
+    private final OptionsUI optionsUI;
+    private final DialogueUI dialogueUI;
 
 
     // CONSTRUCTOR -----------------------------------------------------------------
@@ -45,10 +46,11 @@ public class UI implements Drawable, Importable {
         this.gp = gp;
         this.time = time;
 
-        homeUI = new HomeUI(this);
-        playUI = new PlayUI(this);
-        pauseUI = new PauseUI(this);
-        optionsUI = new OptionsUI(this);
+        homeUI = new HomeUI();
+        playUI = new PlayUI();
+        pauseUI = new PauseUI();
+        optionsUI = new OptionsUI();
+        dialogueUI = new DialogueUI();
 
         notifDuration = 0;
         notifOn = false;
@@ -91,8 +93,7 @@ public class UI implements Drawable, Importable {
     }
 
     // FROM THIS CLASS -------------------------------------------------------------
-    private void drawCursor(String text, int x, int y, boolean singleArrow, Graphics2D g2) {
-        this.g2 = g2;
+    private void drawCursor(String text, int x, int y, boolean singleArrow) {
 
         List<Integer> coord = Utility.Aligner.centerCursor(text, x, y, gp, g2);
 
@@ -110,11 +111,10 @@ public class UI implements Drawable, Importable {
     }
     private void drawElement(String text, int x, int y) {}
     public void showNotification(String text) {
-
         notif = text;
         notifOn = true;
     }
-    private void drawSubWindow(int x, int y, int width, int height) {
+    private void drawPopUpWindow(int x, int y, int width, int height) {
 
         Color color = new Color(0,0,0, 220);
         g2.setColor(color);
@@ -129,12 +129,8 @@ public class UI implements Drawable, Importable {
     }
 
     // COMMAND GETTERS & SETTERS
-    public int getCommand() {
-        return command;
-    }
-    public void setCommand(int command) {
-        this.command = command;
-    }
+    public int getCommand() { return command; }
+    public void setCommand(int command) { this.command = command; }
 
     // OTHER GETTERS & SETTERS
     public void setNotif(String notif) {
@@ -142,34 +138,23 @@ public class UI implements Drawable, Importable {
     }
 
     // UI STATE GETTERS -----------------------------------------------
-    public HomeUI getHomeUI() {
-        return homeUI;
-    }
-    public PlayUI getPlayUI() {
-        return playUI;
-    }
-    public PauseUI getPauseUI() {
-        return pauseUI;
-    }
-    public OptionsUI getOptionsUI() {
-        return optionsUI;
-    }
+    public HomeUI getHomeUI() { return homeUI; }
+    public PlayUI getPlayUI() { return playUI; }
+    public PauseUI getPauseUI() { return pauseUI; }
+    public OptionsUI getOptionsUI() { return optionsUI; }
+    public DialogueUI getDialogueUI() { return dialogueUI; }
 
 
     // INNER CLASS UI STATES ---------------------------------------------------------
     public class HomeUI {
 
-        UI ui;
-        Graphics2D g2;
         public substate homeState;
         public enum substate { TITLE, SELECTION }
 
-        public HomeUI(UI ui) {
-            this.ui = ui;
+        public HomeUI() {
             homeState = substate.TITLE;
         }
         public void draw() {
-            this.g2 = ui.g2;
 
             // BACKGROUND
             g2.setColor(new Color(70, 120, 80));
@@ -207,7 +192,7 @@ public class UI implements Drawable, Importable {
             // ICON
             x = gp.screenWidth / 2 - (gp.tileSize*2)/2 - 20;
             y += gp.tileSize * 2 - 20;
-            g2.drawImage(gp.getNpc().getFirst().getIdle(), x, y, gp.tileSize * 3, gp.tileSize * 3, null);
+            g2.drawImage(gp.npc.getFirst().getIdle(), x, y, gp.tileSize * 3, gp.tileSize * 3, null);
 
             // NEW GAME
             g2.setFont(g2.getFont().deriveFont(Font.BOLD, 48F));
@@ -216,7 +201,7 @@ public class UI implements Drawable, Importable {
             y += gp.tileSize * 4 + 30;
             g2.drawString(text, x, y);
             if (command == 0) {
-                drawCursor(text, x, y, false, g2);
+                drawCursor(text, x, y, false);
             }
 
             // CUSTOMIZE
@@ -226,7 +211,7 @@ public class UI implements Drawable, Importable {
             y += gp.tileSize;
             g2.drawString(text, x, y);
             if (command == 1) {
-                drawCursor(text, x, y, false, g2);
+                drawCursor(text, x, y, false);
             }
 
             // QUIT
@@ -236,7 +221,7 @@ public class UI implements Drawable, Importable {
             y += gp.tileSize;
             g2.drawString(text, x, y);
             if (command == 2) {
-                drawCursor(text, x, y, false, g2);
+                drawCursor(text, x, y, false);
             }
         }
         private void homeSELECTION() {
@@ -255,7 +240,7 @@ public class UI implements Drawable, Importable {
             y += gp.tileSize * 3;
             g2.drawString(text, x, y);
             if (command == 0) {
-                drawCursor(text, x, y, false, g2);
+                drawCursor(text, x, y, false);
             }
 
             text = "Boy 2";
@@ -263,7 +248,7 @@ public class UI implements Drawable, Importable {
             y += gp.tileSize;
             g2.drawString(text, x, y);
             if (command == 1) {
-                drawCursor(text, x, y, false, g2);
+                drawCursor(text, x, y, false);
             }
 
             text = "Girl 1";
@@ -271,7 +256,7 @@ public class UI implements Drawable, Importable {
             y += gp.tileSize;
             g2.drawString(text, x, y);
             if (command == 2) {
-                drawCursor(text, x, y, false, g2);
+                drawCursor(text, x, y, false);
             }
 
             text = "Girl 2";
@@ -279,31 +264,24 @@ public class UI implements Drawable, Importable {
             y += gp.tileSize;
             g2.drawString(text, x, y);
             if (command == 3) {
-                drawCursor(text, x, y, false, g2);
+                drawCursor(text, x, y, false);
             }
         }
     }
     public class PlayUI  {
 
-        Graphics2D g2;
-        UI ui;
-        private PlayUI(UI ui) {
-            this.ui = ui;
+        public PlayUI() {
+
         }
         public void draw() {
-            this.g2 = ui.g2;
         }
     }
     public class PauseUI  {
 
-        Graphics2D g2;
-        UI ui;
+        private PauseUI() {
 
-        private PauseUI(UI ui) {
-            this.ui = ui;
         }
         public void draw() {
-            this.g2 = ui.g2;
 
             // PAUSE TEXT
             g2.setFont(g2.getFont().deriveFont(Font.PLAIN,80F));
@@ -317,25 +295,23 @@ public class UI implements Drawable, Importable {
     }
     public class OptionsUI  {
 
-        Graphics2D g2;
-        UI ui;
         public substate optionsState;
         public enum substate {START, FULLSCREEN, SOUND, MULTIPLAYER, QUIT, RESUME }
 
-        public OptionsUI(UI ui) {
-            this.ui = ui;
+        public OptionsUI() {
             optionsState = substate.START;
         }
 
+
         public void draw() {
-            this.g2 = ui.g2;
+
 
             // SUB WINDOW
             int frameX = gp.tileSize * 6;
             int frameY = gp.tileSize;
             int frameWidth = gp.tileSize * 8;
             int frameHeight = gp.tileSize * 10;
-            drawSubWindow(frameX, frameY, frameWidth, frameHeight);
+            drawPopUpWindow(frameX, frameY, frameWidth, frameHeight);
 
             g2.setFont(g2.getFont().deriveFont(Font.PLAIN,30F));
 
@@ -386,7 +362,7 @@ public class UI implements Drawable, Importable {
             textY += gp.tileSize * 2;
             g2.drawString(label, textX, textY);
             if (command == 0) {
-                drawCursor(label, textX, textY, true, g2);
+                drawCursor(label, textX, textY, true);
 
                 // IF PRESSED
                 if (gp.keyB.isEnterPressed()) {
@@ -407,7 +383,7 @@ public class UI implements Drawable, Importable {
             textY += gp.tileSize;
             g2.drawString(label, textX, textY);
             if (command == 1) {
-                drawCursor(label, textX, textY, true, g2);
+                drawCursor(label, textX, textY, true);
             }
 
             // VOLUME
@@ -415,7 +391,7 @@ public class UI implements Drawable, Importable {
             textY += gp.tileSize;
             g2.drawString(label, textX, textY);
             if (command == 2) {
-                drawCursor(label, textX, textY, true, g2);
+                drawCursor(label, textX, textY, true);
             }
 
             // QUIT
@@ -423,7 +399,7 @@ public class UI implements Drawable, Importable {
             textY += gp.tileSize;
             g2.drawString(label , textX, textY);
             if (command == 3) {
-                drawCursor(label, textX, textY, true, g2);
+                drawCursor(label, textX, textY, true);
                 if (gp.keyB.isEnterPressed()) {
                     optionsState = substate.QUIT;
                     command = 0;
@@ -435,7 +411,7 @@ public class UI implements Drawable, Importable {
             textY += gp.tileSize * 2;
             g2.drawString(label, textX, textY);
             if (command == 4) {
-                drawCursor(label, textX, textY, true, g2);
+                drawCursor(label, textX, textY, true);
                 if (gp.keyB.isEnterPressed()) {
                     gp.gameState = GamePanel.state.PLAY;
                     command = 0;
@@ -474,9 +450,9 @@ public class UI implements Drawable, Importable {
             textY += gp.tileSize * 2;
             g2.drawString("Back", textX, textY);
             if (command == 0) {
-                drawCursor("Back", textX, textY, true, g2);
+                drawCursor("Back", textX, textY, true);
                 if (gp.keyB.isEnterPressed()){
-                    optionsUI.optionsState = OptionsUI.substate.START;
+                    getOptionsUI().optionsState = OptionsUI.substate.START;
                     command = 0;
                 }
             }
@@ -500,12 +476,12 @@ public class UI implements Drawable, Importable {
             textY += gp.tileSize * 3;
             g2.drawString(text, textX, textY);
             if (command == 0) {
-                drawCursor(text, textX, textY, true, g2);
+                drawCursor(text, textX, textY, true);
                 // QUIT
                 if (gp.keyB.isEnterPressed()) {
-                    optionsUI.optionsState = OptionsUI.substate.START;
+                    getOptionsUI().optionsState = OptionsUI.substate.START;
                     gp.gameState = GamePanel.state.HOME;
-                    homeUI.homeState = HomeUI.substate.TITLE;
+                    getHomeUI().homeState = HomeUI.substate.TITLE;
                 }
             }
 
@@ -515,13 +491,23 @@ public class UI implements Drawable, Importable {
             textY += gp.tileSize;
             g2.drawString(text, textX, textY);
             if (command == 1) {
-                drawCursor(text, textX, textY, true, g2);
+                drawCursor(text, textX, textY, true);
                 // QUIT
                 if (gp.keyB.isEnterPressed()) {
-                    optionsUI.optionsState = OptionsUI.substate.START;
+                    getOptionsUI().optionsState = OptionsUI.substate.START;
                     command = 0;
                 }
             }
+        }
+    }
+    public class DialogueUI {
+
+        public DialogueUI() {
+
+        }
+
+        public void draw() {
+            // TODO POP-UP ORDER CLOUD ABOVE NPC
         }
     }
 
