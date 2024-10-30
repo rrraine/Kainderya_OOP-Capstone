@@ -336,6 +336,9 @@ public class Utility {
             player.getSolidArea().x = player.getSolidAreaDefaultX();
             player.getSolidArea().y = player.getSolidAreaDefaultY();
         }
+        public static void entityHitsEvent(Entity en, GamePanel gp) {
+            gp.eH.detectEvents(en);
+        }
     }
 
     // ------------------------------------------------------------

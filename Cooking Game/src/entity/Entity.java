@@ -167,6 +167,9 @@ public abstract class Entity implements Drawable, Observable {
         return solidAreaDefaultY;
     }
 
+    public void setSpeed(int speed) {
+        this.speed = speed;
+    }
     public void setWorldX(int worldX) {
         this.worldX = worldX;
     }

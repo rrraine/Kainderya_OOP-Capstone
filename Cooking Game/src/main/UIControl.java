@@ -6,10 +6,10 @@ import interfaces.Drawable;
 
 import java.awt.*;
 
-public class UIManager implements Drawable {
+public class UIControl implements Drawable {
 
     // ~ FIELDS -------------------------------------------------------------
-    private static UIManager instance;
+    private static UIControl instance;
 
     private final GamePanel gp;
     private final UI ui;
@@ -20,7 +20,7 @@ public class UIManager implements Drawable {
     private final UI.OptionsUI optionsUI;
 
     // CONSTRUCTOR ------------------------------------------------------------
-    private UIManager (GamePanel gp, Time time) {
+    private UIControl(GamePanel gp, Time time) {
         this.gp = gp;
         ui = UI.instantiate(gp, time);
 
@@ -30,9 +30,9 @@ public class UIManager implements Drawable {
         optionsUI = ui.getOptionsUI();
     }
     // SINGLETON INSTANTIATOR --------------------------------------------------
-    public static UIManager instantiate(GamePanel gp, Time time) {
+    public static UIControl instantiate(GamePanel gp, Time time) {
         if (instance == null) {
-            instance = new UIManager(gp, time);
+            instance = new UIControl(gp, time);
         }
         return instance;
     }
@@ -64,7 +64,7 @@ public class UIManager implements Drawable {
         }
     }
 
-    // GETTERS ----------------------------------------------------------------
+    // UI GETTERS ----------------------------------------------------------------
     public UI.OptionsUI getOptionsUI() {
         return optionsUI;
     }
@@ -86,4 +86,8 @@ public class UIManager implements Drawable {
         ui.setCommand(command);
     }
 
+    // OTHER GETTERS & SETTERS
+    public void setNotif(String notif) {
+        ui.setNotif(notif);
+    }
 }

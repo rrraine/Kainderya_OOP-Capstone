@@ -136,6 +136,11 @@ public class UI implements Drawable, Importable {
         this.command = command;
     }
 
+    // OTHER GETTERS & SETTERS
+    public void setNotif(String notif) {
+        this.notif = notif;
+    }
+
     // UI STATE GETTERS -----------------------------------------------
     public HomeUI getHomeUI() {
         return homeUI;

@@ -9,7 +9,7 @@ public class KeyBindings implements KeyListener {
     private static KeyBindings instance;
 
     GamePanel gp;
-    UIManager uiM;
+    UIControl uiM;
     private boolean upPressed;
     private boolean downPressed;
     private boolean leftPressed;
@@ -18,12 +18,12 @@ public class KeyBindings implements KeyListener {
 
 
     // CONSTRUCTOR -----------------------------------------------------------------
-    private KeyBindings(GamePanel gp, UIManager uiM) {
+    private KeyBindings(GamePanel gp, UIControl uiM) {
         this.gp = gp;
         this.uiM = uiM;
     }
     // SINGLETON INSTANTIATE -------------------------------------------------
-    public static KeyBindings instantiate(GamePanel gp, UIManager uiM) {
+    public static KeyBindings instantiate(GamePanel gp, UIControl uiM) {
         if (instance == null) {
             instance = new KeyBindings(gp, uiM);
         }

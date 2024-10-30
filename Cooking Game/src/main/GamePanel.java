@@ -50,8 +50,9 @@ public class GamePanel extends JPanel implements Runnable {
     Sound music = new Sound();
     Sound sfx = new Sound();
     Time time = Time.instantiate(this);
-    UIManager uiM = UIManager.instantiate(this, time);
+    UIControl uiM = UIControl.instantiate(this, time);
     KeyBindings keyB = KeyBindings.instantiate(this, uiM);
+    EventHandler eH = EventHandler.instantiate(this);
     Thread gameThread;
 
     // OBJECTS AND ENTITY

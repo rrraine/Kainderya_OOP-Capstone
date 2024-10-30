@@ -75,6 +75,11 @@ public class Player extends Entity {
             int npcIndex = Utility.CollisionChecker.entityHitsNPC(this, gp.getNpc());
             interactNPC(npcIndex);
 
+            // CHECK EVENT COLLISION
+            Utility.CollisionChecker.entityHitsEvent(this, gp);
+
+            keyH.setEnterPressed(false);
+
             // IF COLLISION IS FALSE, PLAYER CAN MOVE
             if (!collisionOn) {
 
