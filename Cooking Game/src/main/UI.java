@@ -82,16 +82,6 @@ public class UI implements Drawable, Importable {
         // COMMON UI
         this.g2 = g2;
 
-        // INITIALIZE FONT FACE
-        g2.setFont(fredokaSemiBold);
-        g2.setColor(Color.white);
-
-        // DRAW TIMER
-        if (gp.gameState != GamePanel.state.HOME) {
-            g2.setFont(g2.getFont().deriveFont(Font.PLAIN,30F));
-            g2.drawString("Time: " + Time.getTimer(), gp.tileSize * 16, 65);
-        }
-
     }
 
     // FROM THIS CLASS -------------------------------------------------------------
@@ -277,6 +267,16 @@ public class UI implements Drawable, Importable {
 
         }
         public void draw() {
+
+            // INITIALIZE FONT FACE
+            g2.setFont(fredokaSemiBold);
+            g2.setColor(Color.white);
+
+            // DRAW TIMER
+            if (gp.gameState != GamePanel.state.HOME) {
+                g2.setFont(g2.getFont().deriveFont(Font.PLAIN,30F));
+                g2.drawString("Time: " + Time.getTimer(), gp.tileSize * 16, 65);
+            }
         }
     }
     public class PauseUI  {
@@ -482,9 +482,9 @@ public class UI implements Drawable, Importable {
                 drawCursor(text, textX, textY, true);
                 // QUIT
                 if (gp.keyB.isEnterPressed()) {
-                    getOptionsUI().optionsState = OptionsUI.substate.START;
+                    optionsUI.optionsState = OptionsUI.substate.START;
+                    homeUI.homeState = HomeUI.substate.TITLE;
                     gp.gameState = GamePanel.state.HOME;
-                    getHomeUI().homeState = HomeUI.substate.TITLE;
                 }
             }
 
@@ -543,15 +543,13 @@ public class UI implements Drawable, Importable {
             int x = Utility.Aligner.centerText(text, gp, g2);
             int y = gp.screenHeight / 2;
 
+
             g2.drawString(text, x, y);
 
-//            try {
-//                Thread.sleep(2000);
-//                terminalState = substate.LEADERBOARD;
-//            }
-//            catch (InterruptedException e) {
-//                System.err.println("Unexpected thread sleep (2 secs): " + e.getMessage());
-//            }
+            //Time.delay(2);
+            homeUI.homeState = HomeUI.substate.TITLE;
+            gp.gameState = GamePanel.state.HOME;
+
         }
         private void terminalLEADERBOARD() {
 
@@ -561,6 +559,11 @@ public class UI implements Drawable, Importable {
             String text = "LEADERBOARDS";
             int x = Utility.Aligner.centerText(text, gp, g2);
             int y = gp.screenHeight / 2;
+
+            if (gp.keyB.isEnterPressed()) {
+                homeUI.homeState = HomeUI.substate.TITLE;
+                gp.gameState = GamePanel.state.HOME;
+            }
         }
     }
 

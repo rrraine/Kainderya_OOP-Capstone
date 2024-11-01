@@ -114,11 +114,25 @@ public class Time implements Drawable {
         }
     }
     @Override
-    public void draw(Graphics2D g2) {} // DRAWN IN CLASS UI INSTEAD
+    public void draw(Graphics2D g2) {} // USELESS
 
 
     // FROM THIS CLASS ----------------------------------------------------------
+    public static void delay(int sec) {
+        // TODO FIX THIS METHOD
+        try {
+            if (sec < 0)
+                throw new IllegalArgumentException();
+        } catch (IllegalArgumentException e) {
+            System.err.println("Cannot input negative in Time.delay()");
+        }
 
+        long delay = System.currentTimeMillis() + sec * 1000L;
+
+        while (System.currentTimeMillis() < delay) {
+            // wait
+        }
+    }
 
     // GETTERS -------------------------------------------------------------------
     public static String getTimer() {
