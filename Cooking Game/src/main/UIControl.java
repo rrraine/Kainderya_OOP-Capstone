@@ -19,6 +19,7 @@ public class UIControl implements Drawable {
     private final UI.PauseUI pauseUI;
     private final UI.OptionsUI optionsUI;
     private final UI.DialogueUI dialogueUI;
+    private final UI.TerminalUI terminalUI;
 
     // CONSTRUCTOR ------------------------------------------------------------
     private UIControl(GamePanel gp, Time time) {
@@ -30,6 +31,7 @@ public class UIControl implements Drawable {
         pauseUI = ui.getPauseUI();
         optionsUI = ui.getOptionsUI();
         dialogueUI = ui.getDialogueUI();
+        terminalUI = ui.getTerminalUI();
     }
     // SINGLETON INSTANTIATOR --------------------------------------------------
     public static UIControl instantiate(GamePanel gp, Time time) {
@@ -67,6 +69,10 @@ public class UIControl implements Drawable {
             case DIALOGUE:
                 dialogueUI.draw();
                 break;
+
+            case TERMINAL:
+                terminalUI.draw();
+                break;
         }
     }
 
@@ -75,6 +81,7 @@ public class UIControl implements Drawable {
     public UI.PauseUI getPauseUI() { return pauseUI; }
     public UI.PlayUI getPlayUI() { return playUI; }
     public UI.HomeUI getHomeUI() { return homeUI; }
+    public UI.TerminalUI getTerminalUI() { return terminalUI; }
 
     // COMMAND GETTERS & SETTERS
     public int getCommand() { return ui.getCommand(); }

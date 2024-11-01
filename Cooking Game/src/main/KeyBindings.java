@@ -54,6 +54,10 @@ public class KeyBindings implements KeyListener {
             case OPTIONS:
                 optionsBindings(code);
                 break;
+
+            case TERMINAL:
+                terminalBindings(code);
+                break;
         }
     }
     @Override
@@ -178,6 +182,11 @@ public class KeyBindings implements KeyListener {
             gp.playSFX(2);
             gp.gameState = GamePanel.state.PAUSE;
         }
+        // terminal
+        if (code == KeyEvent.VK_BACK_SPACE) {
+            gp.playSFX(3);
+            gp.gameState = GamePanel.state.TERMINAL;
+        }
     }
     private void pauseBindings(int code) {
 
@@ -220,8 +229,26 @@ public class KeyBindings implements KeyListener {
             }
         }
     }
+    private void terminalBindings(int code) {
 
-    // GETTERS & SETTERS
+        // TERMINAL STATE -> TIMES UP SUB-STATE
+        if (uiM.getTerminalUI().terminalState == UI.TerminalUI.substate.TIMESUP) {
+
+            // TODO WAIT FOR 3 SECONDS
+        }
+
+        // TERMINAL STATE -> LEADERBOARDS SUB-STATE
+        else if (uiM.getTerminalUI().terminalState == UI.TerminalUI.substate.LEADERBOARD) {
+
+            // TODO DISPLAY SCORES UNTIL PLAYERS PRESS ENTER
+            if (code == KeyEvent.VK_ENTER) {
+                gp.gameState = GamePanel.state.HOME;
+            }
+
+        }
+    }
+
+    // GETTERS & SETTERS ---------------------------------------------------------
     public boolean isUpPressed() {
         return upPressed;
     }

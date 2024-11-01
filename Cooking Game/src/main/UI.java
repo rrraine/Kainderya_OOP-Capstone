@@ -38,6 +38,7 @@ public class UI implements Drawable, Importable {
     private final PauseUI pauseUI;
     private final OptionsUI optionsUI;
     private final DialogueUI dialogueUI;
+    private final TerminalUI terminalUI;
 
 
     // CONSTRUCTOR -----------------------------------------------------------------
@@ -51,6 +52,7 @@ public class UI implements Drawable, Importable {
         pauseUI = new PauseUI();
         optionsUI = new OptionsUI();
         dialogueUI = new DialogueUI();
+        terminalUI = new TerminalUI();
 
         notifDuration = 0;
         notifOn = false;
@@ -143,6 +145,7 @@ public class UI implements Drawable, Importable {
     public PauseUI getPauseUI() { return pauseUI; }
     public OptionsUI getOptionsUI() { return optionsUI; }
     public DialogueUI getDialogueUI() { return dialogueUI; }
+    public TerminalUI getTerminalUI() { return terminalUI; }
 
 
     // INNER CLASS UI STATES ---------------------------------------------------------
@@ -508,6 +511,56 @@ public class UI implements Drawable, Importable {
 
         public void draw() {
             // TODO POP-UP ORDER CLOUD ABOVE NPC
+        }
+    }
+    public class TerminalUI {
+
+        public substate terminalState;
+        public enum substate { TIMESUP, LEADERBOARD }
+
+        public TerminalUI() {
+            terminalState = substate.TIMESUP;
+        }
+        public void draw() {
+
+            switch (terminalState) {
+
+                case TIMESUP:
+                    terminalTIMESUP();
+                    break;
+
+                case LEADERBOARD:
+                    terminalLEADERBOARD();
+                    break;
+            }
+        }
+        private void terminalTIMESUP() {
+
+            // TIMES UP TEXT
+            g2.setFont(g2.getFont().deriveFont(Font.PLAIN,80F));
+            g2.setColor(Color.RED);
+            String text = "TIMES UP";
+            int x = Utility.Aligner.centerText(text, gp, g2);
+            int y = gp.screenHeight / 2;
+
+            g2.drawString(text, x, y);
+
+//            try {
+//                Thread.sleep(2000);
+//                terminalState = substate.LEADERBOARD;
+//            }
+//            catch (InterruptedException e) {
+//                System.err.println("Unexpected thread sleep (2 secs): " + e.getMessage());
+//            }
+        }
+        private void terminalLEADERBOARD() {
+
+            // TIMES UP TEXT
+            g2.setFont(g2.getFont().deriveFont(Font.PLAIN,80F));
+            g2.setColor(Color.WHITE);
+            String text = "LEADERBOARDS";
+            int x = Utility.Aligner.centerText(text, gp, g2);
+            int y = gp.screenHeight / 2;
         }
     }
 

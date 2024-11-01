@@ -62,7 +62,7 @@ public class GamePanel extends JPanel implements Runnable {
 
     // GAME STATE
     public state gameState;
-    public enum state { HOME, PLAY, PAUSE, OPTIONS, DIALOGUE }
+    public enum state { HOME, PLAY, PAUSE, OPTIONS, DIALOGUE, TERMINAL }
     private boolean newGame;
 
     // ~ FIELDS END HERE
