@@ -196,6 +196,55 @@ public class TileManager implements Importable, Drawable, Observable {
         tile[25].image = importImage("restaurant", "floor", "plainTile", gp.tileSize);
         tile[25].collision = false;
 
+    // exterior walls
+
+        tile[26] = new Tile();
+        tile[26].image = importImage("exteriorWalls", "floor", "ex01", gp.tileSize);
+        tile[26].collision = true;
+
+        tile[27] = new Tile();
+        tile[27].image = importImage("exteriorWalls", "floor", "ex2", gp.tileSize);
+        tile[27].collision = true;
+
+        tile[28] = new Tile();
+        tile[28].image = importImage("exteriorWalls", "floor", "ex3", gp.tileSize);
+        tile[28].collision = true;
+
+        tile[29] = new Tile();
+        tile[29].image = importImage("exteriorWalls", "floor", "ex4", gp.tileSize);
+        tile[29].collision = true;
+
+        tile[30] = new Tile();
+        tile[30].image = importImage("exteriorWalls", "floor", "ex5", gp.tileSize);
+        tile[30].collision = true;
+
+        tile[31] = new Tile();
+        tile[31].image = importImage("exteriorWalls", "floor", "ex6", gp.tileSize);
+        tile[31].collision = true;
+
+        tile[32] = new Tile();
+        tile[32].image = importImage("exteriorWalls", "floor", "ex7", gp.tileSize);
+        tile[32].collision = true;
+
+        tile[33] = new Tile();
+        tile[33].image = importImage("exteriorWalls", "floor", "x8", gp.tileSize);
+        tile[33].collision = true;
+
+        tile[34] = new Tile();
+        tile[34].image = importImage("exteriorWalls", "floor", "ex9", gp.tileSize);
+        tile[34].collision = true;
+
+        tile[35] = new Tile();
+        tile[35].image = importImage("exteriorWalls", "floor", "ex10", gp.tileSize);
+        tile[35].collision = true;
+
+        tile[36] = new Tile();
+        tile[36].image = importImage("exteriorWalls", "floor", "ex11", gp.tileSize);
+        tile[36].collision = true;
+
+        tile[37] = new Tile();
+        tile[37].image = importImage("exteriorWalls", "floor", "ex12", gp.tileSize);
+        tile[37].collision = true;
 
     }
 
