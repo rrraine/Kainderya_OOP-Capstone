@@ -27,7 +27,7 @@ public class TileManager implements Importable, Drawable, Observable {
     private TileManager(GamePanel gp) {
 
         this.gp = gp;
-        tile = new Tile[10]; // stores different types of tile
+        tile = new Tile[50]; // stores different types of tile
         mapTileNum = new int[gp.maxWorldCol][gp.maxWorldRow]; // stores the map matrix
 
         tileSetup();
@@ -107,6 +107,84 @@ public class TileManager implements Importable, Drawable, Observable {
         tile[5].image = importImage("tiles", "floor", "sand", gp.tileSize);
         tile[5].collision = false;
 
+        // road tiles for outside environment
+        // left muna
+        tile[6] = new Tile();
+        tile[6].image = importImage("roads", "floor", "LeftRoad", gp.tileSize);
+        tile[6].collision = false;
+
+        tile[7] = new Tile();
+        tile[7].image = importImage("roads", "floor", "LeftSidewalk", gp.tileSize);
+        tile[7].collision = false;
+
+        tile[8] = new Tile();
+        tile[8].image = importImage("roads", "floor", "LeftRUSidewalk", gp.tileSize);
+        tile[8].collision = false;
+
+        // road right side
+        tile[9] = new Tile();
+        tile[9].image = importImage("roads", "floor", "RightRoad", gp.tileSize);
+        tile[9].collision = false;
+
+        tile[10] = new Tile();
+        tile[10].image = importImage("roads", "floor", "RightSidewalk", gp.tileSize);
+        tile[10].collision = false;
+
+        tile[11] = new Tile();
+        tile[11].image = importImage("roads", "floor", "RightLUSidewalk", gp.tileSize);
+        tile[11].collision = false;
+
+        // below road
+
+        tile[12] = new Tile();
+        tile[12].image = importImage("roads", "floor", "BelowRoad", gp.tileSize);
+        tile[12].collision = false;
+
+        tile[13] = new Tile();
+        tile[13].image = importImage("roads", "floor", "AboveRoad", gp.tileSize);
+        tile[13].collision = false;
+
+        tile[14] = new Tile();
+        tile[14].image = importImage("roads", "floor", "BelowSidewalk", gp.tileSize);
+        tile[14].collision = false;
+
+        tile[15] = new Tile();
+        tile[15].image = importImage("roads", "floor", "pedestrian", gp.tileSize);
+        tile[15].collision = false;
+
+        tile[16] = new Tile();
+        tile[16].image = importImage("roads", "floor", "plainRoad", gp.tileSize);
+        tile[16].collision = false;
+
+        tile[17] = new Tile();
+        tile[17].image = importImage("roads", "floor", "roadUpSidewalk", gp.tileSize);
+        tile[17].collision = false;
+
+        tile[18] = new Tile();
+        tile[18].image = importImage("roads", "floor", "BelowSidewalk", gp.tileSize);
+        tile[18].collision = false;
+
+    // concrete tiles
+
+        tile[19] = new Tile();
+        tile[19].image = importImage("concrete", "floor", "concrete1", gp.tileSize);
+        tile[19].collision = false;
+
+        tile[20] = new Tile();
+        tile[20].image = importImage("concrete", "floor", "concrete2", gp.tileSize);
+        tile[20].collision = false;
+
+        tile[21] = new Tile();
+        tile[21].image = importImage("concrete", "floor", "concrete3", gp.tileSize);
+        tile[21].collision = false;
+
+        tile[22] = new Tile();
+        tile[22].image = importImage("concrete", "floor", "crackedConcrete", gp.tileSize);
+        tile[22].collision = false;
+
+        tile[23] = new Tile();
+        tile[23].image = importImage("concrete", "floor", "slightCracked", gp.tileSize);
+        tile[23].collision = false;
     }
 
     // IMPORT MAP AND READ ITS MATRIX
