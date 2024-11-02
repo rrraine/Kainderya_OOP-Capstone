@@ -164,7 +164,7 @@ public class TileManager implements Importable, Drawable, Observable {
         tile[18].image = importImage("roads", "floor", "BelowSidewalk", gp.tileSize);
         tile[18].collision = false;
 
-    // concrete tiles
+    // concrete tiles, daghan for textures
 
         tile[19] = new Tile();
         tile[19].image = importImage("concrete", "floor", "concrete1", gp.tileSize);
