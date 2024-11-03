@@ -234,14 +234,22 @@ public class GamePanel extends JPanel implements Runnable {
     // AUXILIARY METHODS ------------------------------------------------------------------------
     private void setFullScreen() {
 
-        // GET LOCAL SCREEN DEVICE INFO
-        GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
-        GraphicsDevice gd = ge.getDefaultScreenDevice();
-        gd.setFullScreenWindow(Main.window);
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        double width = screenSize.getWidth();
+        double height = screenSize.getHeight();
+        Main.window.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        fullScreenWidth = (int) width;
+        fullScreenHeight = (int) height;
 
-        // GET FULL SCREEN WIDTH & HEIGHT
-        fullScreenWidth = Main.window.getWidth();
-        fullScreenHeight = Main.window.getHeight();
+//
+//        // GET LOCAL SCREEN DEVICE INFO
+//        GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+//        GraphicsDevice gd = ge.getDefaultScreenDevice();
+//        gd.setFullScreenWindow(Main.window);
+//
+//        // GET FULL SCREEN WIDTH & HEIGHT
+//        fullScreenWidth = Main.window.getWidth();
+//        fullScreenHeight = Main.window.getHeight();
     }
     // PLAY BG MUSIC
     private void playBGMusic(int i) {
