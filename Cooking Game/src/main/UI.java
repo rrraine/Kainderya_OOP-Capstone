@@ -82,6 +82,9 @@ public class UI implements Drawable, Importable {
         // COMMON UI
         this.g2 = g2;
 
+        g2.setFont(fredokaSemiBold);
+        g2.setColor(Color.white);
+
     }
 
     // FROM THIS CLASS -------------------------------------------------------------
@@ -267,10 +270,6 @@ public class UI implements Drawable, Importable {
 
         }
         public void draw() {
-
-            // INITIALIZE FONT FACE
-            g2.setFont(fredokaSemiBold);
-            g2.setColor(Color.white);
 
             // DRAW TIMER
             if (gp.gameState != GamePanel.state.HOME) {
