@@ -194,7 +194,6 @@ public class GamePanel extends JPanel implements Runnable {
             // 2. DRAW SUPER-OBJECTS : TODO CLEAN THIS
             try {
                 for (SuperObject object : obj) {
-                    System.out.println(object);
                     object.draw(g2);
                 }
             } catch (ConcurrentModificationException e) {
