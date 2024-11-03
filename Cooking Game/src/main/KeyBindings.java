@@ -175,6 +175,8 @@ public class KeyBindings implements KeyListener {
         // options
         if (code == KeyEvent.VK_ESCAPE) {
             gp.playSFX(2);
+            uiM.setCommand(0);
+            uiM.getOptionsUI().optionsState = UI.OptionsUI.substate.START;
             gp.gameState = GamePanel.state.OPTIONS;
         }
         // pause
@@ -185,6 +187,7 @@ public class KeyBindings implements KeyListener {
         // terminal
         if (code == KeyEvent.VK_BACK_SPACE) {
             gp.playSFX(3);
+            uiM.getTerminalUI().terminalState = UI.TerminalUI.substate.TIMESUP;
             gp.gameState = GamePanel.state.TERMINAL;
         }
     }
@@ -231,20 +234,14 @@ public class KeyBindings implements KeyListener {
     }
     private void terminalBindings(int code) {
 
-        // TERMINAL STATE -> TIMES UP SUB-STATE
-        if (uiM.getTerminalUI().terminalState == UI.TerminalUI.substate.TIMESUP) {
-
-            // TODO WAIT FOR 3 SECONDS
-        }
-
         // TERMINAL STATE -> LEADERBOARDS SUB-STATE
-        else if (uiM.getTerminalUI().terminalState == UI.TerminalUI.substate.LEADERBOARD) {
+        if (uiM.getTerminalUI().terminalState == UI.TerminalUI.substate.LEADERBOARD) {
 
-            // TODO DISPLAY SCORES UNTIL PLAYERS PRESS ENTER
             if (code == KeyEvent.VK_ENTER) {
+                uiM.getHomeUI().homeState = UI.HomeUI.substate.TITLE;
                 gp.gameState = GamePanel.state.HOME;
+                uiM.getTerminalUI().terminalState = UI.TerminalUI.substate.TIMESUP;
             }
-
         }
     }
 

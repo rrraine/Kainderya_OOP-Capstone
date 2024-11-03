@@ -22,9 +22,9 @@ public class UI implements Drawable, Importable {
     private final DecimalFormat timeFormat;
 
     // NOTIFICATIONS
-    private String notif;
-    private boolean notifOn;
-    private final int notifDuration;
+    private static String notif;
+    private static boolean notifOn;
+    private static int notifDuration;
 
     // GAME TERMINAL STATE
     private final boolean isTerminal;
@@ -105,10 +105,24 @@ public class UI implements Drawable, Importable {
         g2.drawLine(coord.get(4), coord.get(5), coord.get(6), coord.get(7));
     }
     private void drawElement(String text, int x, int y) {}
-    public void showNotification(String text) {
+    public static void showNotification(String text) {
         notif = text;
         notifOn = true;
     }
+    public static boolean freeze(int sec) {
+        if (notifOn) {
+            notifDuration++;
+
+            if (notifDuration > (GamePanel.FPS * sec)) {
+                notifDuration = 0;
+                notifOn = false;
+                return false;
+            }
+            return true;
+        }
+        return false;
+    }
+
     private void drawPopUpWindow(int x, int y, int width, int height) {
 
         Color color = new Color(0,0,0, 220);
@@ -173,7 +187,7 @@ public class UI implements Drawable, Importable {
 
             // TITLE
             g2.setFont(g2.getFont().deriveFont(Font.BOLD, 96F));
-            String text = "Kusina ni VJ";
+            String text = "vj's merienda";
             int x = Utility.Aligner.centerText(text, gp, g2);
             int y = gp.tileSize * 3;
 
@@ -222,7 +236,6 @@ public class UI implements Drawable, Importable {
         }
         private void homeSELECTION() {
 
-            // BACKGROUND
             g2.setColor(Color.WHITE);
             g2.setFont(g2.getFont().deriveFont(42F));
 
@@ -301,12 +314,12 @@ public class UI implements Drawable, Importable {
         public enum substate {START, FULLSCREEN, SOUND, MULTIPLAYER, QUIT, RESUME }
 
         public OptionsUI() {
+            command = 0;
             optionsState = substate.START;
         }
 
 
         public void draw() {
-
 
             // SUB WINDOW
             int frameX = gp.tileSize * 6;
@@ -538,31 +551,41 @@ public class UI implements Drawable, Importable {
             // TIMES UP TEXT
             g2.setFont(g2.getFont().deriveFont(Font.PLAIN,80F));
             g2.setColor(Color.RED);
-            String text = "TIMES UP";
+            String text = "TIMES UP!";
             int x = Utility.Aligner.centerText(text, gp, g2);
             int y = gp.screenHeight / 2;
-
-
             g2.drawString(text, x, y);
 
-            //Time.delay(2);
-            homeUI.homeState = HomeUI.substate.TITLE;
-            gp.gameState = GamePanel.state.HOME;
+            // block for 2 secs then proceed
+            if (Utility.Regulator.block(2)) {
+                terminalState = substate.LEADERBOARD;
+            }
 
         }
         private void terminalLEADERBOARD() {
 
-            // TIMES UP TEXT
-            g2.setFont(g2.getFont().deriveFont(Font.PLAIN,80F));
+            // SUB-WINDOW
+            int frameX = gp.tileSize;
+            int frameY = gp.tileSize;
+            int frameWidth = gp.tileSize * 18;
+            int frameHeight = gp.tileSize * 10;
+            drawPopUpWindow(frameX, frameY, frameWidth, frameHeight);
+
+            // LEADERBOARDS
+            g2.setFont(g2.getFont().deriveFont(Font.PLAIN,60F));
             g2.setColor(Color.WHITE);
             String text = "LEADERBOARDS";
             int x = Utility.Aligner.centerText(text, gp, g2);
-            int y = gp.screenHeight / 2;
+            int y = gp.tileSize * 3;
+            g2.drawString(text, x, y);
 
-            if (gp.keyB.isEnterPressed()) {
-                homeUI.homeState = HomeUI.substate.TITLE;
-                gp.gameState = GamePanel.state.HOME;
-            }
+            // RETURN TO HOME SCREEN
+            g2.setFont(g2.getFont().deriveFont(Font.PLAIN,25F));
+            g2.setColor(Color.WHITE);
+            text = "Press Enter to Continue...";
+            x = Utility.Aligner.centerText(text, gp, g2);
+            y = gp.tileSize * 10;
+            g2.drawString(text, x, y);
         }
     }
 

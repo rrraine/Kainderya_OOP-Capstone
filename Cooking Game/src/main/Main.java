@@ -34,5 +34,6 @@ public class Main {
         System.out.println("Options: ESC");
         System.out.println("Pause: P");
         System.out.println("Execute: ENTER / F");
+        System.out.println("Times Up: BCKSPC");
     }
 }

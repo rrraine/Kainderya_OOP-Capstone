@@ -370,4 +370,19 @@ public class Utility {
 
     // -------------------------------------------------------------
 
+    // HANDLES TIME OR DURATION CONTROL
+    public static class Regulator {
+
+        private static double blockedTime = 0;
+        public static boolean block(int sec) {
+
+            if (blockedTime > (GamePanel.FPS * sec)) {
+                blockedTime = 0;
+                return true;
+            }
+            blockedTime++;
+            return false;
+        }
+    }
+
 }
