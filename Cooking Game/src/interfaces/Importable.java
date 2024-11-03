@@ -53,7 +53,7 @@ public interface Importable {
             }
 
         } catch (Exception e) {
-            System.err.println("Trouble importing sound (" + audio + "): " + e.getMessage());
+            System.err.println("Trouble importing sound (" + audio + "): " + " [Inspect: " + this.getClass() + "]");
         }
 
         System.out.println("Sound (" + audio + ") imported");
@@ -67,7 +67,7 @@ public interface Importable {
             importedFont = Font.createFont(Font.TRUETYPE_FONT, Objects.requireNonNull(is));
 
         } catch (IOException | FontFormatException | NullPointerException e) {
-            System.err.println("Trouble importing font (" + font + "): " + e.getMessage());
+            System.err.println("Trouble importing font (" + font + "): " + " [Inspect: " + this.getClass() + "]");
         }
 
         System.out.println("Font (" + font + ") imported");
