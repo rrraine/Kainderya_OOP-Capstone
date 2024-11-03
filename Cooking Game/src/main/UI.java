@@ -7,6 +7,7 @@ import interfaces.Importable;
 import java.awt.*;
 import java.text.DecimalFormat;
 import java.util.List;
+import java.util.Random;
 
 public class UI implements Drawable, Importable {
 
@@ -40,6 +41,9 @@ public class UI implements Drawable, Importable {
     private final DialogueUI dialogueUI;
     private final TerminalUI terminalUI;
 
+    // SHAKE EFFECT
+    private final Random random;
+
 
     // CONSTRUCTOR -----------------------------------------------------------------
     private UI(GamePanel gp, Time time) {
@@ -65,6 +69,9 @@ public class UI implements Drawable, Importable {
 
         // OPTIONS UI
         command = 0;
+
+        // SHAKE EFFECT
+        random = new Random();
     }
     public static UI instantiate(GamePanel gp, Time time) {
         if (instance == null) {
@@ -122,7 +129,9 @@ public class UI implements Drawable, Importable {
         }
         return false;
     }
-
+    private int shakeEffect(int intensity) {
+        return random.nextInt(intensity * 2 + 1) - intensity;
+    }
     private void drawPopUpWindow(int x, int y, int width, int height) {
 
         Color color = new Color(0,0,0, 220);
@@ -286,8 +295,16 @@ public class UI implements Drawable, Importable {
 
             // DRAW TIMER
             if (gp.gameState != GamePanel.state.HOME) {
-                g2.setFont(g2.getFont().deriveFont(Font.PLAIN,30F));
-                g2.drawString("Time: " + Time.getTimer(), gp.tileSize * 16, 65);
+
+                if (Time.rushTime()) {
+                    g2.setColor(Color.RED);
+                    g2.setFont(g2.getFont().deriveFont(Font.PLAIN,40F));
+                    g2.drawString("Time: " + Time.getTimer(), gp.tileSize * 16 + shakeEffect(1), 65 + shakeEffect(1));
+                }
+                else {
+                    g2.setFont(g2.getFont().deriveFont(Font.PLAIN,30F));
+                    g2.drawString("Time: " + Time.getTimer(), gp.tileSize * 16, 65);
+                }
             }
         }
     }
@@ -554,7 +571,8 @@ public class UI implements Drawable, Importable {
             String text = "TIMES UP!";
             int x = Utility.Aligner.centerText(text, gp, g2);
             int y = gp.screenHeight / 2;
-            g2.drawString(text, x, y);
+
+            g2.drawString(text, x + shakeEffect(1), y + shakeEffect(2));
 
             // block for 2 secs then proceed
             if (Utility.Regulator.block(2)) {

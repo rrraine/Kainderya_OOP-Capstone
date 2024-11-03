@@ -39,7 +39,7 @@ public class Time implements Drawable {
 
         // SET TIMER
         minutes = 5.01;
-        timer = GamePanel.FPS * (minutes * 60);
+        timer = GamePanel.FPS * (13);
         defaults.add(timer);
 
         // SET CUSTOMER TIME
@@ -119,6 +119,10 @@ public class Time implements Drawable {
 
 
     // FROM THIS CLASS ----------------------------------------------------------
+    public static boolean rushTime() {
+
+        return (timer / GamePanel.FPS) < 11;
+    }
 
     // GETTERS -------------------------------------------------------------------
     public static String getTimer() {
@@ -129,6 +133,11 @@ public class Time implements Drawable {
         int min = (int) (remSeconds / 60);
         int sec = (int) (remSeconds % 60);
 
-        return String.format("%01d:%02d", min, sec);
+        if (rushTime()) {
+            return String.format("%02d", sec);
+        }
+        else {
+            return String.format("%01d:%02d", min, sec);
+        }
     }
 }
