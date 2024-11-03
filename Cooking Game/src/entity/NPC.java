@@ -3,7 +3,6 @@ package entity;
 import main.GamePanel;
 import main.Utility;
 
-import java.awt.image.BufferedImage;
 import java.util.Random;
 
 public abstract class NPC extends Entity {
@@ -81,22 +80,22 @@ public abstract class NPC extends Entity {
 
         public StudentFemale (GamePanel gp) {
             super(gp, 1, "idle");
-            getAvatarImage();
+            getAvatar();
         }
 
         // FROM CLASS: ENTITY ----------------------------------------
         @Override
-        void getAvatarImage() {
+        void getAvatar() {
 
-            idle = setUpAvatar("npc","studentFemale", "idle");
-            up1 = setUpAvatar("npc","studentFemale", "up1");
-            up2 = setUpAvatar("npc","studentFemale", "up2");
-            down1 = setUpAvatar("npc","studentFemale", "down1");
-            down2 = setUpAvatar("npc","studentFemale", "down2");
-            left1 = setUpAvatar("npc","studentFemale", "left1");
-            left2 = setUpAvatar("npc","studentFemale", "left2");
-            right1 = setUpAvatar("npc","studentFemale", "right1");
-            right2 = setUpAvatar("npc","studentFemale", "right2");
+            idle = setAvatar("npc","studentFemale", "idle");
+            up1 = setAvatar("npc","studentFemale", "up1");
+            up2 = setAvatar("npc","studentFemale", "up2");
+            down1 = setAvatar("npc","studentFemale", "down1");
+            down2 = setAvatar("npc","studentFemale", "down2");
+            left1 = setAvatar("npc","studentFemale", "left1");
+            left2 = setAvatar("npc","studentFemale", "left2");
+            right1 = setAvatar("npc","studentFemale", "right1");
+            right2 = setAvatar("npc","studentFemale", "right2");
         }
 
         // FROM CLASS: NPC ----------------------------------------

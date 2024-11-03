@@ -14,32 +14,31 @@ public interface Importable {
     // FOR CLASSES THAT REQUIRE IMPORTING OF EXTERNAL FILES AND RESOURCES
 
     // PRESET FORMATS
-    default BufferedImage importImage(String path, String type, String image, int tileSize) {
+    default BufferedImage importImage(String path, String structure, String type, String image, int tileSize) {
 
         BufferedImage importedImage = null;
 
-        try (InputStream is = getClass().getResourceAsStream("/" + path + "/" + type + "/" + image + ".png")) {
+        try (InputStream is = getClass().getResourceAsStream("/" + path + "/" + structure + "/" + type + "/" + image + ".png")) {
 
             if (is == null)
-                throw new IOException("Resource not found: " + path + "/" + image + ".png");
+                throw new IOException("Resource not found: " + path + "/" + structure + "/" + type + "/" + image + ".png");
 
             importedImage = ImageIO.read(Objects.requireNonNull(is));
 
             if (importedImage == null)
-                throw new IOException("Failed to read: " + path + "/" + image + ".png");
+                throw new IOException("Failed to read: " + path + "/" + structure + "/" + type + "/" + image + ".png");
 
             importedImage = Utility.Scaler.scaleImage(importedImage, tileSize, tileSize);
 
         } catch (IOException e) {
-            System.err.println(e.getMessage());
+            System.err.println(e.getMessage() + " [Inspect: " + this.getClass() + "]");
         } catch (IllegalArgumentException | NullPointerException e) {
-            System.err.println("Illegal argument / attempt to pass null: " + path + "/" + image + ".png");
+            System.err.println("Illegal argument / attempt to pass null: " + path + "/" + structure + "/" + type + "/" + image + ".png" + " [Inspect: " + this.getClass() + "]");
         } catch (Exception e) {
-            System.err.println("Unexpected error (" + image + "): " + e.getMessage());
-            e.printStackTrace();
+            System.err.println("Unexpected error (" + path + "/" + structure + "/" + type + "/" + image + ".png): " + " [Inspect: " + this.getClass() + "]");
         }
 
-        System.out.println("Tile (" + image + ") imported");
+        System.out.println(path + " (" + image + ") imported");
         return importedImage;
     }
     default URL importSound(String path, String audio) {

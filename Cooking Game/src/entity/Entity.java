@@ -1,17 +1,14 @@
 package entity;
 
 import interfaces.Drawable;
+import interfaces.Importable;
 import interfaces.Observable;
 import main.GamePanel;
-import main.Utility;
 
-import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.util.Objects;
 
-public abstract class Entity implements Drawable, Observable {
+public abstract class Entity implements Drawable, Observable, Importable {
 
     // ~ FIELDS ---------------------------------------------------
     GamePanel gp;
@@ -127,21 +124,12 @@ public abstract class Entity implements Drawable, Observable {
     }
 }
 
-    // FROM THIS CLASS ---------------------------------------------------
-    abstract void getAvatarImage();
-    BufferedImage setUpAvatar(String type, String avatar, String imageName) {
+    // FROM THIS CLASS ------------------------------------------------------
 
-        BufferedImage image = null;
+    abstract void getAvatar();
+    BufferedImage setAvatar(String structure, String avatar, String image) {
 
-        try {
-
-            image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/" + type + "/" + avatar + "/" + imageName + ".png")));
-            image = Utility.Scaler.scaleImage(image, gp.tileSize, gp.tileSize);
-        }
-        catch (IOException e) {
-            System.err.println("Trouble finding avatar path: " + e.getMessage());
-        }
-        return image;
+        return importImage("avatar", structure, avatar, image, gp.tileSize);
     }
 
     // GETTERS & SETTERS ---------------------------------------------------

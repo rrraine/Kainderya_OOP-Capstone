@@ -16,7 +16,7 @@ public abstract class Item extends SuperObject {
         // CONSTRUCTOR
         public Key(GamePanel gp) {
             super(gp, "Key");
-            image = importImage("objects", "item", "key", gp.tileSize); // FROM INTERFACE: IMPORTABLE
+            image = importImage("objects", "item", "key", "key", gp.tileSize); // FROM INTERFACE: IMPORTABLE
         }
     }
 
@@ -27,7 +27,7 @@ public abstract class Item extends SuperObject {
         // CONSTRUCTOR
         public Boots(GamePanel gp) {
             super(gp, "Boots");
-            image = importImage("objects", "item", "boots", gp.tileSize); // FROM INTERFACE: IMPORTABLE
+            image = importImage("objects", "item", "boots","boots", gp.tileSize); // FROM INTERFACE: IMPORTABLE
         }
     }
 
@@ -36,7 +36,7 @@ public abstract class Item extends SuperObject {
         // CONSTRUCTOR
         public Chest(GamePanel gp) {
             super(gp, "Chest");
-            image = importImage("objects", "item", "chest", gp.tileSize); // FROM INTERFACE: IMPORTABLE
+            image = importImage("objects", "item", "chest", "chest", gp.tileSize); // FROM INTERFACE: IMPORTABLE
         }
     }
 
@@ -45,7 +45,7 @@ public abstract class Item extends SuperObject {
         // CONSTRUCTOR
         public Door(GamePanel gp) {
             super(gp, "Door");
-            image = importImage("objects", "item", "door", gp.tileSize); // FROM INTERFACE: IMPORTABLE
+            image = importImage("objects", "item", "door", "door", gp.tileSize); // FROM INTERFACE: IMPORTABLE
         }
     }
 

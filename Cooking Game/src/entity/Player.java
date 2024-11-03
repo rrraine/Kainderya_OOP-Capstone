@@ -37,7 +37,7 @@ public class Player extends Entity {
         this.solidAreaDefaultY = solidArea.y;
 
         setDefaultPlayerValues();
-        getAvatarImage();
+        getAvatar();
     }
 
 
@@ -149,17 +149,17 @@ public class Player extends Entity {
         g2.drawImage(image, playerCenteredScreenX, playerCenteredScreenY, null);
     }
     @Override
-    void getAvatarImage() {
+    void getAvatar() {
 
-        idle = setUpAvatar("player","cook1", "idle");
-        up1 = setUpAvatar("player","cook1", "up1");
-        up2 = setUpAvatar("player","cook1", "up2");
-        down1 = setUpAvatar("player","cook1", "down1");
-        down2 = setUpAvatar("player","cook1", "down2");
-        left1 = setUpAvatar("player","cook1", "left1");
-        left2 = setUpAvatar("player","cook1", "left2");
-        right1 = setUpAvatar("player","cook1", "right1");
-        right2 = setUpAvatar("player","cook1", "right2");
+        idle = setAvatar("player","cook1", "idle");
+        up1 = setAvatar("player","cook1", "up1");
+        up2 = setAvatar("player","cook1", "up2");
+        down1 = setAvatar("player","cook1", "down1");
+        down2 = setAvatar("player","cook1", "down2");
+        left1 = setAvatar("player","cook1", "left1");
+        left2 = setAvatar("player","cook1", "left2");
+        right1 = setAvatar("player","cook1", "right1");
+        right2 = setAvatar("player","cook1", "right2");
     }
 
     // FROM THIS CLASS ---------------------------------------------------
