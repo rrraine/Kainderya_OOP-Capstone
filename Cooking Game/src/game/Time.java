@@ -39,7 +39,7 @@ public class Time implements Drawable {
 
         // SET TIMER
         minutes = 5.01;
-        timer = GamePanel.FPS * (13);
+        timer = GamePanel.FPS * (minutes * 60);
         defaults.add(timer);
 
         // SET CUSTOMER TIME
