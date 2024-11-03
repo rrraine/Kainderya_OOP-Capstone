@@ -184,11 +184,12 @@ public class GamePanel extends JPanel implements Runnable {
 
     // 4.1) RENDER UPDATED INFO TO BUFFERED TEMP SCREEN
     private void drawTempScreen() {
+        // warning!!!! only attempt to draw within conditional blocks to avoid overlapping draws
 
-        uiM.draw(g2);
+        if (gameState == state.HOME)
+            uiM.draw(g2);
 
-        if (gameState == state.PLAY) {
-
+        else {
             // 1. DRAW TILES
             tileM.draw(g2);
             // 2. DRAW SUPER-OBJECTS : TODO CLEAN THIS
