@@ -199,7 +199,7 @@ public class TileManager implements Importable, Drawable, Observable {
     // exterior walls
 
         tile[26] = new Tile();
-        tile[26].image = importImage("tiles","exteriorWalls", "floor", "ex01", gp.tileSize);
+        tile[26].image = importImage("tiles","exteriorWalls", "floor", "in01", gp.tileSize);
         tile[26].collision = true;
 
         tile[27] = new Tile();
@@ -246,6 +246,57 @@ public class TileManager implements Importable, Drawable, Observable {
         tile[37].image = importImage("tiles","exteriorWalls", "floor", "ex12", gp.tileSize);
         tile[37].collision = true;
 
+        tile[38] = new Tile();
+        tile[38].image = importImage("tiles","exteriorWalls", "floor", "kitchenSide", gp.tileSize);
+        tile[38].collision = true;
+
+        // sidewalks
+
+        tile[39] = new Tile();
+        tile[39].image = importImage("tiles","sidewalk", "floor", "sidewalkPlain", gp.tileSize);
+        tile[39].collision = false;
+
+        tile[40] = new Tile();
+        tile[40].image = importImage("tiles","sidewalk", "floor", "sidewalkRight", gp.tileSize);
+        tile[40].collision = false;
+
+        tile[41] = new Tile();
+        tile[41].image = importImage("tiles","sidewalk", "floor", "sidewalkLeft", gp.tileSize);
+        tile[41].collision = false;
+
+        tile[42] = new Tile();
+        tile[42].image = importImage("tiles","sidewalk", "floor", "sidewalkAbove", gp.tileSize);
+        tile[42].collision = false;
+
+        tile[43] = new Tile();
+        tile[43].image = importImage("tiles","sidewalk", "floor", "sidewalkBelow", gp.tileSize);
+        tile[43].collision = false;
+
+        // grass wow
+
+        tile[44] = new Tile();
+        tile[44].image = importImage("tiles","grass", "floor", "grass21", gp.tileSize);
+        tile[44].collision = false;
+
+        tile[45] = new Tile();
+        tile[45].image = importImage("tiles","grass", "floor", "grass22", gp.tileSize);
+        tile[45].collision = false;
+
+        tile[46] = new Tile();
+        tile[46].image = importImage("tiles","grass", "floor", "grass23", gp.tileSize);
+        tile[46].collision = false;
+
+        tile[47] = new Tile();
+        tile[47].image = importImage("tiles","grass", "floor", "grass24", gp.tileSize);
+        tile[47].collision = false;
+
+        tile[48] = new Tile();
+        tile[48].image = importImage("tiles","grass", "floor", "grass25", gp.tileSize);
+        tile[48].collision = false;
+
+        tile[49] = new Tile();
+        tile[49].image = importImage("tiles","grass", "floor", "grass26", gp.tileSize);
+        tile[49].collision = false;
     }
 
     // IMPORT MAP AND READ ITS MATRIX
