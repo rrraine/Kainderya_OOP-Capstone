@@ -190,6 +190,10 @@ public class GamePanel extends JPanel implements Runnable {
             uiM.draw(g2);
 
         else {
+            // prevent out of map glitches
+            g2.setColor(Color.BLACK);
+            g2.fillRect(0, 0, screenWidth, screenHeight);
+
             // 1. DRAW TILES
             tileM.draw(g2);
             // 2. DRAW SUPER-OBJECTS : TODO CLEAN THIS
