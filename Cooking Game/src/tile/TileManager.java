@@ -297,6 +297,11 @@ public class TileManager implements Importable, Drawable, Observable {
         tile[49] = new Tile();
         tile[49].image = importImage("tiles","grass", "floor", "grass26", gp.tileSize);
         tile[49].collision = false;
+
+        // with appliances
+
+
+
     }
 
     // IMPORT MAP AND READ ITS MATRIX
