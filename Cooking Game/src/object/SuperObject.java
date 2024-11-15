@@ -36,9 +36,16 @@ public abstract class SuperObject implements Drawable, Observable {
         this.name = name;
 
         collision = false;
+        // DEFAULT OBJECT COLLISION
         solidArea = new Rectangle(0, 0, 48, 48);
         solidAreaDefaultX = 0;
         solidAreaDefaultY = 0;
+    }
+
+    // MANUALLY SET COLLISION
+    void setManualCollisions(int width, int height) {
+        solidArea.width = width;
+        solidArea.height = height;
     }
 
 
