@@ -75,10 +75,34 @@ public class Utility {
         public static void deployNPCInMap(GamePanel gp, int tileSize, List<NPC> npc) {
 
             try {
-
+                /*
                 npc.addFirst(new NPC.StudentFemale(gp));
                 npc.getFirst().setWorldX(tileSize * 21);
                 npc.getFirst().setWorldY(tileSize * 21);
+                */
+
+                // Add StudentFemale NPC
+                npc.add(new NPC.StudentFemale(gp));
+                npc.get(npc.size() - 1).setWorldX(tileSize * 21);
+                npc.get(npc.size() - 1).setWorldY(tileSize * 21);
+
+                // Add StudentMale NPC
+                npc.add(new NPC.StudentMale(gp));
+                npc.get(npc.size() - 1).setWorldX(tileSize * 15);
+                npc.get(npc.size() - 1).setWorldY(tileSize * 10);
+
+                // Add Teacher NPC
+                npc.add(new NPC.Tambay1(gp));
+                npc.get(npc.size() - 1).setWorldX(tileSize * 10);
+                npc.get(npc.size() - 1).setWorldY(tileSize * 30);
+
+                // Add 1st Civilian (Female) NPC
+
+                npc.add(new NPC.civilianFemale1(gp));
+
+                npc.get(npc.size() - 1).setWorldX(tileSize * 15);
+                npc.get(npc.size() - 1).setWorldY(tileSize * 27);
+
             }
             catch (NullPointerException e) {
                 System.err.println("Accessing null element in (List<NPC> npc): " + e.getMessage());
