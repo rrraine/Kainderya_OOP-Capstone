@@ -132,7 +132,7 @@ public abstract class NPC extends Entity {
         }
     }
 
-// TODO actionInterval for other inner classes
+    // TODO actionInterval for other inner classes
     // todo fix keybindings and actioninterval
     public static class StudentMale extends NPC {
 

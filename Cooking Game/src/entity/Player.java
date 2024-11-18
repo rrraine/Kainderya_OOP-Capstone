@@ -151,15 +151,15 @@ public class Player extends Entity {
     @Override
     void getAvatar() {
 
-        idle = setAvatar("player","cook1", "idle");
-        up1 = setAvatar("player","cook1", "up1");
-        up2 = setAvatar("player","cook1", "up2");
-        down1 = setAvatar("player","cook1", "down1");
-        down2 = setAvatar("player","cook1", "down2");
-        left1 = setAvatar("player","cook1", "left1");
-        left2 = setAvatar("player","cook1", "left2");
-        right1 = setAvatar("player","cook1", "right1");
-        right2 = setAvatar("player","cook1", "right2");
+        idle = setAvatar("player","cook2", "idle");
+        up1 = setAvatar("player","cook2", "up1");
+        up2 = setAvatar("player","cook2", "up2");
+        down1 = setAvatar("player","cook2", "down1");
+        down2 = setAvatar("player","cook2", "down2");
+        left1 = setAvatar("player","cook2", "left1");
+        left2 = setAvatar("player","cook2", "left2");
+        right1 = setAvatar("player","cook2", "right1");
+        right2 = setAvatar("player","cook2", "right2");
     }
 
     // FROM THIS CLASS ---------------------------------------------------
