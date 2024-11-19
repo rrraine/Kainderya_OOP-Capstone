@@ -21,7 +21,7 @@ public class Player extends Entity {
     // CONSTRUCTOR ---------------------------------------------------
     public Player(GamePanel gp, KeyBindings keyB) {
 
-        super(gp, 5, "down");
+        super(gp, 4, "down");
 
         this.keyB = keyB;
 
@@ -54,6 +54,10 @@ public class Player extends Entity {
             else if (keyB.isDownPressed()) { direction = "down"; }
             else if (keyB.isLeftPressed()) { direction = "left"; }
             else { direction = "right"; }
+
+            // sprint
+            if (keyB.isShiftPressed()) { speed = 7; }
+            else { speed = 4; }
 
 
             // check tile collision

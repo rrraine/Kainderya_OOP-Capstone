@@ -12,10 +12,19 @@ public class Tile {
     Rectangle solidArea;
     int solidAreaDefaultX;
     int solidAreaDefaultY;
-    public boolean collision = false;
+    public boolean collision;
 
-    void setTileCollision(int x, int y, int tileSize) {
+    public Tile(int tileSize) {
 
+        collision = false;
+        solidArea = new Rectangle(0, 0, tileSize, tileSize);
+        solidAreaDefaultX = 0;
+        solidAreaDefaultY = 0;
+    }
+
+    void setManualCollisions(int width, int height) {
+        solidArea.width = width;
+        solidArea.height = height;
     }
 
 }

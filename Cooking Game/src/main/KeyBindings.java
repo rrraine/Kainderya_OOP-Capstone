@@ -1,5 +1,7 @@
 package main;
 
+import object.Item;
+
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
@@ -15,6 +17,7 @@ public class KeyBindings implements KeyListener {
     private boolean leftPressed;
     private boolean rightPressed;
     private boolean enterPressed;
+    private boolean shiftPressed;
 
 
     // CONSTRUCTOR -----------------------------------------------------------------
@@ -75,6 +78,9 @@ public class KeyBindings implements KeyListener {
         }
         if (code == KeyEvent.VK_D) {
             rightPressed = false;
+        }
+        if (code == KeyEvent.VK_SHIFT) {
+            shiftPressed = false;
         }
     }
     @Override
@@ -171,6 +177,7 @@ public class KeyBindings implements KeyListener {
         if (code == KeyEvent.VK_S) { downPressed = true; }
         if (code == KeyEvent.VK_A) { leftPressed = true; }
         if (code == KeyEvent.VK_D) { rightPressed = true; }
+        if (code == KeyEvent.VK_SHIFT) { shiftPressed = true; }
 
         // options
         if (code == KeyEvent.VK_ESCAPE) {
@@ -261,6 +268,10 @@ public class KeyBindings implements KeyListener {
     public boolean isEnterPressed() {
         return enterPressed;
     }
+    public boolean isShiftPressed() {
+        return shiftPressed;
+    }
+
 
     public void setUpPressed(boolean upPressed) {
         this.upPressed = upPressed;
