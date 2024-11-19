@@ -126,14 +126,15 @@ public class Player extends Entity {
 
             // sprite images
             case "up":
-                if (spriteNum == 1 || spriteNum == 3) { image = up1; }
+                if (spriteNum == 1) { image = up1; }
                 if (spriteNum == 2) { image = up2; }
+                if (spriteNum == 3) { image = idle2; }
                 break;
 
             case "down":
                 if (spriteNum == 1) { image = down1; }
                 if (spriteNum == 2) { image = down2; }
-                if (spriteNum == 3) { image = idle; }
+                if (spriteNum == 3) { image = idle1; }
                 break;
 
             case "left":
@@ -151,15 +152,18 @@ public class Player extends Entity {
     @Override
     void getAvatar() {
 
-        idle = setAvatar("player","cook2", "idle");
-        up1 = setAvatar("player","cook2", "up1");
-        up2 = setAvatar("player","cook2", "up2");
-        down1 = setAvatar("player","cook2", "down1");
-        down2 = setAvatar("player","cook2", "down2");
-        left1 = setAvatar("player","cook2", "left1");
-        left2 = setAvatar("player","cook2", "left2");
-        right1 = setAvatar("player","cook2", "right1");
-        right2 = setAvatar("player","cook2", "right2");
+        String avatar = "cook1";
+
+        idle1 = setAvatar("player", avatar, "idle");
+        idle2 = setAvatar("player", avatar, "idleUp");
+        up1 = setAvatar("player", avatar, "up1");
+        up2 = setAvatar("player", avatar, "up2");
+        down1 = setAvatar("player", avatar, "down1");
+        down2 = setAvatar("player", avatar, "down2");
+        left1 = setAvatar("player", avatar, "left1");
+        left2 = setAvatar("player", avatar, "left2");
+        right1 = setAvatar("player", avatar, "right1");
+        right2 = setAvatar("player", avatar, "right2");
     }
 
     // FROM THIS CLASS ---------------------------------------------------

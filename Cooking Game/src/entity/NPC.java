@@ -15,6 +15,7 @@ public abstract class NPC extends Entity {
     // CONSTRUCTOR ----------------------------------------------
     public NPC (GamePanel gp, int speed, String direction) {
         super(gp, speed, direction);
+        lastDirection = lastRecordedDirection.DOWN;
     }
 
     // FROM CLASS: ENTITY ------------------------------------------
@@ -74,6 +75,8 @@ public abstract class NPC extends Entity {
     // FROM THIS CLASS ----------------------------------------------
     public abstract void setNPCAction();
 
+
+
     // INNER STATIC CLASSES ----------------------------------------
 
     public static class StudentFemale extends NPC {
@@ -87,7 +90,7 @@ public abstract class NPC extends Entity {
         @Override
         void getAvatar() {
 
-            idle = setAvatar("npc","studentFemale", "idle");
+            idle1 = setAvatar("npc","studentFemale", "idle");
             up1 = setAvatar("npc","studentFemale", "up1");
             up2 = setAvatar("npc","studentFemale", "up2");
             down1 = setAvatar("npc","studentFemale", "down1");
@@ -112,9 +115,11 @@ public abstract class NPC extends Entity {
 
                 if (i <= 25) {
                     direction = "up";
+                    lastDirection = lastRecordedDirection.UP;
                 }
                 else if (i <= 50) {
                     direction = "down";
+                    lastDirection = lastRecordedDirection.DOWN;
                 }
                 else if (i <= 75) {
                     direction = "left";
@@ -145,7 +150,8 @@ public abstract class NPC extends Entity {
         @Override
         void getAvatar() {
 
-            idle = setAvatar("npc","studentMale", "idle");
+            idle1 = setAvatar("npc","studentMale", "idle");
+            idle2 = setAvatar("npc","studentMale", "idleUp");
             up1 = setAvatar("npc","studentMale", "up1");
             up2 = setAvatar("npc","studentMale", "up2");
             down1 = setAvatar("npc","studentMale", "down1");
@@ -170,9 +176,11 @@ public abstract class NPC extends Entity {
 
                 if (i <= 25) {
                     direction = "up";
+                    lastDirection = lastRecordedDirection.UP;
                 }
                 else if (i <= 50) {
                     direction = "down";
+                    lastDirection = lastRecordedDirection.DOWN;
                 }
                 else if (i <= 75) {
                     direction = "left";
@@ -201,7 +209,8 @@ public abstract class NPC extends Entity {
         @Override
         void getAvatar() {
 
-            idle = setAvatar("npc","tambay1", "idle");
+            idle1 = setAvatar("npc","tambay1", "idle");
+            idle2 = setAvatar("npc","tambay1", "idleUp");
             up1 = setAvatar("npc","tambay1", "up1");
             up2 = setAvatar("npc","tambay1", "up2");
             down1 = setAvatar("npc","tambay1", "down1");
@@ -226,9 +235,11 @@ public abstract class NPC extends Entity {
 
                 if (i <= 25) {
                     direction = "up";
+                    lastDirection = lastRecordedDirection.UP;
                 }
                 else if (i <= 50) {
                     direction = "down";
+                    lastDirection = lastRecordedDirection.DOWN;
                 }
                 else if (i <= 75) {
                     direction = "left";
@@ -257,7 +268,8 @@ public abstract class NPC extends Entity {
         @Override
         void getAvatar() {
 
-            idle = setAvatar("npc","civilianfem1", "idle");
+            idle1 = setAvatar("npc","civilianfem1", "idle");
+            idle2 = setAvatar("npc","civilianfem1", "idleUp");
             up1 = setAvatar("npc","civilianfem1", "up1");
             up2 = setAvatar("npc","civilianfem1", "up2");
             down1 = setAvatar("npc","civilianfem1", "down1");
@@ -282,9 +294,11 @@ public abstract class NPC extends Entity {
 
                 if (i <= 25) {
                     direction = "up";
+                    lastDirection = lastRecordedDirection.UP;
                 }
                 else if (i <= 50) {
                     direction = "down";
+                    lastDirection = lastRecordedDirection.DOWN;
                 }
                 else if (i <= 75) {
                     direction = "left";

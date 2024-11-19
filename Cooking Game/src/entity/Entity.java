@@ -19,7 +19,9 @@ public abstract class Entity implements Drawable, Observable, Importable {
     int speed;
 
     // SPRITE
-    BufferedImage idle, up1, up2, down1, down2, left1, left2, right1, right2;
+    BufferedImage idle1, idle2, up1, up2, down1, down2, left1, left2, right1, right2;
+    protected enum lastRecordedDirection { UP, DOWN };
+    protected lastRecordedDirection lastDirection;
     String direction;
     int standCounter;
     int spriteCounter;
@@ -107,7 +109,12 @@ public abstract class Entity implements Drawable, Observable, Importable {
                         break;
 
                     case "idle":
-                        image = idle;
+                        if (lastDirection == lastRecordedDirection.UP) {
+                            image = idle2;
+                        }
+                        else {
+                            image = idle1;
+                        }
                         break;
                 }
 
@@ -168,7 +175,7 @@ public abstract class Entity implements Drawable, Observable, Importable {
         this.collisionOn = collisionOn;
     }
 
-    public BufferedImage getIdle() {
-        return idle;
+    public BufferedImage getIdle1() {
+        return idle1;
     }
 }
