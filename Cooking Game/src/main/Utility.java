@@ -36,9 +36,9 @@ public class Utility {
 
             try {
 
-                obj.addFirst(new Item.Key(gp));
-                obj.getFirst().setWorldX(tileSize * 23);
-                obj.getFirst().setWorldY(tileSize * 7);
+                obj.add(0, new Item.Key(gp));
+                obj.get(0).setWorldX(tileSize * 23);
+                obj.get(0).setWorldY(tileSize * 7);
 
                 obj.add(1, new Item.Key(gp));
                 obj.get(1).setWorldX(tileSize * 23);

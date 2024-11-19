@@ -211,7 +211,7 @@ public class UI implements Drawable, Importable {
             // ICON
             x = gp.screenWidth / 2 - (gp.tileSize*2)/2 - 20;
             y += gp.tileSize * 2 - 20;
-            g2.drawImage(gp.npc.getFirst().getIdle(), x, y, gp.tileSize * 3, gp.tileSize * 3, null);
+            g2.drawImage(gp.npc.get(0).getIdle(), x, y, gp.tileSize * 3, gp.tileSize * 3, null);
 
             // NEW GAME
             g2.setFont(g2.getFont().deriveFont(Font.BOLD, 48F));
