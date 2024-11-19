@@ -16,6 +16,9 @@ public class Player extends Entity {
     private final int playerCenteredScreenX;
     private final int playerCenteredScreenY;
 
+    // STAMINA SYSTEM
+    private int stamina;
+
     // ~ METHODS ---------------------------------------------------
 
     // CONSTRUCTOR ---------------------------------------------------
@@ -176,6 +179,9 @@ public class Player extends Entity {
         // STARTING POSITION
         this.worldX = gp.tileSize * 23;
         this.worldY = gp.tileSize * 21;
+
+        int seconds = 8;
+        stamina = seconds * gp.FPS; // 512 frames
     }
     private void interactSuperObject(int i) {
 
