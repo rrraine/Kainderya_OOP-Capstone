@@ -305,6 +305,10 @@ public class UI implements Drawable, Importable {
                     g2.setFont(g2.getFont().deriveFont(Font.PLAIN,30F));
                     g2.drawString("Time: " + Time.getTimer(), gp.tileSize * 16, 65);
                 }
+
+                // stamina
+                g2.setFont(g2.getFont().deriveFont(Font.PLAIN,20F));
+                g2.drawString("Stamina: " + gp.player.getStamina(), gp.tileSize * 16 + 5, 100);
             }
         }
     }

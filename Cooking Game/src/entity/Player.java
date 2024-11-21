@@ -18,6 +18,7 @@ public class Player extends Entity {
 
     // STAMINA SYSTEM
     private int stamina;
+    private int maxStamina;
 
     // ~ METHODS ---------------------------------------------------
 
@@ -59,9 +60,26 @@ public class Player extends Entity {
             else { direction = "right"; }
 
             // sprint
-            if (keyB.isShiftPressed()) { speed = 7; }
-            else { speed = 4; }
+            if (sprint()) {
+                speed = 8;
+                stamina--;
 
+                // when exhausted, takes 5 second cooldown to sprint again
+                if (stamina <= 0) {
+                    stamina = -6 * GamePanel.FPS;
+                }
+            }
+            else {
+                speed = 4;
+                stamina++;
+
+                if (stamina > maxStamina) stamina = maxStamina;
+            }
+
+            // speed penalty if exhausted
+            if (stamina < 1) {
+                speed = 1;
+            }
 
             // check tile collision
             collisionOn = false;
@@ -117,6 +135,9 @@ public class Player extends Entity {
         }
         // else idle
         else {
+            stamina++;
+            if (stamina > maxStamina) stamina = maxStamina;
+
             standCounter++;
             if (standCounter == 20) {
                 spriteNum = 3;
@@ -180,8 +201,9 @@ public class Player extends Entity {
         this.worldX = gp.tileSize * 23;
         this.worldY = gp.tileSize * 21;
 
-        int seconds = 8;
-        stamina = seconds * gp.FPS; // 512 frames
+        int seconds = 5;
+        maxStamina = seconds * GamePanel.FPS;
+        stamina = maxStamina;
     }
     private void interactSuperObject(int i) {
 
@@ -196,6 +218,11 @@ public class Player extends Entity {
         }
     }
 
+    private boolean sprint() {
+
+        return keyB.isShiftPressed() && stamina >= 0 && (keyB.isUpPressed() || keyB.isDownPressed() || keyB.isLeftPressed() || keyB.isRightPressed());
+    }
+
     // GETTERS & SETTERS ---------------------------------------------------
     public int getPlayerCenteredScreenX() {
         return playerCenteredScreenX;
@@ -203,5 +230,7 @@ public class Player extends Entity {
     public int getPlayerCenteredScreenY() {
         return playerCenteredScreenY;
     }
-
+    public int getStamina() {
+        return stamina / GamePanel.FPS;
+    }
 }
