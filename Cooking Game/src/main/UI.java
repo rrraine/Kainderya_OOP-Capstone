@@ -307,8 +307,15 @@ public class UI implements Drawable, Importable {
                 }
 
                 // stamina
-                g2.setFont(g2.getFont().deriveFont(Font.PLAIN,20F));
-                g2.drawString("Stamina: " + gp.player.getStamina(), gp.tileSize * 16 + 5, 100);
+                if (gp.player.getStamina() >= 0) {
+                    g2.setFont(g2.getFont().deriveFont(Font.PLAIN,20F));
+                    g2.drawString("Stamina: " + gp.player.getStamina(), gp.tileSize * 16 + 5, 100);
+                }
+                else {
+                    g2.setColor(Color.RED);
+                    g2.setFont(g2.getFont().deriveFont(Font.PLAIN, 20F));
+                    g2.drawString("Stamina: " + gp.player.getStamina(), gp.tileSize * 16 + 5, 100);
+                }
             }
         }
     }
