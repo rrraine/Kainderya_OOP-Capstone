@@ -185,6 +185,7 @@ public class UI implements Drawable, Importable {
         private Color primaryAccent;
         private Color secondary;
         private Color secondaryAccent;
+        private Color primaryTrans;
 
 
         public HomeUI() {
@@ -194,6 +195,8 @@ public class UI implements Drawable, Importable {
             primary = new Color(255, 171, 33);
             primaryAccent = new Color(45, 36, 12);
             secondary = new Color(255, 239, 219);
+
+            primaryTrans = new Color(252, 175, 59, 56);
         }
         public void draw() {
 
@@ -222,6 +225,10 @@ public class UI implements Drawable, Importable {
             String text = "KAiNDERYA";
             int x = Utility.Aligner.centerText(text, gp, g2);
             int y = gp.tileSize * 3;
+
+            // LETTERING
+            g2.setColor(secondary);
+            g2.drawString(text, x + 9, y + 8);
 
             // SHADOW TEXT COLOR
             g2.setColor(primaryAccent);
@@ -278,17 +285,32 @@ public class UI implements Drawable, Importable {
         }
         private void homeSELECTION() {
 
-            g2.setColor(Color.WHITE);
+            g2.setColor(primaryTrans);
+            g2.fillRect(0, 0, gp.screenWidth, gp.screenHeight);
+
+            g2.setFont(luckiestGuy);
+
+            g2.setColor(Color.white);
             g2.setFont(g2.getFont().deriveFont(42F));
 
             String text = "Select Avatar";
             int x = Utility.Aligner.centerText(text, gp, g2);
             int y = gp.tileSize * 3;
+            // SHADOW TEXT COLOR
+            g2.setColor(Color.BLACK);
+            g2.drawString(text, x + 6, y);
+            // MAIN TEXT COLOR
+            g2.setColor(Color.WHITE);
             g2.drawString(text, x, y);
 
             text = "Boy 1";
             x = Utility.Aligner.centerText(text, gp, g2);
             y += gp.tileSize * 3;
+            // SHADOW TEXT COLOR
+            g2.setColor(Color.BLACK);
+            g2.drawString(text, x + 6, y);
+            // MAIN TEXT COLOR
+            g2.setColor(Color.WHITE);
             g2.drawString(text, x, y);
             if (command == 0) {
                 drawCursor(text, x, y, false);
@@ -297,6 +319,11 @@ public class UI implements Drawable, Importable {
             text = "Boy 2";
             x = Utility.Aligner.centerText(text, gp, g2);
             y += gp.tileSize;
+            // SHADOW TEXT COLOR
+            g2.setColor(Color.BLACK);
+            g2.drawString(text, x + 6, y);
+            // MAIN TEXT COLOR
+            g2.setColor(Color.WHITE);
             g2.drawString(text, x, y);
             if (command == 1) {
                 drawCursor(text, x, y, false);
@@ -305,6 +332,11 @@ public class UI implements Drawable, Importable {
             text = "Girl 1";
             x = Utility.Aligner.centerText(text, gp, g2);
             y += gp.tileSize;
+            // SHADOW TEXT COLOR
+            g2.setColor(Color.BLACK);
+            g2.drawString(text, x + 6, y);
+            // MAIN TEXT COLOR
+            g2.setColor(Color.WHITE);
             g2.drawString(text, x, y);
             if (command == 2) {
                 drawCursor(text, x, y, false);
@@ -313,6 +345,11 @@ public class UI implements Drawable, Importable {
             text = "Girl 2";
             x = Utility.Aligner.centerText(text, gp, g2);
             y += gp.tileSize;
+            // SHADOW TEXT COLOR
+            g2.setColor(Color.BLACK);
+            g2.drawString(text, x + 6, y);
+            // MAIN TEXT COLOR
+            g2.setColor(Color.WHITE);
             g2.drawString(text, x, y);
             if (command == 3) {
                 drawCursor(text, x, y, false);
