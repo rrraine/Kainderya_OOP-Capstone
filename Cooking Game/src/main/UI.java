@@ -185,7 +185,6 @@ public class UI implements Drawable, Importable {
         private Color primaryAccent;
         private Color secondary;
         private Color secondaryAccent;
-        private Color primaryTrans;
 
 
         public HomeUI() {
@@ -195,8 +194,6 @@ public class UI implements Drawable, Importable {
             primary = new Color(255, 192, 33);
             primaryAccent = new Color(45, 36, 12);
             secondary = new Color(255, 239, 219);
-
-            primaryTrans = new Color(253, 176, 53, 27);
         }
         public void draw() {
 
@@ -284,9 +281,6 @@ public class UI implements Drawable, Importable {
             }
         }
         private void homeSELECTION() {
-
-            g2.setColor(primaryTrans);
-            g2.fillRect(0, 0, gp.screenWidth, gp.screenHeight);
 
             g2.setFont(luckiestGuy);
 

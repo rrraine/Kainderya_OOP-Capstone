@@ -159,9 +159,11 @@ public class KeyBindings implements KeyListener {
                     gp.playSFX(2);
                 }
                 else if (uiM.getCommand() == 2) {
+                    gp.selectCharacter("Cook2");
                     gp.playSFX(2);
                 }
                 else if (uiM.getCommand() == 3) {
+                    gp.selectCharacter("Cook2");
                     gp.playSFX(2);
                 }
 
