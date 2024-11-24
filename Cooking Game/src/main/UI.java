@@ -316,7 +316,7 @@ public class UI implements Drawable, Importable {
                 drawCursor(text, x, y, false);
             }
 
-            text = "Boy 2";
+            text = "Girl 1";
             x = Utility.Aligner.centerText(text, gp, g2);
             y += gp.tileSize;
             // SHADOW TEXT COLOR
@@ -329,7 +329,7 @@ public class UI implements Drawable, Importable {
                 drawCursor(text, x, y, false);
             }
 
-            text = "Girl 1";
+            text = "Boy 2 (n/a)";
             x = Utility.Aligner.centerText(text, gp, g2);
             y += gp.tileSize;
             // SHADOW TEXT COLOR
@@ -342,7 +342,7 @@ public class UI implements Drawable, Importable {
                 drawCursor(text, x, y, false);
             }
 
-            text = "Girl 2";
+            text = "Girl 2 (n/a)";
             x = Utility.Aligner.centerText(text, gp, g2);
             y += gp.tileSize;
             // SHADOW TEXT COLOR

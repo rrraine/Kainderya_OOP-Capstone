@@ -180,7 +180,7 @@ public class Player extends Entity {
     @Override
     void getAvatar() {
 
-        String avatar = "cook1";
+        String avatar = "cook2";
 
         idle1 = setAvatar("player", avatar, "idle");
         idle2 = setAvatar("player", avatar, "idleUp");
