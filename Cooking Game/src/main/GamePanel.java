@@ -56,7 +56,7 @@ public class GamePanel extends JPanel implements Runnable {
     Thread gameThread;
 
     // OBJECTS AND ENTITY
-    public Player player = new Player(this, keyB);
+    public Player player;
     final List<NPC> npc = new ArrayList<>();
     final List<SuperObject> obj = new ArrayList<>();
 
@@ -259,7 +259,7 @@ public class GamePanel extends JPanel implements Runnable {
     private void playBGMusic(int i) {
 
         music.setSound(i);
-        music.adjustSoundVolume(3); // DECIBELS
+        music.adjustSoundVolume(-2); // DECIBELS
         music.playSound();
         music.loopSound();
     }
@@ -268,6 +268,9 @@ public class GamePanel extends JPanel implements Runnable {
 
         sfx.setSound(i);
         sfx.playSound();
+    }
+    void selectCharacter(String character) {
+        player = new Player(this, keyB, character);
     }
 
 

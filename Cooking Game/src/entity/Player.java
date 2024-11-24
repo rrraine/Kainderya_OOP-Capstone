@@ -20,14 +20,17 @@ public class Player extends Entity {
     private int stamina;
     private int maxStamina;
 
+    String avatar;
+
     // ~ METHODS ---------------------------------------------------
 
     // CONSTRUCTOR ---------------------------------------------------
-    public Player(GamePanel gp, KeyBindings keyB) {
+    public Player(GamePanel gp, KeyBindings keyB, String avatar) {
 
         super(gp, 4, "down");
 
         this.keyB = keyB;
+        this.avatar = avatar;
 
         // PLAYER CENTERED ON SCREEN
         playerCenteredScreenX = gp.screenWidth / 2 - (gp.tileSize /2);
@@ -179,8 +182,6 @@ public class Player extends Entity {
     }
     @Override
     void getAvatar() {
-
-        String avatar = "cook2";
 
         idle1 = setAvatar("player", avatar, "idle");
         idle2 = setAvatar("player", avatar, "idleUp");

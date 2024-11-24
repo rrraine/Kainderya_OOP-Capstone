@@ -151,18 +151,17 @@ public class KeyBindings implements KeyListener {
             if (code == KeyEvent.VK_ENTER || code == KeyEvent.VK_F) {
                 gp.playSFX(2);
                 if (uiM.getCommand() == 0) {
+                    gp.selectCharacter("Cook1");
                     gp.playSFX(2);
                 }
                 else if (uiM.getCommand() == 1) {
-                    // TODO CUSTOMIZE
+                    gp.selectCharacter("Cook2");
                     gp.playSFX(2);
                 }
                 else if (uiM.getCommand() == 2) {
-                    // QUIT
                     gp.playSFX(2);
                 }
                 else if (uiM.getCommand() == 3) {
-                    // QUIT
                     gp.playSFX(2);
                 }
 
