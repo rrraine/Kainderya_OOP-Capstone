@@ -91,7 +91,7 @@ public abstract class NPC extends Entity {
         void getAvatar() {
 
             idle1 = setAvatar("npc","studentFemale", "idle");
-            idle2 = setAvatar("npc","studentMale", "idleUp");
+            idle2 = setAvatar("npc","studentFemale", "idleUp");
             up1 = setAvatar("npc","studentFemale", "up1");
             up2 = setAvatar("npc","studentFemale", "up2");
             down1 = setAvatar("npc","studentFemale", "down1");
