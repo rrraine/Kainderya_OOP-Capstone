@@ -196,7 +196,7 @@ public class UI implements Drawable, Importable {
             primaryAccent = new Color(45, 36, 12);
             secondary = new Color(255, 239, 219);
 
-            primaryTrans = new Color(252, 175, 59, 56);
+            primaryTrans = new Color(253, 176, 53, 27);
         }
         public void draw() {
 
