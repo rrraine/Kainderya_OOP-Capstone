@@ -23,22 +23,46 @@ public interface Importable {
             if (is == null)
                 throw new IOException("Resource not found: " + path + "/" + structure + "/" + type + "/" + image + ".png");
 
-            importedImage = ImageIO.read(Objects.requireNonNull(is));
+            importedImage = ImageIO.read(is);
 
             if (importedImage == null)
                 throw new IOException("Failed to read: " + path + "/" + structure + "/" + type + "/" + image + ".png");
 
             importedImage = Utility.Scaler.scaleImage(importedImage, tileSize, tileSize);
 
+            System.out.println(path + " (" + image + ") imported");
+
         } catch (IOException e) {
             System.err.println(e.getMessage() + " [Inspect: " + this.getClass() + "]");
-        } catch (IllegalArgumentException | NullPointerException e) {
-            System.err.println("Illegal argument / attempt to pass null: " + path + "/" + structure + "/" + type + "/" + image + ".png" + " [Inspect: " + this.getClass() + "]");
         } catch (Exception e) {
             System.err.println("Unexpected error (" + path + "/" + structure + "/" + type + "/" + image + ".png): " + " [Inspect: " + this.getClass() + "]");
         }
 
-        System.out.println(path + " (" + image + ") imported");
+        return importedImage;
+    }
+    default BufferedImage importWallpaper(String path, String category, String image) {
+
+        BufferedImage importedImage = null;
+
+        try (InputStream is = getClass().getResourceAsStream("/" + path + "/" + category + "/" + image + ".png")) {
+
+            if (is == null)
+                throw new IOException("Resource not found: " + path + "/" + category + "/" + image + ".png");
+
+            importedImage = ImageIO.read(is);
+
+            if (importedImage == null)
+                throw new IOException("Failed to read: " + path + "/" + category + "/" + image + ".png");
+
+            System.out.println(path + " (" + image + ") imported");
+
+        } catch (IOException e) {
+            System.err.println(e.getMessage() + " [Inspect: " + this.getClass() + "]");
+        } catch (Exception e) {
+            System.err.println("Unexpected error (" + path + "/" + category + "/" + image + ".png): " + " [Inspect: " + this.getClass() + "]");
+        }
+
+
         return importedImage;
     }
     default URL importSound(String path, String audio) {
@@ -52,11 +76,12 @@ public interface Importable {
                 throw new Exception();
             }
 
+            System.out.println("Sound (" + audio + ") imported");
+
         } catch (Exception e) {
             System.err.println("Trouble importing sound (" + audio + "): " + " [Inspect: " + this.getClass() + "]");
         }
 
-        System.out.println("Sound (" + audio + ") imported");
         return sound;
     }
     default Font importFont(String font) {
@@ -66,11 +91,12 @@ public interface Importable {
         try(InputStream is = getClass().getResourceAsStream("/fonts/" + font + ".ttf")) {
             importedFont = Font.createFont(Font.TRUETYPE_FONT, Objects.requireNonNull(is));
 
+            System.out.println("Font (" + font + ") imported");
+
         } catch (IOException | FontFormatException | NullPointerException e) {
             System.err.println("Trouble importing font (" + font + "): " + " [Inspect: " + this.getClass() + "]");
         }
 
-        System.out.println("Font (" + font + ") imported");
         return importedFont;
     }
 }

@@ -4,7 +4,9 @@ import game.Time;
 import interfaces.Drawable;
 import interfaces.Importable;
 
+import javax.swing.*;
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.text.DecimalFormat;
 import java.util.List;
 import java.util.Random;
@@ -18,8 +20,12 @@ public class UI implements Drawable, Importable {
     private final Time time;
     private Graphics2D g2;
 
-    // FONTS & TIME FORMATS
+    // FONTS
     private final Font fredokaSemiBold;
+    private final Font luckiestGuy;
+    private final Font balooMedium;
+
+    // TIME FORMATS
     private final DecimalFormat timeFormat;
 
     // NOTIFICATIONS
@@ -66,12 +72,16 @@ public class UI implements Drawable, Importable {
 
         // FONT SETUP
         fredokaSemiBold = importFont("Fredoka-SemiBold");
+        luckiestGuy = importFont("LuckiestGuy-Regular");
+        balooMedium = importFont("Baloo2-Medium");
 
         // OPTIONS UI
         command = 0;
 
         // SHAKE EFFECT
         random = new Random();
+
+        // COLORS SETUP
     }
     public static UI instantiate(GamePanel gp, Time time) {
         if (instance == null) {
@@ -170,14 +180,25 @@ public class UI implements Drawable, Importable {
         public substate homeState;
         public enum substate { TITLE, SELECTION }
 
+        private BufferedImage wallpaper;
+        private Color primary;
+        private Color primaryAccent;
+        private Color secondary;
+        private Color secondaryAccent;
+
+
         public HomeUI() {
             homeState = substate.TITLE;
+            wallpaper = importWallpaper("wallpapers", "homeUI", "test3");
+
+            primary = new Color(255, 171, 33);
+            primaryAccent = new Color(45, 36, 12);
+            secondary = new Color(255, 239, 219);
         }
         public void draw() {
 
-            // BACKGROUND
-            g2.setColor(new Color(70, 120, 80));
-            g2.fillRect(0, 0, gp.screenWidth, gp.screenHeight);
+            // HOME BACKGROUND
+            g2.drawImage(wallpaper, 0, 0, gp.screenWidth, gp.screenHeight, null);
 
             switch (homeState) {
 
@@ -194,30 +215,32 @@ public class UI implements Drawable, Importable {
         // SUB-STATES
         private void homeTITLE() {
 
+            g2.setFont(luckiestGuy);
+
             // TITLE
             g2.setFont(g2.getFont().deriveFont(Font.BOLD, 96F));
-            String text = "vj's merienda";
+            String text = "KAiNDERYA";
             int x = Utility.Aligner.centerText(text, gp, g2);
             int y = gp.tileSize * 3;
 
             // SHADOW TEXT COLOR
-            g2.setColor(Color.gray);
-            g2.drawString(text, x + 5, y + 5);
+            g2.setColor(primaryAccent);
+            g2.drawString(text, x + 6, y + 6);
 
             // MAIN TEXT COLOR
-            g2.setColor(Color.WHITE);
+            g2.setColor(primary);
             g2.drawString(text, x, y);
 
-            // ICON
-            x = gp.screenWidth / 2 - (gp.tileSize*2)/2 - 20;
-            y += gp.tileSize * 2 - 20;
-            g2.drawImage(gp.npc.get(0).getIdle1(), x, y, gp.tileSize * 3, gp.tileSize * 3, null);
-
             // NEW GAME
-            g2.setFont(g2.getFont().deriveFont(Font.BOLD, 48F));
+            g2.setFont(g2.getFont().deriveFont(48F));
             text = "NEW GAME";
             x = Utility.Aligner.centerText(text, gp, g2);
-            y += gp.tileSize * 4 + 30;
+            y += gp.tileSize * 5 + 30;
+            // SHADOW TEXT COLOR
+            g2.setColor(Color.BLACK);
+            g2.drawString(text, x + 6, y);
+            // MAIN TEXT COLOR
+            g2.setColor(Color.WHITE);
             g2.drawString(text, x, y);
             if (command == 0) {
                 drawCursor(text, x, y, false);
@@ -228,6 +251,11 @@ public class UI implements Drawable, Importable {
             text = "CREDITS";
             x = Utility.Aligner.centerText(text, gp, g2);
             y += gp.tileSize;
+            // SHADOW TEXT COLOR
+            g2.setColor(Color.BLACK);
+            g2.drawString(text, x + 6, y);
+            // MAIN TEXT COLOR
+            g2.setColor(Color.WHITE);
             g2.drawString(text, x, y);
             if (command == 1) {
                 drawCursor(text, x, y, false);
@@ -238,6 +266,11 @@ public class UI implements Drawable, Importable {
             text = "QUIT";
             x = Utility.Aligner.centerText(text, gp, g2);
             y += gp.tileSize;
+            // SHADOW TEXT COLOR
+            g2.setColor(Color.BLACK);
+            g2.drawString(text, x + 6, y);
+            // MAIN TEXT COLOR
+            g2.setColor(Color.WHITE);
             g2.drawString(text, x, y);
             if (command == 2) {
                 drawCursor(text, x, y, false);
