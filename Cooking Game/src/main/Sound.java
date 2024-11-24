@@ -22,11 +22,13 @@ public class Sound implements Importable {
     // CONSTRUCTOR -----------------------------------------------------------------
     public Sound() {
 
-        soundURL.add(0, importSound("sounds", "BlueBoyAdventure"));
+        soundURL.add(0, importSound("sounds", "Temple-of-Time-MapleStory"));
         soundURL.add(1, importSound("sounds", "coin"));
         soundURL.add(2, importSound("sounds", "powerup"));
         soundURL.add(3, importSound("sounds", "unlock"));
         soundURL.add(4, importSound("sounds", "fanfare"));
+        soundURL.add(5, importSound("sounds", "BlueBoyAdventure"));
+
     }
 
     // FROM THIS CLASS ------------------------------------------------------------

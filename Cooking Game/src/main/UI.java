@@ -192,7 +192,7 @@ public class UI implements Drawable, Importable {
             homeState = substate.TITLE;
             wallpaper = importWallpaper("wallpapers", "homeUI", "test3");
 
-            primary = new Color(255, 171, 33);
+            primary = new Color(255, 192, 33);
             primaryAccent = new Color(45, 36, 12);
             secondary = new Color(255, 239, 219);
 
