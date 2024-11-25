@@ -20,17 +20,20 @@ public class Player extends Entity {
     private int stamina;
     private int maxStamina;
 
-    String avatar;
+    // PLAYER PREFERENCES
+    private final String playerAvatar;
+    private String playerName;
 
     // ~ METHODS ---------------------------------------------------
 
     // CONSTRUCTOR ---------------------------------------------------
-    public Player(GamePanel gp, KeyBindings keyB, String avatar) {
+    public Player(GamePanel gp, KeyBindings keyB, String playerAvatar, String playerName) {
 
         super(gp, 4, "down");
 
         this.keyB = keyB;
-        this.avatar = avatar;
+        this.playerAvatar = playerAvatar;
+        this.playerName = playerName;
 
         // PLAYER CENTERED ON SCREEN
         playerCenteredScreenX = gp.screenWidth / 2 - (gp.tileSize /2);
@@ -183,16 +186,16 @@ public class Player extends Entity {
     @Override
     void getAvatar() {
 
-        idle1 = setAvatar("player", avatar, "idle");
-        idle2 = setAvatar("player", avatar, "idleUp");
-        up1 = setAvatar("player", avatar, "up1");
-        up2 = setAvatar("player", avatar, "up2");
-        down1 = setAvatar("player", avatar, "down1");
-        down2 = setAvatar("player", avatar, "down2");
-        left1 = setAvatar("player", avatar, "left1");
-        left2 = setAvatar("player", avatar, "left2");
-        right1 = setAvatar("player", avatar, "right1");
-        right2 = setAvatar("player", avatar, "right2");
+        idle1 = setAvatar("player", playerAvatar, "idle");
+        idle2 = setAvatar("player", playerAvatar, "idleUp");
+        up1 = setAvatar("player", playerAvatar, "up1");
+        up2 = setAvatar("player", playerAvatar, "up2");
+        down1 = setAvatar("player", playerAvatar, "down1");
+        down2 = setAvatar("player", playerAvatar, "down2");
+        left1 = setAvatar("player", playerAvatar, "left1");
+        left2 = setAvatar("player", playerAvatar, "left2");
+        right1 = setAvatar("player", playerAvatar, "right1");
+        right2 = setAvatar("player", playerAvatar, "right2");
     }
 
     // FROM THIS CLASS ---------------------------------------------------
@@ -233,5 +236,8 @@ public class Player extends Entity {
     }
     public int getStamina() {
         return stamina / GamePanel.FPS;
+    }
+    public String getPlayerName() {
+        return playerName;
     }
 }

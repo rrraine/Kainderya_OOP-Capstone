@@ -137,36 +137,48 @@ public class KeyBindings implements KeyListener {
                 gp.playSFX(2);
                 uiM.setCommand(uiM.getCommand() -1);
                 if (uiM.getCommand() < 0) {
-                    uiM.setCommand(3);
+                    uiM.setCommand(4);
                 }
             }
             if (code == KeyEvent.VK_S) {
                 gp.playSFX(2);
                 uiM.setCommand(uiM.getCommand() +1);
-                if (uiM.getCommand() > 3) {
+                if (uiM.getCommand() > 4) {
                     uiM.setCommand(0);
                 }
             }
             // EXECUTE
             if (code == KeyEvent.VK_ENTER || code == KeyEvent.VK_F) {
                 gp.playSFX(2);
+
+                String playerAvatar = "", playerName = "";
+
                 if (uiM.getCommand() == 0) {
-                    gp.selectCharacter("Cook1");
+                    playerAvatar = "Cook1";
                     gp.playSFX(2);
                 }
                 else if (uiM.getCommand() == 1) {
-                    gp.selectCharacter("Cook2");
+                    playerAvatar = "Cook2";
                     gp.playSFX(2);
                 }
                 else if (uiM.getCommand() == 2) {
-                    gp.selectCharacter("Cook2");
+                    playerAvatar = "Cook1";
                     gp.playSFX(2);
                 }
                 else if (uiM.getCommand() == 3) {
-                    gp.selectCharacter("Cook2");
+                    playerAvatar = "Cook1";
+                    gp.playSFX(2);
+                }
+                else if (uiM.getCommand() == 4) {
+                    // NAME FIELD
+                    playerName = "Aaron";
                     gp.playSFX(2);
                 }
 
+                // TODO IMPLEMENT EXCEPTION HANDLING IF BOTH PLAYERAVATAR AND PLAYERNAME ARE EMPTY & USE WHILE LOOP TO REPEAT THE PROMPT
+                gp.selectCharacter(playerAvatar, playerName);
+
+                // TODO CANNOT PROCEED IF NAME EMPTY
                 gp.gameState = GamePanel.state.PLAY;
             }
         }

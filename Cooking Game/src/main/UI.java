@@ -105,21 +105,21 @@ public class UI implements Drawable, Importable {
     }
 
     // FROM THIS CLASS -------------------------------------------------------------
-    private void drawCursor(String text, int x, int y, boolean singleArrow) {
+    private void drawCursor(String text, int x, int y, boolean singleArrow, boolean underline) {
 
         List<Integer> coord = Utility.Aligner.centerCursor(text, x, y, gp, g2);
 
         if (singleArrow) {
             g2.drawString(">", coord.get(0) + gp.tileSize - 25, coord.get(1));
             g2.setStroke(new BasicStroke(1.2F));
-            g2.drawLine(coord.get(4), coord.get(5), coord.get(6), coord.get(7));
-            return;
         }
-
-        g2.drawString(">", coord.get(0), coord.get(1));
-        g2.drawString("<", coord.get(2), coord.get(3));
-        g2.setStroke(new BasicStroke(1.2F));
-        g2.drawLine(coord.get(4), coord.get(5), coord.get(6), coord.get(7));
+        else {
+            g2.drawString(">", coord.get(0), coord.get(1));
+            g2.drawString("<", coord.get(2), coord.get(3));
+            g2.setStroke(new BasicStroke(1.2F));
+        }
+        if (underline)
+            g2.drawLine(coord.get(4), coord.get(5), coord.get(6), coord.get(7));
     }
     private void drawElement(String text, int x, int y) {}
     public static void showNotification(String text) {
@@ -144,7 +144,19 @@ public class UI implements Drawable, Importable {
     }
     private void drawPopUpWindow(int x, int y, int width, int height) {
 
-        Color color = new Color(0,0,0, 220);
+        Color color = new Color(0,0,0, 180);
+        g2.setColor(color);
+
+        // DRAW WINDOW
+        g2.fillRoundRect(x, y, width, height, 35, 35);
+
+        color = new Color(255,255,255);
+        g2.setColor(color);
+        g2.setStroke(new BasicStroke(5));
+        g2.drawRoundRect(x+5, y+5, width-10, height-10, 25, 25);
+    }
+    private void drawPopUpWindow(int x, int y, int width, int height, Color color) {
+
         g2.setColor(color);
 
         // DRAW WINDOW
@@ -247,7 +259,7 @@ public class UI implements Drawable, Importable {
             g2.setColor(Color.WHITE);
             g2.drawString(text, x, y);
             if (command == 0) {
-                drawCursor(text, x, y, false);
+                drawCursor(text, x, y, false, true);
             }
 
             // CUSTOMIZE
@@ -262,7 +274,7 @@ public class UI implements Drawable, Importable {
             g2.setColor(Color.WHITE);
             g2.drawString(text, x, y);
             if (command == 1) {
-                drawCursor(text, x, y, false);
+                drawCursor(text, x, y, false, true);
             }
 
             // QUIT
@@ -277,10 +289,17 @@ public class UI implements Drawable, Importable {
             g2.setColor(Color.WHITE);
             g2.drawString(text, x, y);
             if (command == 2) {
-                drawCursor(text, x, y, false);
+                drawCursor(text, x, y, false, true);
             }
         }
         private void homeSELECTION() {
+
+            // SUB-WINDOW
+            int frameX = gp.tileSize;
+            int frameY = gp.tileSize;
+            int frameWidth = gp.tileSize * 18;
+            int frameHeight = gp.tileSize * 10;
+            drawPopUpWindow(frameX, frameY, frameWidth, frameHeight);
 
             g2.setFont(luckiestGuy);
 
@@ -289,7 +308,7 @@ public class UI implements Drawable, Importable {
 
             String text = "Select Avatar";
             int x = Utility.Aligner.centerText(text, gp, g2);
-            int y = gp.tileSize * 3;
+            int y = gp.tileSize * 2 + 25;
             // SHADOW TEXT COLOR
             g2.setColor(Color.BLACK);
             g2.drawString(text, x + 6, y);
@@ -307,7 +326,7 @@ public class UI implements Drawable, Importable {
             g2.setColor(Color.WHITE);
             g2.drawString(text, x, y);
             if (command == 0) {
-                drawCursor(text, x, y, false);
+                drawCursor(text, x, y, false, true);
             }
 
             text = "Girl 1";
@@ -320,7 +339,7 @@ public class UI implements Drawable, Importable {
             g2.setColor(Color.WHITE);
             g2.drawString(text, x, y);
             if (command == 1) {
-                drawCursor(text, x, y, false);
+                drawCursor(text, x, y, false, true);
             }
 
             text = "Boy 2 (n/a)";
@@ -333,7 +352,7 @@ public class UI implements Drawable, Importable {
             g2.setColor(Color.WHITE);
             g2.drawString(text, x, y);
             if (command == 2) {
-                drawCursor(text, x, y, false);
+                drawCursor(text, x, y, false, true);
             }
 
             text = "Girl 2 (n/a)";
@@ -346,8 +365,31 @@ public class UI implements Drawable, Importable {
             g2.setColor(Color.WHITE);
             g2.drawString(text, x, y);
             if (command == 3) {
-                drawCursor(text, x, y, false);
+                drawCursor(text, x, y, false, true);
             }
+
+            text = "Name: ";
+            x = Utility.Aligner.centerText(text, gp, g2) - (gp.tileSize * 4);
+            y += gp.tileSize * 2 - 20;
+            // SHADOW TEXT COLOR
+            g2.setColor(Color.BLACK);
+            g2.drawString(text, x + 6, y);
+            // MAIN TEXT COLOR
+            g2.setColor(Color.WHITE);
+            g2.drawString(text, x, y);
+
+            if (command == 4) {
+                // TODO DISPLAY CURSOR TEXT IN BOX
+                drawCursor(text, x - 15, y, true, false);
+            }
+
+            // NAME FIELD
+            // TODO IMPLEMENT TEXT FIELD WITH LISTENER
+            x += gp.tileSize * 3;
+            y -= 40;
+            int width = gp.tileSize * 7;
+            int height = gp.tileSize - 10;
+            drawPopUpWindow(x, y, width, height, Color.WHITE);
         }
     }
     public class PlayUI  {
@@ -469,7 +511,7 @@ public class UI implements Drawable, Importable {
             textY += gp.tileSize * 2;
             g2.drawString(label, textX, textY);
             if (command == 0) {
-                drawCursor(label, textX, textY, true);
+                drawCursor(label, textX, textY, true, true);
 
                 // IF PRESSED
                 if (gp.keyB.isEnterPressed()) {
@@ -490,7 +532,7 @@ public class UI implements Drawable, Importable {
             textY += gp.tileSize;
             g2.drawString(label, textX, textY);
             if (command == 1) {
-                drawCursor(label, textX, textY, true);
+                drawCursor(label, textX, textY, true, true);
             }
 
             // VOLUME
@@ -498,7 +540,7 @@ public class UI implements Drawable, Importable {
             textY += gp.tileSize;
             g2.drawString(label, textX, textY);
             if (command == 2) {
-                drawCursor(label, textX, textY, true);
+                drawCursor(label, textX, textY, true, true);
             }
 
             // QUIT
@@ -506,7 +548,7 @@ public class UI implements Drawable, Importable {
             textY += gp.tileSize;
             g2.drawString(label , textX, textY);
             if (command == 3) {
-                drawCursor(label, textX, textY, true);
+                drawCursor(label, textX, textY, true, true);
                 if (gp.keyB.isEnterPressed()) {
                     optionsState = substate.QUIT;
                     command = 0;
@@ -518,7 +560,7 @@ public class UI implements Drawable, Importable {
             textY += gp.tileSize * 2;
             g2.drawString(label, textX, textY);
             if (command == 4) {
-                drawCursor(label, textX, textY, true);
+                drawCursor(label, textX, textY, true, true);
                 if (gp.keyB.isEnterPressed()) {
                     gp.gameState = GamePanel.state.PLAY;
                     command = 0;
@@ -557,7 +599,7 @@ public class UI implements Drawable, Importable {
             textY += gp.tileSize * 2;
             g2.drawString("Back", textX, textY);
             if (command == 0) {
-                drawCursor("Back", textX, textY, true);
+                drawCursor("Back", textX, textY, true, true);
                 if (gp.keyB.isEnterPressed()){
                     getOptionsUI().optionsState = OptionsUI.substate.START;
                     command = 0;
@@ -583,7 +625,7 @@ public class UI implements Drawable, Importable {
             textY += gp.tileSize * 3;
             g2.drawString(text, textX, textY);
             if (command == 0) {
-                drawCursor(text, textX, textY, true);
+                drawCursor(text, textX, textY, true, true);
                 // QUIT
                 if (gp.keyB.isEnterPressed()) {
                     optionsUI.optionsState = OptionsUI.substate.START;
@@ -598,7 +640,7 @@ public class UI implements Drawable, Importable {
             textY += gp.tileSize;
             g2.drawString(text, textX, textY);
             if (command == 1) {
-                drawCursor(text, textX, textY, true);
+                drawCursor(text, textX, textY, true, true);
                 // QUIT
                 if (gp.keyB.isEnterPressed()) {
                     getOptionsUI().optionsState = OptionsUI.substate.START;

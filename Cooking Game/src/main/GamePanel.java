@@ -186,9 +186,13 @@ public class GamePanel extends JPanel implements Runnable {
     private void drawTempScreen() {
         // warning!!!! only attempt to draw within conditional blocks to avoid overlapping draws
 
-        if (gameState == state.HOME)
-            uiM.draw(g2);
+        if (gameState == state.HOME) {
+            // prevent out of map glitches
+            g2.setColor(Color.BLACK);
+            g2.fillRect(0, 0, screenWidth, screenHeight);
 
+            uiM.draw(g2);
+        }
         else {
             // prevent out of map glitches
             g2.setColor(Color.BLACK);
@@ -196,6 +200,7 @@ public class GamePanel extends JPanel implements Runnable {
 
             // 1. DRAW TILES
             tileM.draw(g2);
+
             // 2. DRAW SUPER-OBJECTS : TODO CLEAN THIS
             try {
                 for (SuperObject object : obj) {
@@ -269,8 +274,8 @@ public class GamePanel extends JPanel implements Runnable {
         sfx.setSound(i);
         sfx.playSound();
     }
-    void selectCharacter(String character) {
-        player = new Player(this, keyB, character);
+    void selectCharacter(String playerAvatar, String playerName) {
+        player = new Player(this, keyB, playerAvatar, playerName);
     }
 
 
