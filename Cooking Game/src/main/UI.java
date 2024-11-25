@@ -4,7 +4,6 @@ import game.Time;
 import interfaces.Drawable;
 import interfaces.Importable;
 
-import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.text.DecimalFormat;
@@ -51,6 +50,12 @@ public class UI implements Drawable, Importable {
     // SHAKE EFFECT
     private final Random random;
 
+    // COLORS
+    private Color primary;
+    private Color primaryAccent;
+    private Color secondary;
+    private Color secondaryAccent;
+
 
     // CONSTRUCTOR -----------------------------------------------------------------
     private UI(GamePanel gp, Time time) {
@@ -83,7 +88,10 @@ public class UI implements Drawable, Importable {
         // SHAKE EFFECT
         random = new Random();
 
-        // COLORS SETUP
+        // COLOR PALLETTE
+        primary = new Color( 255, 219, 75);
+        primaryAccent = new Color(65, 52, 18);
+        secondary = new Color(255, 75, 81);
     }
     public static UI instantiate(GamePanel gp, Time time) {
         if (instance == null) {
@@ -111,16 +119,21 @@ public class UI implements Drawable, Importable {
 
         List<Integer> coord = Utility.Aligner.centerCursor(text, x, y, gp, g2);
 
-        if (singleArrow) {
+        if (singleArrow) { // SINGLE ARROW
+            drawLetterBorder(">", Color.BLACK, 3, coord.get(0) + gp.tileSize - 25, coord.get(1));
+            g2.setColor(primary);
             g2.drawString(">", coord.get(0) + gp.tileSize - 25, coord.get(1));
             g2.setStroke(new BasicStroke(1.2F));
         }
-        else {
+        else { // DOUBLE ARROW
+            drawLetterBorder(">", Color.BLACK, 3, coord.get(0), coord.get(1));
+            drawLetterBorder("<", Color.BLACK, 3, coord.get(2), coord.get(3));
+            g2.setColor(primary);
             g2.drawString(">", coord.get(0), coord.get(1));
             g2.drawString("<", coord.get(2), coord.get(3));
             g2.setStroke(new BasicStroke(1.2F));
         }
-        if (underline)
+        if (underline) // UNDERLINE
             g2.drawLine(coord.get(4), coord.get(5), coord.get(6), coord.get(7));
     }
     private void drawElement(String text, int x, int y) {}
@@ -169,6 +182,17 @@ public class UI implements Drawable, Importable {
         g2.setStroke(new BasicStroke(5));
         g2.drawRoundRect(x+5, y+5, width-10, height-10, 25, 25);
     }
+    private void drawLetterBorder(String text, Color color, int thickness, int x, int y) {
+
+        g2.setColor(color);
+        for (int i = thickness *-1; i <= thickness; i++) {
+            for (int j = thickness *-1; j <= thickness; j++) {
+                if (i != 0 || j != 0) {
+                    g2.drawString(text, x + i, y + j);
+                }
+            }
+        }
+    }
 
     // COMMAND GETTERS & SETTERS
     public int getCommand() { return command; }
@@ -197,31 +221,22 @@ public class UI implements Drawable, Importable {
         private BufferedImage wallpaper;
         private BufferedImage wallpaperFront;
 
-        private Color primary;
-        private Color primaryAccent;
-        private Color secondary;
-        private Color secondaryAccent;
+
 
         // ANIMATED WALLPAPER
         UIAnimated girl;
         UIAnimated boy;
         UIAnimated civilian;
 
-
         public HomeUI() {
             homeState = substate.TITLE;
             wallpaper = importWallpaper("wallpapers", "homeUI", "homeUI_Back");
             wallpaperFront = importWallpaper("wallpapers", "homeUI", "homeUI_Front");
 
-            primary = new Color(230, 169, 52);
-            primaryAccent = new Color(65, 52, 18);
-            secondary = new Color(255, 239, 219);
-
-
             // ANIMATED WALLPAPER
-            girl = new UIAnimated(gp, "studentFemale", gp.tileSize *8, gp.tileSize *3+20, true);
-            boy = new UIAnimated(gp, "studentMale", gp.tileSize, gp.tileSize *3+20, false);
-            civilian = new UIAnimated(gp, "civilianfem1", gp.tileSize * 11, gp.tileSize *3+20, true);
+            girl = new UIAnimated(gp, "Avatar", "studentFemale", gp.tileSize *8, gp.tileSize *3+20,  30,true);
+            boy = new UIAnimated(gp, "Avatar","studentMale", gp.tileSize, gp.tileSize *3+20, 16,false);
+            civilian = new UIAnimated(gp, "Avatar","civilianfem1", gp.tileSize * 11, gp.tileSize *3+20, 20, true);
         }
         public void draw() {
 
@@ -250,6 +265,7 @@ public class UI implements Drawable, Importable {
             boy.draw(g2);
             civilian.draw(g2);
 
+
             // HOME BACKGROUND FRONT
             g2.drawImage(wallpaperFront, 0, 0, gp.screenWidth, gp.screenHeight, null);
 
@@ -260,26 +276,27 @@ public class UI implements Drawable, Importable {
             int y = gp.tileSize * 4 - 40;
 
             // LETTERING: WHITE
-            g2.setColor(secondary);
+            g2.setColor(Color.WHITE);
             g2.drawString(text, x + 16, y + 16);
 
             // SHADOW TEXT COLOR
             g2.setColor(primaryAccent);
             g2.drawString(text, x + 14, y + 14);
 
-            // BORDERING: THICKNESS = 6
-            g2.setColor(Color.BLACK);
-            for (int i = -5; i <= 5; i++) {
-                for (int j = -5; j <= 5; j++) {
-                    if (i != 0 || j != 0) {
-                        g2.drawString(text, x + i, y + j);
-                    }
-                }
-            }
+            // BORDERING
+            drawLetterBorder(text, Color.BLACK, 6, x, y);
 
             // MAIN TEXT COLOR
-            g2.setColor(primary);
-            g2.drawString(text, x, y);
+            if (Utility.Regulator.flipSwitch(2))
+                g2.setColor(primary);
+            else
+                g2.setColor(secondary);
+
+            if (Utility.Regulator.flipSwitch(2))
+                g2.drawString(text, x , y);
+            else
+                g2.drawString(text, x + shakeEffect(1), y);
+
 
             // NEW GAME
             g2.setFont(g2.getFont().deriveFont(48F));
@@ -288,28 +305,38 @@ public class UI implements Drawable, Importable {
             y += gp.tileSize * 3 -5;
             // SHADOW TEXT COLOR
             g2.setColor(Color.BLACK);
-            g2.drawString(text, x + 6, y);
+            g2.drawString(text, x +7, y +5);
+            // BORDERING
+            drawLetterBorder(text, Color.BLACK, 3, x, y);
             // MAIN TEXT COLOR
-            g2.setColor(Color.WHITE);
-            g2.drawString(text, x, y);
             if (command == 0) {
-                drawCursor(text, x, y, false, true);
+                drawCursor(text, x, y, false, false);
             }
+            else {
+                g2.setColor(Color.WHITE);
+            }
+            g2.drawString(text, x, y);
 
-            // CUSTOMIZE
+
+            // CREDITS
             g2.setFont(g2.getFont().deriveFont(Font.BOLD, 48F));
             text = "CREDITS";
             x = Utility.Aligner.centerText(text, gp, g2);
             y += gp.tileSize;
             // SHADOW TEXT COLOR
             g2.setColor(Color.BLACK);
-            g2.drawString(text, x + 6, y);
+            g2.drawString(text, x +7, y +5);
+            // BORDERING
+            drawLetterBorder(text, Color.BLACK, 3, x, y);
             // MAIN TEXT COLOR
             g2.setColor(Color.WHITE);
             g2.drawString(text, x, y);
             if (command == 1) {
-                drawCursor(text, x, y, false, true);
+                drawCursor(text, x, y, false, false);
+            } else {
+                g2.setColor(Color.WHITE);
             }
+            g2.drawString(text, x, y);
 
             // QUIT
             g2.setFont(g2.getFont().deriveFont(Font.BOLD, 48F));
@@ -318,13 +345,19 @@ public class UI implements Drawable, Importable {
             y += gp.tileSize;
             // SHADOW TEXT COLOR
             g2.setColor(Color.BLACK);
-            g2.drawString(text, x + 6, y);
+            g2.drawString(text, x +7, y +5);
+            // BORDERING
+            drawLetterBorder(text, Color.BLACK, 3, x, y);
             // MAIN TEXT COLOR
             g2.setColor(Color.WHITE);
             g2.drawString(text, x, y);
             if (command == 2) {
-                drawCursor(text, x, y, false, true);
+                drawCursor(text, x, y, false, false);
+                g2.setColor(secondary);
+            } else {
+                g2.setColor(Color.WHITE);
             }
+            g2.drawString(text, x, y);
         }
         private void homeSELECTION() {
 

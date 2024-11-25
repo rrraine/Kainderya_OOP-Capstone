@@ -415,6 +415,21 @@ public class Utility {
             blockedTime++;
             return false;
         }
+
+        private static long lastToggleTime = 0;
+        private static boolean toggleState = false;
+        public static boolean flipSwitch(int sec) {
+
+            long currentTime = System.currentTimeMillis();
+
+            if (currentTime - lastToggleTime >= sec * 1000L) {
+
+                toggleState = !toggleState;
+                lastToggleTime = currentTime;
+            }
+
+            return toggleState;
+        }
     }
 
 }

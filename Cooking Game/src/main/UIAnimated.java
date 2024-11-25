@@ -19,22 +19,26 @@ public class UIAnimated implements Importable, Drawable {
     private int animatedY;
     private boolean movingLeft;
 
-    BufferedImage left1, left2, right1, right2;
+    private int frameInterval;
 
-    public UIAnimated(GamePanel gp, String avatar, int x, int y, boolean movingLeft) {
+    private BufferedImage left1, left2, right1, right2, element;
+
+    public UIAnimated(GamePanel gp, String type, String image, int x, int y, int frameInterval, boolean movingLeft) {
         this.gp = gp;
+        this.frameInterval = frameInterval;
         this.movingLeft = movingLeft;
 
-        renderAvatar(avatar);
+        renderAvatar(image);
         initAnimation(x, y, gp.tileSize);
     }
 
-    private void renderAvatar(String avatar) {
-        left1 = importImage("avatar", "npc", avatar, "left1", gp.tileSize);
-        left2 = importImage("avatar", "npc", avatar, "left2", gp.tileSize);
-        right1 = importImage("avatar", "npc", avatar, "right1", gp.tileSize);
-        right2 = importImage("avatar", "npc", avatar, "right2", gp.tileSize);
+    private void renderAvatar(String image) {
+        left1 = importImage("avatar", "npc", image, "left1", gp.tileSize);
+        left2 = importImage("avatar", "npc", image, "left2", gp.tileSize);
+        right1 = importImage("avatar", "npc", image, "right1", gp.tileSize);
+        right2 = importImage("avatar", "npc", image, "right2", gp.tileSize);
     }
+
     private void initAnimation(int x, int y, int tileSize) {
         animatedX = x + tileSize * 5;
         animatedY = y + tileSize * 5;
@@ -74,9 +78,9 @@ public class UIAnimated implements Importable, Drawable {
             );
         }
 
-        // ALTERNATE SPRITE MOVE POSES EVERY 12 FRAMES
+        // ALTERNATE SPRITE MOVE POSES
         spriteCounter++;
-        if (spriteCounter > 24) {
+        if (spriteCounter > frameInterval) {
             if (spriteNum == 1 || spriteNum == 3) {
                 spriteNum = 2;
             } else if (spriteNum == 2) {
