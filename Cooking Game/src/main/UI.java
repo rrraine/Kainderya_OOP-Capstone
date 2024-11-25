@@ -203,11 +203,9 @@ public class UI implements Drawable, Importable {
         private Color secondaryAccent;
 
         // ANIMATED WALLPAPER
-        private int spriteCounter = 0;
-        private int spriteNum = 1;
-        private int animatedX;
-        private int animatedY;
-        private boolean movingLeft = true;
+        UIAnimated girl;
+        UIAnimated boy;
+        UIAnimated civilian;
 
 
         public HomeUI() {
@@ -219,10 +217,11 @@ public class UI implements Drawable, Importable {
             primaryAccent = new Color(65, 52, 18);
             secondary = new Color(255, 239, 219);
 
+
             // ANIMATED WALLPAPER
-            int x = gp.tileSize * 5;
-            int y = gp.tileSize * 3 + 20;
-            initAnimation(x, y, gp.tileSize);
+            girl = new UIAnimated(gp, "studentFemale", gp.tileSize *8, gp.tileSize *3+20, true);
+            boy = new UIAnimated(gp, "studentMale", gp.tileSize, gp.tileSize *3+20, false);
+            civilian = new UIAnimated(gp, "civilianfem1", gp.tileSize * 11, gp.tileSize *3+20, true);
         }
         public void draw() {
 
@@ -247,7 +246,9 @@ public class UI implements Drawable, Importable {
             g2.setFont(paytoneOne);
 
             // ANIMATED WALLPAPER
-            simulateAnimation();
+            girl.draw(g2);
+            boy.draw(g2);
+            civilian.draw(g2);
 
             // HOME BACKGROUND FRONT
             g2.drawImage(wallpaperFront, 0, 0, gp.screenWidth, gp.screenHeight, null);
@@ -280,13 +281,11 @@ public class UI implements Drawable, Importable {
             g2.setColor(primary);
             g2.drawString(text, x, y);
 
-            // ---------------------------------------
-
             // NEW GAME
             g2.setFont(g2.getFont().deriveFont(48F));
             text = "NEW GAME";
             x = Utility.Aligner.centerText(text, gp, g2);
-            y += gp.tileSize * 3;
+            y += gp.tileSize * 3 -5;
             // SHADOW TEXT COLOR
             g2.setColor(Color.BLACK);
             g2.drawString(text, x + 6, y);
@@ -425,53 +424,6 @@ public class UI implements Drawable, Importable {
             int width = gp.tileSize * 7;
             int height = gp.tileSize - 10;
             drawPopUpWindow(x, y, width, height, Color.WHITE);
-        }
-
-        private void simulateAnimation() {
-
-            int speed = 1;
-
-            if (movingLeft) {
-                animatedX -= speed;
-
-                if (animatedX < -gp.tileSize * 2) {
-                    movingLeft = false;
-                }
-            } else {
-                animatedX += speed;
-
-                if (animatedX > gp.screenWidth) {
-                    movingLeft = true;
-                }
-            }
-
-            // DRAW
-            if (spriteNum == 1) {
-                g2.drawImage(
-                        movingLeft ? gp.getNpc().get(0).getLeft1() : gp.getNpc().get(0).getRight1(),
-                        animatedX, animatedY, gp.tileSize * 2 - 20, gp.tileSize * 2 - 20, null
-                );
-            } else if (spriteNum == 2) {
-                g2.drawImage(
-                        movingLeft ? gp.getNpc().get(0).getLeft2() : gp.getNpc().get(0).getRight2(),
-                        animatedX, animatedY, gp.tileSize * 2 - 20, gp.tileSize * 2 - 20, null
-                );
-            }
-
-            // ALTERNATE SPRITE MOVE POSES EVERY 12 FRAMES
-            spriteCounter++;
-            if (spriteCounter > 24) {
-                if (spriteNum == 1 || spriteNum == 3) {
-                    spriteNum = 2;
-                } else if (spriteNum == 2) {
-                    spriteNum = 1;
-                }
-                spriteCounter = 0;
-            }
-        }
-        private void initAnimation(int x, int y, int tileSize) {
-            animatedX = x + tileSize * 5;
-            animatedY = y + tileSize * 5;
         }
 
     }
