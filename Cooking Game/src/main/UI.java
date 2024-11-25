@@ -24,6 +24,7 @@ public class UI implements Drawable, Importable {
     private final Font fredokaSemiBold;
     private final Font luckiestGuy;
     private final Font balooMedium;
+    private final Font paytoneOne;
 
     // TIME FORMATS
     private final DecimalFormat timeFormat;
@@ -74,6 +75,7 @@ public class UI implements Drawable, Importable {
         fredokaSemiBold = importFont("Fredoka-SemiBold");
         luckiestGuy = importFont("LuckiestGuy-Regular");
         balooMedium = importFont("Baloo2-Medium");
+        paytoneOne = importFont("PaytoneOne-Regular");
 
         // OPTIONS UI
         command = 0;
@@ -193,23 +195,38 @@ public class UI implements Drawable, Importable {
         public enum substate { TITLE, SELECTION }
 
         private BufferedImage wallpaper;
+        private BufferedImage wallpaperFront;
+
         private Color primary;
         private Color primaryAccent;
         private Color secondary;
         private Color secondaryAccent;
 
+        // ANIMATED WALLPAPER
+        private int spriteCounter = 0;
+        private int spriteNum = 1;
+        private int animatedX;
+        private int animatedY;
+        private boolean movingLeft = true;
+
 
         public HomeUI() {
             homeState = substate.TITLE;
-            wallpaper = importWallpaper("wallpapers", "homeUI", "test3");
+            wallpaper = importWallpaper("wallpapers", "homeUI", "homeUI_Back");
+            wallpaperFront = importWallpaper("wallpapers", "homeUI", "homeUI_Front");
 
-            primary = new Color(255, 192, 33);
-            primaryAccent = new Color(45, 36, 12);
+            primary = new Color(230, 169, 52);
+            primaryAccent = new Color(65, 52, 18);
             secondary = new Color(255, 239, 219);
+
+            // ANIMATED WALLPAPER
+            int x = gp.tileSize * 5;
+            int y = gp.tileSize * 3 + 20;
+            initAnimation(x, y, gp.tileSize);
         }
         public void draw() {
 
-            // HOME BACKGROUND
+            // HOME BACKGROUND BACK
             g2.drawImage(wallpaper, 0, 0, gp.screenWidth, gp.screenHeight, null);
 
             switch (homeState) {
@@ -227,31 +244,49 @@ public class UI implements Drawable, Importable {
         // SUB-STATES
         private void homeTITLE() {
 
-            g2.setFont(luckiestGuy);
+            g2.setFont(paytoneOne);
+
+            // ANIMATED WALLPAPER
+            simulateAnimation();
+
+            // HOME BACKGROUND FRONT
+            g2.drawImage(wallpaperFront, 0, 0, gp.screenWidth, gp.screenHeight, null);
 
             // TITLE
-            g2.setFont(g2.getFont().deriveFont(Font.BOLD, 96F));
+            g2.setFont(g2.getFont().deriveFont(Font.BOLD, 135F));
             String text = "KAiNDERYA";
             int x = Utility.Aligner.centerText(text, gp, g2);
-            int y = gp.tileSize * 3;
+            int y = gp.tileSize * 4 - 40;
 
-            // LETTERING
+            // LETTERING: WHITE
             g2.setColor(secondary);
-            g2.drawString(text, x + 9, y + 8);
+            g2.drawString(text, x + 16, y + 16);
 
             // SHADOW TEXT COLOR
             g2.setColor(primaryAccent);
-            g2.drawString(text, x + 6, y + 6);
+            g2.drawString(text, x + 14, y + 14);
+
+            // BORDERING: THICKNESS = 6
+            g2.setColor(Color.BLACK);
+            for (int i = -5; i <= 5; i++) {
+                for (int j = -5; j <= 5; j++) {
+                    if (i != 0 || j != 0) {
+                        g2.drawString(text, x + i, y + j);
+                    }
+                }
+            }
 
             // MAIN TEXT COLOR
             g2.setColor(primary);
             g2.drawString(text, x, y);
 
+            // ---------------------------------------
+
             // NEW GAME
             g2.setFont(g2.getFont().deriveFont(48F));
             text = "NEW GAME";
             x = Utility.Aligner.centerText(text, gp, g2);
-            y += gp.tileSize * 5 + 30;
+            y += gp.tileSize * 3;
             // SHADOW TEXT COLOR
             g2.setColor(Color.BLACK);
             g2.drawString(text, x + 6, y);
@@ -391,6 +426,54 @@ public class UI implements Drawable, Importable {
             int height = gp.tileSize - 10;
             drawPopUpWindow(x, y, width, height, Color.WHITE);
         }
+
+        private void simulateAnimation() {
+
+            int speed = 1;
+
+            if (movingLeft) {
+                animatedX -= speed;
+
+                if (animatedX < -gp.tileSize * 2) {
+                    movingLeft = false;
+                }
+            } else {
+                animatedX += speed;
+
+                if (animatedX > gp.screenWidth) {
+                    movingLeft = true;
+                }
+            }
+
+            // DRAW
+            if (spriteNum == 1) {
+                g2.drawImage(
+                        movingLeft ? gp.getNpc().get(0).getLeft1() : gp.getNpc().get(0).getRight1(),
+                        animatedX, animatedY, gp.tileSize * 2 - 20, gp.tileSize * 2 - 20, null
+                );
+            } else if (spriteNum == 2) {
+                g2.drawImage(
+                        movingLeft ? gp.getNpc().get(0).getLeft2() : gp.getNpc().get(0).getRight2(),
+                        animatedX, animatedY, gp.tileSize * 2 - 20, gp.tileSize * 2 - 20, null
+                );
+            }
+
+            // ALTERNATE SPRITE MOVE POSES EVERY 12 FRAMES
+            spriteCounter++;
+            if (spriteCounter > 24) {
+                if (spriteNum == 1 || spriteNum == 3) {
+                    spriteNum = 2;
+                } else if (spriteNum == 2) {
+                    spriteNum = 1;
+                }
+                spriteCounter = 0;
+            }
+        }
+        private void initAnimation(int x, int y, int tileSize) {
+            animatedX = x + tileSize * 5;
+            animatedY = y + tileSize * 5;
+        }
+
     }
     public class PlayUI  {
 

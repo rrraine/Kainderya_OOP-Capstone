@@ -264,7 +264,7 @@ public class GamePanel extends JPanel implements Runnable {
     private void playBGMusic(int i) {
 
         music.setSound(i);
-        music.adjustSoundVolume(-2); // DECIBELS
+        music.adjustSoundVolume(-5); // DECIBELS
         music.playSound();
         music.loopSound();
     }

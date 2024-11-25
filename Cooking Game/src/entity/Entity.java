@@ -178,4 +178,16 @@ public abstract class Entity implements Drawable, Observable, Importable {
     public BufferedImage getIdle1() {
         return idle1;
     }
+    public BufferedImage getLeft1() {
+        return left1;
+    }
+    public BufferedImage getLeft2() {
+        return left2;
+    }
+    public BufferedImage getRight1() {
+        return right1;
+    }
+    public BufferedImage getRight2() {
+        return right2;
+    }
 }
