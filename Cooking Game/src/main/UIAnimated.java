@@ -49,7 +49,7 @@ public class UIAnimated implements Importable, Drawable {
 
     @Override
     public void draw(Graphics2D g2) {
-        int speed = 1;
+        int speed = 2;
 
         if (movingLeft) {
             animatedX -= speed;
@@ -81,12 +81,12 @@ public class UIAnimated implements Importable, Drawable {
         // ALTERNATE SPRITE MOVE POSES
         spriteCounter++;
         if (spriteCounter > frameInterval) {
-            if (spriteNum == 1 || spriteNum == 3) {
+            if (spriteNum == 1) {
                 spriteNum = 2;
             } else if (spriteNum == 2) {
                 spriteNum = 1;
             }
-            spriteCounter = 0;
+            spriteCounter = 1;
         }
     }
 }
