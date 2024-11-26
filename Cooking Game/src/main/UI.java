@@ -52,6 +52,7 @@ public class UI implements Drawable, Importable {
 
     // COLORS
     private final Color transBlack;
+    private final Color transWhite;
     private final Color primary;
     private final Color primaryAccent;
     private final Color secondary;
@@ -90,7 +91,8 @@ public class UI implements Drawable, Importable {
         random = new Random();
 
         // COLOR PALLETTE
-        transBlack = new Color(0,0,0, 180);
+        transBlack = new Color(0,0,0, 175);
+        transWhite = new Color(255, 255, 255, 185);
         primary = new Color( 255, 219, 75);
         primaryAccent = new Color(65, 52, 18);
         secondary = new Color(255, 75, 81);
@@ -401,19 +403,17 @@ public class UI implements Drawable, Importable {
 
             cook1.reposition(gridX + gp.tileSize - 18, gridY + gp.tileSize + 20);
 
+            g2.setFont(g2.getFont().deriveFont(30F));
+
             // GRID 1
             text = "Miguel";
-            x = gridX + gp.tileSize - 20;
+            x = gridX + gp.tileSize - 6;
             y = gridY * 2 + gp.tileSize;
-            // SHADOW TEXT COLOR
-            g2.setColor(Color.BLACK);
-            g2.drawString(text, x + 6, y);
             // BORDER
             drawLetterBorder(text, Color.BLACK, 3, x, y);
             // MAIN TEXT COLOR
 
             // DRAW NAME
-            g2.setFont(g2.getFont().deriveFont(30F));
             if (command == 0) {
                 g2.setColor(primary);
                 drawCursor(text, x, y, true, false);
@@ -426,7 +426,7 @@ public class UI implements Drawable, Importable {
                 drawPopUpWindow(gridX, gridY, gridWidth, gridHeight, primaryAccent, primary);
                 cook1.drawFrontViewMoving(g2);
             } else {
-                drawPopUpWindow(gridX, gridY, gridWidth, gridHeight);
+                drawPopUpWindow(gridX, gridY, gridWidth, gridHeight, transWhite, Color.BLACK);
                 cook1.drawFrontViewStatic(g2);
             }
 
@@ -439,9 +439,6 @@ public class UI implements Drawable, Importable {
             text = "Gina";
             x = gridX + gp.tileSize - 6;
             y = gridY * 2 + gp.tileSize;
-            // SHADOW TEXT COLOR
-            g2.setColor(Color.BLACK);
-            g2.drawString(text, x + 6, y);
             // BORDER
             drawLetterBorder(text, Color.BLACK, 3, x, y);
 
@@ -458,7 +455,7 @@ public class UI implements Drawable, Importable {
                 drawPopUpWindow(gridX, gridY, gridWidth, gridHeight, primaryAccent, primary);
                 cook2.drawFrontViewMoving(g2);
             } else {
-                drawPopUpWindow(gridX, gridY, gridWidth, gridHeight);
+                drawPopUpWindow(gridX, gridY, gridWidth, gridHeight, transWhite, Color.BLACK);
                 cook2.drawFrontViewStatic(g2);
             }
 
@@ -469,12 +466,9 @@ public class UI implements Drawable, Importable {
 
             cook3.reposition(gridX + gp.tileSize - 18, gridY + gp.tileSize + 20);
 
-            text = "Roberto";
+            text = "Gabriel";
             x = gridX + gp.tileSize - 26;
             y = gridY * 2 + gp.tileSize;
-            // SHADOW TEXT COLOR
-            g2.setColor(Color.BLACK);
-            g2.drawString(text, x + 6, y);
             // BORDER
             drawLetterBorder(text, Color.BLACK, 3, x, y);
 
@@ -491,7 +485,7 @@ public class UI implements Drawable, Importable {
                 drawPopUpWindow(gridX, gridY, gridWidth, gridHeight, primaryAccent, primary);
                 cook3.drawFrontViewMoving(g2);
             } else {
-                drawPopUpWindow(gridX, gridY, gridWidth, gridHeight);
+                drawPopUpWindow(gridX, gridY, gridWidth, gridHeight, transWhite, Color.BLACK);
                 cook3.drawFrontViewStatic(g2);
             }
 
@@ -502,12 +496,9 @@ public class UI implements Drawable, Importable {
 
             cook4.reposition(gridX + gp.tileSize - 18, gridY + gp.tileSize + 20);
 
-            text = "Maria";
+            text = "Sofia";
             x = gridX + gp.tileSize - 12;
             y = gridY * 2 + gp.tileSize;
-            // SHADOW TEXT COLOR
-            g2.setColor(Color.BLACK);
-            g2.drawString(text, x + 6, y);
             // BORDER
             drawLetterBorder(text, Color.BLACK, 3, x, y);
 
@@ -524,7 +515,7 @@ public class UI implements Drawable, Importable {
                 drawPopUpWindow(gridX, gridY, gridWidth, gridHeight, primaryAccent, primary);
                 cook4.drawFrontViewMoving(g2);
             } else {
-                drawPopUpWindow(gridX, gridY, gridWidth, gridHeight);
+                drawPopUpWindow(gridX, gridY, gridWidth, gridHeight, transWhite, Color.BLACK);
                 cook4.drawFrontViewStatic(g2);
             }
 
@@ -536,10 +527,8 @@ public class UI implements Drawable, Importable {
             g2.drawString(text, x + 6, y);
             // BORDER
             drawLetterBorder(text, Color.BLACK, 3, x, y);
-            // MAIN TEXT COLOR
-            g2.setColor(Color.WHITE);
-            g2.drawString(text, x, y);
 
+            // DRAW TEXT
             if (command == 4) {
                 g2.setColor(primary);
                 drawCursor(text, x, y, true, false);
@@ -553,7 +542,7 @@ public class UI implements Drawable, Importable {
             y -= 40;
             int width = gp.tileSize * 7;
             int height = gp.tileSize - 10;
-            drawPopUpWindow(x, y, width, height, Color.WHITE, Color.BLACK);
+            drawPopUpWindow(x, y, width, height, transWhite, Color.BLACK);
         }
 
     }
