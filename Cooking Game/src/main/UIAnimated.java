@@ -1,14 +1,11 @@
 package main;
 
-import entity.Entity;
-import entity.NPC;
-import interfaces.Drawable;
 import interfaces.Importable;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
-public class UIAnimated implements Importable, Drawable {
+public class UIAnimated implements Importable {
 
     GamePanel gp;
 
@@ -21,36 +18,34 @@ public class UIAnimated implements Importable, Drawable {
 
     private int frameInterval;
 
-    private BufferedImage left1, left2, right1, right2, element;
+    private BufferedImage idle, left1, left2, right1, right2, down1, down2;
 
-    public UIAnimated(GamePanel gp, String type, String image, int x, int y, int frameInterval, boolean movingLeft) {
+    public UIAnimated(GamePanel gp, String type, String image, int frameInterval, boolean movingLeft) {
         this.gp = gp;
         this.frameInterval = frameInterval;
         this.movingLeft = movingLeft;
 
-        renderAvatar(image);
-        initAnimation(x, y, gp.tileSize);
+        renderAvatar(type, image);
     }
 
-    private void renderAvatar(String image) {
-        left1 = importImage("avatar", "npc", image, "left1", gp.tileSize);
-        left2 = importImage("avatar", "npc", image, "left2", gp.tileSize);
-        right1 = importImage("avatar", "npc", image, "right1", gp.tileSize);
-        right2 = importImage("avatar", "npc", image, "right2", gp.tileSize);
+    private void renderAvatar(String type, String image) {
+        idle = importImage("avatar", type, image, "idle", gp.tileSize);
+        left1 = importImage("avatar", type, image, "left1", gp.tileSize);
+        left2 = importImage("avatar", type, image, "left2", gp.tileSize);
+        right1 = importImage("avatar", type, image, "right1", gp.tileSize);
+        right2 = importImage("avatar", type, image, "right2", gp.tileSize);
+        down1 = importImage("avatar", type, image, "down1", gp.tileSize);
+        down2 = importImage("avatar", type, image, "down2", gp.tileSize);
     }
 
-    private void initAnimation(int x, int y, int tileSize) {
-        animatedX = x + tileSize * 5;
-        animatedY = y + tileSize * 5;
+    public void reposition(int x, int y) {
+        animatedX = x;
+        animatedY = y;
     }
-
-    @Override
-    public void update() {}
-
-    @Override
-    public void draw(Graphics2D g2) {
+    public void drawSideViewMoving(Graphics2D g2) {
         int speed = 2;
 
+        // MOVING DISPLACEMENT
         if (movingLeft) {
             animatedX -= speed;
 
@@ -65,7 +60,7 @@ public class UIAnimated implements Importable, Drawable {
             }
         }
 
-        // DRAW
+        // DRAW SPRITE
         if (spriteNum == 1) {
             g2.drawImage(
                     movingLeft ? left1 : right1,
@@ -88,5 +83,35 @@ public class UIAnimated implements Importable, Drawable {
             }
             spriteCounter = 1;
         }
+    }
+    public void drawFrontViewMoving(Graphics2D g2) {
+
+        // DRAW SPRITE
+        if (spriteNum == 1) {
+            g2.drawImage(
+                    down1,
+                    animatedX, animatedY, gp.tileSize * 2 - 20, gp.tileSize * 2 - 20, null
+            );
+        } else if (spriteNum == 2) {
+            g2.drawImage(
+                    down2,
+                    animatedX, animatedY, gp.tileSize * 2 - 20, gp.tileSize * 2 - 20, null
+            );
+        }
+
+        // ALTERNATE SPRITE MOVE POSES
+        spriteCounter++;
+        if (spriteCounter > 6) {
+            if (spriteNum == 1) {
+                spriteNum = 2;
+            } else if (spriteNum == 2) {
+                spriteNum = 1;
+            }
+            spriteCounter = 1;
+        }
+    }
+    public void drawFrontViewStatic(Graphics2D g2) {
+
+        g2.drawImage(idle, animatedX, animatedY, gp.tileSize * 2 - 20, gp.tileSize * 2 - 20, null);
     }
 }

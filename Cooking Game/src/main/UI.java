@@ -226,6 +226,7 @@ public class UI implements Drawable, Importable {
         UIAnimated girl;
         UIAnimated boy;
         UIAnimated civilian;
+        UIAnimated cook1, cook2, cook3, cook4;
 
         public HomeUI() {
             homeState = substate.TITLE;
@@ -233,9 +234,21 @@ public class UI implements Drawable, Importable {
             wallpaperFront = importWallpaper("wallpapers", "homeUI", "homeUI_Front");
 
             // ANIMATED WALLPAPER
-            girl = new UIAnimated(gp, "Avatar", "studentFemale", gp.tileSize *8, gp.tileSize *3+20,  30,true);
-            boy = new UIAnimated(gp, "Avatar","studentMale", gp.tileSize, gp.tileSize *3+20, 16,false);
-            civilian = new UIAnimated(gp, "Avatar","civilianfem1", gp.tileSize * 11, gp.tileSize *3+20, 20, true);
+            girl = new UIAnimated(gp, "npc", "studentFemale",  30,true);
+            girl.reposition((gp.tileSize * 8) + gp.tileSize * 5, (gp.tileSize *3+20) + gp.tileSize * 5);
+
+            boy = new UIAnimated(gp, "npc","studentMale", 16,false);
+            boy.reposition(gp.tileSize + gp.tileSize * 5, (gp.tileSize *3+20) + gp.tileSize * 5);
+
+            civilian = new UIAnimated(gp, "npc","civilianfem1", 20, true);
+            civilian.reposition((gp.tileSize * 11) + gp.tileSize * 5, (gp.tileSize *3+20) + gp.tileSize * 5);
+
+            // TODO UPDATE IMAGE ARGUMENT
+            cook1 = new UIAnimated(gp, "player", "cook1",  12,true);
+            cook2 = new UIAnimated(gp, "player", "cook2",  12,true);
+            cook3 = new UIAnimated(gp, "player", "cook1",  12,true);
+            cook4 = new UIAnimated(gp, "player", "cook1",  12,true);
+
         }
         public void draw() {
 
@@ -260,10 +273,9 @@ public class UI implements Drawable, Importable {
             g2.setFont(paytoneOne);
 
             // ANIMATED WALLPAPER
-            girl.draw(g2);
-            boy.draw(g2);
-            civilian.draw(g2);
-
+            girl.drawSideViewMoving(g2);
+            boy.drawSideViewMoving(g2);
+            civilian.drawSideViewMoving(g2);
 
             // HOME BACKGROUND FRONT
             g2.drawImage(wallpaperFront, 0, 0, gp.screenWidth, gp.screenHeight, null);
@@ -387,6 +399,8 @@ public class UI implements Drawable, Importable {
             int gridWidth = gp.tileSize * 3;
             int gridHeight = gp.tileSize * 4;
 
+            cook1.reposition(gridX + gp.tileSize - 18, gridY + gp.tileSize + 20);
+
             // GRID 1
             text = "Miguel";
             x = gridX + gp.tileSize - 20;
@@ -398,6 +412,7 @@ public class UI implements Drawable, Importable {
             drawLetterBorder(text, Color.BLACK, 3, x, y);
             // MAIN TEXT COLOR
 
+            // DRAW NAME
             g2.setFont(g2.getFont().deriveFont(30F));
             if (command == 0) {
                 g2.setColor(primary);
@@ -406,14 +421,20 @@ public class UI implements Drawable, Importable {
                 g2.setColor(Color.WHITE);
             g2.drawString(text, x, y);
 
+            // DRAW GRID BOX
             if (command == 0) {
-                drawPopUpWindow(gridX, gridY, gridWidth, gridHeight, transBlack, primary);
-            } else
+                drawPopUpWindow(gridX, gridY, gridWidth, gridHeight, primaryAccent, primary);
+                cook1.drawFrontViewMoving(g2);
+            } else {
                 drawPopUpWindow(gridX, gridY, gridWidth, gridHeight);
+                cook1.drawFrontViewStatic(g2);
+            }
 
             // GRID 2
             gridX += (gp.tileSize * 3) + 30;
             drawPopUpWindow(gridX, gridY, gridWidth, gridHeight);
+
+            cook2.reposition(gridX + gp.tileSize - 18, gridY + gp.tileSize + 20);
 
             text = "Gina";
             x = gridX + gp.tileSize - 6;
@@ -423,7 +444,8 @@ public class UI implements Drawable, Importable {
             g2.drawString(text, x + 6, y);
             // BORDER
             drawLetterBorder(text, Color.BLACK, 3, x, y);
-            // MAIN TEXT COLOR
+
+            // DRAW NAME
             if (command == 1) {
                 g2.setColor(primary);
                 drawCursor(text, x, y, true, false);
@@ -431,14 +453,21 @@ public class UI implements Drawable, Importable {
                 g2.setColor(Color.WHITE);
             g2.drawString(text, x, y);
 
+            // DRAW GRID BOX
             if (command == 1) {
-                drawPopUpWindow(gridX, gridY, gridWidth, gridHeight, transBlack, primary);
-            } else
+                drawPopUpWindow(gridX, gridY, gridWidth, gridHeight, primaryAccent, primary);
+                cook2.drawFrontViewMoving(g2);
+            } else {
                 drawPopUpWindow(gridX, gridY, gridWidth, gridHeight);
+                cook2.drawFrontViewStatic(g2);
+            }
+
 
             // GRID 3
             gridX += (gp.tileSize * 3) + 30;
             drawPopUpWindow(gridX, gridY, gridWidth, gridHeight);
+
+            cook3.reposition(gridX + gp.tileSize - 18, gridY + gp.tileSize + 20);
 
             text = "Roberto";
             x = gridX + gp.tileSize - 26;
@@ -448,7 +477,8 @@ public class UI implements Drawable, Importable {
             g2.drawString(text, x + 6, y);
             // BORDER
             drawLetterBorder(text, Color.BLACK, 3, x, y);
-            // MAIN TEXT COLOR
+
+            // DRAW NAME
             if (command == 2) {
                 g2.setColor(primary);
                 drawCursor(text, x, y, true, false);
@@ -456,14 +486,21 @@ public class UI implements Drawable, Importable {
                 g2.setColor(Color.WHITE);
             g2.drawString(text, x, y);
 
+            // DRAW GRID BOX
             if (command == 2) {
-                drawPopUpWindow(gridX, gridY, gridWidth, gridHeight, transBlack, primary);
-            } else
+                drawPopUpWindow(gridX, gridY, gridWidth, gridHeight, primaryAccent, primary);
+                cook3.drawFrontViewMoving(g2);
+            } else {
                 drawPopUpWindow(gridX, gridY, gridWidth, gridHeight);
+                cook3.drawFrontViewStatic(g2);
+            }
+
 
             // GRID 4
             gridX += (gp.tileSize * 3) + 30;
             drawPopUpWindow(gridX, gridY, gridWidth, gridHeight);
+
+            cook4.reposition(gridX + gp.tileSize - 18, gridY + gp.tileSize + 20);
 
             text = "Maria";
             x = gridX + gp.tileSize - 12;
@@ -473,7 +510,8 @@ public class UI implements Drawable, Importable {
             g2.drawString(text, x + 6, y);
             // BORDER
             drawLetterBorder(text, Color.BLACK, 3, x, y);
-            // MAIN TEXT COLOR
+
+            // DRAW NAME
             if (command == 3) {
                 g2.setColor(primary);
                 drawCursor(text, x, y, true, false);
@@ -481,10 +519,14 @@ public class UI implements Drawable, Importable {
                 g2.setColor(Color.WHITE);
             g2.drawString(text, x, y);
 
+            // DRAW GRID BOX
             if (command == 3) {
-                drawPopUpWindow(gridX, gridY, gridWidth, gridHeight, transBlack, primary);
-            } else
+                drawPopUpWindow(gridX, gridY, gridWidth, gridHeight, primaryAccent, primary);
+                cook4.drawFrontViewMoving(g2);
+            } else {
                 drawPopUpWindow(gridX, gridY, gridWidth, gridHeight);
+                cook4.drawFrontViewStatic(g2);
+            }
 
             text = "Name: ";
             x = Utility.Aligner.centerText(text, gp, g2) - (gp.tileSize * 4);
