@@ -19,6 +19,8 @@ public class KeyBindings implements KeyListener {
     private boolean enterPressed;
     private boolean shiftPressed;
 
+    private int lastCommand = 0;
+
 
     // CONSTRUCTOR -----------------------------------------------------------------
     private KeyBindings(GamePanel gp, UIControl uiM) {
@@ -132,21 +134,45 @@ public class KeyBindings implements KeyListener {
         // HOME STATE -> SELECTION SUB-STATE
         else if (uiM.getHomeUI().homeState == UI.HomeUI.substate.SELECTION) {
 
+            // A & D
+            if (uiM.getCommand() != 4) {
+                if (code == KeyEvent.VK_A) {
+                    gp.playSFX(2);
+                    uiM.setCommand(uiM.getCommand() -1);
+                    if (uiM.getCommand() < 0) {
+                        uiM.setCommand(3);
+                    }
+                }
+                if (code == KeyEvent.VK_D) {
+                    gp.playSFX(2);
+                    uiM.setCommand(uiM.getCommand() +1);
+                    if (uiM.getCommand() > 3) {
+                        uiM.setCommand(0);
+                    }
+                }
+                lastCommand = uiM.getCommand();
+            }
+
+            // TODO AVATAR & NAME
             // W & S
-            if (code == KeyEvent.VK_A) {
+            if (code == KeyEvent.VK_W) {
                 gp.playSFX(2);
-                uiM.setCommand(uiM.getCommand() -1);
-                if (uiM.getCommand() < 0) {
+
+                if (uiM.getCommand() < 4) {
                     uiM.setCommand(4);
+                } else {
+                    uiM.setCommand(lastCommand);
                 }
             }
-            if (code == KeyEvent.VK_D) {
+            if (code == KeyEvent.VK_S) {
                 gp.playSFX(2);
-                uiM.setCommand(uiM.getCommand() +1);
-                if (uiM.getCommand() > 4) {
-                    uiM.setCommand(0);
+                if (uiM.getCommand() < 4) {
+                    uiM.setCommand(4);
+                } else {
+                    uiM.setCommand(lastCommand);
                 }
             }
+
             // EXECUTE
             if (code == KeyEvent.VK_ENTER || code == KeyEvent.VK_F) {
                 gp.playSFX(2);
