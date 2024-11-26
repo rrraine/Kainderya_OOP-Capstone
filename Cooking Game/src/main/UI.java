@@ -51,9 +51,10 @@ public class UI implements Drawable, Importable {
     private final Random random;
 
     // COLORS
-    private Color primary;
-    private Color primaryAccent;
-    private Color secondary;
+    private final Color transBlack;
+    private final Color primary;
+    private final Color primaryAccent;
+    private final Color secondary;
     private Color secondaryAccent;
 
 
@@ -89,6 +90,7 @@ public class UI implements Drawable, Importable {
         random = new Random();
 
         // COLOR PALLETTE
+        transBlack = new Color(0,0,0, 180);
         primary = new Color( 255, 219, 75);
         primaryAccent = new Color(65, 52, 18);
         secondary = new Color(255, 75, 81);
@@ -159,26 +161,23 @@ public class UI implements Drawable, Importable {
     }
     private void drawPopUpWindow(int x, int y, int width, int height) {
 
-        Color color = new Color(0,0,0, 180);
-        g2.setColor(color);
+        g2.setColor(transBlack);
 
         // DRAW WINDOW
         g2.fillRoundRect(x, y, width, height, 35, 35);
 
-        color = new Color(255,255,255);
-        g2.setColor(color);
+        g2.setColor(Color.WHITE);
         g2.setStroke(new BasicStroke(5));
         g2.drawRoundRect(x+5, y+5, width-10, height-10, 25, 25);
     }
-    private void drawPopUpWindow(int x, int y, int width, int height, Color color) {
+    private void drawPopUpWindow(int x, int y, int width, int height, Color window, Color border) {
 
-        g2.setColor(color);
+        g2.setColor(window);
 
         // DRAW WINDOW
         g2.fillRoundRect(x, y, width, height, 35, 35);
 
-        color = new Color(255,255,255);
-        g2.setColor(color);
+        g2.setColor(border);
         g2.setStroke(new BasicStroke(5));
         g2.drawRoundRect(x+5, y+5, width-10, height-10, 25, 25);
     }
@@ -383,72 +382,128 @@ public class UI implements Drawable, Importable {
             g2.setColor(Color.WHITE);
             g2.drawString(text, x, y);
 
-            text = "Boy 1";
-            x = Utility.Aligner.centerText(text, gp, g2);
-            y += gp.tileSize * 3;
+            // SELECTION HERE
+            int gridX = gp.tileSize * 3 + 24, gridY = gp.tileSize * 4 -20;
+            int gridWidth = gp.tileSize * 3;
+            int gridHeight = gp.tileSize * 4;
+
+            // GRID 1
+            text = "Miguel";
+            x = gridX + gp.tileSize - 20;
+            y = gridY * 2 + gp.tileSize;
             // SHADOW TEXT COLOR
             g2.setColor(Color.BLACK);
             g2.drawString(text, x + 6, y);
+            // BORDER
+            drawLetterBorder(text, Color.BLACK, 3, x, y);
             // MAIN TEXT COLOR
-            g2.setColor(Color.WHITE);
-            g2.drawString(text, x, y);
+
+            g2.setFont(g2.getFont().deriveFont(30F));
             if (command == 0) {
-                drawCursor(text, x, y, false, true);
-            }
+                g2.setColor(primary);
+                drawCursor(text, x, y, true, false);
+            } else
+                g2.setColor(Color.WHITE);
+            g2.drawString(text, x, y);
 
-            text = "Girl 1";
-            x = Utility.Aligner.centerText(text, gp, g2);
-            y += gp.tileSize;
+            if (command == 0) {
+                drawPopUpWindow(gridX, gridY, gridWidth, gridHeight, transBlack, primary);
+            } else
+                drawPopUpWindow(gridX, gridY, gridWidth, gridHeight);
+
+            // GRID 2
+            gridX += (gp.tileSize * 3) + 30;
+            drawPopUpWindow(gridX, gridY, gridWidth, gridHeight);
+
+            text = "Gina";
+            x = gridX + gp.tileSize - 6;
+            y = gridY * 2 + gp.tileSize;
             // SHADOW TEXT COLOR
             g2.setColor(Color.BLACK);
             g2.drawString(text, x + 6, y);
+            // BORDER
+            drawLetterBorder(text, Color.BLACK, 3, x, y);
             // MAIN TEXT COLOR
-            g2.setColor(Color.WHITE);
-            g2.drawString(text, x, y);
             if (command == 1) {
-                drawCursor(text, x, y, false, true);
-            }
+                g2.setColor(primary);
+                drawCursor(text, x, y, true, false);
+            } else
+                g2.setColor(Color.WHITE);
+            g2.drawString(text, x, y);
 
-            text = "Boy 2 (n/a)";
-            x = Utility.Aligner.centerText(text, gp, g2);
-            y += gp.tileSize;
+            if (command == 1) {
+                drawPopUpWindow(gridX, gridY, gridWidth, gridHeight, transBlack, primary);
+            } else
+                drawPopUpWindow(gridX, gridY, gridWidth, gridHeight);
+
+            // GRID 3
+            gridX += (gp.tileSize * 3) + 30;
+            drawPopUpWindow(gridX, gridY, gridWidth, gridHeight);
+
+            text = "Roberto";
+            x = gridX + gp.tileSize - 26;
+            y = gridY * 2 + gp.tileSize;
             // SHADOW TEXT COLOR
             g2.setColor(Color.BLACK);
             g2.drawString(text, x + 6, y);
+            // BORDER
+            drawLetterBorder(text, Color.BLACK, 3, x, y);
             // MAIN TEXT COLOR
-            g2.setColor(Color.WHITE);
-            g2.drawString(text, x, y);
             if (command == 2) {
-                drawCursor(text, x, y, false, true);
-            }
+                g2.setColor(primary);
+                drawCursor(text, x, y, true, false);
+            } else
+                g2.setColor(Color.WHITE);
+            g2.drawString(text, x, y);
 
-            text = "Girl 2 (n/a)";
-            x = Utility.Aligner.centerText(text, gp, g2);
-            y += gp.tileSize;
+            if (command == 2) {
+                drawPopUpWindow(gridX, gridY, gridWidth, gridHeight, transBlack, primary);
+            } else
+                drawPopUpWindow(gridX, gridY, gridWidth, gridHeight);
+
+            // GRID 4
+            gridX += (gp.tileSize * 3) + 30;
+            drawPopUpWindow(gridX, gridY, gridWidth, gridHeight);
+
+            text = "Maria";
+            x = gridX + gp.tileSize - 12;
+            y = gridY * 2 + gp.tileSize;
             // SHADOW TEXT COLOR
             g2.setColor(Color.BLACK);
             g2.drawString(text, x + 6, y);
+            // BORDER
+            drawLetterBorder(text, Color.BLACK, 3, x, y);
             // MAIN TEXT COLOR
-            g2.setColor(Color.WHITE);
-            g2.drawString(text, x, y);
             if (command == 3) {
-                drawCursor(text, x, y, false, true);
-            }
+                g2.setColor(primary);
+                drawCursor(text, x, y, true, false);
+            } else
+                g2.setColor(Color.WHITE);
+            g2.drawString(text, x, y);
+
+            if (command == 3) {
+                drawPopUpWindow(gridX, gridY, gridWidth, gridHeight, transBlack, primary);
+            } else
+                drawPopUpWindow(gridX, gridY, gridWidth, gridHeight);
 
             text = "Name: ";
             x = Utility.Aligner.centerText(text, gp, g2) - (gp.tileSize * 4);
-            y += gp.tileSize * 2 - 20;
+            y += gp.tileSize * 2 - gp.tileSize /2;
             // SHADOW TEXT COLOR
             g2.setColor(Color.BLACK);
             g2.drawString(text, x + 6, y);
+            // BORDER
+            drawLetterBorder(text, Color.BLACK, 3, x, y);
             // MAIN TEXT COLOR
             g2.setColor(Color.WHITE);
             g2.drawString(text, x, y);
 
             if (command == 4) {
-                // TODO DISPLAY CURSOR TEXT IN BOX
-                drawCursor(text, x - 15, y, true, false);
-            }
+                g2.setColor(primary);
+                drawCursor(text, x, y, true, false);
+            } else
+                g2.setColor(Color.WHITE);
+            g2.drawString(text, x, y);
 
             // NAME FIELD
             // TODO IMPLEMENT TEXT FIELD WITH LISTENER
@@ -456,7 +511,7 @@ public class UI implements Drawable, Importable {
             y -= 40;
             int width = gp.tileSize * 7;
             int height = gp.tileSize - 10;
-            drawPopUpWindow(x, y, width, height, Color.WHITE);
+            drawPopUpWindow(x, y, width, height, Color.WHITE, Color.BLACK);
         }
 
     }

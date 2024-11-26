@@ -133,14 +133,14 @@ public class KeyBindings implements KeyListener {
         else if (uiM.getHomeUI().homeState == UI.HomeUI.substate.SELECTION) {
 
             // W & S
-            if (code == KeyEvent.VK_W) {
+            if (code == KeyEvent.VK_A) {
                 gp.playSFX(2);
                 uiM.setCommand(uiM.getCommand() -1);
                 if (uiM.getCommand() < 0) {
                     uiM.setCommand(4);
                 }
             }
-            if (code == KeyEvent.VK_S) {
+            if (code == KeyEvent.VK_D) {
                 gp.playSFX(2);
                 uiM.setCommand(uiM.getCommand() +1);
                 if (uiM.getCommand() > 4) {
