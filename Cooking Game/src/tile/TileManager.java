@@ -32,6 +32,7 @@ public class TileManager implements Importable, Drawable, Observable {
 
         tileSetup();
         loadMap("/maps/world01.txt");
+        // loadMap("/maps/world01.txt"); // uncomment to use the old map
     }
     // SINGLETON INSTANTIATE --------------------------------------
     public static TileManager instantiate(GamePanel gp) {
@@ -83,6 +84,195 @@ public class TileManager implements Importable, Drawable, Observable {
     // TILE INSTANTIATION, IMPORTING, AND COLLISION SETTING
     private void tileSetup() {
 
+        // TO DO : fix the whole map
+
+        // construction
+        tile[0] = new Tile(gp.tileSize);
+        tile[0].image = importImage("tiles", "construction", "floor", "tileFloor", gp.tileSize);
+        tile[0].collision = false;
+
+        tile[1] = new Tile(gp.tileSize);
+        tile[1].image = importImage("tiles", "construction", "floor", "upperCornerLeft", gp.tileSize);
+        tile[1].collision = true;
+
+        tile[2] = new Tile(gp.tileSize);
+        tile[2].image = importImage("tiles", "construction", "floor", "upperCornerRight", gp.tileSize);
+        tile[2].collision = true;
+
+        tile[3] = new Tile(gp.tileSize);
+        tile[3].image = importImage("tiles", "construction", "floor", "lowerCornerLeft", gp.tileSize);
+        tile[3].collision = true;
+
+        tile[4] = new Tile(gp.tileSize);
+        tile[4].image = importImage("tiles", "construction", "floor", "lowerCornerRight", gp.tileSize);
+        tile[4].collision = true;
+
+        tile[5] = new Tile(gp.tileSize);
+        tile[5].image = importImage("tiles", "construction", "floor", "upperStraight", gp.tileSize);
+        tile[5].collision = true;
+
+        tile[6] = new Tile(gp.tileSize);
+        tile[6].image = importImage("tiles", "construction", "floor", "middleOuterWall", gp.tileSize);
+        tile[6].collision = true;
+
+        tile[7] = new Tile(gp.tileSize);
+        tile[7].image = importImage("tiles", "construction", "floor", "rightCornerWall", gp.tileSize);
+        tile[7].collision = true;
+
+        tile[8] = new Tile(gp.tileSize);
+        tile[8].image = importImage("tiles", "construction", "floor", "rightWall", gp.tileSize);
+        tile[8].collision = true;
+
+        tile[9] = new Tile(gp.tileSize);
+        tile[9].image = importImage("tiles", "construction", "floor", "rightShelf1", gp.tileSize);
+        tile[9].collision = true;
+
+        tile[10] = new Tile(gp.tileSize);
+        tile[10].image = importImage("tiles", "construction", "floor", "rightShelf2", gp.tileSize);
+        tile[10].collision = true;
+
+        tile[11] = new Tile(gp.tileSize);
+        tile[11].image = importImage("tiles", "construction", "floor", "rightShelf3", gp.tileSize);
+        tile[11].collision = true;
+
+        tile[12] = new Tile(gp.tileSize);
+        tile[12].image = importImage("tiles", "construction", "floor", "upperWindow", gp.tileSize);
+        tile[12].collision = true;
+
+        tile[13] = new Tile(gp.tileSize);
+        tile[13].image = importImage("tiles", "construction", "floor", "upperSpam", gp.tileSize);
+        tile[13].collision = true;
+
+        tile[14] = new Tile(gp.tileSize);
+        tile[14].image = importImage("tiles", "construction", "floor", "upperCornedBeef", gp.tileSize);
+        tile[14].collision = true;
+
+        tile[15] = new Tile(gp.tileSize);
+        tile[15].image = importImage("tiles", "construction", "floor", "upperSandoks", gp.tileSize);
+        tile[15].collision = true;
+
+        tile[16] = new Tile(gp.tileSize);
+        tile[16].image = importImage("tiles", "construction", "floor", "upperRef", gp.tileSize);
+        tile[16].collision = true;
+
+        tile[17] = new Tile(gp.tileSize);
+        tile[17].image = importImage("tiles", "construction", "floor", "leftWall", gp.tileSize);
+        tile[17].collision = true;
+
+        tile[18] = new Tile(gp.tileSize);
+        tile[18].image = importImage("tiles", "construction", "floor", "leftRiceCooker", gp.tileSize);
+        tile[18].collision = true;
+
+        tile[19] = new Tile(gp.tileSize);
+        tile[19].image = importImage("tiles", "construction", "floor", "leftStove", gp.tileSize);
+        tile[19].collision = true;
+
+        tile[20] = new Tile(gp.tileSize);
+        tile[20].image = importImage("tiles", "construction", "floor", "leftStraightTable", gp.tileSize);
+        tile[20].collision = true;
+
+        tile[21] = new Tile(gp.tileSize);
+        tile[21].image = importImage("tiles", "construction", "floor", "leftCornerTable", gp.tileSize);
+        tile[21].collision = true;
+
+        tile[22] = new Tile(gp.tileSize);
+        tile[22].image = importImage("tiles", "construction", "floor", "door", gp.tileSize);
+        tile[22].collision = false;
+
+    // kitchen area
+
+        tile[23] = new Tile(gp.tileSize);
+        tile[23].image = importImage("tiles", "kitchenArea", "floor", "leftChoppingBoard", gp.tileSize);
+        tile[23].collision = true;
+
+        tile[24] = new Tile(gp.tileSize);
+        tile[24].image = importImage("tiles", "kitchenArea", "floor", "middleKitchenIsland", gp.tileSize);
+        tile[24].collision = true;
+
+        tile[25] = new Tile(gp.tileSize);
+        tile[25].image = importImage("tiles", "kitchenArea", "floor", "rightKitchenIsland", gp.tileSize);
+        tile[25].collision = true;
+
+        tile[26] = new Tile(gp.tileSize);
+        tile[26].image = importImage("tiles", "kitchenArea", "floor", "leftCounter", gp.tileSize);
+        tile[26].collision = true;
+
+        tile[27] = new Tile(gp.tileSize);
+        tile[27].image = importImage("tiles", "kitchenArea", "floor", "centerSink", gp.tileSize);
+        tile[27].collision = true;
+
+        tile[28] = new Tile(gp.tileSize);
+        tile[28].image = importImage("tiles", "kitchenArea", "floor", "rightCounter", gp.tileSize);
+        tile[28].collision = true;
+
+        tile[29] = new Tile(gp.tileSize);
+        tile[29].image = importImage("tiles", "kitchenArea", "floor", "middleCounter", gp.tileSize);
+        tile[29].collision = true;
+
+        tile[30] = new Tile(gp.tileSize);
+        tile[30].image = importImage("tiles", "kitchenArea", "floor", "lowerRef", gp.tileSize);
+        tile[30].collision = true;
+
+        tile[31] = new Tile(gp.tileSize);
+        tile[31].image = importImage("tiles", "kitchenArea", "floor", "riceSack", gp.tileSize);
+        tile[31].collision = true;
+
+        tile[32] = new Tile(gp.tileSize);
+        tile[32].image = importImage("tiles", "kitchenArea", "floor", "trashcan1", gp.tileSize);
+        tile[32].collision = true;
+
+    // dining area
+
+        tile[33] = new Tile(gp.tileSize);
+        tile[33].image = importImage("tiles", "diningArea", "floor", "middleTable", gp.tileSize);
+        tile[33].collision = true;
+
+        tile[34] = new Tile(gp.tileSize);
+        tile[34].image = importImage("tiles", "diningArea", "floor", "rightTable", gp.tileSize);
+        tile[34].collision = true;
+
+        tile[35] = new Tile(gp.tileSize);
+        tile[35].image = importImage("tiles", "diningArea", "floor", "leftTable", gp.tileSize);
+        tile[35].collision = true;
+
+        tile[36] = new Tile(gp.tileSize);
+        tile[36].image = importImage("tiles", "diningArea", "floor", "stool", gp.tileSize);
+        tile[36].collision = true;
+
+    // outside area
+
+        tile[37] = new Tile(gp.tileSize);
+        tile[37].image = importImage("tiles", "outsideArea", "floor", "sidewalk1", gp.tileSize);
+        tile[37].collision = false;
+
+        tile[38] = new Tile(gp.tileSize);
+        tile[38].image = importImage("tiles", "outsideArea", "floor", "sidewalk2", gp.tileSize);
+        tile[38].collision = false;
+
+        tile[39] = new Tile(gp.tileSize);
+        tile[39].image = importImage("tiles", "outsideArea", "floor", "roadRightUpper", gp.tileSize);
+        tile[39].collision = true;
+
+        tile[40] = new Tile(gp.tileSize);
+        tile[40].image = importImage("tiles", "outsideArea", "floor", "roadRightLower", gp.tileSize);
+        tile[40].collision = true;
+
+        tile[41] = new Tile(gp.tileSize);
+        tile[41].image = importImage("tiles", "outsideArea", "floor", "roadLeft", gp.tileSize);
+        tile[41].collision = true;
+
+        tile[42] = new Tile(gp.tileSize);
+        tile[42].image = importImage("tiles", "outsideArea", "floor", "roadRight", gp.tileSize);
+        tile[42].collision = true;
+
+        tile[43] = new Tile(gp.tileSize);
+        tile[43].image = importImage("tiles", "outsideArea", "floor", "grass", gp.tileSize);
+        tile[43].collision = false;
+
+        tile[44] = new Tile(gp.tileSize);
+        tile[44].image = importImage("tiles", "outsideArea", "floor", "plainRoad", gp.tileSize);
+        tile[44].collision = false;
+    /*
         tile[0] = new Tile(gp.tileSize);
         tile[0].image = importImage("tiles", "old","floor", "grass", gp.tileSize);
         tile[0].collision = false;
@@ -299,8 +489,7 @@ public class TileManager implements Importable, Drawable, Observable {
         tile[49].collision = false;
 
         // with appliances
-
-
+        */
 
     }
 
