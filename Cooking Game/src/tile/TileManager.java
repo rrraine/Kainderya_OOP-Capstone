@@ -31,8 +31,8 @@ public class TileManager implements Importable, Drawable, Observable {
         mapTileNum = new int[gp.maxWorldCol][gp.maxWorldRow]; // stores the map matrix
 
         tileSetup();
-        loadMap("/maps/world01.txt");
-        // loadMap("/maps/world01.txt"); // uncomment to use the old map
+        loadMap("/maps/finalMap.txt");
+        // loadMap("/maps/finalMap.txt"); // uncomment to use the old map
     }
     // SINGLETON INSTANTIATE --------------------------------------
     public static TileManager instantiate(GamePanel gp) {
