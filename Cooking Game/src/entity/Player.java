@@ -40,7 +40,7 @@ public class Player extends Entity {
         playerCenteredScreenY = gp.screenHeight / 2 - (gp.tileSize /2);
 
         // COLLISION DIMENSIONS
-        this.solidArea = new Rectangle(15, 20, 18, 26);
+        this.solidArea = new Rectangle(18, 38, 28, 23);
 
         // DEFAULT COLLISION
         this.solidAreaDefaultX = solidArea.x;

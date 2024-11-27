@@ -46,7 +46,7 @@ public abstract class Entity implements Drawable, Observable, Importable {
 
         standCounter = spriteCounter = 0;
         spriteNum = 1;
-        solidArea = new Rectangle(0, 0, 48, 48);
+        solidArea = new Rectangle(0, 0, 64, 64);
         collisionOn = false;
 
 
