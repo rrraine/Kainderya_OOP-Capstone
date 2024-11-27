@@ -263,19 +263,19 @@ public class TileManager implements Importable, Drawable, Observable {
 
         tile[39] = new Tile(gp.tileSize);
         tile[39].image = importImage("tiles", "outsideArea", "floor", "roadRightUpper", gp.tileSize);
-        tile[39].collision = true;
+        tile[39].collision = false;
 
         tile[40] = new Tile(gp.tileSize);
         tile[40].image = importImage("tiles", "outsideArea", "floor", "roadRightLower", gp.tileSize);
-        tile[40].collision = true;
+        tile[40].collision = false;
 
         tile[41] = new Tile(gp.tileSize);
         tile[41].image = importImage("tiles", "outsideArea", "floor", "roadLeft", gp.tileSize);
-        tile[41].collision = true;
+        tile[41].collision = false;
 
         tile[42] = new Tile(gp.tileSize);
         tile[42].image = importImage("tiles", "outsideArea", "floor", "roadRight", gp.tileSize);
-        tile[42].collision = true;
+        tile[42].collision = false;
 
         tile[43] = new Tile(gp.tileSize);
         tile[43].image = importImage("tiles", "outsideArea", "floor", "grass", gp.tileSize);
