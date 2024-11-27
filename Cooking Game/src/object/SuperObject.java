@@ -2,37 +2,26 @@ package object;
 
 import interfaces.Drawable;
 import interfaces.Observable;
+import main.Asset;
 import main.GamePanel;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
-public abstract class SuperObject implements Drawable, Observable {
+public abstract class SuperObject extends Asset implements Drawable, Observable {
 
     // ~ FIELDS --------------------------------------------------------------
-    GamePanel gp;
     Graphics2D g2;
 
     BufferedImage image;
     String name;
     boolean collision;
 
-    // ABSOLUTE POS IN MAP
-    int worldX;
-    int worldY;
-
-    // COLLISION DIMENSIONS
-    Rectangle solidArea;
-
-    // DEFAULT COLLISION
-    int solidAreaDefaultX;
-    int solidAreaDefaultY;
-
 
     // CONSTRUCTOR --------------------------------------------------------------
     public SuperObject(GamePanel gp, String name) {
 
-        this.gp = gp;
+        super(gp);
         this.name = name;
 
         collision = false;

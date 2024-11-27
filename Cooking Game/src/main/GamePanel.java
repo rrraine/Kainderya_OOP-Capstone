@@ -59,7 +59,7 @@ public class GamePanel extends JPanel implements Runnable {
     public Player player;
     final List<NPC> npc = new ArrayList<>();
     final List<SuperObject> obj = new ArrayList<>();
-    private List<Entity> entityPool = new ArrayList<>();
+    private List<Asset> assetPool = new ArrayList<>();
 
     // GAME STATE
     public state gameState;
@@ -188,51 +188,42 @@ public class GamePanel extends JPanel implements Runnable {
         // warning!!!! only attempt to draw within conditional blocks to avoid overlapping draws
 
         if (gameState == state.HOME) {
-            // prevent out of map glitches
+            // RID off map glitches
             g2.setColor(Color.BLACK);
             g2.fillRect(0, 0, screenWidth, screenHeight);
 
             uiM.draw(g2);
         }
         else {
-            // prevent out of map glitches
+            // RID off map glitches
             g2.setColor(Color.BLACK);
             g2.fillRect(0, 0, screenWidth, screenHeight);
 
             // 1. DRAW TILES
             tileM.draw(g2);
 
-            // 2. DRAW SUPER-OBJECTS : TODO CLEAN THIS
-            try {
-                for (SuperObject object : obj) {
-                    object.draw(g2);
-                }
-            } catch (ConcurrentModificationException e) {
-                System.err.println("Trouble attempting to draw: " + e.getMessage());
-            }
-
-            // RENDER ORDER FOR ENTITIES
-            entityPool.add(player);
+            // COMBINE ALL ASSETS
+            assetPool.add(player);
             for (NPC n : npc) {
                 if (n != null) {
-                    entityPool.add(n);
+                    assetPool.add(n);
                 }
             }
-            // SORT ENTITY POOL
-            Collections.sort(entityPool, new Comparator<Entity>() {
-                @Override
-                public int compare(Entity en1, Entity en2) {
-                    return Integer.compare(en1.getWorldY(), en2.getWorldY());
-                }
-            });
+            // SORT ASSETS
+            Collections.sort(assetPool);
 
-            // 3. DRAW ENTITY POOL
-            for (Entity en : entityPool) {
-                en.draw(g2);
+            // 3. DRAW ASSETS
+            for (Asset a : assetPool) {
+                if (a instanceof Entity) {
+                    ((Entity) a).draw(g2);
+                }
+                else if (a instanceof SuperObject) {
+                    ((SuperObject) a).draw(g2);
+                }
             }
 
-            // EMPTY ENTITY POOL TO AVOID DUPLICATIONS
-            entityPool.clear();
+            // EMPTY ASSET POOL TO AVOID DUPLICATIONS
+            assetPool.clear();
 
             // 5. DRAW UI
             uiM.draw(g2);

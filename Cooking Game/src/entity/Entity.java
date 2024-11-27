@@ -3,19 +3,15 @@ package entity;
 import interfaces.Drawable;
 import interfaces.Importable;
 import interfaces.Observable;
+import main.Asset;
 import main.GamePanel;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
-public abstract class Entity implements Drawable, Observable, Importable {
+public abstract class Entity extends Asset implements Drawable, Observable, Importable {
 
     // ~ FIELDS ---------------------------------------------------
-    GamePanel gp;
-
-    // ABSOLUTE POS IN MAP
-    int worldX;
-    int worldY;
     int speed;
 
     // SPRITE
@@ -28,9 +24,6 @@ public abstract class Entity implements Drawable, Observable, Importable {
     int spriteNum;
 
     // COLLISION ASPECTS
-    Rectangle solidArea;
-    int solidAreaDefaultX;
-    int solidAreaDefaultY;
     boolean collisionOn;
 
 
@@ -39,7 +32,7 @@ public abstract class Entity implements Drawable, Observable, Importable {
     // CONSTRUCTOR ---------------------------------------------------
     public Entity(GamePanel gp, int speed, String direction) {
 
-        this.gp = gp;
+        super(gp);
 
         this.speed = speed;
         this.direction = direction;
@@ -48,8 +41,6 @@ public abstract class Entity implements Drawable, Observable, Importable {
         spriteNum = 1;
         solidArea = new Rectangle(0, 0, 64, 64);
         collisionOn = false;
-
-
     }
 
     // FROM INTERFACE: DRAWABLE ---------------------------------------------------
