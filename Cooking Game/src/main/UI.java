@@ -222,8 +222,6 @@ public class UI implements Drawable, Importable {
         private BufferedImage wallpaper;
         private BufferedImage wallpaperFront;
 
-
-
         // ANIMATED WALLPAPER
         UIAnimated girl;
         UIAnimated boy;
@@ -249,7 +247,7 @@ public class UI implements Drawable, Importable {
             cook1 = new UIAnimated(gp, "player", "cook1",  12,true);
             cook2 = new UIAnimated(gp, "player", "cook2",  12,true);
             cook3 = new UIAnimated(gp, "player", "cook1",  12,true);
-            cook4 = new UIAnimated(gp, "player", "cook1",  12,true);
+            cook4 = new UIAnimated(gp, "player", "cook4",  12,true);
 
         }
         public void draw() {
@@ -437,7 +435,7 @@ public class UI implements Drawable, Importable {
             cook2.reposition(gridX + gp.tileSize - 18, gridY + gp.tileSize + 20);
 
             text = "Gina";
-            x = gridX + gp.tileSize - 6;
+            x = gridX + gp.tileSize - 4;
             y = gridY * 2 + gp.tileSize;
             // BORDER
             drawLetterBorder(text, Color.BLACK, 3, x, y);
@@ -497,7 +495,7 @@ public class UI implements Drawable, Importable {
             cook4.reposition(gridX + gp.tileSize - 18, gridY + gp.tileSize + 20);
 
             text = "Sofia";
-            x = gridX + gp.tileSize - 12;
+            x = gridX + gp.tileSize - 8;
             y = gridY * 2 + gp.tileSize;
             // BORDER
             drawLetterBorder(text, Color.BLACK, 3, x, y);

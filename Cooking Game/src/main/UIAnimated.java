@@ -101,7 +101,7 @@ public class UIAnimated implements Importable {
 
         // ALTERNATE SPRITE MOVE POSES
         spriteCounter++;
-        if (spriteCounter > 6) {
+        if (spriteCounter > 12) {
             if (spriteNum == 1) {
                 spriteNum = 2;
             } else if (spriteNum == 2) {
