@@ -57,13 +57,9 @@ public class Utility {
                 obj.get(4).setWorldX(tileSize * 17);
                 obj.get(4).setWorldY(tileSize * 12);
 
-                obj.add(5, new Item.Stool(gp));
-                obj.get(5).setWorldX(tileSize * 18);
+                obj.add(5, new Item.Door(gp));
+                obj.get(5).setWorldX(tileSize * 10);
                 obj.get(5).setWorldY(tileSize * 12);
-
-                obj.add(6, new Item.Door(gp));
-                obj.get(6).setWorldX(tileSize * 10);
-                obj.get(6).setWorldY(tileSize * 12);
 //
 //
 //                obj.add(3, new Item.Door(gp));

@@ -136,22 +136,24 @@ public class GamePanel extends JPanel implements Runnable {
     // 1) PRELOAD STUFF
     public void setUpGame() {
 
-        // 1. LOAD OBJECTS AND NPC
+        // LOAD OBJECTS AND NPC
         Utility.AssetSetter.deploySuperObjectInMap(this, tileSize, obj);
         Utility.AssetSetter.deployNPCInMap(this, tileSize, npc);
+        assetPool.addAll(npc);
+        assetPool.addAll(obj);
 
-        // 2. LOAD MUSIC
+        // LOAD MUSIC
         playBGMusic(0);
         music.stopSound();
 
-        // 3. LOAD GAME STATE
+        // LOAD GAME STATE
         gameState = state.HOME;
 
-        // 4. LOAD FULL SCREEN
+        // LOAD FULL SCREEN
         tempScreen = new BufferedImage(screenWidth, screenHeight, BufferedImage.TYPE_INT_ARGB);
         g2 = (Graphics2D) tempScreen.getGraphics();
 
-        // 5. SET FULL SCREEN
+        // SET FULL SCREEN
         setFullScreen();
     }
 
@@ -202,18 +204,6 @@ public class GamePanel extends JPanel implements Runnable {
             // 1. DRAW TILES
             tileM.draw(g2);
 
-            // COMBINE ALL ASSETS
-            assetPool.add(player);
-            for (NPC n : npc) {
-                if (n != null) {
-                    assetPool.add(n);
-                }
-            }
-            for (SuperObject s : obj) {
-                if (s != null) {
-                    assetPool.add(s);
-                }
-            }
             // SORT ASSETS
             Collections.sort(assetPool);
 
@@ -226,9 +216,6 @@ public class GamePanel extends JPanel implements Runnable {
                     ((SuperObject) a).draw(g2);
                 }
             }
-
-            // EMPTY ASSET POOL TO AVOID DUPLICATIONS
-            assetPool.clear();
 
             // 5. DRAW UI
             uiM.draw(g2);
@@ -286,6 +273,7 @@ public class GamePanel extends JPanel implements Runnable {
     }
     void selectCharacter(String playerAvatar, String playerName) {
         player = new Player(this, keyB, playerAvatar, playerName);
+        assetPool.add(player);
     }
 
 
