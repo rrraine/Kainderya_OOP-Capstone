@@ -42,6 +42,15 @@ public class TileManager implements Importable, Drawable, Observable {
         return instance;
     }
 
+    // Optimize Tile Setup
+    /*
+        private void addTIle(int index, String path, String structure, String type, String image, boolean collision){
+            tile[index] = new Tile(gp.tileSize);
+            tile[index].image = importImage(path, structure, type, image, gp.TileSize);
+            tile[index].collision = collision;
+        }
+    */
+
 
     // FROM INTERFACE: DRAWABLE ---------------------------------------
     @Override
@@ -84,7 +93,10 @@ public class TileManager implements Importable, Drawable, Observable {
     // TILE INSTANTIATION, IMPORTING, AND COLLISION SETTING
     private void tileSetup() {
 
-        // TO DO : fix the whole map
+        // adding using the addTIle function
+        /*
+           addTile(0, "tiles", "construction", "floor", "tileFloor", false);
+        */
 
         // construction
         tile[0] = new Tile(gp.tileSize);
