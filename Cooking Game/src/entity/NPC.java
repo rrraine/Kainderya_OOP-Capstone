@@ -19,7 +19,7 @@ public abstract class NPC extends Entity {
         lastDirection = lastRecordedDirection.DOWN;
 
         // COLLISION DIMENSIONS
-        this.solidArea = new Rectangle(18, 38, 28, 23);
+        solidArea = new Rectangle(18, 38, 28, 23);
 
         // DEFAULT COLLISION
         this.solidAreaDefaultX = solidArea.x;

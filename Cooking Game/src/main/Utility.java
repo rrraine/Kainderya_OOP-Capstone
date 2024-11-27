@@ -3,6 +3,7 @@ package main;
 import entity.Entity;
 import entity.NPC;
 import entity.Player;
+import object.Item;
 import object.SuperObject;
 
 import java.awt.*;
@@ -36,17 +37,34 @@ public class Utility {
             try {
 
                 // DEPLOY OBJECTS HERE
-//                obj.add(0, new Item.Key(gp));
-//                obj.get(0).setWorldX(tileSize * 23);
-//                obj.get(0).setWorldY(tileSize * 7);
+                obj.add(0, new Item.Stool(gp));
+                obj.get(0).setWorldX(tileSize * 13);
+                obj.get(0).setWorldY(tileSize * 12);
+
+                obj.add(1, new Item.Stool(gp));
+                obj.get(1).setWorldX(tileSize * 14);
+                obj.get(1).setWorldY(tileSize * 12);
+
+                obj.add(2, new Item.Stool(gp));
+                obj.get(2).setWorldX(tileSize * 15);
+                obj.get(2).setWorldY(tileSize * 12);
+
+                obj.add(3, new Item.Stool(gp));
+                obj.get(3).setWorldX(tileSize * 16);
+                obj.get(3).setWorldY(tileSize * 12);
+
+                obj.add(4, new Item.Stool(gp));
+                obj.get(4).setWorldX(tileSize * 17);
+                obj.get(4).setWorldY(tileSize * 12);
+
+                obj.add(5, new Item.Stool(gp));
+                obj.get(5).setWorldX(tileSize * 18);
+                obj.get(5).setWorldY(tileSize * 12);
+
+                obj.add(6, new Item.Door(gp));
+                obj.get(6).setWorldX(tileSize * 10);
+                obj.get(6).setWorldY(tileSize * 12);
 //
-//                obj.add(1, new Item.Key(gp));
-//                obj.get(1).setWorldX(tileSize * 23);
-//                obj.get(1).setWorldY(tileSize * 40);
-//
-//                obj.add(2, new Item.Key(gp));
-//                obj.get(2).setWorldX(tileSize * 38);
-//                obj.get(2).setWorldY(tileSize * 8);
 //
 //                obj.add(3, new Item.Door(gp));
 //                obj.get(3).setWorldX(tileSize * 10);
@@ -203,7 +221,8 @@ public class Utility {
                         case "up":
                             en.getSolidArea().y -= en.getSpeed();
                             if (en.getSolidArea().intersects(obj.get(i).getSolidArea())) {
-                                if (obj.get(i).isCollision()) {
+                                // BLOCK NPC FROM ENTERING DOORS
+                                if (obj.get(i).isCollision() || obj.get(i) instanceof Item.Door && en instanceof NPC) {
                                     en.setCollisionOn(true);
                                 }
                                 // IF PLAYER ONLY, SUPEROBJECT CAN BE PICKED UP

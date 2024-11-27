@@ -24,17 +24,20 @@ public abstract class SuperObject extends Asset implements Drawable, Observable 
         super(gp);
         this.name = name;
 
-        collision = false;
         // DEFAULT OBJECT COLLISION
+        collision = false;
         solidArea = new Rectangle(0, 0, gp.tileSize, gp.tileSize);
-        solidAreaDefaultX = 0;
-        solidAreaDefaultY = 0;
     }
 
     // MANUALLY SET COLLISION
-    void setManualCollisions(int width, int height) {
-        solidArea.width = width;
-        solidArea.height = height;
+    void setDefaultCollisions(boolean collision, int solidAreaDefaultX, int solidAreaDefaultY, int width, int height) {
+
+        this.collision = collision;
+        // COLLISION DIMENSIONS
+        solidArea = new Rectangle(solidAreaDefaultX, solidAreaDefaultY, width, height);
+
+        this.solidAreaDefaultX = solidAreaDefaultX;
+        this.solidAreaDefaultY = solidAreaDefaultY;
     }
 
 

@@ -13,12 +13,22 @@ public abstract class Item extends SuperObject {
     }
 
     // INNER STATIC CLASSES -----------------------------------
-    public static class Key extends Item implements Importable {
+    public static class Stool extends Item implements Importable {
 
         // CONSTRUCTOR
-        public Key(GamePanel gp) {
-            super(gp, "Key");
-            image = importImage("objects", "item", "key", "key", gp.tileSize); // FROM INTERFACE: IMPORTABLE
+        public Stool(GamePanel gp) {
+            super(gp, "Stool");
+            image = importImage("objects", "item", "stool", "stool", gp.tileSize);
+            setDefaultCollisions(true, 12, 24, 40, 37);
+        }
+    }
+
+    public static class Door extends Item implements Importable {
+
+        // CONSTRUCTOR
+        public Door(GamePanel gp) {
+            super(gp, "Door");
+            image = importImage("objects", "item", "door", "door", gp.tileSize);
         }
     }
 
@@ -39,15 +49,6 @@ public abstract class Item extends SuperObject {
         public Chest(GamePanel gp) {
             super(gp, "Chest");
             image = importImage("objects", "item", "chest", "chest", gp.tileSize); // FROM INTERFACE: IMPORTABLE
-        }
-    }
-
-    public static class Door extends Item implements Importable {
-
-        // CONSTRUCTOR
-        public Door(GamePanel gp) {
-            super(gp, "Door");
-            image = importImage("objects", "item", "door", "door", gp.tileSize); // FROM INTERFACE: IMPORTABLE
         }
     }
 

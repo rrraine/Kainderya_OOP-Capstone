@@ -209,6 +209,11 @@ public class GamePanel extends JPanel implements Runnable {
                     assetPool.add(n);
                 }
             }
+            for (SuperObject s : obj) {
+                if (s != null) {
+                    assetPool.add(s);
+                }
+            }
             // SORT ASSETS
             Collections.sort(assetPool);
 
