@@ -5,6 +5,8 @@ import main.GamePanel;
 
 public abstract class Item extends SuperObject {
 
+    // NOTE: DEPLOY THE ITEMS IN THE UTILITY CLASS, ASSETSETTER SUBCLASS!!!
+
     // CONSTRUCTOR --------------------------------------------
     public Item(GamePanel gp, String name) {
         super(gp, name);

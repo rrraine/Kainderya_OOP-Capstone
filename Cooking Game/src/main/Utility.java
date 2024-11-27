@@ -36,37 +36,38 @@ public class Utility {
 
             try {
 
-                obj.add(0, new Item.Key(gp));
-                obj.get(0).setWorldX(tileSize * 23);
-                obj.get(0).setWorldY(tileSize * 7);
-
-                obj.add(1, new Item.Key(gp));
-                obj.get(1).setWorldX(tileSize * 23);
-                obj.get(1).setWorldY(tileSize * 40);
-
-                obj.add(2, new Item.Key(gp));
-                obj.get(2).setWorldX(tileSize * 38);
-                obj.get(2).setWorldY(tileSize * 8);
-
-                obj.add(3, new Item.Door(gp));
-                obj.get(3).setWorldX(tileSize * 10);
-                obj.get(3).setWorldY(tileSize * 11);
-
-                obj.add(4, new Item.Door(gp));
-                obj.get(4).setWorldX(tileSize * 8);
-                obj.get(4).setWorldY(tileSize * 28);
-
-                obj.add(5, new Item.Door(gp));
-                obj.get(5).setWorldX(tileSize * 12);
-                obj.get(5).setWorldY(tileSize * 22);
-
-                obj.add(6, new Item.Chest(gp));
-                obj.get(6).setWorldX(tileSize * 10);
-                obj.get(6).setWorldY(tileSize * 7);
-
-                obj.add(7, new Item.Boots(gp));
-                obj.get(7).setWorldX(tileSize * 37);
-                obj.get(7).setWorldY(tileSize * 42);
+                // DEPLOY OBJECTS HERE
+//                obj.add(0, new Item.Key(gp));
+//                obj.get(0).setWorldX(tileSize * 23);
+//                obj.get(0).setWorldY(tileSize * 7);
+//
+//                obj.add(1, new Item.Key(gp));
+//                obj.get(1).setWorldX(tileSize * 23);
+//                obj.get(1).setWorldY(tileSize * 40);
+//
+//                obj.add(2, new Item.Key(gp));
+//                obj.get(2).setWorldX(tileSize * 38);
+//                obj.get(2).setWorldY(tileSize * 8);
+//
+//                obj.add(3, new Item.Door(gp));
+//                obj.get(3).setWorldX(tileSize * 10);
+//                obj.get(3).setWorldY(tileSize * 11);
+//
+//                obj.add(4, new Item.Door(gp));
+//                obj.get(4).setWorldX(tileSize * 8);
+//                obj.get(4).setWorldY(tileSize * 28);
+//
+//                obj.add(5, new Item.Door(gp));
+//                obj.get(5).setWorldX(tileSize * 12);
+//                obj.get(5).setWorldY(tileSize * 22);
+//
+//                obj.add(6, new Item.Chest(gp));
+//                obj.get(6).setWorldX(tileSize * 10);
+//                obj.get(6).setWorldY(tileSize * 7);
+//
+//                obj.add(7, new Item.Boots(gp));
+//                obj.get(7).setWorldX(tileSize * 37);
+//                obj.get(7).setWorldY(tileSize * 42);
 
             } catch (NullPointerException e) {
                 System.err.println("Accessing null element in (List<SuperObject> obj): " + e.getMessage());

@@ -29,7 +29,7 @@ public class Player extends Entity {
     // CONSTRUCTOR ---------------------------------------------------
     public Player(GamePanel gp, KeyBindings keyB, String playerAvatar, String playerName) {
 
-        super(gp, 4, "down");
+        super(gp, 3, "down");
 
         this.keyB = keyB;
         this.playerAvatar = playerAvatar;
@@ -67,7 +67,7 @@ public class Player extends Entity {
 
             // sprint
             if (sprint()) {
-                speed = 8;
+                speed = 6;
                 stamina--;
 
                 // when exhausted, takes 5 second cooldown to sprint again
@@ -76,7 +76,7 @@ public class Player extends Entity {
                 }
             }
             else {
-                speed = 4;
+                speed = 3;
                 stamina++;
 
                 if (stamina > maxStamina) stamina = maxStamina;
@@ -205,7 +205,7 @@ public class Player extends Entity {
         this.worldX = gp.tileSize * 13; // 23
         this.worldY = gp.tileSize * 10; // 21
 
-        int seconds = 5;
+        int seconds = 2;
         maxStamina = seconds * GamePanel.FPS;
         stamina = maxStamina;
     }
