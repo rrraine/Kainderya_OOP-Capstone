@@ -34,6 +34,7 @@ public abstract class NPC extends Entity {
         collisionOn = false;
         Utility.CollisionChecker.entityHitsTile(this, gp);
         int objIndex = Utility.CollisionChecker.entityHitsSuperObject(this, gp.getObj());
+        Utility.CollisionChecker.entityHitsNPC(this, gp.getNpc());
         Utility.CollisionChecker.NPCHitsPlayer(this, gp.player);
 
         // IF COLLISION IS FALSE, NPC CAN MOVE

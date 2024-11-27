@@ -84,25 +84,25 @@ public class Utility {
 
                 // Add StudentFemale NPC
                 npc.add(new NPC.StudentFemale(gp));
-                npc.get(npc.size() - 1).setWorldX(tileSize * 21);
-                npc.get(npc.size() - 1).setWorldY(tileSize * 21);
+                npc.get(npc.size() - 1).setWorldX(tileSize * 12);
+                npc.get(npc.size() - 1).setWorldY(tileSize * 13);
 
                 // Add StudentMale NPC
                 npc.add(new NPC.StudentMale(gp));
-                npc.get(npc.size() - 1).setWorldX(tileSize * 15);
-                npc.get(npc.size() - 1).setWorldY(tileSize * 10);
+                npc.get(npc.size() - 1).setWorldX(tileSize * 13);
+                npc.get(npc.size() - 1).setWorldY(tileSize * 13);
 
                 // Add Teacher NPC
                 npc.add(new NPC.Tambay1(gp));
-                npc.get(npc.size() - 1).setWorldX(tileSize * 10);
-                npc.get(npc.size() - 1).setWorldY(tileSize * 30);
+                npc.get(npc.size() - 1).setWorldX(tileSize * 14);
+                npc.get(npc.size() - 1).setWorldY(tileSize * 13);
 
                 // Add 1st Civilian (Female) NPC
 
                 npc.add(new NPC.civilianFemale1(gp));
 
                 npc.get(npc.size() - 1).setWorldX(tileSize * 15);
-                npc.get(npc.size() - 1).setWorldY(tileSize * 27);
+                npc.get(npc.size() - 1).setWorldY(tileSize * 13);
 
             }
             catch (NullPointerException e) {
@@ -270,7 +270,7 @@ public class Utility {
 
             for (int i = 0; i < npc.size(); i++) {
 
-                if (npc.get(i) != null) {
+                if (npc.get(i) != null && en != npc.get(i)) {
 
                     // GET ENTITY'S SOLID AREA POS
                     en.getSolidArea().x = en.getWorldX() + en.getSolidArea().x;
