@@ -3,6 +3,7 @@ package entity;
 import main.GamePanel;
 import main.Utility;
 
+import java.awt.*;
 import java.util.Random;
 
 public abstract class NPC extends Entity {
@@ -16,6 +17,13 @@ public abstract class NPC extends Entity {
     public NPC (GamePanel gp, int speed, String direction) {
         super(gp, speed, direction);
         lastDirection = lastRecordedDirection.DOWN;
+
+        // COLLISION DIMENSIONS
+        this.solidArea = new Rectangle(18, 38, 28, 23);
+
+        // DEFAULT COLLISION
+        this.solidAreaDefaultX = solidArea.x;
+        this.solidAreaDefaultY = solidArea.y;
     }
 
     // FROM CLASS: ENTITY ------------------------------------------

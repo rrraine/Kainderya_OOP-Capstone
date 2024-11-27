@@ -205,7 +205,7 @@ public class Player extends Entity {
         this.worldX = gp.tileSize * 13; // 23
         this.worldY = gp.tileSize * 10; // 21
 
-        int seconds = 2;
+        int seconds = 10;
         maxStamina = seconds * GamePanel.FPS;
         stamina = maxStamina;
     }
