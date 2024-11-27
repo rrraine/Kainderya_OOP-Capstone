@@ -113,18 +113,21 @@ public class KeyBindings implements KeyListener {
             // EXECUTE
             if (code == KeyEvent.VK_ENTER || code == KeyEvent.VK_F) {
                 gp.playSFX(2);
+                // NEW GAME
                 if (uiM.getCommand() == 0) {
                     gp.playSFX(2);
                     uiM.getHomeUI().homeState = UI.HomeUI.substate.SELECTION;
                     // NEW GAME
                     gp.music.playSound();
                 }
+                // CREDITS
                 else if (uiM.getCommand() == 1) {
                     // TODO CUSTOMIZE
                     gp.playSFX(2);
+                    uiM.getHomeUI().homeState = UI.HomeUI.substate.CREDITS;
                 }
+                // QUIT
                 else if (uiM.getCommand() == 2) {
-                    // QUIT
                     gp.playSFX(2);
                     System.exit(0);
                 }
@@ -206,6 +209,15 @@ public class KeyBindings implements KeyListener {
 
                 // TODO CANNOT PROCEED IF NAME EMPTY
                 gp.gameState = GamePanel.state.PLAY;
+            }
+        }
+
+        else if (uiM.getHomeUI().homeState == UI.HomeUI.substate.CREDITS) {
+
+            if (code == KeyEvent.VK_ENTER || code == KeyEvent.VK_F) {
+                gp.playSFX(2);
+
+                uiM.getHomeUI().homeState = UI.HomeUI.substate.TITLE;
             }
         }
     }

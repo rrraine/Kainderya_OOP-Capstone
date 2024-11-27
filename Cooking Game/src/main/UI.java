@@ -57,6 +57,8 @@ public class UI implements Drawable, Importable {
     private final Color primaryAccent;
     private final Color secondary;
     private Color secondaryAccent;
+    private final Color blue;
+    private final Color orange;
 
 
     // CONSTRUCTOR -----------------------------------------------------------------
@@ -96,6 +98,8 @@ public class UI implements Drawable, Importable {
         primary = new Color( 255, 219, 75);
         primaryAccent = new Color(65, 52, 18);
         secondary = new Color(255, 75, 81);
+        blue = new Color(75, 165, 255);
+        orange = new Color(255, 171, 75);
     }
     public static UI instantiate(GamePanel gp, Time time) {
         if (instance == null) {
@@ -130,10 +134,10 @@ public class UI implements Drawable, Importable {
             g2.setStroke(new BasicStroke(1.2F));
         }
         else { // DOUBLE ARROW
-            drawLetterBorder(">", Color.BLACK, 3, coord.get(0), coord.get(1));
+            drawLetterBorder(">", Color.BLACK, 3, coord.get(0) + gp.tileSize/9, coord.get(1));
             drawLetterBorder("<", Color.BLACK, 3, coord.get(2), coord.get(3));
             g2.setColor(primary);
-            g2.drawString(">", coord.get(0), coord.get(1));
+            g2.drawString(">", coord.get(0) + gp.tileSize/9, coord.get(1));
             g2.drawString("<", coord.get(2), coord.get(3));
             g2.setStroke(new BasicStroke(1.2F));
         }
@@ -217,7 +221,7 @@ public class UI implements Drawable, Importable {
     public class HomeUI {
 
         public substate homeState;
-        public enum substate { TITLE, SELECTION }
+        public enum substate { TITLE, SELECTION, CREDITS }
 
         private BufferedImage wallpaper;
         private BufferedImage wallpaperFront;
@@ -263,6 +267,10 @@ public class UI implements Drawable, Importable {
 
                 case SELECTION:
                     homeSELECTION();
+                    break;
+
+                case CREDITS:
+                    homeCREDITS();
                     break;
             }
         }
@@ -541,6 +549,123 @@ public class UI implements Drawable, Importable {
             int width = gp.tileSize * 7;
             int height = gp.tileSize - 10;
             drawPopUpWindow(x, y, width, height, transWhite, Color.BLACK);
+        }
+        private void homeCREDITS() {
+
+            // SUB-WINDOW
+            int frameX = gp.tileSize;
+            int frameY = gp.tileSize;
+            int frameWidth = gp.tileSize * 18;
+            int frameHeight = gp.tileSize * 10;
+            drawPopUpWindow(frameX, frameY, frameWidth, frameHeight);
+
+            g2.setFont(luckiestGuy);
+
+            g2.setColor(Color.white);
+            g2.setFont(g2.getFont().deriveFont(42F));
+
+            String text = "CREDITS <3";
+            int x = Utility.Aligner.centerText(text, gp, g2);
+            int y = gp.tileSize * 2 + 25;
+            // SHADOW TEXT COLOR
+            g2.setColor(Color.BLACK);
+            g2.drawString(text, x + 6, y);
+            // MAIN TEXT COLOR
+            g2.setColor(Color.WHITE);
+            g2.drawString(text, x, y);
+
+            // TEAM
+            g2.setFont(g2.getFont().deriveFont(30F));
+            text = "Procramming   |   2024";
+            x = Utility.Aligner.centerText(text, gp, g2);
+            y += gp.tileSize + 32;
+
+            // LETTERING: WHITE
+            g2.drawString(text, x + 7, y + 4);
+            // SHADOW TEXT COLOR
+            g2.setColor(primaryAccent);
+            g2.drawString(text, x + 5, y + 2);
+            // BORDER
+            drawLetterBorder(text, Color.BLACK, 2, x, y);
+            // MAIN
+            g2.setColor(orange);
+            g2.drawString(text, x, y);
+
+            // OUR BELOVED NAMES
+            g2.setFont(g2.getFont().deriveFont(42F));
+            // GK
+            text = "Carreon       Gianna Katrin";
+            x = Utility.Aligner.centerText(text, gp, g2);
+            y += gp.tileSize + 38;
+
+            // LETTERING: WHITE
+            g2.setColor(Color.WHITE);
+            g2.drawString(text, x + 14, y + 6);
+            // SHADOW TEXT COLOR
+            g2.setColor(primaryAccent);
+            g2.drawString(text, x + 11, y + 4);
+
+            drawLetterBorder(text, Color.BLACK, 3, x, y);
+            g2.setColor(blue);
+            g2.drawString(text, x, y);
+
+            // RON
+            text = "Jatayna       Aaron Dei";
+            x = Utility.Aligner.centerText(text, gp, g2);
+            y += gp.tileSize;
+
+            // LETTERING: WHITE
+            g2.setColor(Color.WHITE);
+            g2.drawString(text, x + 14, y + 6);
+            // SHADOW TEXT COLOR
+            g2.setColor(primaryAccent);
+            g2.drawString(text, x + 11, y + 4);
+
+            drawLetterBorder(text, Color.BLACK, 3, x, y);
+            g2.setColor(secondary);
+            g2.drawString(text, x, y);
+
+            // VJ
+            text = "Juarez       Venice Jonah";
+            x = Utility.Aligner.centerText(text, gp, g2);
+            y += gp.tileSize;
+
+            // LETTERING: WHITE
+            g2.setColor(Color.WHITE);
+            g2.drawString(text, x + 14, y + 6);
+            // SHADOW TEXT COLOR
+            g2.setColor(primaryAccent);
+            g2.drawString(text, x + 11, y + 4);
+
+            drawLetterBorder(text, Color.BLACK, 3, x, y);
+            g2.setColor(blue);
+            g2.drawString(text, x, y);
+
+            // LORI
+            text = "Quezada       Lorraine";
+            x = Utility.Aligner.centerText(text, gp, g2);
+            y += gp.tileSize;
+
+            // LETTERING: WHITE
+            g2.setColor(Color.WHITE);
+            g2.drawString(text, x + 14, y + 6);
+            // SHADOW TEXT COLOR
+            g2.setColor(primaryAccent);
+            g2.drawString(text, x + 11, y + 4);
+
+            drawLetterBorder(text, Color.BLACK, 3, x, y);
+            g2.setColor(secondary);
+            g2.drawString(text, x, y);
+
+            // BACK
+            g2.setFont(g2.getFont().deriveFont(30F));
+            text = "Back";
+            x = Utility.Aligner.centerText(text, gp, g2);
+            y += gp.tileSize + 48;
+            drawLetterBorder(text, Color.BLACK, 2, x, y);
+            g2.setColor(primary);
+            g2.drawString(text, x, y);
+            drawCursor(text, x, y, false, true);
         }
 
     }
