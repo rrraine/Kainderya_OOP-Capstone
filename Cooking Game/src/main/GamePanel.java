@@ -1,5 +1,6 @@
 package main;
 
+import entity.Entity;
 import entity.NPC;
 import entity.Player;
 import game.Time;
@@ -9,8 +10,7 @@ import tile.TileManager;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.util.ArrayList;
-import java.util.ConcurrentModificationException;
+import java.util.*;
 import java.util.List;
 
 public class GamePanel extends JPanel implements Runnable {
@@ -59,6 +59,7 @@ public class GamePanel extends JPanel implements Runnable {
     public Player player;
     final List<NPC> npc = new ArrayList<>();
     final List<SuperObject> obj = new ArrayList<>();
+    private List<Entity> entityPool = new ArrayList<>();
 
     // GAME STATE
     public state gameState;
@@ -210,15 +211,28 @@ public class GamePanel extends JPanel implements Runnable {
                 System.err.println("Trouble attempting to draw: " + e.getMessage());
             }
 
-            // 3. DRAW NPC
+            // RENDER ORDER FOR ENTITIES
+            entityPool.add(player);
             for (NPC n : npc) {
                 if (n != null) {
-                    n.draw(g2);
+                    entityPool.add(n);
                 }
             }
+            // SORT ENTITY POOL
+            Collections.sort(entityPool, new Comparator<Entity>() {
+                @Override
+                public int compare(Entity en1, Entity en2) {
+                    return Integer.compare(en1.getWorldY(), en2.getWorldY());
+                }
+            });
 
-            // 4. DRAW PLAYER
-            player.draw(g2);
+            // 3. DRAW ENTITY POOL
+            for (Entity en : entityPool) {
+                en.draw(g2);
+            }
+
+            // EMPTY ENTITY POOL TO AVOID DUPLICATIONS
+            entityPool.clear();
 
             // 5. DRAW UI
             uiM.draw(g2);
