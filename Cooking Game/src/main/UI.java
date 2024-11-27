@@ -614,7 +614,8 @@ public class UI implements Drawable, Importable {
             int frameHeight = gp.tileSize * 10;
             drawPopUpWindow(frameX, frameY, frameWidth, frameHeight);
 
-            g2.setFont(g2.getFont().deriveFont(Font.PLAIN,30F));
+           // g2.setFont(g2.getFont().deriveFont(Font.PLAIN,30F));
+            g2.setFont(fredokaSemiBold.deriveFont(30F));
 
             // TODO OPTIONS STATE
             switch (optionsState) {
@@ -644,6 +645,7 @@ public class UI implements Drawable, Importable {
             gp.keyB.setEnterPressed(false);
         }
 
+
         // SUBSTATES
         private void optionsSTART(int frameX, int frameY) {
 
@@ -661,8 +663,12 @@ public class UI implements Drawable, Importable {
             label = "Full Screen";
             textX = frameX + gp.tileSize;
             textY += gp.tileSize * 2;
-            g2.drawString(label, textX, textY);
+
+            drawLetterBorder(label, Color.BLACK, 2, textX, textY);
+
             if (command == 0) {
+                g2.setColor(primary);
+                g2.drawString(label, textX, textY);
                 drawCursor(label, textX, textY, true, true);
 
                 // IF PRESSED
@@ -677,46 +683,71 @@ public class UI implements Drawable, Importable {
                     optionsState = substate.FULLSCREEN;
                     command = 0;
                 }
+            }else{
+                g2.setColor(Color.WHITE);
+                g2.drawString(label, textX, textY);
             }
 
             // MULTIPLAYER
             label = "Multiplayer";
             textY += gp.tileSize;
-            g2.drawString(label, textX, textY);
+            drawLetterBorder(label, Color.BLACK, 2, textX, textY);
             if (command == 1) {
+                g2.setColor(primary);
+                g2.drawString(label, textX, textY);
                 drawCursor(label, textX, textY, true, true);
+            }else{
+                g2.setColor(Color.WHITE);
+                g2.drawString(label, textX, textY);
             }
 
             // VOLUME
             label = "Volume";
             textY += gp.tileSize;
+            drawLetterBorder(label, Color.BLACK, 2, textX, textY);
+            g2.setColor(Color.WHITE);
             g2.drawString(label, textX, textY);
             if (command == 2) {
+                g2.setColor(primary);
+                g2.drawString(label, textX, textY);
                 drawCursor(label, textX, textY, true, true);
+            }else{
+                g2.setColor(Color.WHITE);
+                g2.drawString(label, textX, textY);
             }
 
             // QUIT
             label = "Quit";
             textY += gp.tileSize;
-            g2.drawString(label , textX, textY);
+            drawLetterBorder(label, Color.BLACK, 2, textX, textY);
             if (command == 3) {
+                g2.setColor(primary);
+                g2.drawString(label , textX, textY);
                 drawCursor(label, textX, textY, true, true);
                 if (gp.keyB.isEnterPressed()) {
                     optionsState = substate.QUIT;
                     command = 0;
                 }
+            }else{
+                g2.setColor(Color.WHITE);
+                g2.drawString(label , textX, textY);
             }
 
             // RESUME
             label = "Resume";
             textY += gp.tileSize * 2;
-            g2.drawString(label, textX, textY);
+            drawLetterBorder(label, Color.BLACK, 2, textX, textY);
             if (command == 4) {
+                g2.setColor(primary);
+                g2.drawString(label, textX, textY);
                 drawCursor(label, textX, textY, true, true);
                 if (gp.keyB.isEnterPressed()) {
                     gp.gameState = GamePanel.state.PLAY;
                     command = 0;
                 }
+            }else{
+                g2.setColor(Color.WHITE);
+                g2.drawString(label, textX, textY);
             }
 
             // ~ BOX DISPLAY
@@ -790,6 +821,7 @@ public class UI implements Drawable, Importable {
             text = "No";
             textX = Utility.Aligner.centerText(text, gp, g2);
             textY += gp.tileSize;
+            g2.setColor(Color.WHITE);
             g2.drawString(text, textX, textY);
             if (command == 1) {
                 drawCursor(text, textX, textY, true, true);
