@@ -657,6 +657,8 @@ public class UI implements Drawable, Importable {
             String label = "OPTIONS";
             textX = Utility.Aligner.centerText(label, gp, g2);
             textY = frameY + gp.tileSize;
+            drawLetterBorder(label, Color.BLACK, 3, textX, textY);
+            g2.setColor(Color.WHITE);
             g2.drawString(label, textX, textY);
 
             // FULL SCREEN ON/OFF
@@ -796,8 +798,9 @@ public class UI implements Drawable, Importable {
             int textY = frameY + gp.tileSize * 3;
 
             notif = "Quit game and return \nto the home screen?";
-
             for (String line : notif.split("\n")) {
+                drawLetterBorder(line, Color.BLACK, 2, textX, textY);
+                g2.setColor(Color.WHITE);
                 g2.drawString(line, textX, textY);
                 textY += 40;
             }
@@ -806,8 +809,9 @@ public class UI implements Drawable, Importable {
             String text = "Yes";
             textX = Utility.Aligner.centerText(text, gp, g2);
             textY += gp.tileSize * 3;
-            g2.drawString(text, textX, textY);
+            drawLetterBorder(text, Color.BLACK, 2, textX, textY);
             if (command == 0) {
+                g2.setColor(primary);
                 drawCursor(text, textX, textY, true, true);
                 // QUIT
                 if (gp.keyB.isEnterPressed()) {
@@ -816,14 +820,18 @@ public class UI implements Drawable, Importable {
                     gp.gameState = GamePanel.state.HOME;
                 }
             }
+            else {
+                g2.setColor(Color.WHITE);
+            }
+            g2.drawString(text, textX, textY);
 
             // NO
             text = "No";
             textX = Utility.Aligner.centerText(text, gp, g2);
             textY += gp.tileSize;
-            g2.setColor(Color.WHITE);
-            g2.drawString(text, textX, textY);
+            drawLetterBorder(text, Color.BLACK, 2, textX, textY);
             if (command == 1) {
+                g2.setColor(primary);
                 drawCursor(text, textX, textY, true, true);
                 // QUIT
                 if (gp.keyB.isEnterPressed()) {
@@ -831,6 +839,10 @@ public class UI implements Drawable, Importable {
                     command = 0;
                 }
             }
+            else {
+                g2.setColor(Color.WHITE);
+            }
+            g2.drawString(text, textX, textY);
         }
     }
     public class DialogueUI {
