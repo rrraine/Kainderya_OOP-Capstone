@@ -3,7 +3,6 @@ package main;
 import entity.Entity;
 import entity.NPC;
 import entity.Player;
-import object.Item;
 import object.SuperObject;
 
 import java.awt.*;
@@ -142,7 +141,7 @@ public class Utility {
                         tileNum1 = gp.tileM.mapTileNum[entityLeftCol][entityTopRow];
                         tileNum2 = gp.tileM.mapTileNum[entityRightCol][entityTopRow];
 
-                        if (gp.tileM.tile[tileNum1].collision || gp.tileM.tile[tileNum2].collision) {
+                        if (gp.tileM.tile[tileNum1].isCollision() || gp.tileM.tile[tileNum2].isCollision()) {
                             en.setCollisionOn(true);
                         }
                         break;
@@ -152,7 +151,7 @@ public class Utility {
                         tileNum1 = gp.tileM.mapTileNum[entityLeftCol][entityBottomRow];
                         tileNum2 = gp.tileM.mapTileNum[entityRightCol][entityBottomRow];
 
-                        if (gp.tileM.tile[tileNum1].collision || gp.tileM.tile[tileNum2].collision) {
+                        if (gp.tileM.tile[tileNum1].isCollision() || gp.tileM.tile[tileNum2].isCollision()) {
                             en.setCollisionOn(true);
                         }
                         break;
@@ -162,7 +161,7 @@ public class Utility {
                         tileNum1 = gp.tileM.mapTileNum[entityLeftCol][entityTopRow];
                         tileNum2 = gp.tileM.mapTileNum[entityLeftCol][entityBottomRow];
 
-                        if (gp.tileM.tile[tileNum1].collision || gp.tileM.tile[tileNum2].collision) {
+                        if (gp.tileM.tile[tileNum1].isCollision() || gp.tileM.tile[tileNum2].isCollision()) {
                             en.setCollisionOn(true);
                         }
                         break;
@@ -172,7 +171,7 @@ public class Utility {
                         tileNum1 = gp.tileM.mapTileNum[entityRightCol][entityTopRow];
                         tileNum2 = gp.tileM.mapTileNum[entityRightCol][entityBottomRow];
 
-                        if (gp.tileM.tile[tileNum1].collision || gp.tileM.tile[tileNum2].collision) {
+                        if (gp.tileM.tile[tileNum1].isCollision() || gp.tileM.tile[tileNum2].isCollision()) {
                             en.setCollisionOn(true);
                         }
                         break;

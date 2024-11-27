@@ -12,7 +12,7 @@ public class Tile {
     Rectangle solidArea;
     int solidAreaDefaultX;
     int solidAreaDefaultY;
-    public boolean collision;
+    boolean collision;
 
     public Tile(int tileSize) {
 
@@ -27,4 +27,7 @@ public class Tile {
         solidArea.height = height;
     }
 
+    public boolean isCollision() {
+        return collision;
+    }
 }
