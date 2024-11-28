@@ -1,6 +1,5 @@
 package main;
 
-import entity.Entity;
 import game.Time;
 import interfaces.Drawable;
 import interfaces.Importable;
@@ -239,10 +238,8 @@ public class UI implements Drawable, Importable {
         private BufferedImage wallpaperFront;
 
         // ANIMATED WALLPAPER
-        UIAnimated girl;
-        UIAnimated boy;
-        UIAnimated civilian;
-        UIAnimated cook1, cook2, cook3, cook4;
+        UIElement girl, boy, civilian;
+        UIElement cook1, cook2, cook3, cook4;
 
         public HomeUI() {
             homeState = substate.TITLE;
@@ -250,20 +247,20 @@ public class UI implements Drawable, Importable {
             wallpaperFront = importWallpaper("wallpapers", "homeUI", "homeUI_Front");
 
             // ANIMATED WALLPAPER
-            girl = new UIAnimated(gp, "npc", "studentFemale",  30,true);
+            girl = new UIElement(gp, "npc", "studentFemale",  30,true);
             girl.reposition((gp.tileSize * 8) + gp.tileSize * 5, (gp.tileSize *3+20) + gp.tileSize * 5);
 
-            boy = new UIAnimated(gp, "npc","studentMale", 16,false);
+            boy = new UIElement(gp, "npc","studentMale", 16,false);
             boy.reposition(gp.tileSize + gp.tileSize * 5, (gp.tileSize *3+20) + gp.tileSize * 5);
 
-            civilian = new UIAnimated(gp, "npc","civilianfem1", 20, true);
+            civilian = new UIElement(gp, "npc","civilianfem1", 20, true);
             civilian.reposition((gp.tileSize * 11) + gp.tileSize * 5, (gp.tileSize *3+20) + gp.tileSize * 5);
 
             // TODO UPDATE IMAGE ARGUMENT
-            cook1 = new UIAnimated(gp, "player", "cook1",  12,true);
-            cook2 = new UIAnimated(gp, "player", "cook2",  12,true);
-            cook3 = new UIAnimated(gp, "player", "cook3",  12,true);
-            cook4 = new UIAnimated(gp, "player", "cook4",  12,true);
+            cook1 = new UIElement(gp, "player", "cook1",  12,true);
+            cook2 = new UIElement(gp, "player", "cook2",  12,true);
+            cook3 = new UIElement(gp, "player", "cook3",  12,true);
+            cook4 = new UIElement(gp, "player", "cook4",  12,true);
 
         }
         public void draw() {
@@ -293,9 +290,9 @@ public class UI implements Drawable, Importable {
             g2.setFont(paytoneOne);
 
             // ANIMATED WALLPAPER
-            girl.drawSideViewMoving(g2);
-            boy.drawSideViewMoving(g2);
-            civilian.drawSideViewMoving(g2);
+            girl.drawAvatarSideMoving(g2);
+            boy.drawAvatarSideMoving(g2);
+            civilian.drawAvatarSideMoving(g2);
 
             // HOME BACKGROUND FRONT
             g2.drawImage(wallpaperFront, 0, 0, gp.screenWidth, gp.screenHeight, null);
@@ -442,10 +439,10 @@ public class UI implements Drawable, Importable {
             // DRAW GRID BOX
             if (command == 0) {
                 drawPopUpWindow(gridX, gridY, gridWidth, gridHeight, primaryAccent, primary);
-                cook1.drawFrontViewMoving(g2);
+                cook1.drawAvatarFrontMoving(g2);
             } else {
                 drawPopUpWindow(gridX, gridY, gridWidth, gridHeight, transWhite, Color.BLACK);
-                cook1.drawFrontViewStatic(g2);
+                cook1.drawAvatarFrontStatic(g2);
             }
 
             // GRID 2
@@ -471,10 +468,10 @@ public class UI implements Drawable, Importable {
             // DRAW GRID BOX
             if (command == 1) {
                 drawPopUpWindow(gridX, gridY, gridWidth, gridHeight, primaryAccent, primary);
-                cook2.drawFrontViewMoving(g2);
+                cook2.drawAvatarFrontMoving(g2);
             } else {
                 drawPopUpWindow(gridX, gridY, gridWidth, gridHeight, transWhite, Color.BLACK);
-                cook2.drawFrontViewStatic(g2);
+                cook2.drawAvatarFrontStatic(g2);
             }
 
 
@@ -501,10 +498,10 @@ public class UI implements Drawable, Importable {
             // DRAW GRID BOX
             if (command == 2) {
                 drawPopUpWindow(gridX, gridY, gridWidth, gridHeight, primaryAccent, primary);
-                cook3.drawFrontViewMoving(g2);
+                cook3.drawAvatarFrontMoving(g2);
             } else {
                 drawPopUpWindow(gridX, gridY, gridWidth, gridHeight, transWhite, Color.BLACK);
-                cook3.drawFrontViewStatic(g2);
+                cook3.drawAvatarFrontStatic(g2);
             }
 
 
@@ -531,10 +528,10 @@ public class UI implements Drawable, Importable {
             // DRAW GRID BOX
             if (command == 3) {
                 drawPopUpWindow(gridX, gridY, gridWidth, gridHeight, primaryAccent, primary);
-                cook4.drawFrontViewMoving(g2);
+                cook4.drawAvatarFrontMoving(g2);
             } else {
                 drawPopUpWindow(gridX, gridY, gridWidth, gridHeight, transWhite, Color.BLACK);
-                cook4.drawFrontViewStatic(g2);
+                cook4.drawAvatarFrontStatic(g2);
             }
 
             text = "Name: ";
@@ -683,11 +680,11 @@ public class UI implements Drawable, Importable {
     }
     public class PlayUI  {
 
-        UIAnimated staminaBar;
+        UIElement staminaBar;
 
         public PlayUI() {
 
-            staminaBar = new UIAnimated(gp, "ui", "staminaBar", 0, false);
+            staminaBar = new UIElement(gp, "staminaBar", "staminaBar", 0, false);
         }
         public void draw() {
 
@@ -698,7 +695,7 @@ public class UI implements Drawable, Importable {
                 // en.getWorldY() + en.getSolidArea().y
                 // en.getWorldY() + en.getSolidArea().y + en.getSolidArea().height;
                 staminaBar.reposition(gp.player.getPlayerCenteredScreenX() - 20, gp.player.getPlayerCenteredScreenY() - (gp.tileSize * 2) +25);
-                staminaBar.drawStamina(g2, gp.player.staminaMeter());
+                staminaBar.drawStaminaBar(g2, gp.player.staminaMeter());
 
                 // ORDER PANE
                 int frameX = -10;
