@@ -60,28 +60,50 @@ public class Utility {
                 obj.add(5, new Item.Door(gp));
                 obj.get(5).setWorldX(tileSize * 10);
                 obj.get(5).setWorldY(tileSize * 12);
-//
-//
-//                obj.add(3, new Item.Door(gp));
-//                obj.get(3).setWorldX(tileSize * 10);
-//                obj.get(3).setWorldY(tileSize * 11);
-//
-//                obj.add(4, new Item.Door(gp));
-//                obj.get(4).setWorldX(tileSize * 8);
-//                obj.get(4).setWorldY(tileSize * 28);
-//
-//                obj.add(5, new Item.Door(gp));
-//                obj.get(5).setWorldX(tileSize * 12);
-//                obj.get(5).setWorldY(tileSize * 22);
-//
-//                obj.add(6, new Item.Chest(gp));
-//                obj.get(6).setWorldX(tileSize * 10);
-//                obj.get(6).setWorldY(tileSize * 7);
-//
-//                obj.add(7, new Item.Boots(gp));
-//                obj.get(7).setWorldX(tileSize * 37);
-//                obj.get(7).setWorldY(tileSize * 42);
 
+                obj.add(6, new Item.Egg(gp));
+                obj.get(6).setWorldX(tileSize * 17);
+                obj.get(6).setWorldY(tileSize * 12);
+
+                obj.add(7, new Item.Spam(gp));
+                obj.get(7).setWorldX(tileSize * 14);
+                obj.get(7).setWorldY(tileSize * 7);
+
+                obj.add(8, new Item.CornedBeef(gp));
+                obj.get(8).setWorldX(tileSize * 16);
+                obj.get(8).setWorldY(tileSize * 7);
+
+                obj.add(9, new Item.Tapa(gp));
+                obj.get(9).setWorldX(tileSize * 18);
+                obj.get(9).setWorldY(tileSize * 12);
+
+                obj.add(10, new Item.Egg(gp));
+                obj.get(10).setWorldX(tileSize * 18);
+                obj.get(10).setWorldY(tileSize * 12);
+
+
+/*
+
+                  obj.add(3, new Item.Door(gp));
+                  obj.get(3).setWorldX(tileSize * 10);
+                  obj.get(3).setWorldY(tileSize * 11);
+
+                  obj.add(4, new Item.Door(gp));
+                  obj.get(4).setWorldX(tileSize * 8);
+                  obj.get(4).setWorldY(tileSize * 28);
+
+                  obj.add(5, new Item.Door(gp));
+                  obj.get(5).setWorldX(tileSize * 12);
+                  obj.get(5).setWorldY(tileSize * 22);
+
+                  obj.add(6, new Item.Chest(gp));
+                  obj.get(6).setWorldX(tileSize * 10);
+                  obj.get(6).setWorldY(tileSize * 7);
+
+                  obj.add(7, new Item.Boots(gp));
+                  obj.get(7).setWorldX(tileSize * 37);
+                  obj.get(7).setWorldY(tileSize * 42);
+*/
             } catch (NullPointerException e) {
                 System.err.println("Accessing null element in (List<SuperObject> obj): " + e.getMessage());
             }

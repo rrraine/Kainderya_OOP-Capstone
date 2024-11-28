@@ -54,109 +54,148 @@ public abstract class Item extends SuperObject {
 
     // ingredients: not cooked bleh
 
-    public static class egg extends Item implements Importable {
-        public egg(GamePanel gp, String name) {
-            super(gp, name);
+    public static class Egg extends Item implements Importable {
+        public Egg (GamePanel gp) {
+            super(gp, "Egg");
             // import image
-            // image = importImage("objects", "item", "egg", "egg", gp.tileSize);
+            image = importImage("objects", "item", "ingredients", "egg", gp.tileSize);
+            setDefaultCollisions(true, 12, 24, 40, 37);
         }
     }
 
-    public static class spam extends Item implements Importable {
-        public spam(GamePanel gp, String name) {
-            super(gp, name);
+    public static class Spam extends Item implements Importable {
+        public Spam (GamePanel gp) {
+            super(gp, "Spam");
+            image = importImage ("objects", "item", "ingredients", "spam", gp.tileSize);
+            setDefaultCollisions(true, 12, 24, 40, 37);
         }
         // import image
-        // image = importImage ("objects", "item", "spam", "spam", gp.tileSize);
+
     }
 
-    public static class cornedBeef extends Item implements Importable {
-        public cornedBeef(GamePanel gp, String name) {
-            super(gp, name);
+    public static class CornedBeef extends Item implements Importable {
+        public CornedBeef (GamePanel gp) {
+            super(gp, "Corned Beef");
+            image = importImage ("objects", "item", "ingredients", "cornedBeef", gp.tileSize);
+            setDefaultCollisions(true, 12, 24, 40, 37);
         }
         // import image;
-        // image = importImage("objects", "item", "cornedBeef", "cornedBeef", gp.tileSize);
+
     }
 
-    public static class rice extends Item implements Importable {
-        public rice(GamePanel gp, String name) {
-            super(gp, name);
+    public static class Rice extends Item implements Importable {
+        public Rice (GamePanel gp) {
+            super(gp, "Rice");
+            // import image;
+            image = importImage("objects", "item", "ingredients", "rice", gp.tileSize);
+            setDefaultCollisions(true, 12, 24, 40, 37);
         }
-
-        // import image;
-        // image = importImage("objects", "item", "rice", "rice", gp.tileSize);
     }
 
-    public static class water extends Item implements Importable {
+    public static class Tapa extends Item implements Importable {
 
-        public water(GamePanel gp, String name) {
-            super(gp, name);
+        public Tapa (GamePanel gp) {
+            super(gp, "Cola");
+            // import image;
+            image = importImage("objects", "item", "ingredients", "tapa", gp.tileSize);
+            setDefaultCollisions(true, 12, 24, 40, 37);
         }
 
-        // import image;
-        // image = importImage("objects", "item", "water", "water", gp.tileSize);
+    }
+
+    public static class Water extends Item implements Importable {
+
+        public Water (GamePanel gp) {
+            super(gp, "Water");
+            // import image;
+            // image = importImage("objects", "item", "ingredients", "water", gp.tileSize);
+            // setDefaultCollisions(true, 12, 24, 40, 37);
+        }
+
+    }
+
+    public static class Cola extends Item implements Importable {
+
+        public Cola (GamePanel gp) {
+            super(gp, "Cola");
+            // import image;
+            // image = importImage("objects", "item", "ingredients", "cola", gp.tileSize);
+            // setDefaultCollisions(true, 12, 24, 40, 37);
+        }
+
     }
 
     // cooked items
 
-    public static class cookedEgg extends Item implements Importable {
-        public cookedEgg(GamePanel gp, String name) {
-            super(gp, name);
+    public static class CookedEgg extends Item implements Importable {
+        public CookedEgg (GamePanel gp) {
+            super(gp, "Cooked Egg");
+            // import image
+            // image = importImage("objects", "items", "food", "cookedEgg", gp.tileSize);
+            // setDefaultCollisions(true, 12, 24, 40, 37);
         }
-        // import image
-       // image = importImage("objects", "items", "cookedEgg", "cookedEgg", gp.tileSize);
+
     }
 
-    public static class cookedSpam extends Item implements Importable {
-        public cookedSpam(GamePanel gp, String name) {
-            super(gp, name);
+    public static class CookedSpam extends Item implements Importable {
+        public CookedSpam (GamePanel gp) {
+            super(gp, "Cooked Spam");
+            // import image
+            // image = importImage("objects", "items", "food", "cookedSpam", gp.tileSize);
+            // setDefaultCollisions(true, 12, 24, 40, 37);
         }
 
-        // import image
-       // image = importImage("objects", "items", "cookedSpam", "cookedSpam", gp.tileSize);
     }
 
-    public static class cookedTapa extends Item implements Importable {
-        public cookedTapa(GamePanel gp, String name) {
-            super(gp, name);
+    public static class CookedTapa extends Item implements Importable {
+        public CookedTapa (GamePanel gp) {
+            super(gp, "Cooked Tapa");
+            // import image
+            // image = importImage("objects", "items", "food", "cookedTapa", gp.tileSize);
+            // setDefaultCollisions(true, 12, 24, 40, 37);
         }
 
-        // import image
-        // image = importImage("objects", "items", "cookedTapa", "cookedTapa", gp.tileSize);
     }
 
-    public static class cookedRice extends Item implements Importable {
-        public cookedRice(GamePanel gp, String name) {
-            super(gp, name);
+    public static class CookedRice extends Item implements Importable {
+        public CookedRice (GamePanel gp) {
+            super(gp, "Cooked Rice");
+            // import image
+            // image = importImage("objects", "items", "food", "cookedRice", gp.tileSize);
+            // setDefaultCollisions(true, 12, 24, 40, 37);
         }
 
-        // import image
-        // image = importImage("objects", "items", "cookedRice", "cookedRice", gp.tileSize);
     }
 
     // cooked meals
 
-    public static class tapsilog extends Item implements Importable {
-        public tapsilog(GamePanel gp, String name) {
-            super(gp, name);
+    public static class Tapsilog extends Item implements Importable {
+        public Tapsilog (GamePanel gp) {
+            super(gp, "Tapsilog");
+            // import image
+            // image = importImage("objects", "items", "food", "tapsilog", gp.tileSize);
+            // setDefaultCollisions(true, 12, 24, 40, 37);
         }
-        // import image
-        // image = importImage("objects", "items", "tapsilog", "tapsilog", gp.tileSize);
+
     }
 
-    public static class cornedsilog extends Item implements Importable {
-        public cornedsilog(GamePanel gp, String name) {
-            super(gp, name);
+    public static class Cornedsilog extends Item implements Importable {
+        public Cornedsilog (GamePanel gp) {
+            super(gp, "Cornedsilog");
+            // import image
+            // image = importImage("objects", "items", "food", "cornedsilog", gp.tileSize);
+            // setDefaultCollisions(true, 12, 24, 40, 37);
         }
-        // import image
-        // image = importImage("objects", "items", "cornedsilog", "cornedsilog", gp.tileSize);
+
     }
 
-    public static class spamsilog extends Item implements Importable {
-        public spamsilog(GamePanel gp, String name) {
-            super(gp, name);
+    public static class Spamsilog extends Item implements Importable {
+        public Spamsilog (GamePanel gp) {
+            super(gp, "Spamsilog");
+            // import image
+            // image = importImage("objects", "items", "food", "spamsilog", gp.tileSize);
+            // setDefaultCollisions(true, 12, 24, 40, 37);
         }
-        // import image
-        // image = importImage("objects", "items", "spamsilog", "spamsilog", gp.tileSize);
+
     }
 }

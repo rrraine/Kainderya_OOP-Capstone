@@ -44,7 +44,7 @@ public class TileManager implements Importable, Drawable, Observable {
 
     // Optimize Tile Setup
     /*
-        private void addTIle(int index, String path, String structure, String type, String image, boolean collision){
+        private void addTile(int index, String path, String structure, String type, String image, boolean collision){
             tile[index] = new Tile(gp.tileSize);
             tile[index].image = importImage(path, structure, type, image, gp.TileSize);
             tile[index].collision = collision;
