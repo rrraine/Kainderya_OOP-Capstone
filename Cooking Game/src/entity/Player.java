@@ -25,6 +25,26 @@ public class Player extends Entity {
     private String playerName;
 
     // ~ METHODS ---------------------------------------------------
+    public int staminaMeter() {
+
+        if (stamina / GamePanel.FPS >= 7) {
+            return 1;
+        }
+        else if (stamina / GamePanel.FPS >= 5) {
+            return 2;
+        }
+        else if (stamina / GamePanel.FPS >= 3) {
+            return 3;
+        }
+        else if (stamina / GamePanel.FPS >= 1) {
+            return 4;
+        }
+        else if (stamina / GamePanel.FPS == 0) {
+            return 5;
+        }
+
+        return 6;
+    }
 
     // CONSTRUCTOR ---------------------------------------------------
     public Player(GamePanel gp, KeyBindings keyB, String playerAvatar, String playerName) {
@@ -205,7 +225,7 @@ public class Player extends Entity {
         this.worldX = gp.tileSize * 13; // 23
         this.worldY = gp.tileSize * 10; // 21
 
-        int seconds = 10;
+        int seconds = 8;
         maxStamina = seconds * GamePanel.FPS;
         stamina = maxStamina;
     }

@@ -12,8 +12,8 @@ public class UIAnimated implements Importable {
     // ANIMATED WALLPAPER
     private int spriteCounter = 0;
     private int spriteNum = 1;
-    private int animatedX;
-    private int animatedY;
+    private int x;
+    private int y;
     private boolean movingLeft;
 
     private int frameInterval;
@@ -25,7 +25,15 @@ public class UIAnimated implements Importable {
         this.frameInterval = frameInterval;
         this.movingLeft = movingLeft;
 
-        renderAvatar(type, image);
+        switch (type) {
+            case "npc":
+            case "player":
+                renderAvatar(type, image);
+                break;
+            case "ui":
+                renderIcon(image);
+                break;
+        }
     }
 
     private void renderAvatar(String type, String image) {
@@ -48,25 +56,34 @@ public class UIAnimated implements Importable {
 
          */
     }
+    private void renderIcon(String image) {
+        idle = importImage("/ui/staminaBar/staminaBar_full", gp.tileSize);
+        left1 = importImage("/ui/staminaBar/staminaBar_3", gp.tileSize);
+        left2 = importImage("/ui/staminaBar/staminaBar_2", gp.tileSize);
+        right1 = importImage("/ui/staminaBar/staminaBar_1", gp.tileSize);
+        right2 = importImage("/ui/staminaBar/staminaBar_emptyBlack", gp.tileSize);
+        down1 = importImage("/ui/staminaBar/staminaBar_emptyRed", gp.tileSize);
+    }
+
 
     public void reposition(int x, int y) {
-        animatedX = x;
-        animatedY = y;
+        this.x = x;
+        this.y = y;
     }
     public void drawSideViewMoving(Graphics2D g2) {
         int speed = 2;
 
         // MOVING DISPLACEMENT
         if (movingLeft) {
-            animatedX -= speed;
+            x -= speed;
 
-            if (animatedX < -gp.tileSize * 2) {
+            if (x < -gp.tileSize * 2) {
                 movingLeft = false;
             }
         } else {
-            animatedX += speed;
+            x += speed;
 
-            if (animatedX > gp.screenWidth) {
+            if (x > gp.screenWidth) {
                 movingLeft = true;
             }
         }
@@ -75,12 +92,12 @@ public class UIAnimated implements Importable {
         if (spriteNum == 1) {
             g2.drawImage(
                     movingLeft ? left1 : right1,
-                    animatedX, animatedY, gp.tileSize * 2 - 20, gp.tileSize * 2 - 20, null
+                    x, y, gp.tileSize * 2 - 20, gp.tileSize * 2 - 20, null
             );
         } else if (spriteNum == 2) {
             g2.drawImage(
                     movingLeft ? left2 : right2,
-                    animatedX, animatedY, gp.tileSize * 2 - 20, gp.tileSize * 2 - 20, null
+                    x, y, gp.tileSize * 2 - 20, gp.tileSize * 2 - 20, null
             );
         }
 
@@ -101,12 +118,12 @@ public class UIAnimated implements Importable {
         if (spriteNum == 1) {
             g2.drawImage(
                     down1,
-                    animatedX, animatedY, gp.tileSize * 2 - 20, gp.tileSize * 2 - 20, null
+                    x, y, gp.tileSize * 2 - 20, gp.tileSize * 2 - 20, null
             );
         } else if (spriteNum == 2) {
             g2.drawImage(
                     down2,
-                    animatedX, animatedY, gp.tileSize * 2 - 20, gp.tileSize * 2 - 20, null
+                    x, y, gp.tileSize * 2 - 20, gp.tileSize * 2 - 20, null
             );
         }
 
@@ -123,6 +140,35 @@ public class UIAnimated implements Importable {
     }
     public void drawFrontViewStatic(Graphics2D g2) {
 
-        g2.drawImage(idle, animatedX, animatedY, gp.tileSize * 2 - 20, gp.tileSize * 2 - 20, null);
+        g2.drawImage(idle, x, y, gp.tileSize * 2 - 20, gp.tileSize * 2 - 20, null);
+    }
+    public void drawStamina(Graphics2D g2, int phase) {
+
+        switch (phase) {
+            case 1:
+                g2.drawImage(idle, x, y, gp.tileSize * 2 - 20, gp.tileSize * 2 - 20, null);
+                break;
+            case 2:
+                g2.drawImage(left1, x, y, gp.tileSize * 2 - 20, gp.tileSize * 2 - 20, null);
+                break;
+            case 3:
+                g2.drawImage(left2, x, y, gp.tileSize * 2 - 20, gp.tileSize * 2 - 20, null);
+                break;
+            case 4:
+                g2.drawImage(right1, x, y, gp.tileSize * 2 - 20, gp.tileSize * 2 - 20, null);
+                break;
+            case 5:
+                g2.drawImage(right2, x, y, gp.tileSize * 2 - 20, gp.tileSize * 2 - 20, null);
+                break;
+            case 6:
+                if (Utility.Regulator.flipSwitch(1)) {
+                    g2.drawImage(right2, x, y, gp.tileSize * 2 - 20, gp.tileSize * 2 - 20, null);
+                }
+                else {
+                    g2.drawImage(down1, x, y, gp.tileSize * 2 - 20, gp.tileSize * 2 - 20, null);
+                }
+
+                break;
+        }
     }
 }

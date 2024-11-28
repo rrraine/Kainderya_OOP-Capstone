@@ -1,5 +1,6 @@
 package main;
 
+import entity.Entity;
 import game.Time;
 import interfaces.Drawable;
 import interfaces.Importable;
@@ -682,13 +683,22 @@ public class UI implements Drawable, Importable {
     }
     public class PlayUI  {
 
+        UIAnimated staminaBar;
+
         public PlayUI() {
 
+            staminaBar = new UIAnimated(gp, "ui", "staminaBar", 0, false);
         }
         public void draw() {
 
             // DRAW TIMER
             if (gp.gameState != GamePanel.state.HOME) {
+
+                // DRAW STAMINA
+                // en.getWorldY() + en.getSolidArea().y
+                // en.getWorldY() + en.getSolidArea().y + en.getSolidArea().height;
+                staminaBar.reposition(gp.player.getPlayerCenteredScreenX() - 20, gp.player.getPlayerCenteredScreenY() - (gp.tileSize * 2) +25);
+                staminaBar.drawStamina(g2, gp.player.staminaMeter());
 
                 // ORDER PANE
                 int frameX = -10;
