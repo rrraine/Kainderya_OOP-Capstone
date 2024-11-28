@@ -261,7 +261,7 @@ public class UI implements Drawable, Importable {
             // TODO UPDATE IMAGE ARGUMENT
             cook1 = new UIAnimated(gp, "player", "cook1",  12,true);
             cook2 = new UIAnimated(gp, "player", "cook2",  12,true);
-            cook3 = new UIAnimated(gp, "player", "cook1",  12,true);
+            cook3 = new UIAnimated(gp, "player", "cook3",  12,true);
             cook4 = new UIAnimated(gp, "player", "cook4",  12,true);
 
         }
@@ -483,8 +483,8 @@ public class UI implements Drawable, Importable {
 
             cook3.reposition(gridX + gp.tileSize - 18, gridY + gp.tileSize + 20);
 
-            text = "Gabriel";
-            x = gridX + gp.tileSize - 26;
+            text = "Javier";
+            x = gridX + gp.tileSize - 18;
             y = gridY * 2 + gp.tileSize;
             // BORDER
             drawLetterBorder(text, Color.BLACK, 3, x, y);
@@ -514,7 +514,7 @@ public class UI implements Drawable, Importable {
             cook4.reposition(gridX + gp.tileSize - 18, gridY + gp.tileSize + 20);
 
             text = "Sofia";
-            x = gridX + gp.tileSize - 8;
+            x = gridX + gp.tileSize - 6;
             y = gridY * 2 + gp.tileSize;
             // BORDER
             drawLetterBorder(text, Color.BLACK, 3, x, y);
