@@ -187,6 +187,17 @@ public class UI implements Drawable, Importable {
         g2.setStroke(new BasicStroke(5));
         g2.drawRoundRect(x+5, y+5, width-10, height-10, 25, 25);
     }
+    private void drawCircle(int x, int y, int width, int height, Color bg, Color border) {
+
+        g2.setColor(bg);
+
+        // DRAW OVAL
+        g2.fillOval(x, y, width, height);
+
+        g2.setColor(border);
+        g2.setStroke(new BasicStroke(5));
+        g2.drawOval(x+5, y+5, width -10, height -10);
+    }
     private void drawLetterBorder(String text, Color color, int thickness, int x, int y) {
 
         g2.setColor(color);
@@ -679,6 +690,18 @@ public class UI implements Drawable, Importable {
             // DRAW TIMER
             if (gp.gameState != GamePanel.state.HOME) {
 
+                // ORDER PANE
+                int frameX = -10;
+                int frameY = gp.tileSize * 10 + 8;
+                int frameWidth = gp.tileSize * 20 + gp.tileSize/3;
+                int frameHeight = gp.tileSize * 2 + 3;
+                drawPopUpWindow(frameX, frameY, frameWidth, frameHeight);
+
+                // CIRCLE FOR MENU ICON
+                drawCircle(gp.tileSize/2, frameY - gp.tileSize/2 , gp.tileSize*2 + 6, gp.tileSize*2, Color.WHITE, Color.BLACK);
+
+                g2.setColor(Color.WHITE);
+                
                 if (Time.rushTime()) {
                     g2.setColor(Color.RED);
                     g2.setFont(g2.getFont().deriveFont(Font.PLAIN,40F));
