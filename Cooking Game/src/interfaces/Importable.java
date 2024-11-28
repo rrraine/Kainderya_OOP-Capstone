@@ -14,28 +14,28 @@ public interface Importable {
     // FOR CLASSES THAT REQUIRE IMPORTING OF EXTERNAL FILES AND RESOURCES
 
     // PRESET FORMATS
-    default BufferedImage importImage(String path, String structure, String type, String image, int tileSize) {
+    default BufferedImage importImage(String path, int tileSize) {
 
         BufferedImage importedImage = null;
 
-        try (InputStream is = getClass().getResourceAsStream("/" + path + "/" + structure + "/" + type + "/" + image + ".png")) {
+        try (InputStream is = getClass().getResourceAsStream(path + ".png")) {
 
             if (is == null)
-                throw new IOException("Resource not found: " + path + "/" + structure + "/" + type + "/" + image + ".png");
+                throw new IOException("Resource not found:" + path + ".png");
 
             importedImage = ImageIO.read(is);
 
             if (importedImage == null)
-                throw new IOException("Failed to read: " + path + "/" + structure + "/" + type + "/" + image + ".png");
+                throw new IOException("Failed to read: " + path + ".png");
 
             importedImage = Utility.Scaler.scaleImage(importedImage, tileSize, tileSize);
 
-            System.out.println(path + " (" + image + ") imported");
+            System.out.println(path + " imported");
 
         } catch (IOException e) {
             System.err.println(e.getMessage() + " [Inspect: " + this.getClass() + "]");
         } catch (Exception e) {
-            System.err.println("Unexpected error (" + path + "/" + structure + "/" + type + "/" + image + ".png): " + " [Inspect: " + this.getClass() + "]");
+            System.err.println("Unexpected error (" + path + ".png): " + " [Inspect: " + this.getClass() + "]");
         }
 
         return importedImage;

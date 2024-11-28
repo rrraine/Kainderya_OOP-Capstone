@@ -127,7 +127,8 @@ public abstract class Entity extends Asset implements Drawable, Observable, Impo
     abstract void getAvatar();
     BufferedImage setAvatar(String structure, String avatar, String image) {
 
-        return importImage("avatar", structure, avatar, image, gp.tileSize);
+        //return importImage("avatar", structure, avatar, image, gp.tileSize);
+        return importImage("/avatar/" + structure + "/" + avatar +  "/" + image, gp.tileSize);
     }
 
     // GETTERS & SETTERS ---------------------------------------------------

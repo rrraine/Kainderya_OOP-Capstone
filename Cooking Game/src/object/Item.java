@@ -18,7 +18,7 @@ public abstract class Item extends SuperObject {
         // CONSTRUCTOR
         public Stool(GamePanel gp) {
             super(gp, "Stool");
-            image = importImage("objects", "item", "stool", "stool", gp.tileSize);
+            image = importImage("/objects/item/stool/stool", gp.tileSize);
             setDefaultCollisions(true, 12, 24, 40, 37);
         }
     }
@@ -28,7 +28,7 @@ public abstract class Item extends SuperObject {
         // CONSTRUCTOR
         public Door(GamePanel gp) {
             super(gp, "Door");
-            image = importImage("objects", "item", "door", "door", gp.tileSize);
+            image = importImage("/objects/item/door/door", gp.tileSize);
         }
     }
 
@@ -39,7 +39,7 @@ public abstract class Item extends SuperObject {
         // CONSTRUCTOR
         public Boots(GamePanel gp) {
             super(gp, "Boots");
-            image = importImage("objects", "item", "boots","boots", gp.tileSize); // FROM INTERFACE: IMPORTABLE
+            image = importImage("/objects/item/boots/boots", gp.tileSize); // FROM INTERFACE: IMPORTABLE
         }
     }
 
@@ -48,7 +48,7 @@ public abstract class Item extends SuperObject {
         // CONSTRUCTOR
         public Chest(GamePanel gp) {
             super(gp, "Chest");
-            image = importImage("objects", "item", "chest", "chest", gp.tileSize); // FROM INTERFACE: IMPORTABLE
+            image = importImage("/objects/item/chest/chest", gp.tileSize); // FROM INTERFACE: IMPORTABLE
         }
     }
 
@@ -58,7 +58,7 @@ public abstract class Item extends SuperObject {
         public Egg (GamePanel gp) {
             super(gp, "Egg");
             // import image
-            image = importImage("objects", "item", "ingredients", "egg", gp.tileSize);
+            image = importImage("/objects/item/ingredients/egg", gp.tileSize);
             setDefaultCollisions(true, 12, 24, 40, 37);
         }
     }
@@ -66,7 +66,7 @@ public abstract class Item extends SuperObject {
     public static class Spam extends Item implements Importable {
         public Spam (GamePanel gp) {
             super(gp, "Spam");
-            image = importImage ("objects", "item", "ingredients", "spam", gp.tileSize);
+            image = importImage ("/objects/item/ingredients/spam", gp.tileSize);
             setDefaultCollisions(true, 12, 24, 40, 37);
         }
         // import image
@@ -76,7 +76,7 @@ public abstract class Item extends SuperObject {
     public static class CornedBeef extends Item implements Importable {
         public CornedBeef (GamePanel gp) {
             super(gp, "Corned Beef");
-            image = importImage ("objects", "item", "ingredients", "cornedBeef", gp.tileSize);
+            image = importImage ("/objects/item/ingredients/cornedBeef", gp.tileSize);
             setDefaultCollisions(true, 12, 24, 40, 37);
         }
         // import image;
@@ -87,7 +87,7 @@ public abstract class Item extends SuperObject {
         public Rice (GamePanel gp) {
             super(gp, "Rice");
             // import image;
-            image = importImage("objects", "item", "ingredients", "rice", gp.tileSize);
+            image = importImage("/objects/item/ingredients/rice", gp.tileSize);
             setDefaultCollisions(true, 12, 24, 40, 37);
         }
     }
@@ -97,7 +97,7 @@ public abstract class Item extends SuperObject {
         public Tapa (GamePanel gp) {
             super(gp, "Cola");
             // import image;
-            image = importImage("objects", "item", "ingredients", "tapa", gp.tileSize);
+            image = importImage("/objects/item/ingredients/tapa", gp.tileSize);
             setDefaultCollisions(true, 12, 24, 40, 37);
         }
 

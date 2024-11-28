@@ -42,14 +42,13 @@ public class TileManager implements Importable, Drawable, Observable {
         return instance;
     }
 
-    // Optimize Tile Setup
-    /*
-        private void addTile(int index, String path, String structure, String type, String image, boolean collision){
+    //this is the new implementation of importImage
+        private void addTile(int index, String path, boolean collision){
             tile[index] = new Tile(gp.tileSize);
-            tile[index].image = importImage(path, structure, type, image, gp.TileSize);
+            tile[index].image = importImage(path, gp.tileSize);
             tile[index].collision = collision;
         }
-    */
+
 
 
     // FROM INTERFACE: DRAWABLE ---------------------------------------
@@ -96,13 +95,71 @@ public class TileManager implements Importable, Drawable, Observable {
         // adding using the addTIle function
         /*
            addTile(0, "tiles", "construction", "floor", "tileFloor", false);
+
+           addTile(0, path, true)
         */
 
         // construction
+
+        addTile(0, "/tiles/construction/tileFloor", false);
+        addTile(1, "/tiles/construction/upperCornerLeft", true);
+        addTile(2, "/tiles/construction/upperCornerRight", true);
+        addTile(3, "/tiles/construction/lowerCornerLeft", true);
+        addTile(4, "/tiles/construction/lowerCornerRight", true);
+        addTile(5, "/tiles/construction/upperStraight", true);
+        addTile(6, "/tiles/construction/middleOuterWall", true);
+        addTile(7, "/tiles/construction/rightCornerWall", true);
+        addTile(8, "/tiles/construction/rightWall", true);
+        addTile(9, "/tiles/construction/upperCornerRight", true);
+        addTile(10, "/tiles/construction/upperCornerRight", true);
+
+        addTile(11, "/tiles/construction/rightShelf3", true);
+        addTile(12, "/tiles/construction/upperWindow", true);
+        addTile(13, "/tiles/construction/upperSpam", true);
+        addTile(14, "/tiles/construction/upperCornedBeef", true);
+        addTile(15, "/tiles/construction/upperSandoks", true);
+        addTile(16, "/tiles/construction/upperRef", true);
+        addTile(17, "/tiles/construction/leftWall", true);
+        addTile(18, "/tiles/construction/leftRiceCooker", true);
+        addTile(19, "/tiles/construction/leftStove", true);
+        addTile(20, "/tiles/construction/leftStraightTable", true);
+
+        addTile(21, "/tiles/construction/leftCornerTable", true);
+        addTile(22, "/tiles/construction/door", false);
+        addTile(23, "/tiles/kitchenArea/leftChoppingBoard", true);
+        addTile(24, "/tiles/kitchenArea/middleKitchenIsland", true);
+        addTile(25, "/tiles/kitchenArea/rightKitchenIsland", true);
+        addTile(26, "/tiles/kitchenArea/leftCounter", true);
+        addTile(27, "/tiles/kitchenArea/centerSink", true);
+        addTile(28, "/tiles/kitchenArea/rightCounter", true);
+        addTile(29, "/tiles/kitchenArea/middleCounter", true);
+        addTile(30, "/tiles/kitchenArea/lowerRef", true);
+
+        addTile(31, "/tiles/kitchenArea/riceSack", true);
+        addTile(32, "/tiles/kitchenArea/trashcan1", true);
+        addTile(33, "/tiles/diningArea/middleTable", true);
+        addTile(34, "/tiles/diningArea/rightTable", true);
+        addTile(35, "/tiles/diningArea/leftTable", true);
+        addTile(36, "/tiles/diningArea/stool", true);
+        addTile(37, "/tiles/outsideArea/sidewalk1", true);
+        addTile(38, "/tiles/outsideArea/sidewalk2", true);
+        addTile(39, "/tiles/outsideArea/roadRightUpper", true);
+        addTile(40, "/tiles/outsideArea/roadRightLower", true);
+
+        addTile(41, "/tiles/outsideArea/roadLeft", true);
+        addTile(42, "/tiles/outsideArea/roadRight", true);
+        addTile(43, "/tiles/outsideArea/grass", true);
+        addTile(44, "/tiles/outsideArea/plainRoad", false);
+
+
+
+        /*
         tile[0] = new Tile(gp.tileSize);
-        tile[0].image = importImage("tiles", "construction", "floor", "tileFloor", gp.tileSize);
+        tile[0].image = importImage("/tiles/construction/tileFloor", gp.tileSize);
         tile[0].collision = false;
 
+         */
+    /*
         tile[1] = new Tile(gp.tileSize);
         tile[1].image = importImage("tiles", "construction", "floor", "upperCornerLeft", gp.tileSize);
         tile[1].collision = true;
@@ -284,6 +341,11 @@ public class TileManager implements Importable, Drawable, Observable {
         tile[44] = new Tile(gp.tileSize);
         tile[44].image = importImage("tiles", "outsideArea", "floor", "plainRoad", gp.tileSize);
         tile[44].collision = false;
+
+         end of comment
+     */
+
+
     /*
         tile[0] = new Tile(gp.tileSize);
         tile[0].image = importImage("tiles", "old","floor", "grass", gp.tileSize);

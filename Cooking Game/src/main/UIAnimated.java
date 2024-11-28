@@ -29,6 +29,15 @@ public class UIAnimated implements Importable {
     }
 
     private void renderAvatar(String type, String image) {
+        idle = importImage("/avatar/" + type + "/" + image + "/idle", gp.tileSize);
+        left1 = importImage("/avatar/" + type + "/" + image + "/left1", gp.tileSize);
+        left2 = importImage("/avatar/" + type + "/" + image + "/left2", gp.tileSize);
+        right1 = importImage("/avatar/" + type + "/" + image + "/right1", gp.tileSize);
+        right2 = importImage("/avatar/" + type + "/" + image + "/right2", gp.tileSize);
+        down1 = importImage("/avatar/" + type + "/" + image + "/down1", gp.tileSize);
+        down2 = importImage("/avatar/" + type + "/" + image + "/down2", gp.tileSize);
+
+        /*
         idle = importImage("avatar", type, image, "idle", gp.tileSize);
         left1 = importImage("avatar", type, image, "left1", gp.tileSize);
         left2 = importImage("avatar", type, image, "left2", gp.tileSize);
@@ -36,6 +45,8 @@ public class UIAnimated implements Importable {
         right2 = importImage("avatar", type, image, "right2", gp.tileSize);
         down1 = importImage("avatar", type, image, "down1", gp.tileSize);
         down2 = importImage("avatar", type, image, "down2", gp.tileSize);
+
+         */
     }
 
     public void reposition(int x, int y) {
