@@ -110,8 +110,8 @@ public class TileManager implements Importable, Drawable, Observable {
         addTile(6, "/tiles/construction/middleOuterWall", true);
         addTile(7, "/tiles/construction/rightCornerWall", true);
         addTile(8, "/tiles/construction/rightWall", true);
-        addTile(9, "/tiles/construction/upperCornerRight", true);
-        addTile(10, "/tiles/construction/upperCornerRight", true);
+        addTile(9, "/tiles/construction/rightShelf1", true);
+        addTile(10, "/tiles/construction/rightShelf2", true);
 
         addTile(11, "/tiles/construction/rightShelf3", true);
         addTile(12, "/tiles/construction/upperWindow", true);
@@ -141,14 +141,14 @@ public class TileManager implements Importable, Drawable, Observable {
         addTile(34, "/tiles/diningArea/rightTable", true);
         addTile(35, "/tiles/diningArea/leftTable", true);
         addTile(36, "/tiles/diningArea/stool", true);
-        addTile(37, "/tiles/outsideArea/sidewalk1", true);
-        addTile(38, "/tiles/outsideArea/sidewalk2", true);
-        addTile(39, "/tiles/outsideArea/roadRightUpper", true);
-        addTile(40, "/tiles/outsideArea/roadRightLower", true);
+        addTile(37, "/tiles/outsideArea/sidewalk1", false);
+        addTile(38, "/tiles/outsideArea/sidewalk2", false);
+        addTile(39, "/tiles/outsideArea/roadRightUpper", false);
+        addTile(40, "/tiles/outsideArea/roadRightLower", false);
 
-        addTile(41, "/tiles/outsideArea/roadLeft", true);
-        addTile(42, "/tiles/outsideArea/roadRight", true);
-        addTile(43, "/tiles/outsideArea/grass", true);
+        addTile(41, "/tiles/outsideArea/roadLeft", false);
+        addTile(42, "/tiles/outsideArea/roadRight", false);
+        addTile(43, "/tiles/outsideArea/grass", false);
         addTile(44, "/tiles/outsideArea/plainRoad", false);
 
 
