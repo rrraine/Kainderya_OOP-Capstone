@@ -1,7 +1,8 @@
-package main;
+package ui;
 
 import game.Time;
 import interfaces.Drawable;
+import main.GamePanel;
 
 
 import java.awt.*;

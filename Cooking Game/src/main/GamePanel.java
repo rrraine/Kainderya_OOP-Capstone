@@ -6,6 +6,7 @@ import entity.Player;
 import game.Time;
 import object.SuperObject;
 import tile.TileManager;
+import ui.UIControl;
 
 import javax.swing.*;
 import java.awt.*;
@@ -80,7 +81,7 @@ public class GamePanel extends JPanel implements Runnable {
         this.setDoubleBuffered(true);
 
         // LISTEN FOR KEYSTROKES
-        this.addKeyListener(keyB);
+        this.addKeyListener(getKeyB());
         // ALLOWS RECEIVING OF KEYSTROKES
         this.setFocusable(true);
 
@@ -274,7 +275,7 @@ public class GamePanel extends JPanel implements Runnable {
         sfx.playSound();
     }
     void selectCharacter(String playerAvatar, String playerName) {
-        player = new Player(this, keyB, playerAvatar, playerName);
+        player = new Player(this, getKeyB(), playerAvatar, playerName);
         assetPool.add(player);
     }
 
@@ -294,4 +295,20 @@ public class GamePanel extends JPanel implements Runnable {
     public boolean isMultiplayer() {
         return multiplayer;
     }
+    public boolean isFullScreenOn() {
+        return fullScreenOn;
+    }
+
+    public void setFullScreenOn(boolean fullScreenOn) {
+        this.fullScreenOn = fullScreenOn;
+    }
+
+    public KeyBindings getKeyB() {
+        return keyB;
+    }
+
+    public void setKeyB(KeyBindings keyB) {
+        this.keyB = keyB;
+    }
+
 }

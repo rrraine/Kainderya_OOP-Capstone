@@ -1,8 +1,10 @@
-package main;
+package ui;
 
 import game.Time;
 import interfaces.Drawable;
 import interfaces.Importable;
+import main.GamePanel;
+import main.Utility;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -893,7 +895,7 @@ public class UI implements Drawable, Importable {
                     break;
             }
 
-            gp.keyB.setPlayer1EnterPressed(false);
+            gp.getKeyB().setPlayer1EnterPressed(false);
         }
 
 
@@ -925,13 +927,13 @@ public class UI implements Drawable, Importable {
                 drawCursor(label, textX, textY, true, true);
 
                 // IF PRESSED
-                if (gp.keyB.isPlayer1EnterPressed()) {
+                if (gp.getKeyB().isPlayer1EnterPressed()) {
                     // IF FULL SCREEN
-                    if (gp.fullScreenOn) {
-                        gp.fullScreenOn = false;
+                    if (gp.isFullScreenOn()) {
+                        gp.setFullScreenOn(false);
                     }
                     else {
-                        gp.fullScreenOn = true;
+                        gp.setFullScreenOn(true);
                     }
                     optionsState = substate.FULLSCREEN;
                     command = 0;
@@ -977,7 +979,7 @@ public class UI implements Drawable, Importable {
                 g2.setColor(primary);
                 g2.drawString(label , textX, textY);
                 drawCursor(label, textX, textY, true, true);
-                if (gp.keyB.isPlayer1EnterPressed()) {
+                if (gp.getKeyB().isPlayer1EnterPressed()) {
                     optionsState = substate.QUIT;
                     command = 0;
                 }
@@ -994,7 +996,7 @@ public class UI implements Drawable, Importable {
                 g2.setColor(primary);
                 g2.drawString(label, textX, textY);
                 drawCursor(label, textX, textY, true, true);
-                if (gp.keyB.isPlayer1EnterPressed()) {
+                if (gp.getKeyB().isPlayer1EnterPressed()) {
                     gp.gameState = GamePanel.state.PLAY;
                     command = 0;
                 }
@@ -1011,7 +1013,7 @@ public class UI implements Drawable, Importable {
             g2.setStroke(new BasicStroke((3)));
             g2.drawRect(textX, textY, 24, 24);
             // TOGGLE
-            if (gp.fullScreenOn) {
+            if (gp.isFullScreenOn()) {
                 g2.fillRect(textX, textY, 24, 24);
             }
 
@@ -1036,7 +1038,7 @@ public class UI implements Drawable, Importable {
             g2.drawString("Back", textX, textY);
             if (command == 0) {
                 drawCursor("Back", textX, textY, true, true);
-                if (gp.keyB.isPlayer1EnterPressed()){
+                if (gp.getKeyB().isPlayer1EnterPressed()){
                     getOptionsUI().optionsState = OptionsUI.substate.START;
                     command = 0;
                 }
@@ -1065,7 +1067,7 @@ public class UI implements Drawable, Importable {
                 g2.setColor(primary);
                 drawCursor(text, textX, textY, true, true);
                 // QUIT
-                if (gp.keyB.isPlayer1EnterPressed()) {
+                if (gp.getKeyB().isPlayer1EnterPressed()) {
                     optionsUI.optionsState = OptionsUI.substate.START;
                     homeUI.homeState = HomeUI.substate.TITLE;
                     gp.gameState = GamePanel.state.HOME;
@@ -1085,7 +1087,7 @@ public class UI implements Drawable, Importable {
                 g2.setColor(primary);
                 drawCursor(text, textX, textY, true, true);
                 // QUIT
-                if (gp.keyB.isPlayer1EnterPressed()) {
+                if (gp.getKeyB().isPlayer1EnterPressed()) {
                     getOptionsUI().optionsState = OptionsUI.substate.START;
                     command = 0;
                 }

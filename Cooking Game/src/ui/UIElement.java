@@ -1,6 +1,8 @@
-package main;
+package ui;
 
 import interfaces.Importable;
+import main.GamePanel;
+import main.Utility;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
