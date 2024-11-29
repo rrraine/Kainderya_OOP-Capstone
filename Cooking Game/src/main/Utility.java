@@ -39,28 +39,28 @@ public class Utility {
 
                 // DEPLOY OBJECTS HERE
                 obj.add(0, new Item.Stool(gp));
-                obj.get(0).setWorldX(tileSize * 13);
-                obj.get(0).setWorldY(tileSize * 12);
+                obj.get(0).setWorldX(tileSize * 10);
+                obj.get(0).setWorldY(tileSize * 11);
 
                 obj.add(1, new Item.Stool(gp));
-                obj.get(1).setWorldX(tileSize * 14);
-                obj.get(1).setWorldY(tileSize * 12);
+                obj.get(1).setWorldX(tileSize * 11);
+                obj.get(1).setWorldY(tileSize * 11);
 
                 obj.add(2, new Item.Stool(gp));
-                obj.get(2).setWorldX(tileSize * 15);
-                obj.get(2).setWorldY(tileSize * 12);
+                obj.get(2).setWorldX(tileSize * 12);
+                obj.get(2).setWorldY(tileSize * 11);
 
                 obj.add(3, new Item.Stool(gp));
-                obj.get(3).setWorldX(tileSize * 16);
-                obj.get(3).setWorldY(tileSize * 12);
+                obj.get(3).setWorldX(tileSize * 13);
+                obj.get(3).setWorldY(tileSize * 11);
 
                 obj.add(4, new Item.Stool(gp));
-                obj.get(4).setWorldX(tileSize * 17);
-                obj.get(4).setWorldY(tileSize * 12);
+                obj.get(4).setWorldX(tileSize * 14);
+                obj.get(4).setWorldY(tileSize * 11);
 
                 obj.add(5, new Item.Door(gp));
-                obj.get(5).setWorldX(tileSize * 10);
-                obj.get(5).setWorldY(tileSize * 12);
+                obj.get(5).setWorldX(tileSize * 7);
+                obj.get(5).setWorldY(tileSize * 11);
 
                 obj.add(6, new Item.Egg(gp));
                 obj.get(6).setWorldX(tileSize * 17);
