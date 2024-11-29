@@ -27,11 +27,11 @@ public class TileManager implements Importable, Drawable, Observable {
     private TileManager(GamePanel gp) {
 
         this.gp = gp;
-        tile = new Tile[50]; // stores different types of tile
+        tile = new Tile[35]; // stores different types of tile
         mapTileNum = new int[gp.maxWorldCol][gp.maxWorldRow]; // stores the map matrix
 
         tileSetup();
-        loadMap("/maps/finalMap.txt");
+        loadMap("/maps/newMap.txt");
         // loadMap("/maps/finalMap.txt"); // uncomment to use the old map
     }
     // SINGLETON INSTANTIATE --------------------------------------
@@ -74,9 +74,17 @@ public class TileManager implements Importable, Drawable, Observable {
             int screenY = worldY - gp.player.getWorldY() + gp.player.getPlayerCenteredScreenY();
 
             // IMPROVED RENDERING
-            if (inView(gp.tileSize, gp.player, worldX, worldY)) {
-                g2.drawImage(tile[tileNum].image, screenX, screenY,null);
+            try {
+
+                if (inView(gp.tileSize, gp.player, worldX, worldY)) {
+
+                    g2.drawImage(tile[tileNum].image, screenX, screenY,null);
+                }
+
+            } catch (NullPointerException e) {
+                System.err.println(e.getMessage());
             }
+
 
             worldCol++;
 
@@ -120,7 +128,21 @@ public class TileManager implements Importable, Drawable, Observable {
         addTile(15, "/tiles/construction/upperSandoks", true);
         addTile(16, "/tiles/construction/upperRef", true);
         addTile(17, "/tiles/construction/leftWall", true);
-        addTile(18, "/tiles/construction/leftRiceCooker", true);
+        addTile(18, "/tiles/outsideArea/sidewalk1", false);
+        addTile(19, "/tiles/outsideArea/sidewalk2", false);
+        addTile(20, "/tiles/outsideArea/grassSideWalk", true);
+        addTile(21, "/tiles/outsideArea/roadUpper", false);
+        addTile(22, "/tiles/outsideArea/roadLower", false);
+        addTile(23, "/tiles/outsideArea/roadLeft", false);
+        addTile(24, "/tiles/outsideArea/roadRight", false);
+        addTile(25, "/tiles/outsideArea/plainRoad", false);
+        addTile(26, "/tiles/outsideArea/grass", false);
+        addTile(27, "/tiles/outsideArea/fenceSideWalk", true);
+        addTile(28, "/tiles/outsideArea/fenceGrass", true);
+        addTile(29, "/tiles/outsideArea/door", true);
+
+
+        /* addTile(18, "/tiles/construction/leftRiceCooker", true);
         addTile(19, "/tiles/construction/leftStove", true);
         addTile(20, "/tiles/construction/leftStraightTable", true);
 
@@ -141,18 +163,16 @@ public class TileManager implements Importable, Drawable, Observable {
         addTile(34, "/tiles/diningArea/rightTable", true);
         addTile(35, "/tiles/diningArea/leftTable", true);
         addTile(36, "/tiles/diningArea/stool", true);
-        addTile(37, "/tiles/outsideArea/sidewalk1", false);
-        addTile(38, "/tiles/outsideArea/sidewalk2", false);
-        addTile(39, "/tiles/outsideArea/roadRightUpper", false);
-        addTile(40, "/tiles/outsideArea/roadRightLower", false);
+        addTile(37, "/tiles/oldfiles/outsideArea/sidewalk1", false);
+        addTile(38, "/tiles/oldfiles/outsideArea/sidewalk2", false);
+        addTile(39, "/tiles/oldfiles/outsideArea/roadRightUpper", false);
+        addTile(40, "/tiles/oldfiles/outsideArea/roadRightLower", false);
 
-        addTile(41, "/tiles/outsideArea/roadLeft", false);
-        addTile(42, "/tiles/outsideArea/roadRight", false);
-        addTile(43, "/tiles/outsideArea/grass", false);
-        addTile(44, "/tiles/outsideArea/plainRoad", false);
-
-
-
+        addTile(41, "/tiles/oldfiles/outsideArea/roadLeft", false);
+        addTile(42, "/tiles/oldfiles/outsideArea/roadRight", false);
+        addTile(43, "/tiles/oldfiles/outsideArea/grass", false);
+        addTile(44, "/tiles/oldfiles/outsideArea/plainRoad", false);
+*/
         /*
         tile[0] = new Tile(gp.tileSize);
         tile[0].image = importImage("/tiles/construction/tileFloor", gp.tileSize);
@@ -586,20 +606,28 @@ public class TileManager implements Importable, Drawable, Observable {
                     // split the line of data matrix into solo digits
                     String[] numbers = line.split(" ");
 
+                    System.out.println("Row " + row + ", Col " + col + ": " + numbers[col]);
+
+                    if (numbers.length != gp.maxWorldCol) { // Validate column count
+                        throw new IllegalArgumentException("Invalid number of columns in row " + row + ". Expected: "
+                                + gp.maxWorldCol + ", Found: " + numbers.length);
+                    }
+
                     // parse String to int
                     int num = Integer.parseInt(numbers[col]);
-
                     mapTileNum[col][row] = num;
                     col++;
+
                 }
 
-                if (col == gp.maxWorldCol) {
+                if (col <= gp.maxWorldCol) {
                     col = 0;
                     row++;
                 }
             }
         }
         catch (Exception e) {
+            System.err.println(e);
             System.err.println("Trouble reading and loading map into game: " + e.getMessage());
         }
     }
