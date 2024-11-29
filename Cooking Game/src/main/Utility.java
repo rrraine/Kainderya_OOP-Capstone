@@ -443,6 +443,8 @@ public class Utility {
             }
             int halfTile = gp.player.getPlayerCenteredScreenX() + (gp.tileSize/2);
             return halfTile - textWidth*6;
+
+            // gelo wrold
         }
     }
 
