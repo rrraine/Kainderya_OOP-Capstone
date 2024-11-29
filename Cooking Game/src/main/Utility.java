@@ -438,11 +438,8 @@ public class Utility {
         public static int centerTextOnAvatar(String text, GamePanel gp, Graphics2D g2) {
 
             int textWidth = (int) g2.getFontMetrics().getStringBounds(text, g2).getWidth();
-            if (textWidth % 2 == 0) {
-                textWidth += 2;
-            }
             int halfTile = gp.player.getPlayerCenteredScreenX() + (gp.tileSize/2);
-            return halfTile - textWidth*6;
+            return halfTile - (textWidth * 6);
         }
     }
 
