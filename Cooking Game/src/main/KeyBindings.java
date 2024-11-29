@@ -1,7 +1,6 @@
 package main;
 
-import ui.UI;
-import ui.UIControl;
+import ui.*;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -12,7 +11,7 @@ public class KeyBindings implements KeyListener {
     private static KeyBindings instance;
 
     GamePanel gp;
-    UIControl uiM;
+    UIFactory uiM;
 
     private boolean player1UpPressed;
     private boolean player1DownPressed;
@@ -34,12 +33,12 @@ public class KeyBindings implements KeyListener {
     private int lastCommand = 0;
 
     // CONSTRUCTOR -----------------------------------------------------------------
-    private KeyBindings(GamePanel gp, UIControl uiM) {
+    private KeyBindings(GamePanel gp, UIFactory uiM) {
         this.gp = gp;
         this.uiM = uiM;
     }
     // SINGLETON INSTANTIATE -------------------------------------------------
-    public static KeyBindings instantiate(GamePanel gp, UIControl uiM) {
+    public static KeyBindings instantiate(GamePanel gp, UIFactory uiM) {
         if (instance == null) {
             instance = new KeyBindings(gp, uiM);
         }
@@ -125,7 +124,7 @@ public class KeyBindings implements KeyListener {
     private void homeBindings(int code) {
 
         // HOME STATE -> TITLE SUB-STATE
-        if (uiM.getHomeUI().homeState == UI.HomeUI.substate.TITLE) {
+        if (uiM.getHomeUI().homeState == HomeUI.substate.TITLE) {
 
             // W & S
             if (code == KeyEvent.VK_W || code == KeyEvent.VK_UP) {
@@ -148,7 +147,7 @@ public class KeyBindings implements KeyListener {
                 // NEW GAME
                 if (uiM.getCommand() == 0) {
                     gp.playSFX(2);
-                    uiM.getHomeUI().homeState = UI.HomeUI.substate.MULTIPLAYER;
+                    uiM.getHomeUI().homeState = HomeUI.substate.MULTIPLAYER;
                     // NEW GAME
                     gp.music.playSound();
                 }
@@ -156,7 +155,7 @@ public class KeyBindings implements KeyListener {
                 else if (uiM.getCommand() == 1) {
                     // TODO CUSTOMIZE
                     gp.playSFX(2);
-                    uiM.getHomeUI().homeState = UI.HomeUI.substate.CREDITS;
+                    uiM.getHomeUI().homeState = HomeUI.substate.CREDITS;
                 }
                 // QUIT
                 else if (uiM.getCommand() == 2) {
@@ -167,7 +166,7 @@ public class KeyBindings implements KeyListener {
         }
 
         // HOME STATE -> SELECTION SUB-STATE
-        else if (uiM.getHomeUI().homeState == UI.HomeUI.substate.SELECTION) {
+        else if (uiM.getHomeUI().homeState == HomeUI.substate.SELECTION) {
 
             // A & D
             if (uiM.getCommand() != 4) {
@@ -253,17 +252,17 @@ public class KeyBindings implements KeyListener {
         }
 
         // HOME STATE -> CREDITS SUB-STATE
-        else if (uiM.getHomeUI().homeState == UI.HomeUI.substate.CREDITS) {
+        else if (uiM.getHomeUI().homeState == HomeUI.substate.CREDITS) {
 
             if (code == KeyEvent.VK_ENTER || code == KeyEvent.VK_F) {
                 gp.playSFX(2);
 
-                uiM.getHomeUI().homeState = UI.HomeUI.substate.TITLE;
+                uiM.getHomeUI().homeState = HomeUI.substate.TITLE;
             }
         }
 
         // HOME STATE -> MULTIPLAYER SUB-STATE
-        else if (uiM.getHomeUI().homeState == UI.HomeUI.substate.MULTIPLAYER) {
+        else if (uiM.getHomeUI().homeState == HomeUI.substate.MULTIPLAYER) {
 
             // A & D
             if (code == KeyEvent.VK_A || code == KeyEvent.VK_LEFT) {
@@ -293,7 +292,7 @@ public class KeyBindings implements KeyListener {
                     gp.setMultiplayer(true);
                 }
 
-                uiM.getHomeUI().homeState = UI.HomeUI.substate.SELECTION;
+                uiM.getHomeUI().homeState = HomeUI.substate.SELECTION;
             }
         }
     }
@@ -317,7 +316,7 @@ public class KeyBindings implements KeyListener {
         if (code == KeyEvent.VK_ESCAPE) {
             gp.playSFX(2);
             uiM.setCommand(0);
-            uiM.getOptionsUI().optionsState = UI.OptionsUI.substate.START;
+            uiM.getOptionsUI().optionsState = OptionsUI.substate.START;
             gp.gameState = GamePanel.state.OPTIONS;
         }
         // pause
@@ -328,7 +327,7 @@ public class KeyBindings implements KeyListener {
         // terminal
         if (code == KeyEvent.VK_BACK_SPACE) {
             gp.playSFX(3);
-            uiM.getTerminalUI().terminalState = UI.TerminalUI.substate.TIMESUP;
+            uiM.getTerminalUI().terminalState = TerminalUI.substate.TIMESUP;
             gp.gameState = GamePanel.state.TERMINAL;
         }
     }
@@ -377,12 +376,12 @@ public class KeyBindings implements KeyListener {
     private void terminalBindings(int code) {
 
         // TERMINAL STATE -> LEADERBOARDS SUB-STATE
-        if (uiM.getTerminalUI().terminalState == UI.TerminalUI.substate.LEADERBOARD) {
+        if (uiM.getTerminalUI().terminalState == TerminalUI.substate.LEADERBOARD) {
 
             if (code == KeyEvent.VK_ENTER) {
-                uiM.getHomeUI().homeState = UI.HomeUI.substate.TITLE;
+                uiM.getHomeUI().homeState = HomeUI.substate.TITLE;
                 gp.gameState = GamePanel.state.HOME;
-                uiM.getTerminalUI().terminalState = UI.TerminalUI.substate.TIMESUP;
+                uiM.getTerminalUI().terminalState = TerminalUI.substate.TIMESUP;
             }
         }
     }
