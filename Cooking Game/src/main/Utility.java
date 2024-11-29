@@ -37,6 +37,8 @@ public class Utility {
 
             try {
 
+                // todo : ayusin waha
+
                 // DEPLOY OBJECTS HERE
                 obj.add(0, new Item.Stool(gp));
                 obj.get(0).setWorldX(tileSize * 10);
