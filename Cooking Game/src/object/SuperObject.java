@@ -78,4 +78,7 @@ public abstract class SuperObject extends Asset implements Drawable, Observable 
     public int getSolidAreaDefaultX() { return solidAreaDefaultX; }
     public int getSolidAreaDefaultY() { return solidAreaDefaultY; }
 
+    public String getName() {
+        return name;
+    }
 }

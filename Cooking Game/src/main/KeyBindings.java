@@ -17,6 +17,7 @@ public class KeyBindings implements KeyListener {
     private boolean player1RightPressed;
     private boolean player1EnterPressed;
     private boolean player1ShiftPressed;
+    private boolean player1FPressed;
 
     private boolean player2UpPressed;
     private boolean player2DownPressed;
@@ -24,6 +25,8 @@ public class KeyBindings implements KeyListener {
     private boolean player2RightPressed;
     private boolean player2EnterPressed;
     private boolean player2ShiftPressed;
+    private boolean player2CtrlPressed;
+
 
     private int lastCommand = 0;
 
@@ -88,6 +91,10 @@ public class KeyBindings implements KeyListener {
         }
         if (code == KeyEvent.VK_SHIFT) {
             player1ShiftPressed = false;
+        }
+
+        if (code == KeyEvent.VK_F) {
+            player1FPressed = false;
         }
 
         // PLAYER 2 CONTROLS

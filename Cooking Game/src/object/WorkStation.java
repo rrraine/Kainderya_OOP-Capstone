@@ -6,6 +6,14 @@ import main.GamePanel;
 public abstract class WorkStation extends Station{
     boolean isOccupied;
 
+    public boolean isOccupied() {
+        return isOccupied;
+    }
+
+    public void setOccupied(boolean occupied) {
+        isOccupied = occupied;
+    }
+
     public WorkStation(GamePanel gp, String name) {
         super(gp, name);
         isOccupied = false;
@@ -31,5 +39,6 @@ public abstract class WorkStation extends Station{
             super(gp, name);
         }
     }
+
 
 }
