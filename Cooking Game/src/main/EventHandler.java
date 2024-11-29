@@ -75,7 +75,7 @@ public class EventHandler {
     }
     private void speedPool(Entity en) {
 
-        if (gp.keyB.isEnterPressed()) {
+        if (gp.keyB.isPlayer1EnterPressed()) {
             System.out.println("You are hitting the speed pool");
             en.setSpeed(7);
         }

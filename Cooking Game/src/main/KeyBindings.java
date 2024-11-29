@@ -1,7 +1,5 @@
 package main;
 
-import object.Item;
-
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
@@ -12,15 +10,22 @@ public class KeyBindings implements KeyListener {
 
     GamePanel gp;
     UIControl uiM;
-    private boolean upPressed;
-    private boolean downPressed;
-    private boolean leftPressed;
-    private boolean rightPressed;
-    private boolean enterPressed;
-    private boolean shiftPressed;
+
+    private boolean player1UpPressed;
+    private boolean player1DownPressed;
+    private boolean player1LeftPressed;
+    private boolean player1RightPressed;
+    private boolean player1EnterPressed;
+    private boolean player1ShiftPressed;
+
+    private boolean player2UpPressed;
+    private boolean player2DownPressed;
+    private boolean player2LeftPressed;
+    private boolean player2RightPressed;
+    private boolean player2EnterPressed;
+    private boolean player2ShiftPressed;
 
     private int lastCommand = 0;
-
 
     // CONSTRUCTOR -----------------------------------------------------------------
     private KeyBindings(GamePanel gp, UIControl uiM) {
@@ -34,7 +39,6 @@ public class KeyBindings implements KeyListener {
         }
         return instance;
     }
-
 
    // FROM INTERFACE: KEYLISTENER ------------------------------------------------
     @Override
@@ -69,20 +73,38 @@ public class KeyBindings implements KeyListener {
     public void keyReleased(KeyEvent e) {
         int code = e.getKeyCode();
 
+        // PLAYER 1 CONTROLS
         if (code == KeyEvent.VK_W) {
-            upPressed = false;
+            player1UpPressed = false;
         }
         if (code == KeyEvent.VK_S) {
-            downPressed = false;
+            player1DownPressed = false;
         }
         if (code == KeyEvent.VK_A) {
-            leftPressed = false;
+            player1LeftPressed = false;
         }
         if (code == KeyEvent.VK_D) {
-            rightPressed = false;
+            player1RightPressed = false;
         }
         if (code == KeyEvent.VK_SHIFT) {
-            shiftPressed = false;
+            player1ShiftPressed = false;
+        }
+
+        // PLAYER 2 CONTROLS
+        if (code == KeyEvent.VK_UP) {
+            player2UpPressed = false;
+        }
+        if (code == KeyEvent.VK_DOWN) {
+            player2DownPressed = false;
+        }
+        if (code == KeyEvent.VK_LEFT) {
+            player2LeftPressed = false;
+        }
+        if (code == KeyEvent.VK_RIGHT) {
+            player2RightPressed = false;
+        }
+        if (code == KeyEvent.VK_CONTROL) {
+            player2ShiftPressed = false;
         }
     }
     @Override
@@ -96,14 +118,14 @@ public class KeyBindings implements KeyListener {
         if (uiM.getHomeUI().homeState == UI.HomeUI.substate.TITLE) {
 
             // W & S
-            if (code == KeyEvent.VK_W) {
+            if (code == KeyEvent.VK_W || code == KeyEvent.VK_UP) {
                 gp.playSFX(2);
                 uiM.setCommand(uiM.getCommand() -1);
                 if (uiM.getCommand() < 0) {
                     uiM.setCommand(2);
                 }
             }
-            if (code == KeyEvent.VK_S) {
+            if (code == KeyEvent.VK_S || code == KeyEvent.VK_DOWN) {
                 gp.playSFX(2);
                 uiM.setCommand(uiM.getCommand() +1);
                 if (uiM.getCommand() > 2) {
@@ -116,7 +138,7 @@ public class KeyBindings implements KeyListener {
                 // NEW GAME
                 if (uiM.getCommand() == 0) {
                     gp.playSFX(2);
-                    uiM.getHomeUI().homeState = UI.HomeUI.substate.SELECTION;
+                    uiM.getHomeUI().homeState = UI.HomeUI.substate.MULTIPLAYER;
                     // NEW GAME
                     gp.music.playSound();
                 }
@@ -139,14 +161,14 @@ public class KeyBindings implements KeyListener {
 
             // A & D
             if (uiM.getCommand() != 4) {
-                if (code == KeyEvent.VK_A) {
+                if (code == KeyEvent.VK_A || code == KeyEvent.VK_LEFT) {
                     gp.playSFX(2);
                     uiM.setCommand(uiM.getCommand() -1);
                     if (uiM.getCommand() < 0) {
                         uiM.setCommand(3);
                     }
                 }
-                if (code == KeyEvent.VK_D) {
+                if (code == KeyEvent.VK_D || code == KeyEvent.VK_RIGHT) {
                     gp.playSFX(2);
                     uiM.setCommand(uiM.getCommand() +1);
                     if (uiM.getCommand() > 3) {
@@ -157,7 +179,7 @@ public class KeyBindings implements KeyListener {
             }
 
             // W & S
-            if (code == KeyEvent.VK_W) {
+            if (code == KeyEvent.VK_W || code == KeyEvent.VK_UP) {
                 gp.playSFX(2);
 
                 if (uiM.getCommand() < 4) {
@@ -166,7 +188,7 @@ public class KeyBindings implements KeyListener {
                     uiM.setCommand(lastCommand);
                 }
             }
-            if (code == KeyEvent.VK_S) {
+            if (code == KeyEvent.VK_S || code == KeyEvent.VK_DOWN) {
                 gp.playSFX(2);
                 if (uiM.getCommand() < 4) {
                     uiM.setCommand(4);
@@ -220,6 +242,7 @@ public class KeyBindings implements KeyListener {
             }
         }
 
+        // HOME STATE -> CREDITS SUB-STATE
         else if (uiM.getHomeUI().homeState == UI.HomeUI.substate.CREDITS) {
 
             if (code == KeyEvent.VK_ENTER || code == KeyEvent.VK_F) {
@@ -228,15 +251,57 @@ public class KeyBindings implements KeyListener {
                 uiM.getHomeUI().homeState = UI.HomeUI.substate.TITLE;
             }
         }
+
+        // HOME STATE -> MULTIPLAYER SUB-STATE
+        else if (uiM.getHomeUI().homeState == UI.HomeUI.substate.MULTIPLAYER) {
+
+            // A & D
+            if (code == KeyEvent.VK_A || code == KeyEvent.VK_LEFT) {
+                gp.playSFX(2);
+                uiM.setCommand(uiM.getCommand() -1);
+                if (uiM.getCommand() < 0) {
+                    uiM.setCommand(1);
+                }
+            }
+            if (code == KeyEvent.VK_D || code == KeyEvent.VK_RIGHT) {
+                gp.playSFX(2);
+                uiM.setCommand(uiM.getCommand() +1);
+                if (uiM.getCommand() > 1) {
+                    uiM.setCommand(0);
+                }
+            }
+
+            // EXECUTE
+            if (code == KeyEvent.VK_ENTER || code == KeyEvent.VK_F) {
+
+                gp.playSFX(2);
+
+                if (uiM.getCommand() == 0) {
+                    gp.setMultiplayer(false);
+                }
+                else if (uiM.getCommand() == 1) {
+                    gp.setMultiplayer(true);
+                }
+
+                uiM.getHomeUI().homeState = UI.HomeUI.substate.SELECTION;
+            }
+        }
     }
     private void playBindings(int code) {
 
-        // movement
-        if (code == KeyEvent.VK_W) { upPressed = true; }
-        if (code == KeyEvent.VK_S) { downPressed = true; }
-        if (code == KeyEvent.VK_A) { leftPressed = true; }
-        if (code == KeyEvent.VK_D) { rightPressed = true; }
-        if (code == KeyEvent.VK_SHIFT) { shiftPressed = true; }
+        // player 1 movement
+        if (code == KeyEvent.VK_W) { player1UpPressed = true; }
+        if (code == KeyEvent.VK_S) { player1DownPressed = true; }
+        if (code == KeyEvent.VK_A) { player1LeftPressed = true; }
+        if (code == KeyEvent.VK_D) { player1RightPressed = true; }
+        if (code == KeyEvent.VK_SHIFT) { player1ShiftPressed = true; }
+
+        // player 2 movement
+        if (code == KeyEvent.VK_UP) { player2UpPressed = true; }
+        if (code == KeyEvent.VK_DOWN) { player2DownPressed = true; }
+        if (code == KeyEvent.VK_LEFT) { player2LeftPressed = true; }
+        if (code == KeyEvent.VK_RIGHT) { player2RightPressed = true; }
+        if (code == KeyEvent.VK_CONTROL) { player2ShiftPressed = true; }
 
         // options
         if (code == KeyEvent.VK_ESCAPE) {
@@ -270,7 +335,8 @@ public class KeyBindings implements KeyListener {
             gp.gameState = GamePanel.state.PLAY;
         }
         if (code == KeyEvent.VK_ENTER || code == KeyEvent.VK_F) {
-            enterPressed = true;
+            player1EnterPressed = true;
+            player2EnterPressed = true;
         }
 
         // BINDINGS
@@ -283,14 +349,14 @@ public class KeyBindings implements KeyListener {
             case QUIT:
                 maxCommand = 1;
         }
-        if (code == KeyEvent.VK_W) {
+        if (code == KeyEvent.VK_W || code == KeyEvent.VK_UP) {
             uiM.setCommand(uiM.getCommand()-1);
             gp.playSFX(2);
             if (uiM.getCommand() < 0) {
                 uiM.setCommand(maxCommand);
             }
         }
-        if (code == KeyEvent.VK_S) {
+        if (code == KeyEvent.VK_S || code == KeyEvent.VK_DOWN) {
             uiM.setCommand(uiM.getCommand()+1);
             gp.playSFX(2);
             if (uiM.getCommand() > maxCommand) {
@@ -312,39 +378,39 @@ public class KeyBindings implements KeyListener {
     }
 
     // GETTERS & SETTERS ---------------------------------------------------------
-    public boolean isUpPressed() {
-        return upPressed;
+    public boolean isPlayer1UpPressed() {
+        return player1UpPressed;
     }
-    public boolean isDownPressed() {
-        return downPressed;
+    public boolean isPlayer1DownPressed() {
+        return player1DownPressed;
     }
     public boolean isLeftPressed() {
-        return leftPressed;
+        return player1LeftPressed;
     }
-    public boolean isRightPressed() {
-        return rightPressed;
+    public boolean isPlayer1RightPressed() {
+        return player1RightPressed;
     }
-    public boolean isEnterPressed() {
-        return enterPressed;
+    public boolean isPlayer1EnterPressed() {
+        return player1EnterPressed;
     }
-    public boolean isShiftPressed() {
-        return shiftPressed;
+    public boolean isPlayer1ShiftPressed() {
+        return player1ShiftPressed;
     }
 
 
-    public void setUpPressed(boolean upPressed) {
-        this.upPressed = upPressed;
+    public void setPlayer1UpPressed(boolean player1UpPressed) {
+        this.player1UpPressed = player1UpPressed;
     }
-    public void setDownPressed(boolean downPressed) {
-        this.downPressed = downPressed;
+    public void setPlayer1DownPressed(boolean player1DownPressed) {
+        this.player1DownPressed = player1DownPressed;
     }
     public void setLeftPressed(boolean leftPressed) {
-        this.leftPressed = leftPressed;
+        this.player1LeftPressed = leftPressed;
     }
-    public void setRightPressed(boolean rightPressed) {
-        this.rightPressed = rightPressed;
+    public void setPlayer1RightPressed(boolean player1RightPressed) {
+        this.player1RightPressed = player1RightPressed;
     }
-    public void setEnterPressed(boolean enterPressed) {
-        this.enterPressed = enterPressed;
+    public void setPlayer1EnterPressed(boolean player1EnterPressed) {
+        this.player1EnterPressed = player1EnterPressed;
     }
 }
