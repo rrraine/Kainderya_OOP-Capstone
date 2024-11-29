@@ -76,12 +76,12 @@ public class Player extends Entity {
     public void update() {
 
         // if moving
-        if (keyB.isUpPressed() || keyB.isDownPressed() || keyB.isLeftPressed() || keyB.isRightPressed() ||
-            keyB.isEnterPressed()) {
+        if (keyB.isPlayer1UpPressed() || keyB.isPlayer1DownPressed() || keyB.isLeftPressed() || keyB.isPlayer1RightPressed() ||
+            keyB.isPlayer1EnterPressed()) {
 
             // update movements
-            if (keyB.isUpPressed()) { direction = "up"; }
-            else if (keyB.isDownPressed()) { direction = "down"; }
+            if (keyB.isPlayer1UpPressed()) { direction = "up"; }
+            else if (keyB.isPlayer1DownPressed()) { direction = "down"; }
             else if (keyB.isLeftPressed()) { direction = "left"; }
             else { direction = "right"; }
 
@@ -124,7 +124,7 @@ public class Player extends Entity {
             Utility.CollisionChecker.entityHitsEvent(this, gp);
 
             // if no collision, player can move
-            if (!collisionOn && !keyB.isEnterPressed()) {
+            if (!collisionOn && !keyB.isPlayer1EnterPressed()) {
 
                 switch (direction) {
                     case "up":
@@ -145,7 +145,7 @@ public class Player extends Entity {
                 }
             }
 
-            keyB.setEnterPressed(false);
+            keyB.setPlayer1EnterPressed(false);
 
             // alternate sprite poses every 12 frames
             spriteCounter++;
@@ -244,7 +244,7 @@ public class Player extends Entity {
 
     private boolean sprint() {
 
-        return keyB.isShiftPressed() && stamina >= 0 && (keyB.isUpPressed() || keyB.isDownPressed() || keyB.isLeftPressed() || keyB.isRightPressed());
+        return keyB.isPlayer1ShiftPressed() && stamina >= 0 && (keyB.isPlayer1UpPressed() || keyB.isPlayer1DownPressed() || keyB.isLeftPressed() || keyB.isPlayer1RightPressed());
     }
 
     // GETTERS & SETTERS ---------------------------------------------------

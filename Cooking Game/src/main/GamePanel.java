@@ -65,6 +65,7 @@ public class GamePanel extends JPanel implements Runnable {
     public state gameState;
     public enum state { HOME, PLAY, PAUSE, OPTIONS, DIALOGUE, TERMINAL }
     private boolean newGame;
+    private boolean multiplayer;
 
     // ~ FIELDS END HERE
 
@@ -285,5 +286,12 @@ public class GamePanel extends JPanel implements Runnable {
     }
     public List<SuperObject> getObj() {
         return obj;
+    }
+
+    public void setMultiplayer(boolean multiplayer) {
+        this.multiplayer = multiplayer;
+    }
+    public boolean isMultiplayer() {
+        return multiplayer;
     }
 }

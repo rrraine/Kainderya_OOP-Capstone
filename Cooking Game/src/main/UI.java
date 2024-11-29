@@ -235,7 +235,7 @@ public class UI implements Drawable, Importable {
     public class HomeUI {
 
         public substate homeState;
-        public enum substate { TITLE, SELECTION, CREDITS }
+        public enum substate { TITLE, SELECTION, CREDITS, MULTIPLAYER }
 
         private BufferedImage wallpaper;
         private BufferedImage wallpaperFront;
@@ -283,6 +283,10 @@ public class UI implements Drawable, Importable {
 
                 case CREDITS:
                     homeCREDITS();
+                    break;
+
+                case MULTIPLAYER:
+                    homeMULTIPLAYER();
                     break;
             }
         }
@@ -679,6 +683,87 @@ public class UI implements Drawable, Importable {
             g2.drawString(text, x, y);
             drawCursor(text, x, y, false, true);
         }
+        private void homeMULTIPLAYER() {
+
+            g2.setFont(luckiestGuy);
+
+            g2.setColor(Color.white);
+            g2.setFont(g2.getFont().deriveFont(42F));
+
+            String text = "MULTIPLAYER";
+            int x = Utility.Aligner.centerTextOnScreen(text, gp, g2);
+            int y = gp.tileSize * 2 + 25;
+            // SHADOW TEXT COLOR
+            g2.setColor(Color.BLACK);
+            g2.drawString(text, x + 6, y);
+            // MAIN TEXT COLOR
+            g2.setColor(Color.WHITE);
+            g2.drawString(text, x, y);
+
+            // SINGLE PLAYER -----
+
+            // DRAW GRID BOX
+            int gridX = gp.tileSize * 4 + 52, gridY = gp.tileSize * 4 -20;
+            int gridWidth = gp.tileSize * 5;
+            int gridHeight = gp.tileSize * 6;
+
+            cook1.reposition(gridX + gp.tileSize - 18, gridY + gp.tileSize + 20);
+
+            g2.setFont(g2.getFont().deriveFont(30F));
+
+            // PERSON MOVING
+            if (command == 0) {
+                drawPopUpWindow(gridX, gridY, gridWidth, gridHeight, primaryAccent, primary);
+                cook1.drawAvatarFrontMoving(g2);
+            } else {
+                drawPopUpWindow(gridX, gridY, gridWidth, gridHeight, transBlack, Color.WHITE);
+                cook1.drawAvatarFrontStatic(g2);
+            }
+
+            // DRAW NAME
+            text = "ONE PLAYER";
+            x = gridX + gp.tileSize + 18;
+            y = gridY * 2 + gp.tileSize;
+            drawLetterBorder(text, Color.BLACK, 3, x, y);
+
+            if (command == 0) {
+                g2.setColor(primary);
+                drawCursor(text, x, y, true, false);
+            } else
+                g2.setColor(Color.WHITE);
+            g2.drawString(text, x, y);
+
+
+            // TWO PLAYERS -----
+
+            // DRAW GRID BOX
+            gridX += (gp.tileSize * 5) + 30;
+            drawPopUpWindow(gridX, gridY, gridWidth, gridHeight);
+            cook2.reposition(gridX + gp.tileSize - 18, gridY + gp.tileSize + 20);
+
+            if (command == 1) {
+                drawPopUpWindow(gridX, gridY, gridWidth, gridHeight, primaryAccent, primary);
+                cook2.drawAvatarFrontMoving(g2);
+            } else {
+                drawPopUpWindow(gridX, gridY, gridWidth, gridHeight, transBlack, Color.WHITE);
+                cook2.drawAvatarFrontStatic(g2);
+            }
+
+            // DRAW NAME
+            text = "TWO PLAYERS";
+            x = gridX + gp.tileSize + 8;
+            y = gridY * 2 + gp.tileSize;
+            drawLetterBorder(text, Color.BLACK, 3, x, y);
+
+            if (command == 1) {
+                g2.setColor(primary);
+                drawCursor(text, x, y, true, false);
+            } else
+                g2.setColor(Color.WHITE);
+            g2.drawString(text, x, y);
+
+
+        }
 
     }
     public class PlayUI  {
@@ -808,7 +893,7 @@ public class UI implements Drawable, Importable {
                     break;
             }
 
-            gp.keyB.setEnterPressed(false);
+            gp.keyB.setPlayer1EnterPressed(false);
         }
 
 
@@ -840,7 +925,7 @@ public class UI implements Drawable, Importable {
                 drawCursor(label, textX, textY, true, true);
 
                 // IF PRESSED
-                if (gp.keyB.isEnterPressed()) {
+                if (gp.keyB.isPlayer1EnterPressed()) {
                     // IF FULL SCREEN
                     if (gp.fullScreenOn) {
                         gp.fullScreenOn = false;
@@ -892,7 +977,7 @@ public class UI implements Drawable, Importable {
                 g2.setColor(primary);
                 g2.drawString(label , textX, textY);
                 drawCursor(label, textX, textY, true, true);
-                if (gp.keyB.isEnterPressed()) {
+                if (gp.keyB.isPlayer1EnterPressed()) {
                     optionsState = substate.QUIT;
                     command = 0;
                 }
@@ -909,7 +994,7 @@ public class UI implements Drawable, Importable {
                 g2.setColor(primary);
                 g2.drawString(label, textX, textY);
                 drawCursor(label, textX, textY, true, true);
-                if (gp.keyB.isEnterPressed()) {
+                if (gp.keyB.isPlayer1EnterPressed()) {
                     gp.gameState = GamePanel.state.PLAY;
                     command = 0;
                 }
@@ -951,7 +1036,7 @@ public class UI implements Drawable, Importable {
             g2.drawString("Back", textX, textY);
             if (command == 0) {
                 drawCursor("Back", textX, textY, true, true);
-                if (gp.keyB.isEnterPressed()){
+                if (gp.keyB.isPlayer1EnterPressed()){
                     getOptionsUI().optionsState = OptionsUI.substate.START;
                     command = 0;
                 }
@@ -980,7 +1065,7 @@ public class UI implements Drawable, Importable {
                 g2.setColor(primary);
                 drawCursor(text, textX, textY, true, true);
                 // QUIT
-                if (gp.keyB.isEnterPressed()) {
+                if (gp.keyB.isPlayer1EnterPressed()) {
                     optionsUI.optionsState = OptionsUI.substate.START;
                     homeUI.homeState = HomeUI.substate.TITLE;
                     gp.gameState = GamePanel.state.HOME;
@@ -1000,7 +1085,7 @@ public class UI implements Drawable, Importable {
                 g2.setColor(primary);
                 drawCursor(text, textX, textY, true, true);
                 // QUIT
-                if (gp.keyB.isEnterPressed()) {
+                if (gp.keyB.isPlayer1EnterPressed()) {
                     getOptionsUI().optionsState = OptionsUI.substate.START;
                     command = 0;
                 }
