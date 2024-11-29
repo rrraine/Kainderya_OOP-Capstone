@@ -26,21 +26,44 @@ public class Utility {
             return scaledImage;
         }
     }
+    /*
+    public void addItem(
+
+     */
 
     // -----------------------------------------------------------
 
     // DEPLOY ASSETS IN MAP THRU COORDINATES
     public static class AssetSetter {
+        private static GamePanel gp;
 
+        private static void addItem(List<SuperObject> obj, Item item, int x, int y, int index){
+            obj.add(index, item);
+            obj.get(index).setWorldX(gp.tileSize * x);
+            obj.get(index).setWorldY(gp.tileSize * y);
+        }
         public static void deploySuperObjectInMap(GamePanel gp, int tileSize, List<SuperObject> obj) {
+            AssetSetter.gp = gp;
 
             try {
 
-                // DEPLOY OBJECTS HERE
-                obj.add(0, new Item.Stool(gp));
-                obj.get(0).setWorldX(tileSize * 13);
-                obj.get(0).setWorldY(tileSize * 12);
+                addItem(obj, new Item.Stool(gp), 13, 12, 0);
+                addItem(obj, new Item.Stool(gp), 14, 12, 1);
+                addItem(obj, new Item.Stool(gp), 15, 12, 2);
+                addItem(obj, new Item.Stool(gp), 16, 12, 3);
+                addItem(obj, new Item.Stool(gp), 17, 12, 4);
 
+                addItem(obj, new Item.Door(gp), 10, 12, 5);
+                addItem(obj, new Item.Stool(gp), 17, 12, 6);
+                //addItem(obj, new Item.Stool(gp), 17, 12, 4);
+                //addItem(obj, new Item.Stool(gp), 17, 12, 4);
+                //addItem(obj, new Item.Stool(gp), 17, 12, 4);
+
+
+
+
+                // DEPLOY OBJECTS HERE
+/*
                 obj.add(1, new Item.Stool(gp));
                 obj.get(1).setWorldX(tileSize * 14);
                 obj.get(1).setWorldY(tileSize * 12);
@@ -65,6 +88,7 @@ public class Utility {
                 obj.get(6).setWorldX(tileSize * 17);
                 obj.get(6).setWorldY(tileSize * 12);
 
+
                 obj.add(7, new Item.Spam(gp));
                 obj.get(7).setWorldX(tileSize * 14);
                 obj.get(7).setWorldY(tileSize * 7);
@@ -80,7 +104,7 @@ public class Utility {
                 obj.add(10, new Item.Egg(gp));
                 obj.get(10).setWorldX(tileSize * 18);
                 obj.get(10).setWorldY(tileSize * 12);
-
+*/
 
 /*
 
