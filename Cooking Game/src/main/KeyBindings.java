@@ -156,7 +156,6 @@ public class KeyBindings implements KeyListener {
                 lastCommand = uiM.getCommand();
             }
 
-            // TODO AVATAR & NAME
             // W & S
             if (code == KeyEvent.VK_W) {
                 gp.playSFX(2);
@@ -180,22 +179,26 @@ public class KeyBindings implements KeyListener {
             if (code == KeyEvent.VK_ENTER || code == KeyEvent.VK_F) {
                 gp.playSFX(2);
 
-                String playerAvatar = "", playerName = "AARON";
+                String playerAvatar = "", playerName = "";
 
                 if (uiM.getCommand() == 0) {
                     playerAvatar = "Cook1";
+                    playerName = "MIGUEL";
                     gp.playSFX(2);
                 }
                 else if (uiM.getCommand() == 1) {
                     playerAvatar = "Cook2";
+                    playerName = "GINA";
                     gp.playSFX(2);
                 }
                 else if (uiM.getCommand() == 2) {
                     playerAvatar = "Cook3";
+                    playerName = "JAVIER";
                     gp.playSFX(2);
                 }
                 else if (uiM.getCommand() == 3) {
                     playerAvatar = "Cook4";
+                    playerName = "SOFIA";
                     gp.playSFX(2);
                 }
                 else if (uiM.getCommand() == 4) {
@@ -204,11 +207,16 @@ public class KeyBindings implements KeyListener {
                     gp.playSFX(2);
                 }
 
-                // TODO IMPLEMENT EXCEPTION HANDLING IF BOTH PLAYERAVATAR AND PLAYERNAME ARE EMPTY & USE WHILE LOOP TO REPEAT THE PROMPT
-                gp.selectCharacter(playerAvatar, playerName);
+                try {
+                    if (playerName.isBlank() || playerAvatar.isBlank()) {
+                        throw new Exception("Unexpected Character Selection Error");
+                    }
+                    gp.selectCharacter(playerAvatar, playerName);
+                    gp.gameState = GamePanel.state.PLAY;
+                } catch (Exception e) {
+                    throw new RuntimeException(e.getMessage());
+                }
 
-                // TODO CANNOT PROCEED IF NAME EMPTY
-                gp.gameState = GamePanel.state.PLAY;
             }
         }
 
