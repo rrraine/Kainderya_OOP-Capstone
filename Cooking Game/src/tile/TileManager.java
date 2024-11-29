@@ -31,7 +31,7 @@ public class TileManager implements Importable, Drawable, Observable {
         mapTileNum = new int[gp.maxWorldCol][gp.maxWorldRow]; // stores the map matrix
 
         tileSetup();
-        loadMap("/maps/finalMap.txt");
+        loadMap("/maps/newMap.txt");
         // loadMap("/maps/finalMap.txt"); // uncomment to use the old map
     }
     // SINGLETON INSTANTIATE --------------------------------------
@@ -120,36 +120,18 @@ public class TileManager implements Importable, Drawable, Observable {
         addTile(15, "/tiles/construction/upperSandoks", true);
         addTile(16, "/tiles/construction/upperRef", true);
         addTile(17, "/tiles/construction/leftWall", true);
-        addTile(18, "/tiles/construction/leftRiceCooker", true);
-        addTile(19, "/tiles/construction/leftStove", true);
-        addTile(20, "/tiles/construction/leftStraightTable", true);
-
-        addTile(21, "/tiles/construction/leftCornerTable", true);
-        addTile(22, "/tiles/construction/door", false);
-        addTile(23, "/tiles/kitchenArea/leftChoppingBoard", true);
-        addTile(24, "/tiles/kitchenArea/middleKitchenIsland", true);
-        addTile(25, "/tiles/kitchenArea/rightKitchenIsland", true);
-        addTile(26, "/tiles/kitchenArea/leftCounter", true);
-        addTile(27, "/tiles/kitchenArea/centerSink", true);
-        addTile(28, "/tiles/kitchenArea/rightCounter", true);
-        addTile(29, "/tiles/kitchenArea/middleCounter", true);
-        addTile(30, "/tiles/kitchenArea/lowerRef", true);
-
-        addTile(31, "/tiles/kitchenArea/riceSack", true);
-        addTile(32, "/tiles/kitchenArea/trashcan1", true);
-        addTile(33, "/tiles/diningArea/middleTable", true);
-        addTile(34, "/tiles/diningArea/rightTable", true);
-        addTile(35, "/tiles/diningArea/leftTable", true);
-        addTile(36, "/tiles/diningArea/stool", true);
-        addTile(37, "/tiles/outsideArea/sidewalk1", false);
-        addTile(38, "/tiles/outsideArea/sidewalk2", false);
-        addTile(39, "/tiles/outsideArea/roadRightUpper", false);
-        addTile(40, "/tiles/outsideArea/roadRightLower", false);
-
-        addTile(41, "/tiles/outsideArea/roadLeft", false);
-        addTile(42, "/tiles/outsideArea/roadRight", false);
-        addTile(43, "/tiles/outsideArea/grass", false);
-        addTile(44, "/tiles/outsideArea/plainRoad", false);
+        addTile(18, "/tiles/outsideArea/sidewalk1", false);
+        addTile(19, "/tiles/outsideArea/sidewalk2", false);
+        addTile(20, "/tiles/outsideArea/grassSidewalk", true);
+        addTile(21, "/tiles/outsideArea/roadUpper", false);
+        addTile(22, "/tiles/outsideArea/roadLower", false);
+        addTile(23, "/tiles/outsideArea/roadLeft", false);
+        addTile(24, "/tiles/outsideArea/roadRight", false);
+        addTile(25, "/tiles/outsideArea/plainRoad", false);
+        addTile(26, "/tiles/outsideArea/grass", false);
+        addTile(27, "/tiles/outsideArea/fenceSideWalk", true);
+        addTile(28, "/tiles/outsideArea/fenceGrass", true);
+        addTile(29, "/tiles/outsideArea/door", true);
 
 
 
