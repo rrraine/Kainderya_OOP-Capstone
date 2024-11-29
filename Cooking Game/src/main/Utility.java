@@ -442,8 +442,6 @@ public class Utility {
                 textWidth += 2;
             }
             int halfTile = gp.player.getPlayerCenteredScreenX() + (gp.tileSize/2);
-            System.out.println(textWidth/2);
-            System.out.println(halfTile);
             return halfTile - textWidth*6;
         }
     }
