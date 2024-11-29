@@ -180,7 +180,7 @@ public class KeyBindings implements KeyListener {
             if (code == KeyEvent.VK_ENTER || code == KeyEvent.VK_F) {
                 gp.playSFX(2);
 
-                String playerAvatar = "", playerName = "";
+                String playerAvatar = "", playerName = "AARON";
 
                 if (uiM.getCommand() == 0) {
                     playerAvatar = "Cook1";

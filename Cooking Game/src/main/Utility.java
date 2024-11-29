@@ -415,7 +415,7 @@ public class Utility {
     // HANDLES TEXT OR IMAGE ALIGNMENT
     public static class Aligner {
 
-        public static int centerText(String text, GamePanel gp, Graphics2D g2) {
+        public static int centerTextOnScreen(String text, GamePanel gp, Graphics2D g2) {
             int length = (int)g2.getFontMetrics().getStringBounds(text, g2).getWidth();
             return gp.screenWidth / 2 - length / 2;
         }
@@ -434,6 +434,17 @@ public class Utility {
             coordinates.add(7, y+5); // UNDERLINE RIGHT Y
 
             return coordinates;
+        }
+        public static int centerTextOnAvatar(String text, GamePanel gp, Graphics2D g2) {
+
+            int textWidth = (int) g2.getFontMetrics().getStringBounds(text, g2).getWidth();
+            if (textWidth % 2 == 0) {
+                textWidth += 2;
+            }
+            int halfTile = gp.player.getPlayerCenteredScreenX() + (gp.tileSize/2);
+            System.out.println(textWidth/2);
+            System.out.println(halfTile);
+            return halfTile - textWidth*6;
         }
     }
 

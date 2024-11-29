@@ -300,7 +300,7 @@ public class UI implements Drawable, Importable {
             // TITLE
             g2.setFont(g2.getFont().deriveFont(Font.BOLD, 135F));
             String text = "KAiNDERYA";
-            int x = Utility.Aligner.centerText(text, gp, g2);
+            int x = Utility.Aligner.centerTextOnScreen(text, gp, g2);
             int y = gp.tileSize * 4 - 40;
 
             // LETTERING: WHITE
@@ -329,7 +329,7 @@ public class UI implements Drawable, Importable {
             // NEW GAME
             g2.setFont(g2.getFont().deriveFont(48F));
             text = "NEW GAME";
-            x = Utility.Aligner.centerText(text, gp, g2);
+            x = Utility.Aligner.centerTextOnScreen(text, gp, g2);
             y += gp.tileSize * 3 -5;
             // SHADOW TEXT COLOR
             g2.setColor(Color.BLACK);
@@ -349,7 +349,7 @@ public class UI implements Drawable, Importable {
             // CREDITS
             g2.setFont(g2.getFont().deriveFont(Font.BOLD, 48F));
             text = "CREDITS";
-            x = Utility.Aligner.centerText(text, gp, g2);
+            x = Utility.Aligner.centerTextOnScreen(text, gp, g2);
             y += gp.tileSize;
             // SHADOW TEXT COLOR
             g2.setColor(Color.BLACK);
@@ -369,7 +369,7 @@ public class UI implements Drawable, Importable {
             // QUIT
             g2.setFont(g2.getFont().deriveFont(Font.BOLD, 48F));
             text = "QUIT";
-            x = Utility.Aligner.centerText(text, gp, g2);
+            x = Utility.Aligner.centerTextOnScreen(text, gp, g2);
             y += gp.tileSize;
             // SHADOW TEXT COLOR
             g2.setColor(Color.BLACK);
@@ -402,7 +402,7 @@ public class UI implements Drawable, Importable {
             g2.setFont(g2.getFont().deriveFont(42F));
 
             String text = "Select Avatar";
-            int x = Utility.Aligner.centerText(text, gp, g2);
+            int x = Utility.Aligner.centerTextOnScreen(text, gp, g2);
             int y = gp.tileSize * 2 + 25;
             // SHADOW TEXT COLOR
             g2.setColor(Color.BLACK);
@@ -535,7 +535,7 @@ public class UI implements Drawable, Importable {
             }
 
             text = "Name: ";
-            x = Utility.Aligner.centerText(text, gp, g2) - (gp.tileSize * 4);
+            x = Utility.Aligner.centerTextOnScreen(text, gp, g2) - (gp.tileSize * 4);
             y += gp.tileSize * 2 - gp.tileSize /2;
             // SHADOW TEXT COLOR
             g2.setColor(Color.BLACK);
@@ -574,7 +574,7 @@ public class UI implements Drawable, Importable {
             g2.setFont(g2.getFont().deriveFont(42F));
 
             String text = "CREDITS <3";
-            int x = Utility.Aligner.centerText(text, gp, g2);
+            int x = Utility.Aligner.centerTextOnScreen(text, gp, g2);
             int y = gp.tileSize * 2 + 25;
             // SHADOW TEXT COLOR
             g2.setColor(Color.BLACK);
@@ -586,7 +586,7 @@ public class UI implements Drawable, Importable {
             // TEAM
             g2.setFont(g2.getFont().deriveFont(30F));
             text = "Procramming   |   2024";
-            x = Utility.Aligner.centerText(text, gp, g2);
+            x = Utility.Aligner.centerTextOnScreen(text, gp, g2);
             y += gp.tileSize + 32;
 
             // LETTERING: WHITE
@@ -604,7 +604,7 @@ public class UI implements Drawable, Importable {
             g2.setFont(g2.getFont().deriveFont(42F));
             // GK
             text = "Carreon       Gianna Katrin";
-            x = Utility.Aligner.centerText(text, gp, g2);
+            x = Utility.Aligner.centerTextOnScreen(text, gp, g2);
             y += gp.tileSize + 38;
 
             // LETTERING: WHITE
@@ -620,7 +620,7 @@ public class UI implements Drawable, Importable {
 
             // RON
             text = "Jatayna       Aaron Dei";
-            x = Utility.Aligner.centerText(text, gp, g2);
+            x = Utility.Aligner.centerTextOnScreen(text, gp, g2);
             y += gp.tileSize;
 
             // LETTERING: WHITE
@@ -636,7 +636,7 @@ public class UI implements Drawable, Importable {
 
             // VJ
             text = "Juarez       Venice Jonah";
-            x = Utility.Aligner.centerText(text, gp, g2);
+            x = Utility.Aligner.centerTextOnScreen(text, gp, g2);
             y += gp.tileSize;
 
             // LETTERING: WHITE
@@ -652,7 +652,7 @@ public class UI implements Drawable, Importable {
 
             // LORI
             text = "Quezada       Lorraine";
-            x = Utility.Aligner.centerText(text, gp, g2);
+            x = Utility.Aligner.centerTextOnScreen(text, gp, g2);
             y += gp.tileSize;
 
             // LETTERING: WHITE
@@ -669,7 +669,7 @@ public class UI implements Drawable, Importable {
             // BACK
             g2.setFont(g2.getFont().deriveFont(30F));
             text = "Back";
-            x = Utility.Aligner.centerText(text, gp, g2);
+            x = Utility.Aligner.centerTextOnScreen(text, gp, g2);
             y += gp.tileSize + 48;
             drawLetterBorder(text, Color.BLACK, 2, x, y);
             g2.setColor(primary);
@@ -691,15 +691,24 @@ public class UI implements Drawable, Importable {
             // DRAW TIMER
             if (gp.gameState != GamePanel.state.HOME) {
 
-                // DRAW STAMINA
-                // en.getWorldY() + en.getSolidArea().y
-                // en.getWorldY() + en.getSolidArea().y + en.getSolidArea().height;
-                staminaBar.reposition(gp.player.getPlayerCenteredScreenX() - 20, gp.player.getPlayerCenteredScreenY() - (gp.tileSize * 2) +25);
+                int frameX = gp.player.getPlayerCenteredScreenX() - 20;
+                int frameY = gp.player.getPlayerCenteredScreenY() - (gp.tileSize * 2) +25;
+
+                // STAMINA BAR
+                staminaBar.reposition(frameX, frameY);
                 staminaBar.drawStaminaBar(g2, gp.player.staminaMeter());
 
+                 // PLAYER NAME
+                frameX = Utility.Aligner.centerTextOnAvatar(gp.player.getPlayerName(), gp, g2);
+                frameY += gp.tileSize + 10;
+                g2.setFont(g2.getFont().deriveFont(Font.PLAIN,18F));
+                drawLetterBorder(gp.player.getPlayerName(), Color.BLACK, 1, frameX, frameY);
+                g2.setColor(Color.WHITE);
+                g2.drawString(gp.player.getPlayerName(), frameX, frameY);
+
                 // ORDER PANE
-                int frameX = -10;
-                int frameY = gp.tileSize * 10 + 8;
+                frameX = -10;
+                frameY = gp.tileSize * 10 + 8;
                 int frameWidth = gp.tileSize * 20 + gp.tileSize/3;
                 int frameHeight = gp.tileSize * 2 + 3;
                 drawPopUpWindow(frameX, frameY, frameWidth, frameHeight);
@@ -742,7 +751,7 @@ public class UI implements Drawable, Importable {
             // PAUSE TEXT
             g2.setFont(g2.getFont().deriveFont(Font.PLAIN,80F));
             String text = "PAUSED";
-            int x = Utility.Aligner.centerText(text, gp, g2);
+            int x = Utility.Aligner.centerTextOnScreen(text, gp, g2);
             int y = gp.screenHeight / 2;
 
             g2.drawString(text, x, y);
@@ -810,7 +819,7 @@ public class UI implements Drawable, Importable {
 
             // TITLE
             String label = "OPTIONS";
-            textX = Utility.Aligner.centerText(label, gp, g2);
+            textX = Utility.Aligner.centerTextOnScreen(label, gp, g2);
             textY = frameY + gp.tileSize;
             drawLetterBorder(label, Color.BLACK, 3, textX, textY);
             g2.setColor(Color.WHITE);
@@ -962,7 +971,7 @@ public class UI implements Drawable, Importable {
 
             // YES
             String text = "Yes";
-            textX = Utility.Aligner.centerText(text, gp, g2);
+            textX = Utility.Aligner.centerTextOnScreen(text, gp, g2);
             textY += gp.tileSize * 3;
             drawLetterBorder(text, Color.BLACK, 2, textX, textY);
             if (command == 0) {
@@ -982,7 +991,7 @@ public class UI implements Drawable, Importable {
 
             // NO
             text = "No";
-            textX = Utility.Aligner.centerText(text, gp, g2);
+            textX = Utility.Aligner.centerTextOnScreen(text, gp, g2);
             textY += gp.tileSize;
             drawLetterBorder(text, Color.BLACK, 2, textX, textY);
             if (command == 1) {
@@ -1037,7 +1046,7 @@ public class UI implements Drawable, Importable {
             g2.setFont(g2.getFont().deriveFont(Font.PLAIN,80F));
             g2.setColor(Color.RED);
             String text = "TIMES UP!";
-            int x = Utility.Aligner.centerText(text, gp, g2);
+            int x = Utility.Aligner.centerTextOnScreen(text, gp, g2);
             int y = gp.screenHeight / 2;
 
             g2.drawString(text, x + shakeEffect(1), y + shakeEffect(2));
@@ -1061,7 +1070,7 @@ public class UI implements Drawable, Importable {
             g2.setFont(g2.getFont().deriveFont(Font.PLAIN,60F));
             g2.setColor(Color.WHITE);
             String text = "LEADERBOARDS";
-            int x = Utility.Aligner.centerText(text, gp, g2);
+            int x = Utility.Aligner.centerTextOnScreen(text, gp, g2);
             int y = gp.tileSize * 3;
             g2.drawString(text, x, y);
 
@@ -1069,7 +1078,7 @@ public class UI implements Drawable, Importable {
             g2.setFont(g2.getFont().deriveFont(Font.PLAIN,25F));
             g2.setColor(Color.WHITE);
             text = "Press Enter to Continue...";
-            x = Utility.Aligner.centerText(text, gp, g2);
+            x = Utility.Aligner.centerTextOnScreen(text, gp, g2);
             y = gp.tileSize * 10;
             g2.drawString(text, x, y);
         }
