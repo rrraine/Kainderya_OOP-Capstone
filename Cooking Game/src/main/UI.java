@@ -691,30 +691,32 @@ public class UI implements Drawable, Importable {
             // DRAW TIMER
             if (gp.gameState != GamePanel.state.HOME) {
 
-                int frameX = gp.player.getPlayerCenteredScreenX() - 20;
-                int frameY = gp.player.getPlayerCenteredScreenY() - (gp.tileSize * 2) +25;
-
-                // STAMINA BAR
-                staminaBar.reposition(frameX, frameY);
-                staminaBar.drawStaminaBar(g2, gp.player.staminaMeter());
+                int x = gp.player.getPlayerCenteredScreenX() - 20;
+                int y = gp.player.getPlayerCenteredScreenY() - (gp.tileSize * 2) +25;
 
                  // PLAYER NAME
-                frameX = Utility.Aligner.centerTextOnAvatar(gp.player.getPlayerName(), gp, g2);
-                frameY += gp.tileSize + 10;
+                x = Utility.Aligner.centerTextOnAvatar(gp.player.getPlayerName(), gp, g2);
+                y = gp.player.getPlayerCenteredScreenY() - 10;
                 g2.setFont(g2.getFont().deriveFont(Font.PLAIN,18F));
-                drawLetterBorder(gp.player.getPlayerName(), Color.BLACK, 1, frameX, frameY);
+                drawLetterBorder(gp.player.getPlayerName(), Color.BLACK, 1, x, y);
                 g2.setColor(Color.WHITE);
-                g2.drawString(gp.player.getPlayerName(), frameX, frameY);
+                g2.drawString(gp.player.getPlayerName(), x, y);
 
                 // ORDER PANE
-                frameX = -10;
-                frameY = gp.tileSize * 10 + 8;
+                x = -10;
+                y = gp.tileSize * 10 + 8;
                 int frameWidth = gp.tileSize * 20 + gp.tileSize/3;
                 int frameHeight = gp.tileSize * 2 + 3;
-                drawPopUpWindow(frameX, frameY, frameWidth, frameHeight);
+                drawPopUpWindow(x, y, frameWidth, frameHeight);
 
                 // CIRCLE FOR MENU ICON
-                drawCircle(gp.tileSize/2, frameY - gp.tileSize/2 , gp.tileSize*2 + 6, gp.tileSize*2, Color.WHITE, Color.BLACK);
+                drawCircle(gp.tileSize/2, y - gp.tileSize/2 , gp.tileSize*2 + 6, gp.tileSize*2, Color.WHITE, Color.BLACK);
+
+                // STAMINA BAR
+                x = gp.screenWidth - gp.tileSize *2 - 15;
+                y -= gp.tileSize * 2;
+                staminaBar.reposition(x, y);
+                staminaBar.drawStaminaBar(g2, gp.player.staminaMeter());
 
                 g2.setColor(Color.WHITE);
                 
