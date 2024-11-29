@@ -1,5 +1,8 @@
 package main;
 
+import ui.UI;
+import ui.UIFactory;
+
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
@@ -9,7 +12,7 @@ public class KeyBindings implements KeyListener {
     private static KeyBindings instance;
 
     GamePanel gp;
-    UIControl uiM;
+    UIFactory uiM;
 
     private boolean player1UpPressed;
     private boolean player1DownPressed;
@@ -28,12 +31,12 @@ public class KeyBindings implements KeyListener {
     private int lastCommand = 0;
 
     // CONSTRUCTOR -----------------------------------------------------------------
-    private KeyBindings(GamePanel gp, UIControl uiM) {
+    private KeyBindings(GamePanel gp, UIFactory uiM) {
         this.gp = gp;
         this.uiM = uiM;
     }
     // SINGLETON INSTANTIATE -------------------------------------------------
-    public static KeyBindings instantiate(GamePanel gp, UIControl uiM) {
+    public static KeyBindings instantiate(GamePanel gp, UIFactory uiM) {
         if (instance == null) {
             instance = new KeyBindings(gp, uiM);
         }

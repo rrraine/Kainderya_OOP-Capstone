@@ -1,15 +1,16 @@
-package main;
+package ui;
 
 import game.Time;
 import interfaces.Drawable;
+import main.GamePanel;
 
 
 import java.awt.*;
 
-public class UIControl implements Drawable {
+public class UIFactory implements Drawable {
 
     // ~ FIELDS -------------------------------------------------------------
-    private static UIControl instance;
+    private static UIFactory instance;
 
     private final GamePanel gp;
     private final UI ui;
@@ -22,7 +23,7 @@ public class UIControl implements Drawable {
     private final UI.TerminalUI terminalUI;
 
     // CONSTRUCTOR ------------------------------------------------------------
-    private UIControl(GamePanel gp, Time time) {
+    private UIFactory(GamePanel gp, Time time) {
         this.gp = gp;
         ui = UI.instantiate(gp, time);
 
@@ -34,9 +35,9 @@ public class UIControl implements Drawable {
         terminalUI = ui.getTerminalUI();
     }
     // SINGLETON INSTANTIATOR --------------------------------------------------
-    public static UIControl instantiate(GamePanel gp, Time time) {
+    public static UIFactory instantiate(GamePanel gp, Time time) {
         if (instance == null) {
-            instance = new UIControl(gp, time);
+            instance = new UIFactory(gp, time);
         }
         return instance;
     }
