@@ -6,15 +6,25 @@ import main.GamePanel;
 public abstract class WorkStation extends Station{
     boolean isOccupied;
 
+
     public WorkStation(GamePanel gp, String name) {
         super(gp, name);
         isOccupied = false;
     }
 
+    public boolean isOccupied() {
+        return isOccupied;
+    }
+
+    public void setOccupied(boolean occupied) {
+        isOccupied = occupied;
+    }
+
+
     public static class Counter extends WorkStation{
 
         public Counter(GamePanel gp, String name) {
-            super(gp, name);
+            super(gp, "Counter");
         }
     }
 

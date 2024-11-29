@@ -18,6 +18,7 @@ public class KeyBindings implements KeyListener {
     private boolean rightPressed;
     private boolean enterPressed;
     private boolean shiftPressed;
+    private boolean fPressed;
 
     private int lastCommand = 0;
 
@@ -83,6 +84,10 @@ public class KeyBindings implements KeyListener {
         }
         if (code == KeyEvent.VK_SHIFT) {
             shiftPressed = false;
+        }
+
+        if (code == KeyEvent.VK_F) {
+            fPressed = false;
         }
     }
     @Override
@@ -256,6 +261,13 @@ public class KeyBindings implements KeyListener {
             uiM.getTerminalUI().terminalState = UI.TerminalUI.substate.TIMESUP;
             gp.gameState = GamePanel.state.TERMINAL;
         }
+
+        // workstation interaction
+        if (code == KeyEvent.VK_F){
+            gp.playSFX(2);
+            fPressed = true;
+
+        }
     }
     private void pauseBindings(int code) {
 
@@ -331,6 +343,9 @@ public class KeyBindings implements KeyListener {
         return shiftPressed;
     }
 
+    public boolean isfPressed(){
+        return fPressed;
+    }
 
     public void setUpPressed(boolean upPressed) {
         this.upPressed = upPressed;
@@ -346,5 +361,9 @@ public class KeyBindings implements KeyListener {
     }
     public void setEnterPressed(boolean enterPressed) {
         this.enterPressed = enterPressed;
+    }
+
+    public void setfPressed(boolean fPressed) {
+        this.fPressed = fPressed;
     }
 }
