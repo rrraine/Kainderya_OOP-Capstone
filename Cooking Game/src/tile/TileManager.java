@@ -32,7 +32,7 @@ public class TileManager implements Importable, Drawable, Observable {
 
         tileSetup();
         loadMap("/maps/newMap.txt");
-        // loadMap("/maps/finalMap.txt"); // uncomment to use the old map
+
     }
     // SINGLETON INSTANTIATE --------------------------------------
     public static TileManager instantiate(GamePanel gp) {
@@ -91,7 +91,7 @@ public class TileManager implements Importable, Drawable, Observable {
 
     // TILE INSTANTIATION, IMPORTING, AND COLLISION SETTING
     private void tileSetup() {
-        
+
         // construction
 
         addTile(0, "/tiles/construction/tileFloor", false);
