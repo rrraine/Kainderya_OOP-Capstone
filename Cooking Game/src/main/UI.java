@@ -60,6 +60,8 @@ public class UI implements Drawable, Importable {
     private final Color blue;
     private final Color orange;
 
+    private final Color player1;
+
 
     // CONSTRUCTOR -----------------------------------------------------------------
     private UI(GamePanel gp, Time time) {
@@ -100,6 +102,7 @@ public class UI implements Drawable, Importable {
         secondary = new Color(255, 75, 81);
         blue = new Color(75, 165, 255);
         orange = new Color(255, 171, 75);
+        player1 = new Color(173, 227, 63);
     }
     public static UI instantiate(GamePanel gp, Time time) {
         if (instance == null) {
@@ -699,21 +702,21 @@ public class UI implements Drawable, Importable {
                 y = gp.player.getPlayerCenteredScreenY() - 10;
                 g2.setFont(g2.getFont().deriveFont(Font.PLAIN,18F));
                 drawLetterBorder(gp.player.getPlayerName(), Color.BLACK, 1, x, y);
-                g2.setColor(Color.WHITE);
+                g2.setColor(player1);
                 g2.drawString(gp.player.getPlayerName(), x, y);
 
                 // ORDER PANE
                 x = -10;
-                y = gp.tileSize * 10 + 8;
+                y = gp.tileSize * 10 + 48;
                 int frameWidth = gp.tileSize * 20 + gp.tileSize/3;
-                int frameHeight = gp.tileSize * 2 + 3;
+                int frameHeight = gp.tileSize + 26;
                 drawPopUpWindow(x, y, frameWidth, frameHeight);
 
                 // CIRCLE FOR MENU ICON
-                drawCircle(gp.tileSize/2, y - gp.tileSize/2 , gp.tileSize*2 + 6, gp.tileSize*2, Color.WHITE, Color.BLACK);
+                drawCircle(gp.tileSize/2, y - gp.tileSize + 12, gp.tileSize + 48 + 6, gp.tileSize + 48, Color.WHITE, Color.BLACK);
 
                 // STAMINA BAR
-                x = gp.screenWidth - gp.tileSize *2 - 15;
+                x = gp.screenWidth - gp.tileSize *2 - 20;
                 y -= gp.tileSize * 2;
                 staminaBar.reposition(x, y);
                 staminaBar.drawStaminaBar(g2, gp.player.staminaMeter());
