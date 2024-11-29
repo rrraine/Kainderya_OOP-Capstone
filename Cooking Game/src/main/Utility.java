@@ -244,8 +244,22 @@ public class Utility {
                                 if (obj.get(i).isCollision() || obj.get(i) instanceof Item.Door && en instanceof NPC) {
                                     en.setCollisionOn(true);
                                 }
+
+                                /*
+                                if (player.getWorldX() == workstation.getWorldX() && player.getWorldY() == workstation.getWorldY()) {
+                                    return i;  // Return index of the object if collision is detected
+                                }
+                                */
+
                                 // IF PLAYER ONLY, SUPEROBJECT CAN BE PICKED UP
                                 if (en instanceof Player) {
+
+                                    // TODO change accordingly to what station
+                                    if (obj.get(i) instanceof WorkStation) {
+                                        // Handle interaction with workstation
+                                        handleWorkStationInteraction((Player) en, (WorkStation) obj.get(i));
+                                    }
+                                    index = i; // Store the index of the workstation or object
                                     index = i;
                                 }
                             }
@@ -481,7 +495,7 @@ public class Utility {
         // Check if the workstation is occupied
         if (workStation.isOccupied()) {
             // Handle the case where the workstation is occupied (could show a message or prevent interaction)
-            System.out.println("The workstation is currently occupied!");
+            System.out.println("The " + workStation.getName() + " is currently occupied!");
         } else {
             // Handle the case where the workstation is not occupied (could trigger interaction or task)
             System.out.println(player.getPlayerName() + " is interacting with the " + workStation.getName());
