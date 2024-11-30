@@ -115,6 +115,13 @@ public class Utility {
                 addItem(57, obj, new Item.rightShelf1(gp), tileSize, 15, 5);
                 addItem(58, obj, new Item.rightShelf2(gp), tileSize, 15, 6);
 
+                addItem(59, obj, new Item.Plates.counterPlates(gp), tileSize, 6, 5);
+                addItem(60, obj, new Item.Plates.counterPlates(gp), tileSize, 9, 4);
+                addItem(61, obj, new Item.Plates.counterPlates(gp), tileSize, 10, 7);
+                addItem(62, obj, new Item.Plates.counterPlates(gp), tileSize, 11, 7);
+                addItem(63, obj, new Item.Plates.counterPlates(gp), tileSize, 12, 7);
+                addItem(64, obj, new Item.Plates.counterPlates(gp), tileSize, 13, 7);
+                addItem(65, obj, new Item.Plates.counterPlates(gp), tileSize, 12, 4);
 
             } catch (NullPointerException e) {
                 System.err.println("Accessing null element in (List<SuperObject> obj): " + e.getMessage());

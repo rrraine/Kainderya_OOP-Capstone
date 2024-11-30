@@ -130,7 +130,7 @@ public abstract class Item extends SuperObject {
         public stationaryTapa(GamePanel gp) {
             super(gp, "stationaryTapa");
             image = importImage("/objects/item/ingredients/stationaryTapa", gp.tileSize);
-            setDefaultCollisions(true, 12, 24, 40, 37);
+            setDefaultCollisions(true, 20, 0, 46, 44);
         }
 
     }
@@ -276,7 +276,7 @@ public abstract class Item extends SuperObject {
         public lowerRef(GamePanel gp) {
             super(gp, "lowerRef");
             image = importImage("/objects/item/kitchenArea/lowerRef", gp.tileSize);
-            setDefaultCollisions(true, 12, 24, 40, 37);
+            setDefaultCollisions(true, 20, 0, 46, 44);
         }
 
     }
@@ -436,6 +436,27 @@ public abstract class Item extends SuperObject {
             super(gp, "Pan");
             image = importImage("/objects/item/kitchenTools/pan", gp.tileSize);
             setDefaultCollisions(true, 12, 24, 40, 37);
+        }
+    }
+
+    public static class Plates extends Item implements Importable{
+
+        public Plates (GamePanel gp) { super(gp, "Plates"); }
+
+        public static class counterPlates extends Plates implements Importable{
+            public counterPlates (GamePanel gp) {
+               super(gp);
+                image = importImage("/objects/item/kitchenTools/plateCounter", gp.tileSize);
+                setDefaultCollisions(true, 12, 24, 40, 37);
+            }
+        }
+
+        public static class diningPlate extends Plates implements Importable{
+            public diningPlate (GamePanel gp) {
+                super(gp);
+                image = importImage("/objects/item/kitchenTools/plate", gp.tileSize);
+                setDefaultCollisions(true, 12, 24, 40, 37);
+            }
         }
     }
 
