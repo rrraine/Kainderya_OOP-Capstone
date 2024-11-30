@@ -9,6 +9,7 @@ import java.util.List;
 
 public class Animation implements Importable {
 
+    // THIS CLASS MUS BE INSTANTIATED 
     GamePanel gp;
     String avatar;
     AnimationState currentState;
