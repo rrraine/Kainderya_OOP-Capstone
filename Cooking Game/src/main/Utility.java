@@ -101,6 +101,7 @@ public class Utility {
                 addItem(46, obj, new Item.stationaryTapa(gp), tileSize, 8, 4);
 
                 addItem(47, obj, new Item.Pan(gp), tileSize, 6, 6);
+                addItem(48, obj, new Item.Pan(gp), tileSize, 6, 8);
 
 
 

@@ -30,7 +30,7 @@ public abstract class Item extends SuperObject {
             super(gp, "Stool");
             image = importImage("/objects/item/diningArea/stool", gp.tileSize);
             // To do: Ayusin anf collision
-            setDefaultCollisions(true, 12, 24, 40, 37);
+            setDefaultCollisions(true, 12, 24, 30, 27);
         }
     }
 
@@ -77,7 +77,7 @@ public abstract class Item extends SuperObject {
                 public outsideUpperTable(GamePanel gp){
                     super(gp);
                     image = importImage("/objects/item/outsideRestaurant/OutsideUpperTable", gp.tileSize);
-                    setDefaultCollisions(true, 12, 24, 40, 37);
+                    setDefaultCollisions(true, 24, 10, 30, 50);
                 }
             }
 
@@ -85,7 +85,7 @@ public abstract class Item extends SuperObject {
                 public outsideLowerTable(GamePanel gp){
                     super(gp);
                     image = importImage("/objects/item/outsideRestaurant/OutsideLowerTable", gp.tileSize);
-                    setDefaultCollisions(true, 12, 24, 40, 37);
+                    setDefaultCollisions(true, 24, 0, 30, 50);
                 }
             }
         }
@@ -98,7 +98,7 @@ public abstract class Item extends SuperObject {
             super(gp, "Egg");
             // import image
             image = importImage("/objects/item/ingredients/stationaryEgg", gp.tileSize);
-            setDefaultCollisions(true, 12, 24, 40, 37);
+            setDefaultCollisions(true, 0, 12, 40, 64);
         }
     }
 
@@ -143,7 +143,7 @@ public abstract class Item extends SuperObject {
         public stationaryOnion(GamePanel gp) {
             super(gp, "stationaryOnion");
             image = importImage("/objects/item/ingredients/onion_raw", gp.tileSize);
-            setDefaultCollisions(true, 12, 24, 40, 37);
+            setDefaultCollisions(true, 0, 12, 40, 64);
         }
 
     }
@@ -164,7 +164,7 @@ public abstract class Item extends SuperObject {
         public leftChoppingBoard(GamePanel gp) {
             super(gp, "leftChoppingBoard");
             image = importImage("/objects/item/kitchenArea/leftChoppingBoard", gp.tileSize);
-            setDefaultCollisions(true, 12, 24, 40, 37);
+            setDefaultCollisions(true, 0, 24, 67, 37);
         }
 
     }
@@ -178,7 +178,7 @@ public abstract class Item extends SuperObject {
             public leftCounter(GamePanel gp) {
                 super(gp);
                 image = importImage("/objects/item/kitchenArea/leftCounter", gp.tileSize);
-                setDefaultCollisions(true, 12, 24, 40, 37);
+                setDefaultCollisions(true, 0, 0, 55, 64);
             }
 
         }
@@ -187,7 +187,7 @@ public abstract class Item extends SuperObject {
             public rightCounter(GamePanel gp) {
                 super(gp);
                 image = importImage("/objects/item/kitchenArea/rightCounter", gp.tileSize);
-                setDefaultCollisions(true, 12, 24, 40, 37);
+                setDefaultCollisions(true, 12, 24, 50, 64);
             }
 
         }
@@ -197,7 +197,7 @@ public abstract class Item extends SuperObject {
             public leftCornerTable(GamePanel gp) {
                 super(gp);
                 image = importImage("/objects/item/kitchenArea/leftCornerTable", gp.tileSize);
-                setDefaultCollisions(true, 12, 24, 40, 37);
+                setDefaultCollisions(true, 0, 0, 58, 64);
             }
 
         }
@@ -207,7 +207,7 @@ public abstract class Item extends SuperObject {
             public leftRiceCooker(GamePanel gp) {
                 super(gp);
                 image = importImage("/objects/item/kitchenArea/leftRiceCooker", gp.tileSize);
-                setDefaultCollisions(true, 12, 24, 40, 37);
+                setDefaultCollisions(true, 0, 0, 58, 64);
             }
 
         }
@@ -217,7 +217,7 @@ public abstract class Item extends SuperObject {
             public leftStove(GamePanel gp) {
                 super(gp);
                 image = importImage("/objects/item/kitchenArea/leftStove", gp.tileSize);
-                setDefaultCollisions(true, 12, 24, 40, 37);
+                setDefaultCollisions(true, 0, 0, 58, 64);
             }
 
         }
@@ -227,7 +227,7 @@ public abstract class Item extends SuperObject {
             public leftStraightTable(GamePanel gp) {
                 super(gp);
                 image = importImage("/objects/item/kitchenArea/leftStraightTable", gp.tileSize);
-                setDefaultCollisions(true, 12, 24, 40, 37);
+                setDefaultCollisions(true, 0, 0, 58, 64);
             }
 
         }
