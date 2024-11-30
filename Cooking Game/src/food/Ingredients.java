@@ -1,6 +1,8 @@
 package food;
 
-public class Ingredients extends Dish { // tama ba
+import interfaces.Importable;
+
+public class Ingredients implements Importable {
 
 
     // inner classes
