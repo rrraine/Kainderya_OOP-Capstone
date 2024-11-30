@@ -4,6 +4,7 @@ import entity.Entity;
 import entity.NPC;
 import entity.Player;
 import object.Item;
+import object.RefillStation;
 import object.SuperObject;
 import object.WorkStation;
 
@@ -48,57 +49,57 @@ public class Utility {
                 addItem(3, obj, new Item.Stool(gp), tileSize, 13, 11);
                 addItem(4, obj, new Item.Stool(gp), tileSize, 14, 11);
                 addItem(5, obj, new Item.Door(gp), tileSize, 7, 11);
-                addItem(6, obj, new Item.Tables.leftTable(gp), tileSize, 10, 10);
-                addItem(7, obj, new Item.Tables.middleTable(gp), tileSize, 11, 10);
-                addItem(8, obj, new Item.Tables.middleTable(gp), tileSize, 12, 10);
-                addItem(9, obj, new Item.Tables.middleTable(gp), tileSize, 13, 10);
-                addItem(10, obj, new Item.Tables.rightTable(gp), tileSize, 14, 10);
+                addItem(6, obj, new WorkStation.Tables.leftTable(gp), tileSize, 10, 10);
+                addItem(7, obj, new WorkStation.Tables.middleTable(gp), tileSize, 11, 10);
+                addItem(8, obj, new WorkStation.Tables.middleTable(gp), tileSize, 12, 10);
+                addItem(9, obj, new WorkStation.Tables.middleTable(gp), tileSize, 13, 10);
+                addItem(10, obj, new WorkStation.Tables.rightTable(gp), tileSize, 14, 10);
 
-                addItem(11, obj, new Item.Tables.outsideLowerTable(gp), tileSize, 5, 9);
-                addItem(12, obj, new Item.Tables.outsideUpperTable(gp), tileSize, 5, 8);
-                addItem(13, obj, new Item.Tables.outsideLowerTable(gp), tileSize, 5, 6);
-                addItem(14, obj, new Item.Tables.outsideUpperTable(gp), tileSize, 5, 5);
+                addItem(11, obj, new WorkStation.Tables.outsideLowerTable(gp), tileSize, 5, 9);
+                addItem(12, obj, new WorkStation.Tables.outsideUpperTable(gp), tileSize, 5, 8);
+                addItem(13, obj, new WorkStation.Tables.outsideLowerTable(gp), tileSize, 5, 6);
+                addItem(14, obj, new WorkStation.Tables.outsideUpperTable(gp), tileSize, 5, 5);
 
                 addItem(15, obj, new Item.Stool1(gp), tileSize, 4, 9);
                 addItem(16, obj, new Item.Stool1(gp), tileSize, 4, 8);
                 addItem(17, obj, new Item.Stool1(gp), tileSize, 4, 6);
                 addItem(18, obj, new Item.Stool1(gp), tileSize, 4, 5);
 
-                addItem(19, obj, new Item.KitchenIsland.leftChoppingBoard(gp), tileSize, 9, 7);
-                addItem(20, obj, new Item.KitchenIsland.middleKitchenIsland(gp), tileSize, 10, 7);
-                addItem(21, obj, new Item.KitchenIsland.middleKitchenIsland(gp), tileSize, 11, 7);
-                addItem(22, obj, new Item.KitchenIsland.middleKitchenIsland(gp), tileSize, 12, 7);
-                addItem(23, obj, new Item.KitchenIsland.rightKitchenIsland(gp), tileSize, 13, 7);
+                addItem(19, obj, new WorkStation.KitchenIsland.leftChoppingBoard(gp), tileSize, 9, 7);
+                addItem(20, obj, new WorkStation.KitchenIsland.middleKitchenIsland(gp), tileSize, 10, 7);
+                addItem(21, obj, new WorkStation.KitchenIsland.middleKitchenIsland(gp), tileSize, 11, 7);
+                addItem(22, obj, new WorkStation.KitchenIsland.middleKitchenIsland(gp), tileSize, 12, 7);
+                addItem(23, obj, new WorkStation.KitchenIsland.rightKitchenIsland(gp), tileSize, 13, 7);
 
-                addItem(24, obj, new Item.KitchenIsland.leftKitchenIsland(gp), tileSize, 9, 4);
-                addItem(25, obj, new Item.centerSink(gp), tileSize, 10, 4);
-                addItem(26, obj, new Item.KitchenIsland.middleKitchenIsland(gp), tileSize, 11, 4);
-                addItem(27, obj, new Item.KitchenIsland.middleKitchenIsland(gp), tileSize, 12, 4);
-                addItem(28, obj, new Item.KitchenIsland.rightKitchenIsland(gp), tileSize, 13, 4);
-                addItem(29, obj, new Item.lowerRef(gp), tileSize, 8, 4);
-                addItem(30, obj, new Item.riceSack(gp), tileSize, 14, 4);
+                addItem(24, obj, new WorkStation.KitchenIsland.leftKitchenIsland(gp), tileSize, 9, 4);
+                addItem(25, obj, new WorkStation.centerSink(gp), tileSize, 10, 4);
+                addItem(26, obj, new WorkStation.KitchenIsland.middleKitchenIsland(gp), tileSize, 11, 4);
+                addItem(27, obj, new WorkStation.KitchenIsland.middleKitchenIsland(gp), tileSize, 12, 4);
+                addItem(28, obj, new WorkStation.KitchenIsland.rightKitchenIsland(gp), tileSize, 13, 4);
+                addItem(29, obj, new WorkStation.lowerRef(gp), tileSize, 8, 4);
+                addItem(30, obj, new RefillStation.riceSack(gp), tileSize, 14, 4);
 
-                addItem(31, obj, new Item.Counter.leftCornerTable(gp), tileSize, 6, 8);
-                addItem(32, obj, new Item.Counter.leftRiceCooker(gp), tileSize, 6, 4);
-                addItem(33, obj, new Item.Counter.leftStraightTable(gp), tileSize, 6, 6);
-                addItem(34, obj, new Item.Counter.leftStove(gp), tileSize, 6, 7);
-                addItem(35, obj, new Item.Counter.leftStraightTable(gp), tileSize, 6, 5);
+                addItem(31, obj, new WorkStation.Counter.leftCornerTable(gp), tileSize, 6, 8);
+                addItem(32, obj, new WorkStation.Counter.leftRiceCooker(gp), tileSize, 6, 4);
+                addItem(33, obj, new WorkStation.Counter.leftStraightTable(gp), tileSize, 6, 6);
+                addItem(34, obj, new WorkStation.Counter.leftStove(gp), tileSize, 6, 7);
+                addItem(35, obj, new WorkStation.Counter.leftStraightTable(gp), tileSize, 6, 5);
 
-                addItem(36, obj, new Item.stationaryEgg(gp), tileSize, 15, 8);
-                addItem(37, obj, new Item.stationaryOnion(gp), tileSize, 15, 9);
+                addItem(36, obj, new RefillStation.stationaryEgg(gp), tileSize, 15, 8);
+                addItem(37, obj, new RefillStation.stationaryOnion(gp), tileSize, 15, 9);
 
-                addItem(38, obj, new Item.waterDispenser(gp), tileSize, 15, 4);
+                addItem(38, obj, new RefillStation.WaterDispenser(gp), tileSize, 15, 4);
 
                 addItem(39, obj, new Item.rightWall(gp), tileSize, 15, 5);
                 addItem(40, obj, new Item.rightWall(gp), tileSize, 15, 6);
                 addItem(41, obj, new Item.rightWall(gp), tileSize, 15, 7);
 
-                addItem(42, obj, new Item.stationarySpam(gp), tileSize, 11, 4);
-                addItem(43, obj, new Item.stationaryCornedBeef(gp), tileSize, 13, 4);
-                addItem(44, obj, new Item.stationaryTapa(gp), tileSize, 8, 4);
+                addItem(42, obj, new RefillStation.stationarySpam(gp), tileSize, 11, 4);
+                addItem(43, obj, new RefillStation.stationaryCornedBeef(gp), tileSize, 13, 4);
+                addItem(44, obj, new RefillStation.stationaryTapa(gp), tileSize, 8, 4);
 
-                addItem(45, obj, new Item.stationaryTapa(gp), tileSize, 8, 4);
-                addItem(46, obj, new Item.stationaryTapa(gp), tileSize, 8, 4);
+                addItem(45, obj, new RefillStation.stationaryTapa(gp), tileSize, 8, 4);
+                addItem(46, obj, new RefillStation.stationaryTapa(gp), tileSize, 8, 4);
 
                 addItem(47, obj, new Item.Pan(gp), tileSize, 6, 6);
                 addItem(48, obj, new Item.Pan(gp), tileSize, 6, 8);
@@ -115,6 +116,15 @@ public class Utility {
                 addItem(57, obj, new Item.rightShelf1(gp), tileSize, 15, 5);
                 addItem(58, obj, new Item.rightShelf2(gp), tileSize, 15, 6);
 
+                addItem(59, obj, new Item.Plates.counterPlates(gp), tileSize, 6, 5);
+                addItem(60, obj, new Item.Plates.counterPlates(gp), tileSize, 9, 4);
+                addItem(61, obj, new Item.Plates.counterPlates(gp), tileSize, 10, 7);
+                addItem(62, obj, new Item.Plates.counterPlates(gp), tileSize, 11, 7);
+                addItem(63, obj, new Item.Plates.counterPlates(gp), tileSize, 12, 7);
+                addItem(64, obj, new Item.Plates.counterPlates(gp), tileSize, 13, 7);
+                addItem(65, obj, new Item.Plates.counterPlates(gp), tileSize, 12, 4);
+
+                addItem(66, obj, new RefillStation.VendingMachine(gp), tileSize, 2, 3);
 
             } catch (NullPointerException e) {
                 System.err.println("Accessing null element in (List<SuperObject> obj): " + e.getMessage());
