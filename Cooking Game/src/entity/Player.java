@@ -257,7 +257,7 @@ public class Player extends Entity {
     private void setDefaultPlayerValues() {
 
         // STARTING POSITION
-        this.worldX = gp.tileSize * 13; // 23
+        this.worldX = gp.tileSize * 5; // 23
         this.worldY = gp.tileSize * 7; // 21
 
         int seconds = 8;
