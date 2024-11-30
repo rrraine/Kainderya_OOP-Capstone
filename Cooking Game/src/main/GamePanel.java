@@ -6,7 +6,7 @@ import entity.Player;
 import game.Time;
 import object.SuperObject;
 import tile.TileManager;
-import ui.UIControl;
+import ui.UIFactory;
 
 import javax.swing.*;
 import java.awt.*;
@@ -51,7 +51,7 @@ public class GamePanel extends JPanel implements Runnable {
     Sound music = new Sound();
     Sound sfx = new Sound();
     Time time = Time.instantiate(this);
-    UIControl uiM = UIControl.instantiate(this, time);
+    UIFactory uiM = UIFactory.instantiate(this, time);
     KeyBindings keyB = KeyBindings.instantiate(this, uiM);
     EventHandler eH = EventHandler.instantiate(this);
     Thread gameThread;
@@ -311,4 +311,7 @@ public class GamePanel extends JPanel implements Runnable {
         this.keyB = keyB;
     }
 
+    public Graphics2D getG2() {
+        return g2;
+    }
 }
