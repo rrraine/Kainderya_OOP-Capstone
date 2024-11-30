@@ -23,7 +23,7 @@ public class PlayUI extends UI implements Drawable {
 
             g2.setFont(fredokaSemiBold);
             g2.setFont(g2.getFont().deriveFont(18F));
-            
+
             // PLAYER NAME
             int x = Utility.Aligner.centerTextOnAvatar(gp.player.getPlayerName(), gp, g2);
             int y = gp.player.getPlayerCenteredScreenY() - 10;
