@@ -1,6 +1,8 @@
 
 package object;
 
+import animation.AnimationFactory;
+import entity.Entity;
 import main.GamePanel;
 
 public abstract class WorkStation extends Station{
@@ -24,6 +26,11 @@ public abstract class WorkStation extends Station{
         public Counter(GamePanel gp, String name) {
             super(gp, name);
         }
+
+        @Override
+        public void interact(Entity en, AnimationFactory animF) {
+
+        }
     }
 
     public static class Sink extends WorkStation{
@@ -31,12 +38,22 @@ public abstract class WorkStation extends Station{
         public Sink(GamePanel gp, String name) {
             super(gp, name);
         }
+
+        @Override
+        public void interact(Entity en, AnimationFactory animF) {
+
+        }
     }
 
     public static class Stove extends WorkStation{
 
         public Stove(GamePanel gp, String name) {
             super(gp, name);
+        }
+
+        @Override
+        public void interact(Entity en, AnimationFactory animF) {
+
         }
     }
 

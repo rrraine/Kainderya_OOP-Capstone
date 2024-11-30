@@ -1,5 +1,7 @@
 package object;
 
+import animation.AnimationFactory;
+import entity.Entity;
 import main.GamePanel;
 
 public abstract class RefillStation extends Station{
@@ -13,12 +15,22 @@ public abstract class RefillStation extends Station{
         public TapaContainer(GamePanel gp, String name) {
             super(gp, name);
         }
+
+        @Override
+        public void interact(Entity en, AnimationFactory animF) {
+
+        }
     }
 
     public static class CornedBeefContainer extends RefillStation{
 
         public CornedBeefContainer(GamePanel gp, String name) {
             super(gp, name);
+        }
+
+        @Override
+        public void interact(Entity en, AnimationFactory animF) {
+
         }
     }
 
@@ -27,6 +39,11 @@ public abstract class RefillStation extends Station{
         public SpamContainer(GamePanel gp, String name) {
             super(gp, name);
         }
+
+        @Override
+        public void interact(Entity en, AnimationFactory animF) {
+
+        }
     }
 
     public static class EggContainer extends RefillStation{
@@ -34,12 +51,22 @@ public abstract class RefillStation extends Station{
         public EggContainer(GamePanel gp, String name) {
             super(gp, name);
         }
+
+        @Override
+        public void interact(Entity en, AnimationFactory animF) {
+
+        }
     }
 
     public static class RiceContainer extends RefillStation{
 
         public RiceContainer(GamePanel gp, String name) {
             super(gp, name);
+        }
+
+        @Override
+        public void interact(Entity en, AnimationFactory animF) {
+
         }
     }
 

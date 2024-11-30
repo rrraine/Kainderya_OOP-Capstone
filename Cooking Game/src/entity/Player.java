@@ -66,6 +66,7 @@ public class Player extends Entity {
 
         // ANIMATION FACTORY
         animF = AnimationFactory.instantiate(gp, playerAvatar.toLowerCase());
+        animF.switchState(AnimationState.BASE);
 
         // PLAYER CENTERED ON SCREEN
         playerCenteredScreenX = gp.screenWidth / 2 - (gp.tileSize /2);
@@ -101,7 +102,7 @@ public class Player extends Entity {
             else if (keyB.isLeftPressed()) { direction = "left"; }
             else { direction = "right"; }
 
-            animF.switchState(AnimationState.BASE);
+            //animF.switchState(AnimationState.BASE);
 
             // sprint
             if (sprint()) {
@@ -194,7 +195,7 @@ public class Player extends Entity {
         }
         // else idle
         else {
-            animF.switchState(AnimationState.BASE);
+            //animF.switchState(AnimationState.BASE);
 
             stamina++;
             if (stamina > maxStamina) stamina = maxStamina;
@@ -298,6 +299,10 @@ public class Player extends Entity {
 
                 if (obj instanceof Item) {
 
+                    if (obj instanceof Item.stationaryOnion) {
+                        ((Item.stationaryOnion) obj).interact(this, animF);
+                        //obj.interact(this, animF);
+                    }
                 }
 
                 if (obj instanceof WorkStation) {

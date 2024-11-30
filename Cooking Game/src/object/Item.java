@@ -1,6 +1,11 @@
 package object;
 
+import animation.AnimationFactory;
+import animation.AnimationState;
+import entity.Entity;
+import entity.Player;
 import interfaces.Importable;
+import interfaces.Interactable;
 import main.GamePanel;
 
 public abstract class Item extends SuperObject {
@@ -23,7 +28,10 @@ public abstract class Item extends SuperObject {
             image = importImage("/objects/item/diningArea/stool", gp.tileSize);
             setDefaultCollisions(true, 12, 24, 40, 37);
         }
-    }
+
+        @Override
+        public void interact(Entity en, AnimationFactory animF) {}
+            }
 
     public static class Stool1 extends Item implements Importable {
         public Stool1(GamePanel gp) {
@@ -31,6 +39,11 @@ public abstract class Item extends SuperObject {
             image = importImage("/objects/item/diningArea/stool", gp.tileSize);
             // To do: Ayusin anf collision
             setDefaultCollisions(true, 12, 24, 30, 27);
+        }
+
+        @Override
+        public void interact(Entity en, AnimationFactory animF) {
+
         }
     }
 
@@ -41,6 +54,13 @@ public abstract class Item extends SuperObject {
             super(gp, "Door");
             image = importImage("/objects/oldFiles/item/door/door", gp.tileSize);
         }
+
+        @Override
+        public void interact(Entity en, AnimationFactory animF) {
+            //if (en instanceof Player) {
+              //  animF.switchState(AnimationState.CARRY_ONION);
+            //}
+        }
     }
 
     public static class Tables extends Item implements Importable{
@@ -48,11 +68,18 @@ public abstract class Item extends SuperObject {
             super(gp, "Tables");
         }
 
+        public void interact(Entity en, AnimationFactory animF) {
+            if (en instanceof Player) {
+                //animF.switchState(AnimationState.CARRY_ONION);
+            }
+        }
         public static class leftTable extends Tables implements Importable{
             public leftTable(GamePanel gp){
                 super(gp);
                 image = importImage("/objects/item/diningArea/leftTable", gp.tileSize);
                 setDefaultCollisions(true, 12, 24, 40, 37);
+
+
             }
         }
 
@@ -97,6 +124,12 @@ public abstract class Item extends SuperObject {
             image = importImage("/objects/item/ingredients/stationaryEgg", gp.tileSize);
             setDefaultCollisions(true, 0, 12, 40, 64);
         }
+
+        public void interact(Entity en, AnimationFactory animF) {
+            if (en instanceof Player) {
+                animF.switchState(AnimationState.CARRY_EGG);
+            }
+        }
     }
 
     public static class stationarySpam extends Item implements Importable {
@@ -104,6 +137,12 @@ public abstract class Item extends SuperObject {
             super(gp, "stationarySpam");
             image = importImage ("/objects/item/ingredients/stationarySpam", gp.tileSize);
             setDefaultCollisions(true, 12, 24, 40, 37);
+        }
+
+        public void interact(Entity en, AnimationFactory animF) {
+            if (en instanceof Player) {
+                animF.switchState(AnimationState.CARRY_SPAM);
+            }
         }
 
     }
@@ -115,6 +154,12 @@ public abstract class Item extends SuperObject {
             setDefaultCollisions(true, 12, 24, 40, 37);
         }
 
+        public void interact(Entity en, AnimationFactory animF) {
+            if (en instanceof Player) {
+                animF.switchState(AnimationState.CARRY_CORNEDBEEF);
+            }
+        }
+
     }
 
     public static class riceSack extends Item implements Importable {
@@ -122,6 +167,11 @@ public abstract class Item extends SuperObject {
             super(gp, "RiceSack");
             image = importImage("/objects/item/ingredients/riceSack", gp.tileSize);
             setDefaultCollisions(true, 0, 0, 64, 40);
+        }
+        public void interact(Entity en, AnimationFactory animF) {
+            if (en instanceof Player) {
+                animF.switchState(AnimationState.CARRY_RAW_RICE);
+            }
         }
     }
 
@@ -132,7 +182,11 @@ public abstract class Item extends SuperObject {
             image = importImage("/objects/item/ingredients/stationaryTapa", gp.tileSize);
             setDefaultCollisions(true, 20, 0, 46, 44);
         }
-
+        public void interact(Entity en, AnimationFactory animF) {
+            if (en instanceof Player) {
+                animF.switchState(AnimationState.CARRY_TAPA);
+            }
+        }
     }
 
     public static class stationaryOnion extends Item implements Importable {
@@ -141,6 +195,15 @@ public abstract class Item extends SuperObject {
             super(gp, "stationaryOnion");
             image = importImage("/objects/item/ingredients/onion_raw", gp.tileSize);
             setDefaultCollisions(true, 0, 12, 40, 64);
+        }
+
+        @Override
+        public void interact(Entity en, AnimationFactory animF) {
+
+            if (en instanceof Player) {
+
+                animF.switchState(AnimationState.CARRY_ONION);
+            }
         }
 
     }
@@ -153,6 +216,12 @@ public abstract class Item extends SuperObject {
             setDefaultCollisions(true, 12, 24, 40, 37);
         }
 
+        public void interact(Entity en, AnimationFactory animF) {
+            if(en instanceof Player) {
+                //animF.switchState(AnimationState.CARRY_ONION);
+            }
+        }
+
     }
 
     public static class leftChoppingBoard extends Item implements Importable {
@@ -161,6 +230,12 @@ public abstract class Item extends SuperObject {
             super(gp, "leftChoppingBoard");
             image = importImage("/objects/item/kitchenArea/leftChoppingBoard", gp.tileSize);
             setDefaultCollisions(true, 0, 24, 67, 37);
+        }
+
+        public void interact(Entity en, AnimationFactory animF) {
+            if (en instanceof Player) {
+                //animF.switchState(AnimationState.CARRY_ONION);
+            }
         }
 
     }
@@ -228,6 +303,11 @@ public abstract class Item extends SuperObject {
 
         }
 
+        public void interact(Entity en, AnimationFactory animF) {
+            if (en instanceof Player) {
+                //animF.switchState(AnimationState.CARRY_ONION);
+            }
+        }
 
     }
 
@@ -246,6 +326,11 @@ public abstract class Item extends SuperObject {
                 image = importImage("/objects/item/kitchenArea/leftKitchenIsland", gp.tileSize);
                 setDefaultCollisions(true, 12, 24, 40, 37);
             }
+            public void interact(Entity en, AnimationFactory animF) {
+                if (en instanceof Player) {
+                    //animF.switchState(AnimationState.CARRY_ONION);
+                }
+            }
 
         }
 
@@ -255,6 +340,12 @@ public abstract class Item extends SuperObject {
                 super(gp, "rightKitchenIsland");
                 image = importImage("/objects/item/kitchenArea/rightKitchenIsland", gp.tileSize);
                 setDefaultCollisions(true, 12, 24, 40, 37);
+            }
+
+            public void interact(Entity en, AnimationFactory animF) {
+                if (en instanceof Player) {
+                    //animF.switchState(AnimationState.CARRY_ONION);
+                }
             }
 
         }
@@ -267,6 +358,15 @@ public abstract class Item extends SuperObject {
                 setDefaultCollisions(true, 12, 24, 40, 37);
             }
 
+            @Override
+            public void interact(Entity en, AnimationFactory animF) {
+
+            }
+        }
+        public void interact(Entity en, AnimationFactory animF) {
+            if (en instanceof Player) {
+                //animF.switchState(AnimationState.CARRY_ONION);
+            }
         }
 
     }
@@ -278,7 +378,11 @@ public abstract class Item extends SuperObject {
             image = importImage("/objects/item/kitchenArea/lowerRef", gp.tileSize);
             setDefaultCollisions(true, 20, 0, 46, 44);
         }
-
+        public void interact(Entity en, AnimationFactory animF) {
+            if (en instanceof Player) {
+                //animF.switchState(AnimationState.CARRY_ONION);
+            }
+        }
     }
 
     public static class waterDispenser extends Item implements Importable {
@@ -287,6 +391,12 @@ public abstract class Item extends SuperObject {
             super(gp, "water dispenser");
             image = importImage("/objects/item/ingredients/waterBot", gp.tileSize);
             setDefaultCollisions(true, 0, 0, 64, 40);
+        }
+
+        public void interact(Entity en, AnimationFactory animF) {
+            if (en instanceof Player) {
+                //animF.switchState(AnimationState.CARRY_ONION);
+            }
         }
 
     }
@@ -298,6 +408,11 @@ public abstract class Item extends SuperObject {
             image = importImage("/objects/item/kitchenArea/rightWall", gp.tileSize);
             setDefaultCollisions(true, 40, 0, 24, 64);
         }
+        public void interact(Entity en, AnimationFactory animF) {
+            if (en instanceof Player) {
+                //animF.switchState(AnimationState.CARRY_ONION);
+            }
+        }
     }
 
     public static class bush extends Item implements Importable{
@@ -305,6 +420,12 @@ public abstract class Item extends SuperObject {
             super (gp, "Bush");
             image = importImage("/objects/item/outsideRestaurant/bush", gp.tileSize);
             setDefaultCollisions(true, 0, 0, 10, 64);
+        }
+
+        public void interact(Entity en, AnimationFactory animF) {
+            if (en instanceof Player) {
+                //animF.switchState(AnimationState.CARRY_ONION);
+            }
         }
     }
 
@@ -315,12 +436,22 @@ public abstract class Item extends SuperObject {
             image = importImage("/objects/item/kitchenArea/rightShelf1", gp.tileSize);
             setDefaultCollisions(true, 20, 20, 44, 54);
         }
+        public void interact(Entity en, AnimationFactory animF) {
+            if (en instanceof Player) {
+                //animF.switchState(AnimationState.CARRY_ONION);
+            }
+        }
     }
     public static class rightShelf2 extends Item implements Importable{
         public rightShelf2(GamePanel gp){
             super (gp, "Right Shelf 2");
             image = importImage("/objects/item/kitchenArea/rightShelf2", gp.tileSize);
             setDefaultCollisions(true, 20, 0, 44, 64);
+        }
+        public void interact(Entity en, AnimationFactory animF) {
+            if (en instanceof Player) {
+                //animF.switchState(AnimationState.CARRY_ONION);
+            }
         }
     }
 
@@ -333,8 +464,14 @@ public abstract class Item extends SuperObject {
             //setDefaultCollisions(true, 12, 24, 40, 37);
         }
 
-    }
+        public void interact(Entity en, AnimationFactory animF) {
+            if (en instanceof Player) {
+                //animF.switchState(AnimationState.CARRY_ONION);
+            }
+        }
 
+    }
+/*
     public static class Water extends Item implements Importable {
 
         public Water (GamePanel gp) {
@@ -430,6 +567,8 @@ public abstract class Item extends SuperObject {
         }
     }
 
+ */
+
             //kitchenTools
     public static class Pan extends Item implements Importable {
         public Pan (GamePanel gp) {
@@ -437,6 +576,11 @@ public abstract class Item extends SuperObject {
             image = importImage("/objects/item/kitchenTools/pan", gp.tileSize);
             setDefaultCollisions(true, 12, 24, 40, 37);
         }
+                public void interact(Entity en, AnimationFactory animF) {
+                    if (en instanceof Player) {
+                        animF.switchState(AnimationState.CARRY_PLATE);
+                    }
+                }
     }
 
     public static class Plates extends Item implements Importable{
@@ -449,6 +593,11 @@ public abstract class Item extends SuperObject {
                 image = importImage("/objects/item/kitchenTools/plateCounter", gp.tileSize);
                 setDefaultCollisions(true, 12, 24, 40, 37);
             }
+            public void interact(Entity en, AnimationFactory animF) {
+                if (en instanceof Player) {
+                    animF.switchState(AnimationState.CARRY_PLATE);
+                }
+            }
         }
 
         public static class diningPlate extends Plates implements Importable{
@@ -456,6 +605,17 @@ public abstract class Item extends SuperObject {
                 super(gp);
                 image = importImage("/objects/item/kitchenTools/plate", gp.tileSize);
                 setDefaultCollisions(true, 12, 24, 40, 37);
+            }
+
+            public void interact(Entity en, AnimationFactory animF) {
+                if (en instanceof Player) {
+                    animF.switchState(AnimationState.CARRY_PLATE);
+                }
+            }
+        }
+        public void interact(Entity en, AnimationFactory animF) {
+            if (en instanceof Player) {
+                animF.switchState(AnimationState.CARRY_PLATE);
             }
         }
     }
