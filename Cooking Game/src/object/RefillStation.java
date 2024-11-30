@@ -1,5 +1,9 @@
 package object;
 
+import animation.AnimationFactory;
+import animation.AnimationState;
+import entity.Entity;
+import entity.Player;
 import interfaces.Importable;
 import main.GamePanel;
 
@@ -15,6 +19,12 @@ public abstract class RefillStation extends Station{
             image = importImage("/objects/item/ingredients/waterBot", gp.tileSize);
             setDefaultCollisions(true, 0, 0, 64, 40);
         }
+
+        public void interact(Entity en, AnimationFactory animF) {
+            if(en instanceof Player){
+                // animF.switchState((AnimationState.CARRY_PAN));
+            }
+        }
     }
 
     public static class VendingMachine extends RefillStation implements Importable {
@@ -22,6 +32,12 @@ public abstract class RefillStation extends Station{
             super(gp, "Vending Machine");
             image = importImage("/objects/item/ingredients/vendingMachine", gp.tileSize);
             setDefaultCollisions(true, 0, 0, 50, 40);
+        }
+
+        public void interact(Entity en, AnimationFactory animF) {
+            if(en instanceof Player){
+                //animF.switchState((AnimationState.CARRY_PAN));
+            }
         }
     }
 
@@ -32,6 +48,11 @@ public abstract class RefillStation extends Station{
             image = importImage("/objects/item/ingredients/stationaryEgg", gp.tileSize);
             setDefaultCollisions(true, 0, 12, 40, 64);
         }
+        public void interact(Entity en, AnimationFactory animF) {
+            if(en instanceof Player){
+                animF.switchState((AnimationState.CARRY_EGG));
+            }
+        }
     }
 
     public static class stationarySpam extends RefillStation implements Importable {
@@ -39,6 +60,12 @@ public abstract class RefillStation extends Station{
             super(gp, "stationarySpam");
             image = importImage ("/objects/item/ingredients/stationarySpam", gp.tileSize);
             setDefaultCollisions(true, 12, 24, 40, 37);
+        }
+
+        public void interact(Entity en, AnimationFactory animF) {
+            if(en instanceof Player){
+                animF.switchState((AnimationState.CARRY_SPAM));
+            }
         }
 
     }
@@ -49,6 +76,11 @@ public abstract class RefillStation extends Station{
             image = importImage ("/objects/item/ingredients/stationaryCornedBeef", gp.tileSize);
             setDefaultCollisions(true, 12, 24, 40, 37);
         }
+        public void interact(Entity en, AnimationFactory animF) {
+            if(en instanceof Player){
+                animF.switchState((AnimationState.CARRY_CORNEDBEEF));
+            }
+        }
 
     }
 
@@ -57,6 +89,11 @@ public abstract class RefillStation extends Station{
             super(gp, "RiceSack");
             image = importImage("/objects/item/ingredients/riceSack", gp.tileSize);
             setDefaultCollisions(true, 0, 0, 64, 40);
+        }
+        public void interact(Entity en, AnimationFactory animF) {
+            if(en instanceof Player){
+                // animF.switchState((AnimationState.CARRY_PAN));
+            }
         }
     }
 
@@ -68,6 +105,12 @@ public abstract class RefillStation extends Station{
             setDefaultCollisions(true, 20, 0, 46, 44);
         }
 
+        public void interact(Entity en, AnimationFactory animF) {
+            if(en instanceof Player){
+                // animF.switchState((AnimationState.CARRY_PAN));
+            }
+        }
+
     }
 
     public static class stationaryOnion extends RefillStation implements Importable {
@@ -76,6 +119,12 @@ public abstract class RefillStation extends Station{
             super(gp, "stationaryOnion");
             image = importImage("/objects/item/ingredients/onion_raw", gp.tileSize);
             setDefaultCollisions(true, 0, 12, 40, 64);
+        }
+
+        public void interact(Entity en, AnimationFactory animF) {
+            if(en instanceof Player){
+                // animF.switchState((AnimationState.CARRY_PAN));
+            }
         }
 
     }

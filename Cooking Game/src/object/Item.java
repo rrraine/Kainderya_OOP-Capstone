@@ -1,5 +1,9 @@
 package object;
 
+import animation.AnimationFactory;
+import animation.AnimationState;
+import entity.Entity;
+import entity.Player;
 import interfaces.Importable;
 import main.GamePanel;
 
@@ -23,6 +27,11 @@ public abstract class Item extends SuperObject {
             image = importImage("/objects/item/diningArea/stool", gp.tileSize);
             setDefaultCollisions(true, 12, 24, 40, 37);
         }
+
+        @Override
+        public void interact(Entity en, AnimationFactory animF) {
+
+        }
     }
 
     public static class Stool1 extends Item implements Importable {
@@ -31,6 +40,11 @@ public abstract class Item extends SuperObject {
             image = importImage("/objects/item/diningArea/stool", gp.tileSize);
             // To do: Ayusin anf collision
             setDefaultCollisions(true, 12, 24, 30, 27);
+        }
+
+        @Override
+        public void interact(Entity en, AnimationFactory animF) {
+
         }
     }
 
@@ -41,6 +55,11 @@ public abstract class Item extends SuperObject {
             super(gp, "Door");
             image = importImage("/objects/oldFiles/item/door/door", gp.tileSize);
         }
+
+        @Override
+        public void interact(Entity en, AnimationFactory animF) {
+
+        }
     }
 
     // kitchenTools -------------------------------
@@ -49,6 +68,13 @@ public abstract class Item extends SuperObject {
             super(gp, "Pan");
             image = importImage("/objects/item/kitchenTools/pan", gp.tileSize);
             setDefaultCollisions(true, 12, 24, 40, 37);
+        }
+
+        @Override
+        public void interact(Entity en, AnimationFactory animF) {
+            if(en instanceof Player){
+                animF.switchState((AnimationState.CARRY_PAN));
+            }
         }
     }
 
@@ -62,6 +88,13 @@ public abstract class Item extends SuperObject {
                 image = importImage("/objects/item/kitchenTools/plateCounter", gp.tileSize);
                 setDefaultCollisions(true, 12, 24, 40, 37);
             }
+
+            @Override
+            public void interact(Entity en, AnimationFactory animF) {
+                if(en instanceof Player){
+                    animF.switchState((AnimationState.CARRY_PAN));
+                }
+            }
         }
 
         public static class diningPlate extends Plates implements Importable{
@@ -69,6 +102,13 @@ public abstract class Item extends SuperObject {
                 super(gp);
                 image = importImage("/objects/item/kitchenTools/plate", gp.tileSize);
                 setDefaultCollisions(true, 12, 24, 40, 37);
+            }
+        }
+
+        @Override
+        public void interact(Entity en, AnimationFactory animF) {
+            if(en instanceof Player){
+               // animF.switchState((AnimationState.CARRY_PAN));
             }
         }
     }
@@ -81,6 +121,11 @@ public abstract class Item extends SuperObject {
             image = importImage("/objects/item/kitchenArea/rightWall", gp.tileSize);
             setDefaultCollisions(true, 40, 0, 24, 64);
         }
+        public void interact(Entity en, AnimationFactory animF) {
+            if(en instanceof Player){
+                // animF.switchState((AnimationState.CARRY_PAN));
+            }
+        }
     }
 
     public static class bush extends Item implements Importable{
@@ -88,6 +133,11 @@ public abstract class Item extends SuperObject {
             super (gp, "Bush");
             image = importImage("/objects/item/outsideRestaurant/bush", gp.tileSize);
             setDefaultCollisions(true, 0, 0, 10, 64);
+        }
+        public void interact(Entity en, AnimationFactory animF) {
+            if(en instanceof Player){
+                // animF.switchState((AnimationState.CARRY_PAN));
+            }
         }
     }
 
@@ -97,6 +147,11 @@ public abstract class Item extends SuperObject {
             image = importImage("/objects/item/kitchenArea/rightShelf1", gp.tileSize);
             setDefaultCollisions(true, 20, 20, 44, 54);
         }
+        public void interact(Entity en, AnimationFactory animF) {
+            if(en instanceof Player){
+                // animF.switchState((AnimationState.CARRY_PAN));
+            }
+        }
     }
 
     public static class rightShelf2 extends Item implements Importable{
@@ -104,6 +159,11 @@ public abstract class Item extends SuperObject {
             super (gp, "Right Shelf 2");
             image = importImage("/objects/item/kitchenArea/rightShelf2", gp.tileSize);
             setDefaultCollisions(true, 20, 0, 44, 64);
+        }
+        public void interact(Entity en, AnimationFactory animF) {
+            if(en instanceof Player){
+                // animF.switchState((AnimationState.CARRY_PAN));
+            }
         }
     }
 
