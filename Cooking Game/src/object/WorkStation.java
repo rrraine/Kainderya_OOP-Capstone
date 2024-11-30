@@ -1,6 +1,9 @@
 
 package object;
 
+import animation.AnimationFactory;
+import entity.Entity;
+import entity.Player;
 import interfaces.Importable;
 import main.GamePanel;
 
@@ -26,11 +29,25 @@ public abstract class WorkStation extends Station{
             super(gp, "Tables");
         }
 
+        public void interact(Entity en, AnimationFactory animF) {
+            if(en instanceof Player){
+                // animF.switchState((AnimationState.CARRY_PAN));
+            }
+        }
+
+
+
         public static class leftTable extends Tables implements Importable{
             public leftTable(GamePanel gp){
                 super(gp);
                 image = importImage("/objects/item/diningArea/leftTable", gp.tileSize);
                 setDefaultCollisions(true, 12, 24, 40, 37);
+            }
+
+            public void interact(Entity en, AnimationFactory animF) {
+                if(en instanceof Player){
+                    // animF.switchState((AnimationState.CARRY_PAN));
+                }
             }
         }
 
@@ -39,6 +56,12 @@ public abstract class WorkStation extends Station{
                 super(gp);
                 image = importImage("/objects/item/diningArea/middleTable", gp.tileSize);
                 setDefaultCollisions(true, 12, 24, 40, 37);
+            }
+
+            public void interact(Entity en, AnimationFactory animF) {
+                if(en instanceof Player){
+                    // animF.switchState((AnimationState.CARRY_PAN));
+                }
             }
         }
 
@@ -76,6 +99,12 @@ public abstract class WorkStation extends Station{
             setDefaultCollisions(true, 12, 24, 40, 37);
         }
 
+        public void interact(Entity en, AnimationFactory animF) {
+            if(en instanceof Player){
+                // animF.switchState((AnimationState.CARRY_PAN));
+            }
+        }
+
     }
 
     public static class leftChoppingBoard extends WorkStation implements Importable {
@@ -86,12 +115,25 @@ public abstract class WorkStation extends Station{
             setDefaultCollisions(true, 0, 24, 67, 37);
         }
 
+        public void interact(Entity en, AnimationFactory animF) {
+            if(en instanceof Player){
+                // animF.switchState((AnimationState.CARRY_PAN));
+            }
+        }
+
     }
 
     public static class Counter extends WorkStation implements Importable{
         public Counter(GamePanel gp) {
             super(gp, "Counter");
         }
+
+        public void interact(Entity en, AnimationFactory animF) {
+            if(en instanceof Player){
+                // animF.switchState((AnimationState.CARRY_PAN));
+            }
+        }
+
         public static class leftCounter extends Counter  {
 
             public leftCounter(GamePanel gp) {
@@ -162,6 +204,12 @@ public abstract class WorkStation extends Station{
             setDefaultCollisions(true, 12, 24, 40, 37);
         }
 
+        public void interact(Entity en, AnimationFactory animF) {
+            if(en instanceof Player){
+                // animF.switchState((AnimationState.CARRY_PAN));
+            }
+        }
+
         public static class leftKitchenIsland extends Item implements Importable {
 
             public leftKitchenIsland(GamePanel gp) {
@@ -170,6 +218,11 @@ public abstract class WorkStation extends Station{
                 setDefaultCollisions(true, 12, 24, 40, 37);
             }
 
+            public void interact(Entity en, AnimationFactory animF) {
+                if(en instanceof Player){
+                    // animF.switchState((AnimationState.CARRY_PAN));
+                }
+            }
         }
 
         public static class rightKitchenIsland extends Item implements Importable {
@@ -178,6 +231,12 @@ public abstract class WorkStation extends Station{
                 super(gp, "rightKitchenIsland");
                 image = importImage("/objects/item/kitchenArea/rightKitchenIsland", gp.tileSize);
                 setDefaultCollisions(true, 12, 24, 40, 37);
+            }
+
+            public void interact(Entity en, AnimationFactory animF) {
+                if(en instanceof Player){
+                    // animF.switchState((AnimationState.CARRY_PAN));
+                }
             }
 
         }
@@ -190,6 +249,12 @@ public abstract class WorkStation extends Station{
                 setDefaultCollisions(true, 12, 24, 40, 37);
             }
 
+            public void interact(Entity en, AnimationFactory animF) {
+                if(en instanceof Player){
+                    // animF.switchState((AnimationState.CARRY_PAN));
+                }
+            }
+
         }
 
     }
@@ -200,6 +265,12 @@ public abstract class WorkStation extends Station{
             super(gp, "lowerRef");
             image = importImage("/objects/item/kitchenArea/lowerRef", gp.tileSize);
             setDefaultCollisions(true, 20, 0, 46, 44);
+        }
+
+        public void interact(Entity en, AnimationFactory animF) {
+            if(en instanceof Player){
+                // animF.switchState((AnimationState.CARRY_PAN));
+            }
         }
 
     }

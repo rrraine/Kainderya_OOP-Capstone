@@ -1,6 +1,7 @@
 package object;
 
 import interfaces.Drawable;
+import interfaces.Interactable;
 import interfaces.Observable;
 import main.Asset;
 import main.GamePanel;
@@ -8,7 +9,7 @@ import main.GamePanel;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
-public abstract class SuperObject extends Asset implements Drawable, Observable {
+public abstract class SuperObject extends Asset implements Drawable, Observable, Interactable {
 
     // ~ FIELDS --------------------------------------------------------------
     Graphics2D g2;
