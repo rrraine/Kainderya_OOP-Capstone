@@ -300,6 +300,8 @@ public class Player extends Entity {
         return keyB.isPlayer1ShiftPressed() && stamina >= 0 && (keyB.isPlayer1UpPressed() || keyB.isPlayer1DownPressed() || keyB.isLeftPressed() || keyB.isPlayer1RightPressed());
     }
 
+
+
     // GETTERS & SETTERS ---------------------------------------------------
     public int getPlayerCenteredScreenX() {
         return playerCenteredScreenX;
