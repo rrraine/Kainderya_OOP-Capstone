@@ -5,6 +5,9 @@ import animation.AnimationState;
 import main.GamePanel;
 import main.KeyBindings;
 import main.Utility;
+import object.Item;
+import object.RefillStation;
+import object.WorkStation;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -129,6 +132,21 @@ public class Player extends Entity {
             // check super-object collision
             int objIndex = Utility.CollisionChecker.entityHitsSuperObject(this, gp.getObj());
             interactSuperObject(objIndex);
+
+            if (objIndex != 999) {
+                System.out.println("YO ARE COLLIDING AGAINST: " + gp.getObj().get(objIndex));
+
+                if (gp.getObj().get(objIndex) instanceof Item) {
+                    System.out.println("ITEM");
+                }
+                else if (gp.getObj().get(objIndex) instanceof WorkStation) {
+                    System.out.println("WorkStation");
+                }
+                if (gp.getObj().get(objIndex) instanceof RefillStation) {
+                    System.out.println("RefillStation");
+                }
+            }
+
 
             // check npc collision
             int npcIndex = Utility.CollisionChecker.entityHitsNPC(this, gp.getNpc());
