@@ -456,7 +456,7 @@ public class Utility {
 
             int textWidth = (int) g2.getFontMetrics().getStringBounds(text, g2).getWidth();
             int halfTile = gp.player.getPlayerCenteredScreenX() + (gp.tileSize/2);
-            return halfTile - (textWidth * 6);
+            return halfTile - (textWidth / 2);
         }
     }
 
