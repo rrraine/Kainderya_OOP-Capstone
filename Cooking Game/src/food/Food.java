@@ -6,6 +6,7 @@ import main.GamePanel;
 import object.SuperObject;
 
 import java.awt.image.BufferedImage;
+import java.util.List;
 
 public abstract class Food extends Asset implements Importable {
 
@@ -15,6 +16,7 @@ public abstract class Food extends Asset implements Importable {
 
     BufferedImage food;
     String name;
+    protected List<Ingredients> ingredients;
 
     public Food(GamePanel gp, String name) {
         super(gp);
@@ -25,4 +27,9 @@ public abstract class Food extends Asset implements Importable {
     void loadImage(String path) {
         food = importImage(path, gp.tileSize);
     }
+
+    public void addIngredient(Ingredients i) {
+        ingredients.add(i);
+    }
+    public abstract void prepare();
 }

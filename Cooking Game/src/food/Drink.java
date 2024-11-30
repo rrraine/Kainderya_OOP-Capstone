@@ -7,6 +7,13 @@ public abstract class Drink extends Food {
         super(gp, name);
     }
 
+    @Override
+    public void prepare() {
+        for (Ingredients ingredient : ingredients) {
+            System.out.println("Adding ingredient: " + ingredient.getClass().getSimpleName());
+        }
+    }
+
     // inner classes
     public static class Water extends Drink{
 
