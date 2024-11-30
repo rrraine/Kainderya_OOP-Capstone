@@ -12,6 +12,7 @@ import object.WorkStation;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.sql.Ref;
 import java.util.List;
 
 public class Player extends Entity {
@@ -101,8 +102,6 @@ public class Player extends Entity {
             else if (keyB.isPlayer1DownPressed()) { direction = "down"; }
             else if (keyB.isLeftPressed()) { direction = "left"; }
             else { direction = "right"; }
-
-            //animF.switchState(AnimationState.BASE);
 
             // sprint
             if (sprint()) {
@@ -195,7 +194,6 @@ public class Player extends Entity {
         }
         // else idle
         else {
-            //animF.switchState(AnimationState.BASE);
 
             stamina++;
             if (stamina > maxStamina) stamina = maxStamina;
@@ -295,26 +293,12 @@ public class Player extends Entity {
             SuperObject obj = gp.getObj().get(i);
 
             // IF INTERACT EXECUTED
-            if (keyB.isPlayer1EnterPressed()) {
-
-                if (obj instanceof Item) {
-
-                    if (obj instanceof Item.stationaryOnion) {
-                        ((Item.stationaryOnion) obj).interact(this, animF);
-                        //obj.interact(this, animF);
-                    }
-                }
-
-                if (obj instanceof WorkStation) {
-
-                }
-
-                if (obj instanceof RefillStation) {
-
-                }
+            if (keyB.isPlayer1EnterPressed() && obj instanceof SuperObject ) {
+                obj.interact(this, animF);
             }
 
         }
+
     }
     private void interactNPC(int i) {
 
@@ -327,6 +311,8 @@ public class Player extends Entity {
 
         return keyB.isPlayer1ShiftPressed() && stamina >= 0 && (keyB.isPlayer1UpPressed() || keyB.isPlayer1DownPressed() || keyB.isLeftPressed() || keyB.isPlayer1RightPressed());
     }
+
+
 
     // GETTERS & SETTERS ---------------------------------------------------
     public int getPlayerCenteredScreenX() {

@@ -94,9 +94,8 @@ public class KeyBindings implements KeyListener {
         if (code == KeyEvent.VK_SHIFT) {
             player1ShiftPressed = false;
         }
-
         if (code == KeyEvent.VK_F) {
-            player1FPressed = false;
+            player1EnterPressed = false;
         }
 
         // PLAYER 2 CONTROLS
@@ -114,6 +113,9 @@ public class KeyBindings implements KeyListener {
         }
         if (code == KeyEvent.VK_CONTROL) {
             player2ShiftPressed = false;
+        }
+        if (code == KeyEvent.VK_ENTER) {
+            player2EnterPressed = false;
         }
     }
     @Override
