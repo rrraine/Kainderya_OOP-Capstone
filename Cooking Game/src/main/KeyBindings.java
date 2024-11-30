@@ -94,9 +94,8 @@ public class KeyBindings implements KeyListener {
         if (code == KeyEvent.VK_SHIFT) {
             player1ShiftPressed = false;
         }
-
         if (code == KeyEvent.VK_F) {
-            player1FPressed = false;
+            player1EnterPressed = false;
         }
 
         // PLAYER 2 CONTROLS
@@ -114,6 +113,9 @@ public class KeyBindings implements KeyListener {
         }
         if (code == KeyEvent.VK_CONTROL) {
             player2ShiftPressed = false;
+        }
+        if (code == KeyEvent.VK_ENTER) {
+            player2EnterPressed = false;
         }
     }
     @Override
@@ -303,6 +305,7 @@ public class KeyBindings implements KeyListener {
         if (code == KeyEvent.VK_S) { player1DownPressed = true; }
         if (code == KeyEvent.VK_A) { player1LeftPressed = true; }
         if (code == KeyEvent.VK_D) { player1RightPressed = true; }
+        if (code == KeyEvent.VK_F) { player1EnterPressed = true; }
         if (code == KeyEvent.VK_SHIFT) { player1ShiftPressed = true; }
 
         // player 2 movement
@@ -310,6 +313,7 @@ public class KeyBindings implements KeyListener {
         if (code == KeyEvent.VK_DOWN) { player2DownPressed = true; }
         if (code == KeyEvent.VK_LEFT) { player2LeftPressed = true; }
         if (code == KeyEvent.VK_RIGHT) { player2RightPressed = true; }
+        if (code == KeyEvent.VK_ENTER) { player2EnterPressed = true; }
         if (code == KeyEvent.VK_CONTROL) { player2ShiftPressed = true; }
 
         // options

@@ -7,10 +7,12 @@ import main.KeyBindings;
 import main.Utility;
 import object.Item;
 import object.RefillStation;
+import object.SuperObject;
 import object.WorkStation;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.sql.Ref;
 import java.util.List;
 
 public class Player extends Entity {
@@ -67,6 +69,7 @@ public class Player extends Entity {
 
         // ANIMATION FACTORY
         animF = AnimationFactory.instantiate(gp, playerAvatar.toLowerCase());
+        animF.switchState(AnimationState.BASE);
 
         // PLAYER CENTERED ON SCREEN
         playerCenteredScreenX = gp.screenWidth / 2 - (gp.tileSize /2);
@@ -101,8 +104,6 @@ public class Player extends Entity {
             else if (keyB.isPlayer1DownPressed()) { direction = "down"; }
             else if (keyB.isLeftPressed()) { direction = "left"; }
             else { direction = "right"; }
-
-            animF.switchState(AnimationState.BASE);
 
             // sprint
             if (sprint()) {
@@ -195,7 +196,6 @@ public class Player extends Entity {
         }
         // else idle
         else {
-            animF.switchState(AnimationState.BASE);
 
             stamina++;
             if (stamina > maxStamina) stamina = maxStamina;
@@ -288,7 +288,19 @@ public class Player extends Entity {
 
         if (i != 999) {
             // TODO
+            // USE .INTERACT HERE
+            // CHECK WHAT INSTANCE
+            // THEN DEFINE THE INTERACT METHOD IN THE ABSTRACT CLASS
+
+            SuperObject obj = gp.getObj().get(i);
+
+            // IF INTERACT EXECUTED
+            if (keyB.isPlayer1EnterPressed() && obj instanceof SuperObject ) {
+                obj.interact(this, animF);
+            }
+
         }
+
     }
     private void interactNPC(int i) {
 
@@ -301,6 +313,8 @@ public class Player extends Entity {
 
         return keyB.isPlayer1ShiftPressed() && stamina >= 0 && (keyB.isPlayer1UpPressed() || keyB.isPlayer1DownPressed() || keyB.isLeftPressed() || keyB.isPlayer1RightPressed());
     }
+
+
 
     // GETTERS & SETTERS ---------------------------------------------------
     public int getPlayerCenteredScreenX() {

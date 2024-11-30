@@ -236,7 +236,6 @@ public class GamePanel extends JPanel implements Runnable {
     private void newGame() {
         newGame = true;
         time.reinitialize();
-
     }
 
 
