@@ -223,7 +223,7 @@ public class Player extends Entity {
 
         // STARTING POSITION
         this.worldX = gp.tileSize * 13; // 23
-        this.worldY = gp.tileSize * 10; // 21
+        this.worldY = gp.tileSize * 7; // 21
 
         int seconds = 8;
         maxStamina = seconds * GamePanel.FPS;
