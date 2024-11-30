@@ -1,15 +1,20 @@
 package entity;
 
+import animation.AnimationFactory;
+import animation.AnimationState;
 import main.GamePanel;
 import main.KeyBindings;
 import main.Utility;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.util.List;
 
 public class Player extends Entity {
 
     // ~ FIELDS ---------------------------------------------------
+    AnimationFactory animF;
+
     private final KeyBindings keyB;
 
     // PLAYER SCREEN COORDINATES ALWAYS IN CENTER
@@ -55,6 +60,9 @@ public class Player extends Entity {
         this.playerAvatar = playerAvatar;
         this.playerName = playerName;
 
+        // ANIMATION FACTORY
+        animF = AnimationFactory.instantiate(gp, playerAvatar.toLowerCase());
+
         // PLAYER CENTERED ON SCREEN
         playerCenteredScreenX = gp.screenWidth / 2 - (gp.tileSize /2);
         playerCenteredScreenY = gp.screenHeight / 2 - (gp.tileSize /2);
@@ -72,6 +80,10 @@ public class Player extends Entity {
 
 
     // FROM CLASS: ENTITY ---------------------------------------------------
+
+
+
+
     @Override
     public void update() {
 
@@ -84,6 +96,8 @@ public class Player extends Entity {
             else if (keyB.isPlayer1DownPressed()) { direction = "down"; }
             else if (keyB.isLeftPressed()) { direction = "left"; }
             else { direction = "right"; }
+
+            animF.switchState(AnimationState.BASE);
 
             // sprint
             if (sprint()) {
@@ -161,6 +175,8 @@ public class Player extends Entity {
         }
         // else idle
         else {
+            animF.switchState(AnimationState.BASE);
+
             stamina++;
             if (stamina > maxStamina) stamina = maxStamina;
 
@@ -170,6 +186,9 @@ public class Player extends Entity {
                 standCounter = 0;
             }
         }
+
+        // UPDATE SPRITE IMAGES
+        updateSprite();
     }
     @Override
     public void draw(Graphics2D g2) {
@@ -216,6 +235,22 @@ public class Player extends Entity {
         left2 = setAvatar("player", playerAvatar, "left2");
         right1 = setAvatar("player", playerAvatar, "right1");
         right2 = setAvatar("player", playerAvatar, "right2");
+    }
+
+    void updateSprite() {
+
+        List<BufferedImage> list = animF.getSpriteArray();
+
+        idle1 = list.get(0);
+        idle2 = list.get(1);
+        up1 = list.get(2);
+        up2 = list.get(3);
+        down1 = list.get(4);
+        down2 = list.get(5);
+        left1 = list.get(6);
+        left2 = list.get(7);
+        right1 = list.get(8);
+        right2 = list.get(9);
     }
 
     // FROM THIS CLASS ---------------------------------------------------
