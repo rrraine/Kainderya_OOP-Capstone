@@ -1,5 +1,7 @@
 package entity;
 
+import animation.AnimationFactory;
+import animation.AnimationState;
 import main.GamePanel;
 import main.KeyBindings;
 import main.Utility;
@@ -10,10 +12,13 @@ import object.WorkStation;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.util.List;
 
 public class Player extends Entity {
 
     // ~ FIELDS ---------------------------------------------------
+    AnimationFactory animF;
+
     private final KeyBindings keyB;
 
     // PLAYER SCREEN COORDINATES ALWAYS IN CENTER
@@ -59,6 +64,9 @@ public class Player extends Entity {
         this.playerAvatar = playerAvatar;
         this.playerName = playerName;
 
+        // ANIMATION FACTORY
+        animF = AnimationFactory.instantiate(gp, playerAvatar.toLowerCase());
+
         // PLAYER CENTERED ON SCREEN
         playerCenteredScreenX = gp.screenWidth / 2 - (gp.tileSize /2);
         playerCenteredScreenY = gp.screenHeight / 2 - (gp.tileSize /2);
@@ -76,6 +84,10 @@ public class Player extends Entity {
 
 
     // FROM CLASS: ENTITY ---------------------------------------------------
+
+
+
+
     @Override
     public void update() {
 
@@ -88,6 +100,8 @@ public class Player extends Entity {
             else if (keyB.isPlayer1DownPressed()) { direction = "down"; }
             else if (keyB.isLeftPressed()) { direction = "left"; }
             else { direction = "right"; }
+
+            animF.switchState(AnimationState.BASE);
 
             // sprint
             if (sprint()) {
@@ -119,6 +133,21 @@ public class Player extends Entity {
             // check super-object collision
             int objIndex = Utility.CollisionChecker.entityHitsSuperObject(this, gp.getObj());
             interactSuperObject(objIndex);
+
+            if (objIndex != 999) {
+                System.out.println("YO ARE COLLIDING AGAINST: " + gp.getObj().get(objIndex));
+
+                if (gp.getObj().get(objIndex) instanceof Item) {
+                    System.out.println("ITEM");
+                }
+                else if (gp.getObj().get(objIndex) instanceof WorkStation) {
+                    System.out.println("WorkStation");
+                }
+                if (gp.getObj().get(objIndex) instanceof RefillStation) {
+                    System.out.println("RefillStation");
+                }
+            }
+
 
             // check npc collision
             int npcIndex = Utility.CollisionChecker.entityHitsNPC(this, gp.getNpc());
@@ -165,6 +194,8 @@ public class Player extends Entity {
         }
         // else idle
         else {
+            animF.switchState(AnimationState.BASE);
+
             stamina++;
             if (stamina > maxStamina) stamina = maxStamina;
 
@@ -174,6 +205,9 @@ public class Player extends Entity {
                 standCounter = 0;
             }
         }
+
+        // UPDATE SPRITE IMAGES
+        updateSprite();
     }
     @Override
     public void draw(Graphics2D g2) {
@@ -222,12 +256,28 @@ public class Player extends Entity {
         right2 = setAvatar("player", playerAvatar, "right2");
     }
 
+    void updateSprite() {
+
+        List<BufferedImage> list = animF.getSpriteArray();
+
+        idle1 = list.get(0);
+        idle2 = list.get(1);
+        up1 = list.get(2);
+        up2 = list.get(3);
+        down1 = list.get(4);
+        down2 = list.get(5);
+        left1 = list.get(6);
+        left2 = list.get(7);
+        right1 = list.get(8);
+        right2 = list.get(9);
+    }
+
     // FROM THIS CLASS ---------------------------------------------------
     private void setDefaultPlayerValues() {
 
         // STARTING POSITION
-        this.worldX = gp.tileSize * 13; // 23
-        this.worldY = gp.tileSize * 10; // 21
+        this.worldX = gp.tileSize * 5; // 23
+        this.worldY = gp.tileSize * 7; // 21
 
         int seconds = 8;
         maxStamina = seconds * GamePanel.FPS;

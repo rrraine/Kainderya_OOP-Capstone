@@ -13,12 +13,14 @@ public abstract class Item extends SuperObject {
     }
 
     // INNER STATIC CLASSES -----------------------------------
+
+            // diningArea-----------------------------------
     public static class Stool extends Item implements Importable {
 
         // CONSTRUCTOR
         public Stool(GamePanel gp) {
             super(gp, "Stool");
-            image = importImage("/objects/oldFiles/item/stool/stool", gp.tileSize);
+            image = importImage("/objects/item/diningArea/stool", gp.tileSize);
             setDefaultCollisions(true, 12, 24, 40, 37);
         }
     }
@@ -26,9 +28,9 @@ public abstract class Item extends SuperObject {
     public static class Stool1 extends Item implements Importable {
         public Stool1(GamePanel gp) {
             super(gp, "Stool");
-            image = importImage("/objects/oldFiles/item/stool/stool", gp.tileSize);
+            image = importImage("/objects/item/diningArea/stool", gp.tileSize);
             // To do: Ayusin anf collision
-            setDefaultCollisions(true, 12, 24, 40, 37);
+            setDefaultCollisions(true, 12, 24, 30, 27);
         }
     }
 
@@ -41,73 +43,294 @@ public abstract class Item extends SuperObject {
         }
     }
 
-    public static class Boots extends Item implements Importable {
-
-        public final int speedBoost = 2;
-
-        // CONSTRUCTOR
-        public Boots(GamePanel gp) {
-            super(gp, "Boots");
-            image = importImage("/objects/oldFiles/item/boots/boots", gp.tileSize); // FROM INTERFACE: IMPORTABLE
+    public static class Tables extends Item implements Importable{
+        public Tables (GamePanel gp){
+            super(gp, "Tables");
         }
-    }
 
-    public static class Chest extends Item implements Importable {
-
-        // CONSTRUCTOR
-        public Chest(GamePanel gp) {
-            super(gp, "Chest");
-            image = importImage("/objects/oldFiles/item/chest/chest", gp.tileSize); // FROM INTERFACE: IMPORTABLE
+        public static class leftTable extends Tables implements Importable{
+            public leftTable(GamePanel gp){
+                super(gp);
+                image = importImage("/objects/item/diningArea/leftTable", gp.tileSize);
+                setDefaultCollisions(true, 12, 24, 40, 37);
+            }
         }
-    }
 
-    // ingredients: not cooked bleh
+        public static class middleTable extends Tables implements Importable{
+            public middleTable(GamePanel gp){
+                super(gp);
+                image = importImage("/objects/item/diningArea/middleTable", gp.tileSize);
+                setDefaultCollisions(true, 12, 24, 40, 37);
+            }
+        }
 
-    public static class Egg extends Item implements Importable {
-        public Egg (GamePanel gp) {
+        public static class rightTable extends Tables implements Importable{
+            public rightTable(GamePanel gp){
+                super(gp);
+                image = importImage("/objects/item/diningArea/rightTable", gp.tileSize);
+                setDefaultCollisions(true, 12, 24, 40, 37);
+            }
+        }
+
+        //outsideRestaurant
+            public static class outsideUpperTable extends Tables implements Importable{
+                public outsideUpperTable(GamePanel gp){
+                    super(gp);
+                    image = importImage("/objects/item/outsideRestaurant/OutsideUpperTable", gp.tileSize);
+                    setDefaultCollisions(true, 24, 10, 30, 50);
+                }
+            }
+
+            public static class outsideLowerTable extends Tables implements Importable{
+                public outsideLowerTable(GamePanel gp){
+                    super(gp);
+                    image = importImage("/objects/item/outsideRestaurant/OutsideLowerTable", gp.tileSize);
+                    setDefaultCollisions(true, 24, 0, 30, 50);
+                }
+            }
+        }
+
+    public static class stationaryEgg extends Item implements Importable {
+        public stationaryEgg (GamePanel gp) {
             super(gp, "Egg");
             // import image
-            image = importImage("/objects/oldFiles/item/ingredients/egg", gp.tileSize);
-            setDefaultCollisions(true, 12, 24, 40, 37);
+            image = importImage("/objects/item/ingredients/stationaryEgg", gp.tileSize);
+            setDefaultCollisions(true, 0, 12, 40, 64);
         }
     }
 
-    public static class Spam extends Item implements Importable {
-        public Spam (GamePanel gp) {
-            super(gp, "Spam");
-            image = importImage ("/objects/oldFiles/item/ingredients/spam", gp.tileSize);
+    public static class stationarySpam extends Item implements Importable {
+        public stationarySpam(GamePanel gp) {
+            super(gp, "stationarySpam");
+            image = importImage ("/objects/item/ingredients/stationarySpam", gp.tileSize);
             setDefaultCollisions(true, 12, 24, 40, 37);
         }
-        // import image
 
     }
 
-    public static class CornedBeef extends Item implements Importable {
-        public CornedBeef (GamePanel gp) {
+    public static class stationaryCornedBeef extends Item implements Importable {
+        public stationaryCornedBeef(GamePanel gp) {
             super(gp, "Corned Beef");
-            image = importImage ("/objects/oldFiles/item/ingredients/cornedBeef", gp.tileSize);
+            image = importImage ("/objects/item/ingredients/stationaryCornedBeef", gp.tileSize);
             setDefaultCollisions(true, 12, 24, 40, 37);
         }
-        // import image;
 
     }
 
-    public static class Rice extends Item implements Importable {
-        public Rice (GamePanel gp) {
-            super(gp, "Rice");
-            // import image;
-            image = importImage("/objects/oldFiles/item/ingredients/rice", gp.tileSize);
-            setDefaultCollisions(true, 12, 24, 40, 37);
+    public static class riceSack extends Item implements Importable {
+        public riceSack (GamePanel gp) {
+            super(gp, "RiceSack");
+            image = importImage("/objects/item/ingredients/riceSack", gp.tileSize);
+            setDefaultCollisions(true, 0, 0, 64, 40);
         }
     }
+
+    public static class stationaryTapa extends Item implements Importable {
+
+        public stationaryTapa(GamePanel gp) {
+            super(gp, "stationaryTapa");
+            image = importImage("/objects/item/ingredients/stationaryTapa", gp.tileSize);
+            setDefaultCollisions(true, 20, 0, 46, 44);
+        }
+
+    }
+
+    public static class stationaryOnion extends Item implements Importable {
+
+        public stationaryOnion(GamePanel gp) {
+            super(gp, "stationaryOnion");
+            image = importImage("/objects/item/ingredients/onion_raw", gp.tileSize);
+            setDefaultCollisions(true, 0, 12, 40, 64);
+        }
+
+    }
+
+    public static class centerSink extends Item implements Importable {
+
+        public centerSink(GamePanel gp) {
+            super(gp, "centerSink");
+            image = importImage("/objects/item/kitchenArea/sink", gp.tileSize);
+            setDefaultCollisions(true, 12, 24, 40, 37);
+        }
+
+    }
+
+    public static class leftChoppingBoard extends Item implements Importable {
+
+        public leftChoppingBoard(GamePanel gp) {
+            super(gp, "leftChoppingBoard");
+            image = importImage("/objects/item/kitchenArea/leftChoppingBoard", gp.tileSize);
+            setDefaultCollisions(true, 0, 24, 67, 37);
+        }
+
+    }
+
+    public static class Counter extends Item implements Importable{
+        public Counter(GamePanel gp) {
+            super(gp, "Counter");
+        }
+        public static class leftCounter extends Counter  {
+
+            public leftCounter(GamePanel gp) {
+                super(gp);
+                image = importImage("/objects/item/kitchenArea/leftCounter", gp.tileSize);
+                setDefaultCollisions(true, 0, 0, 55, 64);
+            }
+
+        }
+        public static class rightCounter extends Counter  {
+
+            public rightCounter(GamePanel gp) {
+                super(gp);
+                image = importImage("/objects/item/kitchenArea/rightCounter", gp.tileSize);
+                setDefaultCollisions(true, 12, 24, 50, 64);
+            }
+
+        }
+
+        public static class leftCornerTable extends Counter  {
+
+            public leftCornerTable(GamePanel gp) {
+                super(gp);
+                image = importImage("/objects/item/kitchenArea/leftCornerTable", gp.tileSize);
+                setDefaultCollisions(true, 0, 0, 58, 64);
+            }
+
+        }
+
+        public static class leftRiceCooker extends Counter  {
+
+            public leftRiceCooker(GamePanel gp) {
+                super(gp);
+                image = importImage("/objects/item/kitchenArea/leftRiceCooker", gp.tileSize);
+                setDefaultCollisions(true, 0, 0, 58, 64);
+            }
+
+        }
+
+        public static class leftStove extends Counter  {
+
+            public leftStove(GamePanel gp) {
+                super(gp);
+                image = importImage("/objects/item/kitchenArea/leftStove", gp.tileSize);
+                setDefaultCollisions(true, 0, 0, 58, 64);
+            }
+
+        }
+
+        public static class leftStraightTable extends Counter  {
+
+            public leftStraightTable(GamePanel gp) {
+                super(gp);
+                image = importImage("/objects/item/kitchenArea/leftStraightTable", gp.tileSize);
+                setDefaultCollisions(true, 0, 0, 58, 64);
+            }
+
+        }
+
+
+    }
+
+    public static class KitchenIsland extends Item implements Importable {
+
+        public KitchenIsland(GamePanel gp) {
+            super(gp, "KitchenIsland");
+            image = importImage("/objects/item/kitchenArea/centerSink", gp.tileSize);
+            setDefaultCollisions(true, 12, 24, 40, 37);
+        }
+
+        public static class leftKitchenIsland extends Item implements Importable {
+
+            public leftKitchenIsland(GamePanel gp) {
+                super(gp, "leftKitchenIsland");
+                image = importImage("/objects/item/kitchenArea/leftKitchenIsland", gp.tileSize);
+                setDefaultCollisions(true, 12, 24, 40, 37);
+            }
+
+        }
+
+        public static class rightKitchenIsland extends Item implements Importable {
+
+            public rightKitchenIsland(GamePanel gp) {
+                super(gp, "rightKitchenIsland");
+                image = importImage("/objects/item/kitchenArea/rightKitchenIsland", gp.tileSize);
+                setDefaultCollisions(true, 12, 24, 40, 37);
+            }
+
+        }
+
+        public static class middleKitchenIsland extends Item implements Importable {
+
+            public middleKitchenIsland(GamePanel gp) {
+                super(gp, "middleKitchenIsland");
+                image = importImage("/objects/item/kitchenArea/middleKitchenIsland", gp.tileSize);
+                setDefaultCollisions(true, 12, 24, 40, 37);
+            }
+
+        }
+
+    }
+
+    public static class lowerRef extends Item implements Importable {
+
+        public lowerRef(GamePanel gp) {
+            super(gp, "lowerRef");
+            image = importImage("/objects/item/kitchenArea/lowerRef", gp.tileSize);
+            setDefaultCollisions(true, 20, 0, 46, 44);
+        }
+
+    }
+
+    public static class waterDispenser extends Item implements Importable {
+
+        public waterDispenser(GamePanel gp) {
+            super(gp, "water dispenser");
+            image = importImage("/objects/item/ingredients/waterBot", gp.tileSize);
+            setDefaultCollisions(true, 0, 0, 64, 40);
+        }
+
+    }
+
+    public static class rightWall extends Item implements Importable {
+
+        public rightWall(GamePanel gp) {
+            super(gp, "right wall");
+            image = importImage("/objects/item/kitchenArea/rightWall", gp.tileSize);
+            setDefaultCollisions(true, 40, 0, 24, 64);
+        }
+    }
+
+    public static class bush extends Item implements Importable{
+        public bush(GamePanel gp){
+            super (gp, "Bush");
+            image = importImage("/objects/item/outsideRestaurant/bush", gp.tileSize);
+            setDefaultCollisions(true, 0, 0, 10, 64);
+        }
+    }
+
+
+    public static class rightShelf1 extends Item implements Importable{
+        public rightShelf1(GamePanel gp){
+            super (gp, "Right Shelf 1");
+            image = importImage("/objects/item/kitchenArea/rightShelf1", gp.tileSize);
+            setDefaultCollisions(true, 20, 20, 44, 54);
+        }
+    }
+    public static class rightShelf2 extends Item implements Importable{
+        public rightShelf2(GamePanel gp){
+            super (gp, "Right Shelf 2");
+            image = importImage("/objects/item/kitchenArea/rightShelf2", gp.tileSize);
+            setDefaultCollisions(true, 20, 0, 44, 64);
+        }
+    }
+
 
     public static class Tapa extends Item implements Importable {
 
         public Tapa (GamePanel gp) {
-            super(gp, "Cola");
-            // import image;
-            image = importImage("/objects/oldFiles/item/ingredients/tapa", gp.tileSize);
-            setDefaultCollisions(true, 12, 24, 40, 37);
+            super(gp, "Tapa");
+            //image = importImage("/objects/item/ingredients/stationaryOnion", gp.tileSize);
+            //setDefaultCollisions(true, 12, 24, 40, 37);
         }
 
     }
@@ -148,7 +371,7 @@ public abstract class Item extends SuperObject {
 
     public static class CookedSpam extends Item implements Importable {
         public CookedSpam (GamePanel gp) {
-            super(gp, "Cooked Spam");
+            super(gp, "Cooked stationarySpam");
             // import image
             // image = importImage("objects", "items", "food", "cookedSpam", gp.tileSize);
             // setDefaultCollisions(true, 12, 24, 40, 37);
@@ -158,7 +381,7 @@ public abstract class Item extends SuperObject {
 
     public static class CookedTapa extends Item implements Importable {
         public CookedTapa (GamePanel gp) {
-            super(gp, "Cooked Tapa");
+            super(gp, "Cooked stationaryOnion");
             // import image
             // image = importImage("objects", "items", "food", "cookedTapa", gp.tileSize);
             // setDefaultCollisions(true, 12, 24, 40, 37);
@@ -207,21 +430,34 @@ public abstract class Item extends SuperObject {
         }
     }
 
-    public static class Tables extends Item implements Importable{
-        public Tables (GamePanel gp){
-            super(gp, "Tables");
-        }
-
-        public static class LeftTable extends Item implements Importable{
-           public LeftTable(GamePanel gp){
-               super(gp, "LeftTable");
-           }
-
-            //image = importImage("/objects/item/ingredients/egg", gp.tileSize);
-            //setDefaultCollisions(true, 12, 24, 40, 37);
-
-
-
+            //kitchenTools
+    public static class Pan extends Item implements Importable {
+        public Pan (GamePanel gp) {
+            super(gp, "Pan");
+            image = importImage("/objects/item/kitchenTools/pan", gp.tileSize);
+            setDefaultCollisions(true, 12, 24, 40, 37);
         }
     }
+
+    public static class Plates extends Item implements Importable{
+
+        public Plates (GamePanel gp) { super(gp, "Plates"); }
+
+        public static class counterPlates extends Plates implements Importable{
+            public counterPlates (GamePanel gp) {
+               super(gp);
+                image = importImage("/objects/item/kitchenTools/plateCounter", gp.tileSize);
+                setDefaultCollisions(true, 12, 24, 40, 37);
+            }
+        }
+
+        public static class diningPlate extends Plates implements Importable{
+            public diningPlate (GamePanel gp) {
+                super(gp);
+                image = importImage("/objects/item/kitchenTools/plate", gp.tileSize);
+                setDefaultCollisions(true, 12, 24, 40, 37);
+            }
+        }
+    }
+
 }

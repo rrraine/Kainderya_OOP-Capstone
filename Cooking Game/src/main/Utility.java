@@ -33,80 +33,96 @@ public class Utility {
     // DEPLOY ASSETS IN MAP THRU COORDINATES
     public static class AssetSetter {
 
+        private static void addItem(int index, List<SuperObject> obj, SuperObject item, int tileSize, int x, int y){
+            obj.add(index, item);
+            obj.get(index).setWorldX(tileSize * x);
+            obj.get(index).setWorldY(tileSize * y);
+        }
+
         public static void deploySuperObjectInMap(GamePanel gp, int tileSize, List<SuperObject> obj) {
 
             try {
+                addItem(0, obj, new Item.Stool(gp), tileSize, 10, 11);
+                addItem(1, obj, new Item.Stool(gp), tileSize, 11, 11);
+                addItem(2, obj, new Item.Stool(gp), tileSize, 12, 11);
+                addItem(3, obj, new Item.Stool(gp), tileSize, 13, 11);
+                addItem(4, obj, new Item.Stool(gp), tileSize, 14, 11);
+                addItem(5, obj, new Item.Door(gp), tileSize, 7, 11);
+                addItem(6, obj, new Item.Tables.leftTable(gp), tileSize, 10, 10);
+                addItem(7, obj, new Item.Tables.middleTable(gp), tileSize, 11, 10);
+                addItem(8, obj, new Item.Tables.middleTable(gp), tileSize, 12, 10);
+                addItem(9, obj, new Item.Tables.middleTable(gp), tileSize, 13, 10);
+                addItem(10, obj, new Item.Tables.rightTable(gp), tileSize, 14, 10);
 
-                // todo : ayusin waha
+                addItem(11, obj, new Item.Tables.outsideLowerTable(gp), tileSize, 5, 9);
+                addItem(12, obj, new Item.Tables.outsideUpperTable(gp), tileSize, 5, 8);
+                addItem(13, obj, new Item.Tables.outsideLowerTable(gp), tileSize, 5, 6);
+                addItem(14, obj, new Item.Tables.outsideUpperTable(gp), tileSize, 5, 5);
 
-                // DEPLOY OBJECTS HERE
-                obj.add(0, new Item.Stool(gp));
-                obj.get(0).setWorldX(tileSize * 10);
-                obj.get(0).setWorldY(tileSize * 11);
+                addItem(15, obj, new Item.Stool1(gp), tileSize, 4, 9);
+                addItem(16, obj, new Item.Stool1(gp), tileSize, 4, 8);
+                addItem(17, obj, new Item.Stool1(gp), tileSize, 4, 6);
+                addItem(18, obj, new Item.Stool1(gp), tileSize, 4, 5);
 
-                obj.add(1, new Item.Stool(gp));
-                obj.get(1).setWorldX(tileSize * 11);
-                obj.get(1).setWorldY(tileSize * 11);
+                addItem(19, obj, new Item.KitchenIsland.leftChoppingBoard(gp), tileSize, 9, 7);
+                addItem(20, obj, new Item.KitchenIsland.middleKitchenIsland(gp), tileSize, 10, 7);
+                addItem(21, obj, new Item.KitchenIsland.middleKitchenIsland(gp), tileSize, 11, 7);
+                addItem(22, obj, new Item.KitchenIsland.middleKitchenIsland(gp), tileSize, 12, 7);
+                addItem(23, obj, new Item.KitchenIsland.rightKitchenIsland(gp), tileSize, 13, 7);
 
-                obj.add(2, new Item.Stool(gp));
-                obj.get(2).setWorldX(tileSize * 12);
-                obj.get(2).setWorldY(tileSize * 11);
+                addItem(24, obj, new Item.KitchenIsland.leftKitchenIsland(gp), tileSize, 9, 4);
+                addItem(25, obj, new Item.centerSink(gp), tileSize, 10, 4);
+                addItem(26, obj, new Item.KitchenIsland.middleKitchenIsland(gp), tileSize, 11, 4);
+                addItem(27, obj, new Item.KitchenIsland.middleKitchenIsland(gp), tileSize, 12, 4);
+                addItem(28, obj, new Item.KitchenIsland.rightKitchenIsland(gp), tileSize, 13, 4);
+                addItem(29, obj, new Item.lowerRef(gp), tileSize, 8, 4);
+                addItem(30, obj, new Item.riceSack(gp), tileSize, 14, 4);
 
-                obj.add(3, new Item.Stool(gp));
-                obj.get(3).setWorldX(tileSize * 13);
-                obj.get(3).setWorldY(tileSize * 11);
+                addItem(31, obj, new Item.Counter.leftCornerTable(gp), tileSize, 6, 8);
+                addItem(32, obj, new Item.Counter.leftRiceCooker(gp), tileSize, 6, 4);
+                addItem(33, obj, new Item.Counter.leftStraightTable(gp), tileSize, 6, 6);
+                addItem(34, obj, new Item.Counter.leftStove(gp), tileSize, 6, 7);
+                addItem(35, obj, new Item.Counter.leftStraightTable(gp), tileSize, 6, 5);
 
-                obj.add(4, new Item.Stool(gp));
-                obj.get(4).setWorldX(tileSize * 14);
-                obj.get(4).setWorldY(tileSize * 11);
+                addItem(36, obj, new Item.stationaryEgg(gp), tileSize, 15, 8);
+                addItem(37, obj, new Item.stationaryOnion(gp), tileSize, 15, 9);
 
-                obj.add(5, new Item.Door(gp));
-                obj.get(5).setWorldX(tileSize * 7);
-                obj.get(5).setWorldY(tileSize * 11);
+                addItem(38, obj, new Item.waterDispenser(gp), tileSize, 15, 4);
 
-                obj.add(6, new Item.Egg(gp));
-                obj.get(6).setWorldX(tileSize * 17);
-                obj.get(6).setWorldY(tileSize * 12);
+                addItem(39, obj, new Item.rightWall(gp), tileSize, 15, 5);
+                addItem(40, obj, new Item.rightWall(gp), tileSize, 15, 6);
+                addItem(41, obj, new Item.rightWall(gp), tileSize, 15, 7);
 
-                obj.add(7, new Item.Spam(gp));
-                obj.get(7).setWorldX(tileSize * 14);
-                obj.get(7).setWorldY(tileSize * 7);
+                addItem(42, obj, new Item.stationarySpam(gp), tileSize, 11, 4);
+                addItem(43, obj, new Item.stationaryCornedBeef(gp), tileSize, 13, 4);
+                addItem(44, obj, new Item.stationaryTapa(gp), tileSize, 8, 4);
 
-                obj.add(8, new Item.CornedBeef(gp));
-                obj.get(8).setWorldX(tileSize * 16);
-                obj.get(8).setWorldY(tileSize * 7);
+                addItem(45, obj, new Item.stationaryTapa(gp), tileSize, 8, 4);
+                addItem(46, obj, new Item.stationaryTapa(gp), tileSize, 8, 4);
 
-                obj.add(9, new Item.Tapa(gp));
-                obj.get(9).setWorldX(tileSize * 18);
-                obj.get(9).setWorldY(tileSize * 12);
+                addItem(47, obj, new Item.Pan(gp), tileSize, 6, 6);
+                addItem(48, obj, new Item.Pan(gp), tileSize, 6, 8);
 
-                obj.add(10, new Item.Egg(gp));
-                obj.get(10).setWorldX(tileSize * 18);
-                obj.get(10).setWorldY(tileSize * 12);
+                addItem(49, obj, new Item.bush(gp), tileSize, 16, 3);
+                addItem(50, obj, new Item.bush(gp), tileSize, 16, 4);
+                addItem(51, obj, new Item.bush(gp), tileSize, 16, 5);
+                addItem(52, obj, new Item.bush(gp), tileSize, 16, 6);
+                addItem(53, obj, new Item.bush(gp), tileSize, 16, 7);
+                addItem(54, obj, new Item.bush(gp), tileSize, 16, 8);
+                addItem(55, obj, new Item.bush(gp), tileSize, 16, 9);
+                addItem(56, obj, new Item.bush(gp), tileSize, 16, 10);
 
+                addItem(57, obj, new Item.rightShelf1(gp), tileSize, 15, 5);
+                addItem(58, obj, new Item.rightShelf2(gp), tileSize, 15, 6);
 
-/*
+                addItem(59, obj, new Item.Plates.counterPlates(gp), tileSize, 6, 5);
+                addItem(60, obj, new Item.Plates.counterPlates(gp), tileSize, 9, 4);
+                addItem(61, obj, new Item.Plates.counterPlates(gp), tileSize, 10, 7);
+                addItem(62, obj, new Item.Plates.counterPlates(gp), tileSize, 11, 7);
+                addItem(63, obj, new Item.Plates.counterPlates(gp), tileSize, 12, 7);
+                addItem(64, obj, new Item.Plates.counterPlates(gp), tileSize, 13, 7);
+                addItem(65, obj, new Item.Plates.counterPlates(gp), tileSize, 12, 4);
 
-                  obj.add(3, new Item.Door(gp));
-                  obj.get(3).setWorldX(tileSize * 10);
-                  obj.get(3).setWorldY(tileSize * 11);
-
-                  obj.add(4, new Item.Door(gp));
-                  obj.get(4).setWorldX(tileSize * 8);
-                  obj.get(4).setWorldY(tileSize * 28);
-
-                  obj.add(5, new Item.Door(gp));
-                  obj.get(5).setWorldX(tileSize * 12);
-                  obj.get(5).setWorldY(tileSize * 22);
-
-                  obj.add(6, new Item.Chest(gp));
-                  obj.get(6).setWorldX(tileSize * 10);
-                  obj.get(6).setWorldY(tileSize * 7);
-
-                  obj.add(7, new Item.Boots(gp));
-                  obj.get(7).setWorldX(tileSize * 37);
-                  obj.get(7).setWorldY(tileSize * 42);
-*/
             } catch (NullPointerException e) {
                 System.err.println("Accessing null element in (List<SuperObject> obj): " + e.getMessage());
             }
