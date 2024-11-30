@@ -33,14 +33,35 @@ public class Utility {
     // DEPLOY ASSETS IN MAP THRU COORDINATES
     public static class AssetSetter {
 
+        private static void addItem(int index, List<SuperObject> obj, SuperObject item, int tileSize, int x, int y){
+            obj.add(index, item);
+            obj.get(index).setWorldX(tileSize * x);
+            obj.get(index).setWorldY(tileSize * y);
+        }
+
         public static void deploySuperObjectInMap(GamePanel gp, int tileSize, List<SuperObject> obj) {
 
             try {
+                addItem(0, obj, new Item.Stool(gp), tileSize, 10, 11);
+                addItem(1, obj, new Item.Stool(gp), tileSize, 11, 11);
+                addItem(2, obj, new Item.Stool(gp), tileSize, 12, 11);
+                addItem(3, obj, new Item.Stool(gp), tileSize, 13, 11);
+                addItem(4, obj, new Item.Stool(gp), tileSize, 14, 11);
+                addItem(5, obj, new Item.Door(gp), tileSize, 7, 11);
+                addItem(6, obj, new Item.Tables.leftTable(gp), tileSize, 12, 10);
+                addItem(7, obj, new Item.Tables.middleTable(gp), tileSize, 13, 10);
+                addItem(8, obj, new Item.Tables.middleTable(gp), tileSize, 14, 10);
+
+                addItem(9, obj, new Item.stationarySpam(gp), tileSize, 14, 7);
+                addItem(10, obj, new Item.stationaryCornedBeef(gp), tileSize, 16, 17);
+                addItem(11, obj, new Item.stationaryOnion(gp), tileSize, 15, 8);
+                addItem(12, obj, new Item.stationaryEgg(gp), tileSize, 18, 12);
+                addItem(13, obj, new Item.riceSack(gp), tileSize, 14, 4);
 
                 // todo : ayusin waha
 
                 // DEPLOY OBJECTS HERE
-                obj.add(0, new Item.Stool(gp));
+         /*       obj.add(0, new Item.Stool(gp));
                 obj.get(0).setWorldX(tileSize * 10);
                 obj.get(0).setWorldY(tileSize * 11);
 
@@ -68,7 +89,7 @@ public class Utility {
                 obj.get(6).setWorldX(tileSize * 17);
                 obj.get(6).setWorldY(tileSize * 12);
 
-                obj.add(7, new Item.Spam(gp));
+                obj.add(7, new Item.stationarySpam(gp));
                 obj.get(7).setWorldX(tileSize * 14);
                 obj.get(7).setWorldY(tileSize * 7);
 
@@ -76,15 +97,15 @@ public class Utility {
                 obj.get(8).setWorldX(tileSize * 16);
                 obj.get(8).setWorldY(tileSize * 7);
 
-                obj.add(9, new Item.Tapa(gp));
+                obj.add(9, new Item.stationaryOnion(gp));
                 obj.get(9).setWorldX(tileSize * 18);
                 obj.get(9).setWorldY(tileSize * 12);
 
                 obj.add(10, new Item.Egg(gp));
                 obj.get(10).setWorldX(tileSize * 18);
                 obj.get(10).setWorldY(tileSize * 12);
-
-
+    end of new comment
+*/
 /*
 
                   obj.add(3, new Item.Door(gp));
