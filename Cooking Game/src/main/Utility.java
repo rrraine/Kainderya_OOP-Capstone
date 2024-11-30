@@ -103,11 +103,17 @@ public class Utility {
                 addItem(47, obj, new Item.Pan(gp), tileSize, 6, 6);
                 addItem(48, obj, new Item.Pan(gp), tileSize, 6, 8);
 
+                addItem(49, obj, new Item.bush(gp), tileSize, 16, 3);
+                addItem(50, obj, new Item.bush(gp), tileSize, 16, 4);
+                addItem(51, obj, new Item.bush(gp), tileSize, 16, 5);
+                addItem(52, obj, new Item.bush(gp), tileSize, 16, 6);
+                addItem(53, obj, new Item.bush(gp), tileSize, 16, 7);
+                addItem(54, obj, new Item.bush(gp), tileSize, 16, 8);
+                addItem(55, obj, new Item.bush(gp), tileSize, 16, 9);
+                addItem(56, obj, new Item.bush(gp), tileSize, 16, 10);
 
-
-
-
-
+                addItem(57, obj, new Item.rightShelf1(gp), tileSize, 15, 5);
+                addItem(58, obj, new Item.rightShelf2(gp), tileSize, 15, 6);
 
 
             } catch (NullPointerException e) {

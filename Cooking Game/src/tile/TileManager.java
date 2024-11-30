@@ -125,6 +125,7 @@ public class TileManager implements Importable, Drawable, Observable {
         addTile(27, "/tiles/outsideArea/fenceSideWalk", true);
         addTile(28, "/tiles/outsideArea/fenceGrass", true);
         addTile(29, "/tiles/outsideArea/door", true);
+        addTile(30, "/tiles/construction/upperCornerRight1", true);
 
 
     }

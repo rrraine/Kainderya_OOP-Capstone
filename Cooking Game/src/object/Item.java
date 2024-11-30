@@ -90,9 +90,6 @@ public abstract class Item extends SuperObject {
             }
         }
 
-
-    // ingredients: not cooked bleh
-
     public static class stationaryEgg extends Item implements Importable {
         public stationaryEgg (GamePanel gp) {
             super(gp, "Egg");
@@ -124,7 +121,7 @@ public abstract class Item extends SuperObject {
         public riceSack (GamePanel gp) {
             super(gp, "RiceSack");
             image = importImage("/objects/item/ingredients/riceSack", gp.tileSize);
-            setDefaultCollisions(true, 12, 24, 40, 37);
+            setDefaultCollisions(true, 0, 0, 64, 40);
         }
     }
 
@@ -148,7 +145,6 @@ public abstract class Item extends SuperObject {
 
     }
 
-        //kitchenArea
     public static class centerSink extends Item implements Importable {
 
         public centerSink(GamePanel gp) {
@@ -290,7 +286,7 @@ public abstract class Item extends SuperObject {
         public waterDispenser(GamePanel gp) {
             super(gp, "water dispenser");
             image = importImage("/objects/item/ingredients/waterBot", gp.tileSize);
-            setDefaultCollisions(true, 12, 24, 40, 37);
+            setDefaultCollisions(true, 0, 0, 64, 40);
         }
 
     }
@@ -300,14 +296,33 @@ public abstract class Item extends SuperObject {
         public rightWall(GamePanel gp) {
             super(gp, "right wall");
             image = importImage("/objects/item/kitchenArea/rightWall", gp.tileSize);
-            setDefaultCollisions(true, 12, 24, 40, 37);
+            setDefaultCollisions(true, 40, 0, 24, 64);
         }
+    }
 
+    public static class bush extends Item implements Importable{
+        public bush(GamePanel gp){
+            super (gp, "Bush");
+            image = importImage("/objects/item/outsideRestaurant/bush", gp.tileSize);
+            setDefaultCollisions(true, 0, 0, 10, 64);
+        }
     }
 
 
-
-
+    public static class rightShelf1 extends Item implements Importable{
+        public rightShelf1(GamePanel gp){
+            super (gp, "Right Shelf 1");
+            image = importImage("/objects/item/kitchenArea/rightShelf1", gp.tileSize);
+            setDefaultCollisions(true, 20, 20, 44, 54);
+        }
+    }
+    public static class rightShelf2 extends Item implements Importable{
+        public rightShelf2(GamePanel gp){
+            super (gp, "Right Shelf 2");
+            image = importImage("/objects/item/kitchenArea/rightShelf2", gp.tileSize);
+            setDefaultCollisions(true, 20, 0, 44, 64);
+        }
+    }
 
 
     public static class Tapa extends Item implements Importable {
@@ -423,9 +438,5 @@ public abstract class Item extends SuperObject {
             setDefaultCollisions(true, 12, 24, 40, 37);
         }
     }
-
-
-
-
 
 }
