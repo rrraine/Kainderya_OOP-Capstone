@@ -17,6 +17,8 @@ import java.util.List;
 
 public class Player extends Entity {
 
+    // TODO HANDLE FOOD INTERACTION HERE
+
     // ~ FIELDS ---------------------------------------------------
     AnimationFactory animF;
 
