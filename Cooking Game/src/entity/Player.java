@@ -3,6 +3,10 @@ package entity;
 import main.GamePanel;
 import main.KeyBindings;
 import main.Utility;
+import object.Item;
+import object.RefillStation;
+import object.SuperObject;
+import object.WorkStation;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -233,6 +237,28 @@ public class Player extends Entity {
 
         if (i != 999) {
             // TODO
+            // USE .INTERACT HERE
+            // CHECK WHAT INSTANCE
+            // THEN DEFINE THE INTERACT METHOD IN THE ABSTRACT CLASS
+
+            SuperObject obj = gp.getObj().get(i);
+
+            // IF INTERACT EXECUTED
+            if (keyB.isPlayer1EnterPressed()) {
+
+                if (obj instanceof Item) {
+
+                }
+
+                if (obj instanceof WorkStation) {
+
+                }
+
+                if (obj instanceof RefillStation) {
+
+                }
+            }
+
         }
     }
     private void interactNPC(int i) {
