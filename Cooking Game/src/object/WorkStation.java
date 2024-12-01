@@ -204,9 +204,12 @@ public abstract class WorkStation extends Station{
             public void interact(Entity en, AnimationFactory animF) {
 
                 if(en instanceof Player){
+                    Player player = (Player) en;
                     if (animF.getCurrentState() != AnimationState.BASE) {
                         animF.switchState((AnimationState.BASE));
                     }
+
+
                 }
 
             }
