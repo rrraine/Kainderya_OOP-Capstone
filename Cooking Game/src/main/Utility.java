@@ -124,7 +124,7 @@ public class Utility {
                 addItem(64, obj, new Item.Plates.counterPlates(gp), tileSize, 13, 7);
                 addItem(65, obj, new Item.Plates.counterPlates(gp), tileSize, 12, 4);
 
-                addItem(66, obj, new RefillStation.VendingMachine(gp), tileSize, 2, 3);
+                addItem(66, obj, new RefillStation.VendingMachine(gp), tileSize, 2, 4);
 
             } catch (NullPointerException e) {
                 System.err.println("Accessing null element in (List<SuperObject> obj): " + e.getMessage());

@@ -13,5 +13,6 @@ public enum AnimationState {
     CARRY_RAW_RICE,
     CARRY_SPAM,
     CARRY_TAPA,
+    CARRY_COKE;
 
 }

@@ -22,7 +22,7 @@ public abstract class RefillStation extends Station{
 
         public void interact(Entity en, AnimationFactory animF) {
             if(en instanceof Player){
-                // animF.switchState((AnimationState.CARRY_PAN));
+                animF.switchState((AnimationState.CARRY_PLATE));
             }
         }
     }
@@ -36,7 +36,7 @@ public abstract class RefillStation extends Station{
 
         public void interact(Entity en, AnimationFactory animF) {
             if(en instanceof Player){
-                //animF.switchState((AnimationState.CARRY_PAN));
+                animF.switchState((AnimationState.CARRY_COKE));
             }
         }
     }
@@ -92,7 +92,7 @@ public abstract class RefillStation extends Station{
         }
         public void interact(Entity en, AnimationFactory animF) {
             if(en instanceof Player){
-                // animF.switchState((AnimationState.CARRY_PAN));
+                animF.switchState((AnimationState.CARRY_RAW_RICE));
             }
         }
     }
@@ -107,7 +107,7 @@ public abstract class RefillStation extends Station{
 
         public void interact(Entity en, AnimationFactory animF) {
             if(en instanceof Player){
-                // animF.switchState((AnimationState.CARRY_PAN));
+                animF.switchState((AnimationState.CARRY_TAPA));
             }
         }
 
@@ -123,7 +123,7 @@ public abstract class RefillStation extends Station{
 
         public void interact(Entity en, AnimationFactory animF) {
             if(en instanceof Player){
-                // animF.switchState((AnimationState.CARRY_PAN));
+                animF.switchState((AnimationState.CARRY_ONION));
             }
         }
 
