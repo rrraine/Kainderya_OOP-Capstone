@@ -125,12 +125,12 @@ public class ShopManager {
 
         return new NPC_FreeRoaming(gp, randomNPC);
     }
+
+
     public int getDefaultX() {
         Random rand = new Random();
         return rand.nextInt(25);  // Generate a random X position within a valid range
     }
-
-
     public int getDefaultY() {
         Random rand = new Random();
         return rand.nextInt(15);  // Generate a random Y position within a valid range
@@ -162,6 +162,9 @@ public class ShopManager {
         allNPCs.addAll(waitingQueue);
         allNPCs.addAll(freeRoamingNPCs);
         allNPCs.addAll(getSeatedCustomers());
+        for(NPC npc : allNPCs){
+            System.out.println(npc.getClass());
+        }
         return allNPCs;
     }
 }

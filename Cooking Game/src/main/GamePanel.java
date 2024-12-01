@@ -153,6 +153,7 @@ public class GamePanel extends JPanel implements Runnable {
         // LOAD OBJECTS AND NPC
         Utility.AssetSetter.deploySuperObjectInMap(this, tileSize, obj);
         Utility.AssetSetter.deployNPCInMap(this, tileSize, npc, shopManager);
+        updateNPCs();
         assetPool.addAll(npc);
         assetPool.addAll(obj);
 
@@ -194,6 +195,7 @@ public class GamePanel extends JPanel implements Runnable {
 
             time.update();
             player.update();
+            // updateNPCs();
             for (NPC n : npc) {
                 if (n != null) {
                     n.update();
@@ -334,7 +336,7 @@ public class GamePanel extends JPanel implements Runnable {
 
     // Combine NPC lists from ShopManager and update the npc list
     public void updateNPCs() {
-        npc.clear();  // Clear the current npc list
+        //npc.clear();  // Clear the current npc list
 
         // Combine customerNPCs and freeRoamingNPCs into the npc list
         npc.addAll(shopManager.getAllNPCs());
