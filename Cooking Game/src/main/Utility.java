@@ -1,8 +1,6 @@
 package main;
 
-import entity.Entity;
-import entity.NPC;
-import entity.Player;
+import entity.*;
 import object.Item;
 import object.RefillStation;
 import object.SuperObject;
@@ -130,15 +128,11 @@ public class Utility {
                 System.err.println("Accessing null element in (List<SuperObject> obj): " + e.getMessage());
             }
         }
-        public static void deployNPCInMap(GamePanel gp, int tileSize, List<NPC> npc) {
+        public static void deployNPCInMap(GamePanel gp, int tileSize, List<NPC> npc, ShopManager shopManager) {
 
             try {
-                /*
-                npc.addFirst(new NPC.StudentFemale(gp));
-                npc.getFirst().setWorldX(tileSize * 21);
-                npc.getFirst().setWorldY(tileSize * 21);
-                */
 
+    /*
                 // Add StudentFemale NPC
                 npc.add(new NPC.StudentFemale(gp));
                 npc.get(npc.size() - 1).setWorldX(tileSize * 12);
@@ -160,6 +154,37 @@ public class Utility {
 
                 npc.get(npc.size() - 1).setWorldX(tileSize * 15);
                 npc.get(npc.size() - 1).setWorldY(tileSize * 13);
+*/
+                List<NPC> shopManagerNPCs = shopManager.getNPCs();
+
+                for (NPC shopNPC : shopManagerNPCs) {
+                    // Add each NPC from ShopManager into the main NPC list
+                    npc.add(shopNPC);
+
+                    // Determine positions for the NPCs
+                    if (shopNPC instanceof NPC_Customer customer) {
+
+                        // Assign world positions for seated customers based on their seat
+                        Point seat = customer.getAssignedSeat();
+                        if (seat != null) {
+                            shopNPC.setWorldX(seat.x * tileSize);
+                            shopNPC.setWorldY(seat.y * tileSize);
+                        }
+                    } else {
+                        // For free-roaming NPCs or others, assign default/random positions
+                        int worldX = shopNPC.getDefaultX(); // Placeholder for default X
+                        int worldY = shopNPC.getDefaultY(); // Placeholder for default Y
+
+                        shopNPC.setWorldX(worldX * tileSize);
+                        shopNPC.setWorldY(worldY * tileSize);
+                    }
+
+                    // Log deployment
+                    System.out.println("Deployed " + shopNPC.getClass().getSimpleName() +
+                            " at (" + shopNPC.getWorldX() / tileSize +
+                            ", " + shopNPC.getWorldY() / tileSize + ")");
+                }
+
 
             }
             catch (NullPointerException e) {

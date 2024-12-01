@@ -1,8 +1,6 @@
 package main;
 
-import entity.Entity;
-import entity.NPC;
-import entity.Player;
+import entity.*;
 import game.Time;
 import object.SuperObject;
 import tile.TileManager;
@@ -61,6 +59,19 @@ public class GamePanel extends JPanel implements Runnable {
     final List<NPC> npc = new ArrayList<>();
     final List<SuperObject> obj = new ArrayList<>();
     private List<Asset> assetPool = new ArrayList<>();
+    ShopManager shopManager = new ShopManager();
+
+    // NPC Customer
+    private List<NPC_Customer> npcCustomer = new ArrayList<>();
+    private List<Point> seatLocations  = List.of(new Point[]{
+            new Point(4, 5), new Point(4, 6), new Point(4, 7), new Point(4, 8),
+            new Point(10, 11), new Point(11, 11), new Point(11, 12), new Point(11, 13),
+            new Point(14, 11)
+    });
+
+    private final int maxCustomers = 9;
+    private final int maxRoamers = 20;
+
 
     // GAME STATE
     public state gameState;
@@ -140,9 +151,12 @@ public class GamePanel extends JPanel implements Runnable {
 
         // LOAD OBJECTS AND NPC
         Utility.AssetSetter.deploySuperObjectInMap(this, tileSize, obj);
-        Utility.AssetSetter.deployNPCInMap(this, tileSize, npc);
+        Utility.AssetSetter.deployNPCInMap(this, tileSize, npc, shopManager);
         assetPool.addAll(npc);
         assetPool.addAll(obj);
+
+        //generateCustomers();
+        // Utility.AssetSetter.deployNPCInMap(this, tileSize, npc, shopManager);
 
         // LOAD MUSIC
         playBGMusic(0);
@@ -316,4 +330,55 @@ public class GamePanel extends JPanel implements Runnable {
     public List<Asset> getAssetPool() {
         return assetPool;
     }
+
+    private void generateCustomers(){
+        Random random = new Random();
+        for (int i = 0; i < maxCustomers; i++) {
+            // Randomly choose an NPC type (StudentMale, StudentFemale, Teacher, Tambay)
+            NPC customerNPC = generateRandomNPC();
+
+            // Create an NPC_Customer with the chosen NPC type
+            NPC_Customer customer = new NPC_Customer(this, customerNPC);
+
+            // Assign a random seat to the customer
+            Point seat = seatLocations.get(random.nextInt(seatLocations.size()));
+            customer.assignSeat(seat);
+
+            // Add the customer to the list and the asset pool
+            npcCustomer.add(customer);
+            npc.add(customer);
+            assetPool.add(customer);
+        }
+    }
+
+    private void generateFreeRoamingNPCs(){
+        Random random = new Random();
+        for (int i = 0; i < maxRoamers; i++) {
+            // Randomly choose an NPC type (StudentMale, StudentFemale, Teacher, Tambay)
+            NPC freeRoamingNPC = generateRandomNPC();
+            npc.add(freeRoamingNPC);
+            shopManager.addFreeRoamingNPC(freeRoamingNPC);
+
+        }
+    }
+
+    private NPC generateRandomNPC() {
+        Random rand = new Random();
+        int npcTypeIndex = rand.nextInt(4);  // Random index to select one of the NPC types
+
+        // Generate and return the appropriate NPC
+        switch (npcTypeIndex) {
+            case 0:
+                return new NPC.StudentMale(this);    // Create a StudentMale
+            case 1:
+                return new NPC.StudentFemale(this);  // Create a StudentFemale
+            case 2:
+                return new NPC.civilianFemale1(this);        // Create a Teacher
+            case 3:
+                return new NPC.Tambay1(this);         // Create a Tambay
+            default:
+                return new NPC.StudentMale(this);    // Default to StudentMale if something goes wrong
+        }
+    }
+
 }
