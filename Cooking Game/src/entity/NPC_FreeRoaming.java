@@ -7,9 +7,11 @@ import java.util.Random;
 
 public class NPC_FreeRoaming extends NPC{
 
-    public NPC_FreeRoaming(GamePanel gp) {
-        super(gp, 1, "idle");
+    private NPC npctype;
 
+    public NPC_FreeRoaming(GamePanel gp, NPC npc) {
+        super(gp, 1, "idle");
+        this.npctype = npc;
     }
 
     @Override
@@ -46,7 +48,7 @@ public class NPC_FreeRoaming extends NPC{
 
     @Override
     void getAvatar() {
-
+        npctype.getAvatar();
     }
 
     //@Override

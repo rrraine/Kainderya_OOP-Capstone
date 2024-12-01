@@ -59,15 +59,15 @@ public class GamePanel extends JPanel implements Runnable {
     final List<NPC> npc = new ArrayList<>();
     final List<SuperObject> obj = new ArrayList<>();
     private List<Asset> assetPool = new ArrayList<>();
-    ShopManager shopManager = new ShopManager();
+    ShopManager shopManager;
 
     // NPC Customer
-    private List<NPC_Customer> npcCustomer = new ArrayList<>();
-    private List<Point> seatLocations  = List.of(new Point[]{
-            new Point(4, 5), new Point(4, 6), new Point(4, 7), new Point(4, 8),
-            new Point(10, 11), new Point(11, 11), new Point(11, 12), new Point(11, 13),
-            new Point(14, 11)
-    });
+//    private List<NPC_Customer> npcCustomer = new ArrayList<>();
+//    private List<Point> seatLocations  = List.of(new Point[]{
+//            new Point(4, 5), new Point(4, 6), new Point(4, 7), new Point(4, 8),
+//            new Point(10, 11), new Point(11, 11), new Point(11, 12), new Point(11, 13),
+//            new Point(14, 11)
+//    });
 
     private final int maxCustomers = 9;
     private final int maxRoamers = 20;
@@ -96,6 +96,7 @@ public class GamePanel extends JPanel implements Runnable {
         // ALLOWS RECEIVING OF KEYSTROKES
         this.setFocusable(true);
 
+        shopManager = new ShopManager(this);
         newGame = false;
     }
     // SINGLETON INITIALIZE
@@ -331,6 +332,29 @@ public class GamePanel extends JPanel implements Runnable {
         return assetPool;
     }
 
+    // Combine NPC lists from ShopManager and update the npc list
+    public void updateNPCs() {
+        npc.clear();  // Clear the current npc list
+
+        // Combine customerNPCs and freeRoamingNPCs into the npc list
+        npc.addAll(shopManager.getAllNPCs());
+    }
+
+
+    public int getMaxCustomers() {
+        return maxCustomers;
+    }
+
+    public int getMaxRoamers() {
+        return maxRoamers;
+    }
+
+    /*
+
+    public List<NPC_Customer> getNpcCustomer() {
+        return npcCustomer;
+    }
+
     private void generateCustomers(){
         Random random = new Random();
         for (int i = 0; i < maxCustomers; i++) {
@@ -380,5 +404,5 @@ public class GamePanel extends JPanel implements Runnable {
                 return new NPC.StudentMale(this);    // Default to StudentMale if something goes wrong
         }
     }
-
+    */
 }

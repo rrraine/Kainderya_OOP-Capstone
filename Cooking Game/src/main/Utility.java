@@ -155,36 +155,36 @@ public class Utility {
                 npc.get(npc.size() - 1).setWorldX(tileSize * 15);
                 npc.get(npc.size() - 1).setWorldY(tileSize * 13);
 */
-                List<NPC> shopManagerNPCs = shopManager.getNPCs();
+                List<NPC> shopManagerNPCs = shopManager.getAllNPCs();  // Get the combined list of customers and free-roaming NPCs
 
+                // Loop through each NPC from the ShopManager
                 for (NPC shopNPC : shopManagerNPCs) {
                     // Add each NPC from ShopManager into the main NPC list
                     npc.add(shopNPC);
 
                     // Determine positions for the NPCs
                     if (shopNPC instanceof NPC_Customer customer) {
-
                         // Assign world positions for seated customers based on their seat
                         Point seat = customer.getAssignedSeat();
                         if (seat != null) {
+                            // Multiply seat position by tile size to get the world position
                             shopNPC.setWorldX(seat.x * tileSize);
                             shopNPC.setWorldY(seat.y * tileSize);
                         }
                     } else {
                         // For free-roaming NPCs or others, assign default/random positions
-                        int worldX = shopNPC.getDefaultX(); // Placeholder for default X
-                        int worldY = shopNPC.getDefaultY(); // Placeholder for default Y
+                        int worldX = shopNPC.getDefaultX();  // Placeholder for default X
+                        int worldY = shopNPC.getDefaultY();  // Placeholder for default Y
 
-                        shopNPC.setWorldX(worldX * tileSize);
-                        shopNPC.setWorldY(worldY * tileSize);
+                        shopNPC.setWorldX(worldX * tileSize);  // Scale by tile size
+                        shopNPC.setWorldY(worldY * tileSize);  // Scale by tile size
                     }
 
-                    // Log deployment
+                    // Log deployment for debugging
                     System.out.println("Deployed " + shopNPC.getClass().getSimpleName() +
                             " at (" + shopNPC.getWorldX() / tileSize +
                             ", " + shopNPC.getWorldY() / tileSize + ")");
                 }
-
 
             }
             catch (NullPointerException e) {

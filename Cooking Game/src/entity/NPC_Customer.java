@@ -61,7 +61,8 @@ public class NPC_Customer extends NPC{
                 isMovingToSeat = false;
                 isSeated = true;
             }
-        }
+        } // todo ano mangyari if naa na sila sa seat
+        // todo mag-add ng animation????
     }
 
     public boolean isSeated() {
