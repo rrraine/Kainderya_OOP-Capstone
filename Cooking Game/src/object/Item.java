@@ -6,6 +6,7 @@ import entity.Entity;
 import entity.NPC;
 import entity.Player;
 import interfaces.Importable;
+import interfaces.Pickupable;
 import main.GamePanel;
 
 public abstract class Item extends SuperObject {
@@ -66,7 +67,7 @@ public abstract class Item extends SuperObject {
     }
 
     // kitchenTools -------------------------------
-    public static class Pan extends Item implements Importable {
+    public static class Pan extends Item implements Importable, Pickupable {
         public Pan (GamePanel gp) {
             super(gp, "Pan");
             image = importImage("/objects/item/kitchenTools/pan", gp.tileSize);
@@ -86,7 +87,7 @@ public abstract class Item extends SuperObject {
         }
     }
 
-    public static class Plates extends Item implements Importable{
+    public static class Plates extends Item implements Importable, Pickupable{
 
         public Plates (GamePanel gp) { super(gp, "Plates"); }
 
