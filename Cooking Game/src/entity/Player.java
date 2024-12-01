@@ -2,6 +2,7 @@ package entity;
 
 import animation.AnimationFactory;
 import animation.AnimationState;
+import interfaces.Pickupable;
 import main.GamePanel;
 import main.KeyBindings;
 import main.Utility;
@@ -295,11 +296,18 @@ public class Player extends Entity {
             SuperObject obj = (SuperObject) gp.getAssetPool().get(i);
 
             // IF INTERACT EXECUTED
-            if (keyB.isPlayer1EnterPressed() && obj instanceof SuperObject ) {
-                obj.interact(this, animF);
+            if (keyB.isPlayer1EnterPressed() && obj != null ) {
 
-                if (obj instanceof Item) {
-                    gp.getAssetPool().remove(i);
+
+                if (obj instanceof Pickupable) {
+
+                    if (((Pickupable) obj).isPickingUp(animF.getCurrentState())) {
+                        obj.interact(this, animF);
+                        gp.getAssetPool().remove(i);
+                    }
+                }
+                else {
+                    obj.interact(this, animF);
                 }
             }
 

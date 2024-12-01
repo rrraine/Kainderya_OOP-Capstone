@@ -40,6 +40,8 @@ public class Utility {
             obj.get(index).setWorldY(tileSize * y);
         }
 
+        
+
         public static void deploySuperObjectInMap(GamePanel gp, int tileSize, List<SuperObject> obj) {
 
             try {
@@ -79,6 +81,8 @@ public class Utility {
                 addItem(29, obj, new WorkStation.lowerRef(gp), tileSize, 8, 4);
                 addItem(30, obj, new RefillStation.riceSack(gp), tileSize, 14, 4);
 
+
+                //left counter
                 addItem(31, obj, new WorkStation.Counter.leftCornerTable(gp), tileSize, 6, 8);
                 addItem(32, obj, new WorkStation.Counter.leftRiceCooker(gp), tileSize, 6, 4);
                 addItem(33, obj, new WorkStation.Counter.leftStraightTable(gp), tileSize, 6, 6);
