@@ -1,12 +1,13 @@
 package food;
 
 import interfaces.Importable;
+import main.Asset;
 import main.GamePanel;
 
 import java.awt.image.BufferedImage;
 import java.util.List;
 
-public class Ingredients implements Importable {
+public class Ingredients extends Asset implements Importable {
 
     GamePanel gp;
 
@@ -14,6 +15,7 @@ public class Ingredients implements Importable {
     String name;
 
     public Ingredients(GamePanel gp, String name) {
+        super(gp);
         this.name = name;
     }
 
@@ -56,6 +58,13 @@ public class Ingredients implements Importable {
 
         public Rice(GamePanel gp) {
             super(gp, "Rice");
+        }
+    }
+
+    public static class Onion extends Ingredients {
+
+        public Onion(GamePanel gp) {
+            super(gp, "Onion");
         }
     }
 }
