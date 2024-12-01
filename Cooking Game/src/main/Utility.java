@@ -32,11 +32,14 @@ public class Utility {
     // DEPLOY ASSETS IN MAP THRU COORDINATES
     public static class AssetSetter {
 
+
         private static void addItem(int index, List<SuperObject> obj, SuperObject item, int tileSize, int x, int y){
             obj.add(index, item);
             obj.get(index).setWorldX(tileSize * x);
             obj.get(index).setWorldY(tileSize * y);
         }
+
+
 
         public static void deploySuperObjectInMap(GamePanel gp, int tileSize, List<SuperObject> obj) {
 
@@ -77,6 +80,8 @@ public class Utility {
                 addItem(29, obj, new WorkStation.lowerRef(gp), tileSize, 8, 4);
                 addItem(30, obj, new RefillStation.riceSack(gp), tileSize, 14, 4);
 
+
+                //left counter
                 addItem(31, obj, new WorkStation.Counter.leftCornerTable(gp), tileSize, 6, 8);
                 addItem(32, obj, new WorkStation.Counter.leftRiceCooker(gp), tileSize, 6, 4);
                 addItem(33, obj, new WorkStation.Counter.leftStraightTable(gp), tileSize, 6, 6);
