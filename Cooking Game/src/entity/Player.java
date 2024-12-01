@@ -133,19 +133,19 @@ public class Player extends Entity {
             Utility.CollisionChecker.entityHitsTile(this, gp);
 
             // check super-object collision
-            int objIndex = Utility.CollisionChecker.entityHitsSuperObject(this, gp.getObj());
+            int objIndex = Utility.CollisionChecker.entityHitsSuperObject(this, gp.getAssetPool());
             interactSuperObject(objIndex);
 
             if (objIndex != 999) {
-                System.out.println("YO ARE COLLIDING AGAINST: " + gp.getObj().get(objIndex));
+                System.out.println("YO ARE COLLIDING AGAINST: " + gp.getAssetPool().get(objIndex));
 
-                if (gp.getObj().get(objIndex) instanceof Item) {
+                if (gp.getAssetPool().get(objIndex) instanceof Item) {
                     System.out.println("ITEM");
                 }
-                else if (gp.getObj().get(objIndex) instanceof WorkStation) {
+                else if (gp.getAssetPool().get(objIndex) instanceof WorkStation) {
                     System.out.println("WorkStation");
                 }
-                if (gp.getObj().get(objIndex) instanceof RefillStation) {
+                if (gp.getAssetPool().get(objIndex) instanceof RefillStation) {
                     System.out.println("RefillStation");
                 }
             }
@@ -292,11 +292,15 @@ public class Player extends Entity {
             // CHECK WHAT INSTANCE
             // THEN DEFINE THE INTERACT METHOD IN THE ABSTRACT CLASS
 
-            SuperObject obj = gp.getObj().get(i);
+            SuperObject obj = (SuperObject) gp.getAssetPool().get(i);
 
             // IF INTERACT EXECUTED
             if (keyB.isPlayer1EnterPressed() && obj instanceof SuperObject ) {
                 obj.interact(this, animF);
+
+                if (obj instanceof Item) {
+                    gp.getAssetPool().remove(i);
+                }
             }
 
         }

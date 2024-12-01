@@ -241,28 +241,30 @@ public class Utility {
             }
 
         }
-        public static int entityHitsSuperObject(Entity en, List<SuperObject> obj) {
+        public static int entityHitsSuperObject(Entity en, List<Asset> obj) {
 
             int index = 999;
 
             for (int i = 0; i < obj.size(); i++) {
 
-                if (obj.get(i) != null) {
+                if (obj.get(i) != null && obj.get(i) instanceof SuperObject) {
+
+                    SuperObject sObj = (SuperObject) obj.get(i);
 
                     // GET ENTITY'S SOLID AREA POS
                     en.getSolidArea().x = en.getWorldX() + en.getSolidArea().x;
                     en.getSolidArea().y = en.getWorldY() + en.getSolidArea().y;
 
                     // GET SUPEROBJECT'S SOLID AREA POS
-                    obj.get(i).getSolidArea().x = obj.get(i).getWorldX() + obj.get(i).getSolidArea().x;
-                    obj.get(i).getSolidArea().y = obj.get(i).getWorldY() + obj.get(i).getSolidArea().y;
+                    sObj.getSolidArea().x = sObj.getWorldX() + sObj.getSolidArea().x;
+                    sObj.getSolidArea().y = sObj.getWorldY() + sObj.getSolidArea().y;
 
                     switch (en.getDirection()) {
                         case "up":
                             en.getSolidArea().y -= en.getSpeed();
-                            if (en.getSolidArea().intersects(obj.get(i).getSolidArea())) {
+                            if (en.getSolidArea().intersects(sObj.getSolidArea())) {
                                 // BLOCK NPC FROM ENTERING DOORS
-                                if (obj.get(i).isCollision() || obj.get(i) instanceof Item.Door && en instanceof NPC) {
+                                if (sObj.isCollision() || obj.get(i) instanceof Item.Door && en instanceof NPC) {
                                     en.setCollisionOn(true);
                                 }
 
@@ -288,8 +290,8 @@ public class Utility {
 
                         case "down":
                             en.getSolidArea().y += en.getSpeed();
-                            if (en.getSolidArea().intersects(obj.get(i).getSolidArea())) {
-                                if (obj.get(i).isCollision()) {
+                            if (en.getSolidArea().intersects(sObj.getSolidArea())) {
+                                if (sObj.isCollision()) {
                                     en.setCollisionOn(true);
                                 }
 
@@ -301,8 +303,8 @@ public class Utility {
 
                         case "left":
                             en.getSolidArea().x -= en.getSpeed();
-                            if (en.getSolidArea().intersects(obj.get(i).getSolidArea())) {
-                                if (obj.get(i).isCollision()) {
+                            if (en.getSolidArea().intersects(sObj.getSolidArea())) {
+                                if (sObj.isCollision()) {
                                     en.setCollisionOn(true);
                                 }
 
@@ -314,8 +316,8 @@ public class Utility {
 
                         case "right":
                             en.getSolidArea().x += en.getSpeed();
-                            if (en.getSolidArea().intersects(obj.get(i).getSolidArea())) {
-                                if (obj.get(i).isCollision()) {
+                            if (en.getSolidArea().intersects(sObj.getSolidArea())) {
+                                if (sObj.isCollision()) {
                                     en.setCollisionOn(true);
                                 }
 
@@ -328,8 +330,8 @@ public class Utility {
 
                     en.getSolidArea().x = en.getSolidAreaDefaultX();
                     en.getSolidArea().y = en.getSolidAreaDefaultY();
-                    obj.get(i).getSolidArea().x = obj.get(i).getSolidAreaDefaultX();
-                    obj.get(i).getSolidArea().y = obj.get(i).getSolidAreaDefaultY();
+                    sObj.getSolidArea().x = sObj.getSolidAreaDefaultX();
+                    sObj.getSolidArea().y = sObj.getSolidAreaDefaultY();
                 }
             }
 

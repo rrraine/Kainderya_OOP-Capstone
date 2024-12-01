@@ -3,6 +3,7 @@ package object;
 import animation.AnimationFactory;
 import animation.AnimationState;
 import entity.Entity;
+import entity.NPC;
 import entity.Player;
 import interfaces.Importable;
 import main.GamePanel;
@@ -30,7 +31,9 @@ public abstract class Item extends SuperObject {
 
         @Override
         public void interact(Entity en, AnimationFactory animF) {
-
+            if (en instanceof NPC) {
+                // TODO
+            }
         }
     }
 
@@ -73,7 +76,12 @@ public abstract class Item extends SuperObject {
         @Override
         public void interact(Entity en, AnimationFactory animF) {
             if(en instanceof Player){
-                animF.switchState((AnimationState.CARRY_PAN));
+                if (animF.getCurrentState() == AnimationState.BASE) {
+                    animF.switchState((AnimationState.CARRY_PAN));
+                }
+                else if (animF.getCurrentState() == AnimationState.CARRY_PAN) {
+                    animF.switchState((AnimationState.BASE));
+                }
             }
         }
     }
@@ -92,7 +100,12 @@ public abstract class Item extends SuperObject {
             @Override
             public void interact(Entity en, AnimationFactory animF) {
                 if(en instanceof Player){
-                    animF.switchState((AnimationState.CARRY_PAN));
+                    if (animF.getCurrentState() == AnimationState.BASE) {
+                        animF.switchState((AnimationState.CARRY_PLATE));
+                    }
+                    else if (animF.getCurrentState() == AnimationState.CARRY_PLATE) {
+                        animF.switchState((AnimationState.BASE));
+                    }
                 }
             }
         }
@@ -108,7 +121,12 @@ public abstract class Item extends SuperObject {
         @Override
         public void interact(Entity en, AnimationFactory animF) {
             if(en instanceof Player){
-               // animF.switchState((AnimationState.CARRY_PAN));
+                if (animF.getCurrentState() == AnimationState.BASE) {
+                    // animF.switchState((AnimationState.CARRY_PAN));
+                }
+                else if (animF.getCurrentState() == AnimationState.CARRY_PAN) {
+                    animF.switchState((AnimationState.BASE));
+                }
             }
         }
     }
@@ -121,11 +139,7 @@ public abstract class Item extends SuperObject {
             image = importImage("/objects/item/kitchenArea/rightWall", gp.tileSize);
             setDefaultCollisions(true, 40, 0, 24, 64);
         }
-        public void interact(Entity en, AnimationFactory animF) {
-            if(en instanceof Player){
-                // animF.switchState((AnimationState.CARRY_PAN));
-            }
-        }
+        public void interact(Entity en, AnimationFactory animF) {}
     }
 
     public static class bush extends Item implements Importable{
@@ -134,11 +148,7 @@ public abstract class Item extends SuperObject {
             image = importImage("/objects/item/outsideRestaurant/bush", gp.tileSize);
             setDefaultCollisions(true, 0, 0, 10, 64);
         }
-        public void interact(Entity en, AnimationFactory animF) {
-            if(en instanceof Player){
-                // animF.switchState((AnimationState.CARRY_PAN));
-            }
-        }
+        public void interact(Entity en, AnimationFactory animF) {}
     }
 
     public static class rightShelf1 extends Item implements Importable{

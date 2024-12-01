@@ -313,4 +313,7 @@ public class GamePanel extends JPanel implements Runnable {
     public Graphics2D getG2() {
         return g2;
     }
+    public List<Asset> getAssetPool() {
+        return assetPool;
+    }
 }

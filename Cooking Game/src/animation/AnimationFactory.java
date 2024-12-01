@@ -75,4 +75,7 @@ public class AnimationFactory {
 
         return null;
     }
+    public AnimationState getCurrentState() {
+        return currentState;
+    }
 }
