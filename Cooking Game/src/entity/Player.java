@@ -296,11 +296,16 @@ public class Player extends Entity {
             SuperObject obj = (SuperObject) gp.getAssetPool().get(i);
 
             // IF INTERACT EXECUTED
-            if (keyB.isPlayer1EnterPressed() && obj instanceof SuperObject ) {
-                obj.interact(this, animF);
+            if (keyB.isPlayer1EnterPressed() && obj != null ) {
+
 
                 if (obj instanceof Pickupable) {
-                    gp.getAssetPool().remove(i);
+
+                    if (((Pickupable) obj).isPickingUp(animF.getCurrentState())) {
+                        obj.interact(this, animF);
+                        gp.getAssetPool().remove(i);
+                    }
+
                 }
             }
 
