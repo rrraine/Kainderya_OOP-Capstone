@@ -14,7 +14,7 @@ public class AnimationFactory {
     String avatar;
 
     AnimationState currentState;
-    Animation base, carryPlate, carryCornedBeef, carryEgg, carryOnion, carryPan, carryRawRice, carrySpam, carryTapa;
+    Animation base, carryPlate, carryCornedBeef, carryEgg, carryOnion, carryPan, carryRawRice, carrySpam, carryTapa, carryCoke;
 
     // 2 METHODS FOR CONSTRUCTOR SINGLETON
     private AnimationFactory(GamePanel gp, String avatar) {
@@ -30,6 +30,7 @@ public class AnimationFactory {
         carryRawRice = new Animation(gp, avatar, "/holdingRawRice/");
         carrySpam = new Animation(gp, avatar, "/holdingSpam/");
         carryTapa = new Animation(gp, avatar, "/holdingTapa/");
+        carryCoke = new Animation(gp, avatar, "/holdingCoke/");
 
 
         // TODO OTHER HOLDINGS
@@ -68,6 +69,8 @@ public class AnimationFactory {
                  return carrySpam.getSprites();
            case CARRY_TAPA:
                 return carryTapa.getSprites();
+            case CARRY_COKE:
+                return carryCoke.getSprites();
         }
 
         return null;
