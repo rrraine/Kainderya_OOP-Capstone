@@ -22,7 +22,12 @@ public abstract class RefillStation extends Station{
 
         public void interact(Entity en, AnimationFactory animF) {
             if(en instanceof Player){
-                // animF.switchState((AnimationState.CARRY_PAN));
+                if (animF.getCurrentState() == AnimationState.BASE) {
+                    // animF.switchState((AnimationState.CARRY_PAN));
+                }
+                else if (animF.getCurrentState() == AnimationState.CARRY_PAN) {
+                    animF.switchState((AnimationState.BASE));
+                }
             }
         }
     }
@@ -36,7 +41,12 @@ public abstract class RefillStation extends Station{
 
         public void interact(Entity en, AnimationFactory animF) {
             if(en instanceof Player){
-                //animF.switchState((AnimationState.CARRY_PAN));
+                if (animF.getCurrentState() == AnimationState.BASE) {
+                    // animF.switchState((AnimationState.CARRY_PAN));
+                }
+                else if (animF.getCurrentState() == AnimationState.CARRY_PAN) {
+                    animF.switchState((AnimationState.BASE));
+                }
             }
         }
     }
@@ -50,7 +60,12 @@ public abstract class RefillStation extends Station{
         }
         public void interact(Entity en, AnimationFactory animF) {
             if(en instanceof Player){
-                animF.switchState((AnimationState.CARRY_EGG));
+                if (animF.getCurrentState() == AnimationState.BASE) {
+                    animF.switchState((AnimationState.CARRY_EGG));
+                }
+                else if (animF.getCurrentState() == AnimationState.CARRY_EGG) {
+                    animF.switchState((AnimationState.BASE));
+                }
             }
         }
     }
@@ -64,7 +79,12 @@ public abstract class RefillStation extends Station{
 
         public void interact(Entity en, AnimationFactory animF) {
             if(en instanceof Player){
-                animF.switchState((AnimationState.CARRY_SPAM));
+                if (animF.getCurrentState() == AnimationState.BASE) {
+                    animF.switchState((AnimationState.CARRY_SPAM));
+                }
+                else if (animF.getCurrentState() == AnimationState.CARRY_SPAM) {
+                    animF.switchState((AnimationState.BASE));
+                }
             }
         }
 
@@ -78,7 +98,12 @@ public abstract class RefillStation extends Station{
         }
         public void interact(Entity en, AnimationFactory animF) {
             if(en instanceof Player){
-                animF.switchState((AnimationState.CARRY_CORNEDBEEF));
+                if (animF.getCurrentState() == AnimationState.BASE) {
+                    animF.switchState((AnimationState.CARRY_CORNEDBEEF));
+                }
+                else if (animF.getCurrentState() == AnimationState.CARRY_CORNEDBEEF) {
+                    animF.switchState((AnimationState.BASE));
+                }
             }
         }
 
@@ -92,7 +117,12 @@ public abstract class RefillStation extends Station{
         }
         public void interact(Entity en, AnimationFactory animF) {
             if(en instanceof Player){
-                // animF.switchState((AnimationState.CARRY_PAN));
+                if (animF.getCurrentState() == AnimationState.BASE) {
+                    // animF.switchState((AnimationState.CARRY_PAN));
+                }
+                else if (animF.getCurrentState() == AnimationState.CARRY_PAN) {
+                    animF.switchState((AnimationState.BASE));
+                }
             }
         }
     }
@@ -107,7 +137,12 @@ public abstract class RefillStation extends Station{
 
         public void interact(Entity en, AnimationFactory animF) {
             if(en instanceof Player){
-                // animF.switchState((AnimationState.CARRY_PAN));
+                if (animF.getCurrentState() == AnimationState.BASE) {
+                    // animF.switchState((AnimationState.CARRY_PAN));
+                }
+                else if (animF.getCurrentState() == AnimationState.CARRY_PAN) {
+                    animF.switchState((AnimationState.BASE));
+                }
             }
         }
 
@@ -123,7 +158,12 @@ public abstract class RefillStation extends Station{
 
         public void interact(Entity en, AnimationFactory animF) {
             if(en instanceof Player){
-                // animF.switchState((AnimationState.CARRY_PAN));
+                if (animF.getCurrentState() == AnimationState.BASE) {
+                    animF.switchState((AnimationState.CARRY_ONION));
+                }
+                else if (animF.getCurrentState() == AnimationState.CARRY_ONION) {
+                    animF.switchState((AnimationState.BASE));
+                }
             }
         }
 
