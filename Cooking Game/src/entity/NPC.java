@@ -33,7 +33,7 @@ public abstract class NPC extends Entity {
         setNPCAction();
         collisionOn = false;
         Utility.CollisionChecker.entityHitsTile(this, gp);
-        int objIndex = Utility.CollisionChecker.entityHitsSuperObject(this, gp.getObj());
+        int objIndex = Utility.CollisionChecker.entityHitsSuperObject(this, gp.getAssetPool());
         Utility.CollisionChecker.entityHitsNPC(this, gp.getNpc());
         Utility.CollisionChecker.NPCHitsPlayer(this, gp.player);
 
