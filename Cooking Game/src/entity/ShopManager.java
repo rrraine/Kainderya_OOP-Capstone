@@ -22,7 +22,8 @@ public class ShopManager {
     public ShopManager(GamePanel gp) {
         this.gp = gp;
         waitingQueue = new LinkedList<>();
-        seatedCustomers = new NPC_Customer[seatLocations.length];
+        // seatedCustomers = new NPC_Customer[seatLocations.length];
+        seatedCustomers = new NPC_Customer[gp.getMaxCustomers()];
         freeRoamingNPCs = new ArrayList<>();
     }
 
