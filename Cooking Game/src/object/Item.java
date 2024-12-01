@@ -107,7 +107,6 @@ public abstract class Item extends SuperObject {
         @Override
         public boolean isPickingUp(AnimationState curr) {
             if (curr == AnimationState.BASE) {
-
                 return true;
             }
             if (curr == AnimationState.CARRY_PLATE) {

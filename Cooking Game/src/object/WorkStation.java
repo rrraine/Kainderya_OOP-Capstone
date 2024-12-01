@@ -2,6 +2,7 @@
 package object;
 
 import animation.AnimationFactory;
+import animation.AnimationState;
 import entity.Entity;
 import entity.Player;
 import interfaces.Importable;
@@ -129,9 +130,7 @@ public abstract class WorkStation extends Station{
         }
 
         public void interact(Entity en, AnimationFactory animF) {
-            if(en instanceof Player){
-                // animF.switchState((AnimationState.CARRY_PAN));
-            }
+
         }
 
         public static class leftCounter extends Counter  {
@@ -140,6 +139,16 @@ public abstract class WorkStation extends Station{
                 super(gp);
                 image = importImage("/objects/item/kitchenArea/leftCounter", gp.tileSize);
                 setDefaultCollisions(true, 0, 0, 55, 64);
+            }
+
+            public void interact(Entity en, AnimationFactory animF) {
+
+                if(en instanceof Player){
+                    if (animF.getCurrentState() != AnimationState.BASE) {
+                        animF.switchState((AnimationState.BASE));
+                    }
+                }
+
             }
 
         }
@@ -151,6 +160,16 @@ public abstract class WorkStation extends Station{
                 setDefaultCollisions(true, 12, 24, 50, 64);
             }
 
+            public void interact(Entity en, AnimationFactory animF) {
+
+                if(en instanceof Player){
+                    if (animF.getCurrentState() != AnimationState.BASE) {
+                        animF.switchState((AnimationState.BASE));
+                    }
+                }
+
+            }
+
         }
 
         public static class leftCornerTable extends Counter  {
@@ -158,8 +177,19 @@ public abstract class WorkStation extends Station{
             public leftCornerTable(GamePanel gp) {
                 super(gp);
                 image = importImage("/objects/item/kitchenArea/leftCornerTable", gp.tileSize);
-                setDefaultCollisions(true, 0, 0, 58, 64);
+                setDefaultCollisions(true, 0, 0, 50, 64);
             }
+
+            public void interact(Entity en, AnimationFactory animF) {
+
+                if(en instanceof Player){
+                    if (animF.getCurrentState() != AnimationState.BASE) {
+                        animF.switchState((AnimationState.BASE));
+                    }
+                }
+
+            }
+
 
         }
 
@@ -169,6 +199,16 @@ public abstract class WorkStation extends Station{
                 super(gp);
                 image = importImage("/objects/item/kitchenArea/leftRiceCooker", gp.tileSize);
                 setDefaultCollisions(true, 0, 0, 58, 64);
+            }
+
+            public void interact(Entity en, AnimationFactory animF) {
+
+                if(en instanceof Player){
+                    if (animF.getCurrentState() != AnimationState.BASE) {
+                        animF.switchState((AnimationState.BASE));
+                    }
+                }
+
             }
 
         }
@@ -181,6 +221,16 @@ public abstract class WorkStation extends Station{
                 setDefaultCollisions(true, 0, 0, 58, 64);
             }
 
+            public void interact(Entity en, AnimationFactory animF) {
+
+                if(en instanceof Player){
+                    if (animF.getCurrentState() != AnimationState.BASE) {
+                        animF.switchState((AnimationState.BASE));
+                    }
+                }
+
+            }
+
         }
 
         public static class leftStraightTable extends Counter  {
@@ -190,7 +240,15 @@ public abstract class WorkStation extends Station{
                 image = importImage("/objects/item/kitchenArea/leftStraightTable", gp.tileSize);
                 setDefaultCollisions(true, 0, 0, 58, 64);
             }
+            public void interact(Entity en, AnimationFactory animF) {
 
+                if(en instanceof Player){
+                    if (animF.getCurrentState() != AnimationState.BASE) {
+                        animF.switchState((AnimationState.BASE));
+                    }
+                }
+
+            }
         }
 
 

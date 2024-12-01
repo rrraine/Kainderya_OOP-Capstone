@@ -305,7 +305,9 @@ public class Player extends Entity {
                         obj.interact(this, animF);
                         gp.getAssetPool().remove(i);
                     }
-
+                }
+                else {
+                    obj.interact(this, animF);
                 }
             }
 
