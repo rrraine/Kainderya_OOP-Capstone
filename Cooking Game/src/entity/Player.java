@@ -21,6 +21,7 @@ public class Player extends Entity {
     // TODO HANDLE FOOD INTERACTION HERE
 
     // ~ FIELDS ---------------------------------------------------
+
     AnimationFactory animF;
 
     private final KeyBindings keyB;
@@ -86,6 +87,13 @@ public class Player extends Entity {
         setDefaultPlayerValues();
         getAvatar();
     }
+
+
+
+
+
+
+
 
 
     // FROM CLASS: ENTITY ---------------------------------------------------

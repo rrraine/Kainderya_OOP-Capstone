@@ -34,13 +34,14 @@ public class Utility {
     // DEPLOY ASSETS IN MAP THRU COORDINATES
     public static class AssetSetter {
 
+
         private static void addItem(int index, List<SuperObject> obj, SuperObject item, int tileSize, int x, int y){
             obj.add(index, item);
             obj.get(index).setWorldX(tileSize * x);
             obj.get(index).setWorldY(tileSize * y);
         }
 
-        
+
 
         public static void deploySuperObjectInMap(GamePanel gp, int tileSize, List<SuperObject> obj) {
 
