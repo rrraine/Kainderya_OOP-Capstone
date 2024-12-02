@@ -297,20 +297,17 @@ public class Player extends Entity {
     private void interactSuperObject(int i) {
 
         if (i != 999) {
-            // TODO
-            // USE .INTERACT HERE
-            // CHECK WHAT INSTANCE
-            // THEN DEFINE THE INTERACT METHOD IN THE ABSTRACT CLASS
 
+            // obj being interacted
             SuperObject obj = (SuperObject) gp.getAssetPool().get(i);
 
             // IF INTERACT EXECUTED
-            if (keyB.isPlayer1EnterPressed() && obj != null ) {
+            if (keyB.isPlayer1EnterPressed() && obj != null) {
 
                 if (obj instanceof Pickupable) {
 
                     if (((Pickupable) obj).isPickingUp(animF.getCurrentState())) {
-                        itemOnHand = (Pickupable) obj;
+                        if (itemOnHand == null) itemOnHand = (Pickupable) obj;
                         obj.interact(this, animF, itemOnHand);
                         gp.getAssetPool().remove(i);
                     }
@@ -330,7 +327,6 @@ public class Player extends Entity {
     }
 
     private boolean sprint() {
-
         return keyB.isPlayer1ShiftPressed() && stamina >= 0 && (keyB.isPlayer1UpPressed() || keyB.isPlayer1DownPressed() || keyB.isLeftPressed() || keyB.isPlayer1RightPressed());
     }
 

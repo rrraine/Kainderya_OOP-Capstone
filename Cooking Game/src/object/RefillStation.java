@@ -13,6 +13,9 @@ import main.GamePanel;
 
 public abstract class RefillStation extends Station{
 
+    // THIS CLASS SHARES THE METHOD CREATECOPY() THAT CREATES INSTANCES OF THEIR RESPECTIVE REFILLS
+    // TODO REFACTOR PAN AND PLATES AS ITEMS
+
     public RefillStation(GamePanel gp, String name) {
         super(gp, name);
     }
@@ -209,109 +212,6 @@ public abstract class RefillStation extends Station{
         @Override
         public Asset createCopy() {
             return new Ingredients.Onion(gp);
-        }
-    }
-
-    // kitchenTools -------------------------------
-    public static class Pan extends RefillStation implements Importable, Pickupable {
-        public Pan (GamePanel gp) {
-            super(gp, "Pan");
-            image = importImage("/objects/item/kitchenTools/pan", gp.tileSize);
-            setDefaultCollisions(true, 12, 24, 50, 30);
-        }
-
-        @Override
-        public void interact(Entity en, AnimationFactory animF, Pickupable obj) {
-            if(en instanceof Player){
-                if (animF.getCurrentState() == AnimationState.BASE) {
-                    animF.switchState((AnimationState.CARRY_PAN));
-                }
-                else if (animF.getCurrentState() == AnimationState.CARRY_PAN) {
-                    animF.switchState((AnimationState.BASE));
-                }
-            }
-        }
-
-        @Override
-        public boolean isPickingUp(AnimationState curr) {
-
-            if (curr == AnimationState.BASE) {
-
-                return true;
-            }
-            if (curr == AnimationState.CARRY_PAN) {
-                return false;
-            }
-            return false;
-        }
-
-
-        @Override
-        public Asset createCopy() {
-            return new RefillStation.Pan(gp);
-        }
-    }
-
-    public static class Plates extends RefillStation implements Importable, Pickupable{
-
-        public Plates (GamePanel gp) { super(gp, "Plates"); }
-
-        @Override
-        public boolean isPickingUp(AnimationState curr) {
-            if (curr == AnimationState.BASE) {
-                return true;
-            }
-            if (curr == AnimationState.CARRY_PLATE) {
-                return false;
-            }
-            return false;
-        }
-
-        @Override
-        public Asset createCopy() {
-            return new RefillStation.Plates(gp);
-        }
-
-
-        // inner classes
-        public static class counterPlates extends Plates implements Importable{
-            public counterPlates (GamePanel gp) {
-                super(gp);
-                image = importImage("/objects/item/kitchenTools/plateCounter", gp.tileSize);
-                setDefaultCollisions(true, 12, 24, 40, 37);
-            }
-
-            @Override
-            public void interact(Entity en, AnimationFactory animF, Pickupable obj) {
-                if(en instanceof Player){
-                    if (animF.getCurrentState() == AnimationState.BASE) {
-                        animF.switchState((AnimationState.CARRY_PLATE));
-                    }
-                    else if (animF.getCurrentState() == AnimationState.CARRY_PLATE) {
-                        animF.switchState((AnimationState.BASE));
-                    }
-                }
-            }
-        }
-
-        public static class diningPlate extends Plates implements Importable{
-            public diningPlate (GamePanel gp) {
-                super(gp);
-                image = importImage("/objects/item/kitchenTools/plate", gp.tileSize);
-                setDefaultCollisions(true, 12, 24, 40, 37);
-            }
-        }
-
-        @Override
-        public void interact(Entity en, AnimationFactory animF, Pickupable obj) {
-            if(en instanceof Player){
-                if (animF.getCurrentState() == AnimationState.BASE) {
-                    // animF.switchState((AnimationState.CARRY_PAN));
-                }
-                else if (animF.getCurrentState() == AnimationState.CARRY_PAN) {
-                    animF.switchState((AnimationState.BASE));
-                }
-            }
         }
     }
 

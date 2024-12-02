@@ -15,7 +15,6 @@ public interface Pickupable {
         ((SuperObject) obj).setWorldX(surface.getWorldX());
         ((SuperObject) obj).setWorldY(surface.getWorldY());
     }
-
     default void reposition(Pickupable obj, int surfaceX, int surfaceY) {
         ((SuperObject) obj).setWorldX(surfaceX);
         ((SuperObject) obj).setWorldY(surfaceY);

@@ -5,6 +5,7 @@ import animation.AnimationFactory;
 import animation.AnimationState;
 import entity.Entity;
 import entity.Player;
+import food.Ingredients;
 import interfaces.Importable;
 import interfaces.Pickupable;
 import main.GamePanel;
@@ -24,7 +25,6 @@ public abstract class WorkStation extends Station{
         super(gp, name);
         isOccupied = false;
     }
-
     public void interact(Entity en, AnimationFactory animF, Pickupable obj) {
 
         if(en instanceof Player){
@@ -60,6 +60,14 @@ public abstract class WorkStation extends Station{
             image = importImage("/objects/item/kitchenArea/leftChoppingBoard", gp.tileSize);
             setDefaultCollisions(true, 0, 24, 67, 37);
         }
+
+        @Override
+        public void interact(Entity en, AnimationFactory animF, Pickupable obj) {
+
+            if (obj instanceof Ingredients) {
+                super.interact(en, animF, obj);
+            }
+        }
     }
     public static class leftRiceCooker extends Counter  {
         // INTERACTION ONLY WORKS WHEN ANIMATION STATE IS CARRYING RICE -> MUST CARRY CLEAN PLATE -> THEN CARRY PLATE RICE
@@ -77,6 +85,14 @@ public abstract class WorkStation extends Station{
             super(gp);
             image = importImage("/objects/item/kitchenArea/leftStove", gp.tileSize);
             setDefaultCollisions(true, 0, 0, 58, 64);
+        }
+
+        @Override
+        public void interact(Entity en, AnimationFactory animF, Pickupable obj) {
+
+            if (obj instanceof Item.Pan) {
+                super.interact(en, animF, obj);
+            }
         }
 
     }
