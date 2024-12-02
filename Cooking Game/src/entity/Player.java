@@ -13,7 +13,6 @@ import object.WorkStation;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.sql.Ref;
 import java.util.List;
 
 public class Player extends Entity {
@@ -37,6 +36,9 @@ public class Player extends Entity {
     // PLAYER PREFERENCES
     private final String playerAvatar;
     private String playerName;
+
+    // CARRY ON HAND
+    Pickupable itemOnHand;
 
     // ~ METHODS ---------------------------------------------------
     public int staminaMeter() {
@@ -146,7 +148,6 @@ public class Player extends Entity {
             interactSuperObject(objIndex);
 
             if (objIndex != 999) {
-                System.out.println("YO ARE COLLIDING AGAINST: " + gp.getAssetPool().get(objIndex));
 
                 if (gp.getAssetPool().get(objIndex) instanceof Item) {
                     System.out.println("ITEM");
@@ -306,19 +307,18 @@ public class Player extends Entity {
             // IF INTERACT EXECUTED
             if (keyB.isPlayer1EnterPressed() && obj != null ) {
 
-
                 if (obj instanceof Pickupable) {
 
                     if (((Pickupable) obj).isPickingUp(animF.getCurrentState())) {
-                        obj.interact(this, animF);
+                        itemOnHand = (Pickupable) obj;
+                        obj.interact(this, animF, itemOnHand);
                         gp.getAssetPool().remove(i);
                     }
                 }
                 else {
-                    obj.interact(this, animF);
+                    obj.interact(this, animF, itemOnHand);
                 }
             }
-
         }
 
     }
@@ -348,5 +348,10 @@ public class Player extends Entity {
     }
     public String getPlayerName() {
         return playerName;
+    }
+    public void setItemOnHandDestroy(boolean destroy) {
+        if (destroy) {
+            itemOnHand = null;
+        }
     }
 }

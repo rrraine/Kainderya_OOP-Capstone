@@ -31,7 +31,7 @@ public abstract class Item extends SuperObject {
         }
 
         @Override
-        public void interact(Entity en, AnimationFactory animF) {
+        public void interact(Entity en, AnimationFactory animF, Pickupable obj) {
             if (en instanceof NPC) {
                 // TODO
             }
@@ -47,7 +47,7 @@ public abstract class Item extends SuperObject {
         }
 
         @Override
-        public void interact(Entity en, AnimationFactory animF) {
+        public void interact(Entity en, AnimationFactory animF, Pickupable obj) {
 
         }
     }
@@ -61,7 +61,7 @@ public abstract class Item extends SuperObject {
         }
 
         @Override
-        public void interact(Entity en, AnimationFactory animF) {
+        public void interact(Entity en, AnimationFactory animF, Pickupable obj) {
 
         }
     }
@@ -75,7 +75,7 @@ public abstract class Item extends SuperObject {
         }
 
         @Override
-        public void interact(Entity en, AnimationFactory animF) {
+        public void interact(Entity en, AnimationFactory animF, Pickupable obj) {
             if(en instanceof Player){
                 if (animF.getCurrentState() == AnimationState.BASE) {
                     animF.switchState((AnimationState.CARRY_PAN));
@@ -127,7 +127,7 @@ public abstract class Item extends SuperObject {
             }
 
             @Override
-            public void interact(Entity en, AnimationFactory animF) {
+            public void interact(Entity en, AnimationFactory animF, Pickupable obj) {
                 if(en instanceof Player){
                     if (animF.getCurrentState() == AnimationState.BASE) {
                         animF.switchState((AnimationState.CARRY_PLATE));
@@ -148,7 +148,7 @@ public abstract class Item extends SuperObject {
         }
 
         @Override
-        public void interact(Entity en, AnimationFactory animF) {
+        public void interact(Entity en, AnimationFactory animF, Pickupable obj) {
             if(en instanceof Player){
                 if (animF.getCurrentState() == AnimationState.BASE) {
                     // animF.switchState((AnimationState.CARRY_PAN));
@@ -168,7 +168,7 @@ public abstract class Item extends SuperObject {
             image = importImage("/objects/item/kitchenArea/rightWall", gp.tileSize);
             setDefaultCollisions(true, 40, 0, 24, 64);
         }
-        public void interact(Entity en, AnimationFactory animF) {}
+        public void interact(Entity en, AnimationFactory animF, Pickupable obj) {}
     }
 
     public static class bush extends Item implements Importable{
@@ -177,7 +177,7 @@ public abstract class Item extends SuperObject {
             image = importImage("/objects/item/outsideRestaurant/bush", gp.tileSize);
             setDefaultCollisions(true, 0, 0, 10, 64);
         }
-        public void interact(Entity en, AnimationFactory animF) {}
+        public void interact(Entity en, AnimationFactory animF, Pickupable obj) {}
     }
 
     public static class rightShelf1 extends Item implements Importable{
@@ -186,7 +186,7 @@ public abstract class Item extends SuperObject {
             image = importImage("/objects/item/kitchenArea/rightShelf1", gp.tileSize);
             setDefaultCollisions(true, 20, 20, 44, 54);
         }
-        public void interact(Entity en, AnimationFactory animF) {
+        public void interact(Entity en, AnimationFactory animF, Pickupable obj) {
             if(en instanceof Player){
                 // animF.switchState((AnimationState.CARRY_PAN));
             }
@@ -199,7 +199,7 @@ public abstract class Item extends SuperObject {
             image = importImage("/objects/item/kitchenArea/rightShelf2", gp.tileSize);
             setDefaultCollisions(true, 20, 0, 44, 64);
         }
-        public void interact(Entity en, AnimationFactory animF) {
+        public void interact(Entity en, AnimationFactory animF, Pickupable obj) {
             if(en instanceof Player){
                 // animF.switchState((AnimationState.CARRY_PAN));
             }

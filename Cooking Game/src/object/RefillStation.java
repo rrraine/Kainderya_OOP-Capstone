@@ -26,7 +26,7 @@ public abstract class RefillStation extends Station{
             setDefaultCollisions(true, 0, 0, 64, 40);
         }
 
-        public void interact(Entity en, AnimationFactory animF) {
+        public void interact(Entity en, AnimationFactory animF, Pickupable obj) {
             if(en instanceof Player){
                 if (animF.getCurrentState() == AnimationState.BASE) {
                     animF.switchState((AnimationState.CARRY_PLATE));
@@ -50,7 +50,7 @@ public abstract class RefillStation extends Station{
             setDefaultCollisions(true, 0, 0, 50, 40);
         }
 
-        public void interact(Entity en, AnimationFactory animF) {
+        public void interact(Entity en, AnimationFactory animF, Pickupable obj) {
             if(en instanceof Player){
 
                 if (animF.getCurrentState() == AnimationState.BASE) {
@@ -75,7 +75,7 @@ public abstract class RefillStation extends Station{
             image = importImage("/objects/item/ingredients/stationaryEgg", gp.tileSize);
             setDefaultCollisions(true, 0, 12, 40, 64);
         }
-        public void interact(Entity en, AnimationFactory animF) {
+        public void interact(Entity en, AnimationFactory animF, Pickupable obj) {
             if(en instanceof Player){
                 if (animF.getCurrentState() == AnimationState.BASE) {
                     animF.switchState((AnimationState.CARRY_EGG));
@@ -99,7 +99,7 @@ public abstract class RefillStation extends Station{
             setDefaultCollisions(true, 12, 24, 40, 37);
         }
 
-        public void interact(Entity en, AnimationFactory animF) {
+        public void interact(Entity en, AnimationFactory animF, Pickupable obj) {
             if(en instanceof Player){
                 if (animF.getCurrentState() == AnimationState.BASE) {
                     animF.switchState((AnimationState.CARRY_SPAM));
@@ -122,7 +122,7 @@ public abstract class RefillStation extends Station{
             image = importImage ("/objects/item/ingredients/stationaryCornedBeef", gp.tileSize);
             setDefaultCollisions(true, 12, 24, 40, 37);
         }
-        public void interact(Entity en, AnimationFactory animF) {
+        public void interact(Entity en, AnimationFactory animF, Pickupable obj) {
             if(en instanceof Player){
                 if (animF.getCurrentState() == AnimationState.BASE) {
                     animF.switchState((AnimationState.CARRY_CORNEDBEEF));
@@ -145,7 +145,7 @@ public abstract class RefillStation extends Station{
             image = importImage("/objects/item/ingredients/riceSack", gp.tileSize);
             setDefaultCollisions(true, 0, 0, 64, 40);
         }
-        public void interact(Entity en, AnimationFactory animF) {
+        public void interact(Entity en, AnimationFactory animF, Pickupable obj) {
             if(en instanceof Player){
                 if (animF.getCurrentState() == AnimationState.BASE) {
                     animF.switchState((AnimationState.CARRY_RAW_RICE));
@@ -170,7 +170,7 @@ public abstract class RefillStation extends Station{
             setDefaultCollisions(true, 20, 0, 46, 44);
         }
 
-        public void interact(Entity en, AnimationFactory animF) {
+        public void interact(Entity en, AnimationFactory animF, Pickupable obj) {
             if(en instanceof Player){
                 if (animF.getCurrentState() == AnimationState.BASE) {
                     animF.switchState((AnimationState.CARRY_TAPA));
@@ -195,7 +195,7 @@ public abstract class RefillStation extends Station{
             setDefaultCollisions(true, 0, 12, 40, 64);
         }
 
-        public void interact(Entity en, AnimationFactory animF) {
+        public void interact(Entity en, AnimationFactory animF, Pickupable obj) {
             if(en instanceof Player){
                 if (animF.getCurrentState() == AnimationState.BASE) {
                     animF.switchState((AnimationState.CARRY_ONION));
@@ -221,7 +221,7 @@ public abstract class RefillStation extends Station{
         }
 
         @Override
-        public void interact(Entity en, AnimationFactory animF) {
+        public void interact(Entity en, AnimationFactory animF, Pickupable obj) {
             if(en instanceof Player){
                 if (animF.getCurrentState() == AnimationState.BASE) {
                     animF.switchState((AnimationState.CARRY_PAN));
@@ -282,7 +282,7 @@ public abstract class RefillStation extends Station{
             }
 
             @Override
-            public void interact(Entity en, AnimationFactory animF) {
+            public void interact(Entity en, AnimationFactory animF, Pickupable obj) {
                 if(en instanceof Player){
                     if (animF.getCurrentState() == AnimationState.BASE) {
                         animF.switchState((AnimationState.CARRY_PLATE));
@@ -303,7 +303,7 @@ public abstract class RefillStation extends Station{
         }
 
         @Override
-        public void interact(Entity en, AnimationFactory animF) {
+        public void interact(Entity en, AnimationFactory animF, Pickupable obj) {
             if(en instanceof Player){
                 if (animF.getCurrentState() == AnimationState.BASE) {
                     // animF.switchState((AnimationState.CARRY_PAN));
