@@ -314,6 +314,7 @@ public class Player extends Entity {
                 }
                 else {
                     obj.interact(this, animF, itemOnHand);
+
                 }
             }
         }

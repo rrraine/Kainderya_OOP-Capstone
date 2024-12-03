@@ -32,7 +32,6 @@ public abstract class Ingredients extends SuperObject implements Importable, Pic
     public boolean isPickingUp(AnimationState curr) {
 
         if (curr == AnimationState.BASE) {
-
             return true;
         }
         if (curr == AnimationState.CARRY_COKE) {
@@ -46,13 +45,14 @@ public abstract class Ingredients extends SuperObject implements Importable, Pic
 
             // if carrying -> clear hand -> deploy item
             if (animF.getCurrentState() != AnimationState.BASE) {
-
+                System.out.println("YOU ARE inside THE INGREDIENTS: " + obj);
                 (obj).reposition(obj, this); // repositions obj's coordinates
                 gp.getAssetPool().add((SuperObject)obj); // add to pool for printing
                 System.out.println("YOU ARE HOLDING: " + obj);
                 gp.player.setItemOnHandDestroy(true); // destroy item on player's hand
-                animF.switchState((AnimationState.BASE)); // base animation
+               // animF.switchState((AnimationState.BASE)); // base animation
             }else if(animF.getCurrentState() == AnimationState.BASE){
+                gp.player.setItemOnHandCreate(obj);
                 animF.switchState((AnimationState.CARRY_COKE));
             }
 
@@ -66,11 +66,12 @@ public abstract class Ingredients extends SuperObject implements Importable, Pic
 
         public Tapa(GamePanel gp) {
             super(gp, "Tapa");
+            image = importImage("/food/coke/cola", gp.tileSize);
+            setDefaultCollisions(false, 0, 0, gp.tileSize, gp.tileSize);
         }
 
         @Override
         public void interact(Entity en, AnimationFactory animF, Pickupable obj) {
-
         }
     }
 
@@ -78,11 +79,12 @@ public abstract class Ingredients extends SuperObject implements Importable, Pic
 
         public CornedBeef(GamePanel gp) {
             super(gp, "CornedBeef");
+            image = importImage("/food/coke/cola", gp.tileSize);
+            setDefaultCollisions(false, 0, 0, gp.tileSize, gp.tileSize);
         }
 
         @Override
         public void interact(Entity en, AnimationFactory animF, Pickupable obj) {
-
         }
     }
 
@@ -90,11 +92,12 @@ public abstract class Ingredients extends SuperObject implements Importable, Pic
 
         public Spam(GamePanel gp) {
             super(gp, "Spam");
+            image = importImage("/food/coke/cola", gp.tileSize);
+            setDefaultCollisions(false, 0, 0, gp.tileSize, gp.tileSize);
         }
 
         @Override
         public void interact(Entity en, AnimationFactory animF, Pickupable obj) {
-
         }
     }
 
@@ -102,11 +105,26 @@ public abstract class Ingredients extends SuperObject implements Importable, Pic
 
         public Egg(GamePanel gp) {
             super(gp, "Egg");
+            image = importImage("/food/ingredients/egg", gp.tileSize);
+            setDefaultCollisions(false, 0, 0, gp.tileSize, gp.tileSize);
         }
 
         @Override
         public void interact(Entity en, AnimationFactory animF, Pickupable obj) {
 
+        }
+
+        @Override
+        public boolean isPickingUp(AnimationState curr) {
+           System.out.println("I am inside picking up an egg");
+            if (curr == AnimationState.BASE) {
+
+                return true;
+            }
+            if (curr == AnimationState.CARRY_EGG) {
+                return false;
+            }
+            return false;
         }
     }
 
@@ -114,6 +132,8 @@ public abstract class Ingredients extends SuperObject implements Importable, Pic
 
         public Rice(GamePanel gp) {
             super(gp, "Rice");
+            image = importImage("/food/rawRicce", gp.tileSize);
+            setDefaultCollisions(false, 0, 0, gp.tileSize, gp.tileSize);
         }
 
         @Override

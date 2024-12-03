@@ -40,12 +40,12 @@ public abstract class WorkStation extends Station{
                 animF.switchState((AnimationState.BASE));// base animation
                 isOccupied = true;
             }else{
-                if(animF.getCurrentState() == AnimationState.BASE && isOccupied){
+                //if(animF.getCurrentState() == AnimationState.BASE && isOccupied){
                     //(obj).reposition(obj, this); // repositions obj's coordinates
                     //gp.getAssetPool().remove((SuperObject)obj);
                     //gp.player.setItemOnHandCreate(new Ingredients.Onion(gp));
                     //animF.switchState((AnimationState.CARRY_COKE));
-                }
+                //}
             }
         }
     }

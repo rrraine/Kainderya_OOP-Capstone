@@ -85,7 +85,6 @@ public abstract class Item extends SuperObject {
                 }
             }
         }
-
         @Override
         public boolean isPickingUp(AnimationState curr) {
 
@@ -96,8 +95,11 @@ public abstract class Item extends SuperObject {
             if (curr == AnimationState.CARRY_PAN) {
                 return false;
             }
+
+
             return false;
         }
+
 
 
     }

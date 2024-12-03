@@ -83,6 +83,7 @@ public abstract class RefillStation extends Station{
         public void interact(Entity en, AnimationFactory animF, Pickupable obj) {
             if(en instanceof Player){
                 if (animF.getCurrentState() == AnimationState.BASE) {
+                    createCopy();
                     animF.switchState((AnimationState.CARRY_EGG));
                 }
                 else if (animF.getCurrentState() == AnimationState.CARRY_EGG) {
@@ -153,6 +154,7 @@ public abstract class RefillStation extends Station{
         public void interact(Entity en, AnimationFactory animF, Pickupable obj) {
             if(en instanceof Player){
                 if (animF.getCurrentState() == AnimationState.BASE) {
+                    createCopy();
                     animF.switchState((AnimationState.CARRY_RAW_RICE));
                 }
                 else if (animF.getCurrentState() == AnimationState.CARRY_RAW_RICE) {
