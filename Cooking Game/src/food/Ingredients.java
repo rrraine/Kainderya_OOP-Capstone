@@ -11,8 +11,6 @@ import object.SuperObject;
 
 public abstract class Ingredients extends SuperObject implements Importable, Pickupable {
 
-    GamePanel gp;
-
     public Ingredients(GamePanel gp, String name) {
         super(gp, name);
     }
