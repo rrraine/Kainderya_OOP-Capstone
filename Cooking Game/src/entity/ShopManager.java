@@ -49,7 +49,6 @@ public class ShopManager {
             } while (occupiedSeats.contains(seat));
             occupiedSeats.add(seat);
             customer.assignSeat(seat);
-            System.out.println("BEFORE ADDING TO NPC LIST: " + customer.idle1.toString());
             gp.getNpc().add(customer);  // Add customer to the general npc list
             //gp.getAssetPool().add(customer);  // Add customer to asset pool
            // System.out.println("Generated customer: " + customer.getClass().getSimpleName());
@@ -58,6 +57,7 @@ public class ShopManager {
         // Generate free-roaming NPCs
         for (int i = 0; i < gp.getMaxRoamers(); i++) {
             NPC freeRoamingNPC = getRandomNPC();
+
             gp.getNpc().add(freeRoamingNPC);  // Add free-roaming NPC to the general npc list
             freeRoamingNPCs.add(freeRoamingNPC);  // Add to the freeRoamingNPCs list
             gp.getAssetPool().add(freeRoamingNPC);  // Add to asset pool

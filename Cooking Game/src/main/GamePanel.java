@@ -14,6 +14,10 @@ import java.util.List;
 
 public class GamePanel extends JPanel implements Runnable {
 
+    // DEBUG CONSOLE CAN BE DELETED
+    String reset = "\u001B[0m";
+    String debug = "\u001B[32m";
+
     // ~ FIELDS ---------------------------------------------------------------------------
     private static GamePanel instance;
 
@@ -152,19 +156,15 @@ public class GamePanel extends JPanel implements Runnable {
 
         // LOAD OBJECTS AND NPC
         Utility.AssetSetter.deploySuperObjectInMap(this, tileSize, obj);
-        System.out.println("Deploying Objects. Count: " + obj.size());
+        System.out.println(debug + "Deploying Objects. Count: " + obj.size() + reset);
         setupNPCDeployment(tileSize);
         //Utility.AssetSetter.deployNPCInMap(this, tileSize, npc, shopManager);
         // Utility.AssetSetter.deployNPCInMap(this, tileSize, npc);
-         System.out.println("Deploying NPCs. GAME PANEL Count: " + npc.size());
+         System.out.println(debug + "Deploying NPCs. GAME PANEL Count: " + npc.size() + reset);
 
         assetPool.addAll(npc);
         assetPool.addAll(obj);
 
-        for (NPC n : npc) {
-            if (n instanceof NPC_Customer)
-            System.out.println("AFTER ADDING TO NPC LIST: " + n.getIdle1().toString());
-        }
         // LOAD MUSIC
         playBGMusic(0);
         music.stopSound();
@@ -203,7 +203,6 @@ public class GamePanel extends JPanel implements Runnable {
             // updateNPCs();
             for (NPC n : npc) {
                 if (n != null) {
-                    System.out.println("Updating NPC " + n.getClass().getSimpleName());
                     n.update();
                 }
             }
@@ -233,22 +232,14 @@ public class GamePanel extends JPanel implements Runnable {
             Collections.sort(assetPool);
 
             // 3. DRAW ASSETS / THE TRY CATCH IS DEBUGGING CAN BE REMOVED RA
-            try {
-                for (Asset a : assetPool) {
-                    if (a instanceof Entity) {
-                        ((Entity) a).draw(g2);
-                        System.out.println("Drawing Entity " + a.getClass().getSimpleName());
-                        System.out.println("Entity XY: " + ((Entity)a).getWorldX() + " " + ((Entity)a).getWorldY());
-                        System.out.println("Entity Image: " + ((Entity) a).getIdle1().toString());
-                    }
-                    else if (a instanceof SuperObject) {
-                        ((SuperObject) a).draw(g2);
-                    }
+            for (Asset a : assetPool) {
+                if (a instanceof Entity) {
+                    ((Entity) a).draw(g2);
                 }
-            } catch (NullPointerException e) {
-                System.err.println("Trouble drawing asset: " + e.getMessage());
+                else if (a instanceof SuperObject) {
+                    ((SuperObject) a).draw(g2);
+                }
             }
-
 
             // 5. DRAW UI
             uiM.draw(g2);

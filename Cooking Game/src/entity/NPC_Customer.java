@@ -134,10 +134,5 @@ public class NPC_Customer extends NPC{
     public int getDefaultY() {
         return random.nextInt(20); // Replace with logic for determining Y
     }
-
-    public BufferedImage getImageTest() {
-        return npcType.idle1;
-    }
-
 }
 

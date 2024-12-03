@@ -12,6 +12,8 @@ public class NPC_FreeRoaming extends NPC{
     public NPC_FreeRoaming(GamePanel gp, NPC npc) {
         super(gp, 1, "idle");
         this.npcType = npc;
+
+        getAvatar();
     }
 
     @Override
