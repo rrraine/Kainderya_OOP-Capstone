@@ -44,7 +44,7 @@ public class NPC_Customer extends NPC{
         isMovingToSeat = true;
     }
 
-    private void moveToSeat(){
+    public void moveToSeat(){
         if (seatLocation != null){
             if (worldX < seatLocation.x){
                 direction = "right";

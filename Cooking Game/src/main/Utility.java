@@ -10,6 +10,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class Utility {
 
@@ -169,16 +170,29 @@ public class Utility {
                     // Add each NPC from ShopManager into the main NPC list
                     npc.add(shopNPC);
 
+                    // generate spawnPoint outside the restaurant
+                    Point spawnPoint;
+
+                    do {
+                        spawnPoint = getRandomSpawnPointOutsideRestaurant(tileSize);
+                    }while (isWithinRestrictedArea(spawnPoint));
+
+                    // set the coordinate of their spawn point
+                    shopNPC.setWorldX(spawnPoint.x * tileSize);
+                    shopNPC.setWorldY(spawnPoint.y * tileSize);
+
                     // Determine positions for the NPCs
                     if (shopNPC instanceof NPC_Customer customer) {
                         // Assign world positions for seated customers based on their seat
                         Point seat = customer.getAssignedSeat();
                         if (seat != null) {
-                            // Multiply seat position by tile size to get the world position
-                            shopNPC.setWorldX(seat.x * tileSize);
-                            shopNPC.setWorldY(seat.y * tileSize);
+
+                            ((NPC_Customer) shopNPC).moveToSeat();
                         }
-                    } else if (shopNPC instanceof NPC_FreeRoaming) {
+                    }
+                    // remove the else-if for freeroamers
+                    /*
+                    else if (shopNPC instanceof NPC_FreeRoaming) {
                         // For free-roaming NPCs or others, assign default/random positions
                         int worldX = shopNPC.getDefaultX();  // Placeholder for default X
                         int worldY = shopNPC.getDefaultY();  // Placeholder for default Y
@@ -186,6 +200,7 @@ public class Utility {
                         shopNPC.setWorldX(worldX * tileSize);  // Scale by tile size
                         shopNPC.setWorldY(worldY * tileSize);  // Scale by tile size
                     }
+                    */
 
                     // Log deployment for debugging
                     System.out.println("Deployed " + shopNPC.getClass().getSimpleName() +
@@ -199,7 +214,33 @@ public class Utility {
                 System.err.println("Accessing null element in (List<NPC> npc): " + e.getMessage());
             }
         }
+
+        private static Point getRandomSpawnPointOutsideRestaurant(int tileSize) {
+            Random random = new Random();
+            int x, y;
+
+            // Example map boundaries: adjust based on your map size
+            int mapWidth = 25;  // Example map width
+            int mapHeight = 15; // Example map height
+
+            do {
+                x = random.nextInt(mapWidth);
+                y = random.nextInt(mapHeight);
+            } while (isWithinRestrictedArea(new Point(x, y)));
+
+            return new Point(x, y);
+        }
+
+        private static boolean isWithinRestrictedArea(Point point) {
+            int x = point.x;
+            int y = point.y;
+
+            // Restricted area for the restaurant
+            return (x >= 7 && x <= 16) && (y >= 5 && y <= 11);
+        }
+
     }
+
 
     // -----------------------------------------------------------
 
