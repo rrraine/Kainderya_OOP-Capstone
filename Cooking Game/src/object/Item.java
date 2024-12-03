@@ -9,6 +9,8 @@ import interfaces.Importable;
 import interfaces.Pickupable;
 import main.GamePanel;
 
+import java.awt.image.BufferedImage;
+
 public abstract class Item extends SuperObject {
 
     // NOTE: DEPLOY THE ITEMS IN THE UTILITY CLASS, ASSETSETTER SUBCLASS!!!
@@ -71,7 +73,7 @@ public abstract class Item extends SuperObject {
         public Pan (GamePanel gp) {
             super(gp, "Pan");
             image = importImage("/objects/item/kitchenTools/pan", gp.tileSize);
-            setDefaultCollisions(true, 12, 24, 50, 30);
+            setDefaultCollisions(false, -8, -8, 80, 80);
         }
 
         @Override
@@ -106,7 +108,15 @@ public abstract class Item extends SuperObject {
 
     public static class Plates extends Item implements Importable, Pickupable{
 
-        public Plates (GamePanel gp) { super(gp, "Plates"); }
+        BufferedImage diningPlate, counterPlate;
+
+        public Plates (GamePanel gp) {
+            super(gp, "Plates");
+            setDefaultCollisions(false, -8, -8, 80, 80);
+            diningPlate = importImage("/objects/item/kitchenTools/plate", gp.tileSize);
+            counterPlate = importImage("/objects/item/kitchenTools/plateCounter", gp.tileSize);
+            image = counterPlate;
+        }
 
         @Override
         public boolean isPickingUp(AnimationState curr) {
@@ -118,46 +128,40 @@ public abstract class Item extends SuperObject {
             }
             return false;
         }
+        @Override
+        public void interact(Entity en, AnimationFactory animF, Pickupable obj) {
+            if(en instanceof Player){
+                if (animF.getCurrentState() == AnimationState.BASE) {
+                    CounterToDiningPlate(false);
+                    animF.switchState((AnimationState.CARRY_PLATE));
+                }
+                else if (animF.getCurrentState() == AnimationState.CARRY_PLATE) {
+                    animF.switchState((AnimationState.BASE));
+                }
+            }
+        }
 
+        public void CounterToDiningPlate(boolean change) {
+
+            if (change) {
+                image = diningPlate;
+            }
+            else if (image != counterPlate) {
+                image = counterPlate;
+            }
+        }
 
         // inner classes
         public static class counterPlates extends Plates implements Importable{
             public counterPlates (GamePanel gp) {
                 super(gp);
                 image = importImage("/objects/item/kitchenTools/plateCounter", gp.tileSize);
-                setDefaultCollisions(true, 12, 24, 40, 37);
-            }
-
-            @Override
-            public void interact(Entity en, AnimationFactory animF, Pickupable obj) {
-                if(en instanceof Player){
-                    if (animF.getCurrentState() == AnimationState.BASE) {
-                        animF.switchState((AnimationState.CARRY_PLATE));
-                    }
-                    else if (animF.getCurrentState() == AnimationState.CARRY_PLATE) {
-                        animF.switchState((AnimationState.BASE));
-                    }
-                }
             }
         }
-
         public static class diningPlate extends Plates implements Importable{
             public diningPlate (GamePanel gp) {
                 super(gp);
                 image = importImage("/objects/item/kitchenTools/plate", gp.tileSize);
-                setDefaultCollisions(true, 12, 24, 40, 37);
-            }
-        }
-
-        @Override
-        public void interact(Entity en, AnimationFactory animF, Pickupable obj) {
-            if(en instanceof Player){
-                if (animF.getCurrentState() == AnimationState.BASE) {
-                    // animF.switchState((AnimationState.CARRY_PAN));
-                }
-                else if (animF.getCurrentState() == AnimationState.CARRY_PAN) {
-                    animF.switchState((AnimationState.BASE));
-                }
             }
         }
     }

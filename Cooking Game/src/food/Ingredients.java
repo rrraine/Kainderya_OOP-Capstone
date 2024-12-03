@@ -67,7 +67,7 @@ public abstract class Ingredients extends SuperObject implements Importable, Pic
         public Tapa(GamePanel gp) {
             super(gp, "Tapa");
             image = importImage("/food/coke/cola", gp.tileSize);
-            setDefaultCollisions(false, 0, 0, gp.tileSize, gp.tileSize);
+            setDefaultCollisions(false, -8, -8, 80, 80);
         }
 
         @Override
@@ -80,7 +80,7 @@ public abstract class Ingredients extends SuperObject implements Importable, Pic
         public CornedBeef(GamePanel gp) {
             super(gp, "CornedBeef");
             image = importImage("/food/coke/cola", gp.tileSize);
-            setDefaultCollisions(false, 0, 0, gp.tileSize, gp.tileSize);
+            setDefaultCollisions(false, -8, -8, 80, 80);
         }
 
         @Override
@@ -93,7 +93,7 @@ public abstract class Ingredients extends SuperObject implements Importable, Pic
         public Spam(GamePanel gp) {
             super(gp, "Spam");
             image = importImage("/food/coke/cola", gp.tileSize);
-            setDefaultCollisions(false, 0, 0, gp.tileSize, gp.tileSize);
+            setDefaultCollisions(false, -8, -8, 80, 80);
         }
 
         @Override
@@ -106,7 +106,7 @@ public abstract class Ingredients extends SuperObject implements Importable, Pic
         public Egg(GamePanel gp) {
             super(gp, "Egg");
             image = importImage("/food/ingredients/egg", gp.tileSize);
-            setDefaultCollisions(false, 0, 0, gp.tileSize, gp.tileSize);
+            setDefaultCollisions(false, -8, -8, 80, 80);
         }
 
         @Override
@@ -133,7 +133,7 @@ public abstract class Ingredients extends SuperObject implements Importable, Pic
         public Rice(GamePanel gp) {
             super(gp, "Rice");
             image = importImage("/food/rawRicce", gp.tileSize);
-            setDefaultCollisions(false, 0, 0, gp.tileSize, gp.tileSize);
+            setDefaultCollisions(false, -8, -8, 80, 80);
         }
 
         @Override
@@ -147,7 +147,7 @@ public abstract class Ingredients extends SuperObject implements Importable, Pic
         public Onion(GamePanel gp) {
             super(gp, "Onion");
             image = importImage("/food/coke/cola", gp.tileSize);
-            setDefaultCollisions(false, 0, 0, gp.tileSize, gp.tileSize);
+            setDefaultCollisions(false, -8, -8, 80, 80);
         }
 
         @Override

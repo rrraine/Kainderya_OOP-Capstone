@@ -114,6 +114,14 @@ public abstract class WorkStation extends Station{
             super(gp, "Tables");
         }
 
+        public void interact(Entity en, AnimationFactory animF, Pickupable obj) {
+
+            if (obj instanceof Item.Plates.counterPlates) {
+                ((Item.Plates.counterPlates) obj).CounterToDiningPlate(true);
+            }
+            super.interact(en, animF, obj);
+        }
+
 
         // insideRestaurant
         public static class leftTable extends Tables implements Importable{
