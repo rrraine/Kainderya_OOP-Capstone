@@ -152,13 +152,15 @@ public class GamePanel extends JPanel implements Runnable {
 
         // LOAD OBJECTS AND NPC
         Utility.AssetSetter.deploySuperObjectInMap(this, tileSize, obj);
-        Utility.AssetSetter.deployNPCInMap(this, tileSize, npc, shopManager);
-        updateNPCs();
+        System.out.println("Deploying Objects. Count: " + obj.size());
+        setupNPCDeployment(tileSize);
+        //Utility.AssetSetter.deployNPCInMap(this, tileSize, npc, shopManager);
+        // Utility.AssetSetter.deployNPCInMap(this, tileSize, npc);
+         System.out.println("Deploying NPCs. GAME PANEL Count: " + npc.size());
+
         assetPool.addAll(npc);
         assetPool.addAll(obj);
 
-        //generateCustomers();
-        // Utility.AssetSetter.deployNPCInMap(this, tileSize, npc, shopManager);
 
         // LOAD MUSIC
         playBGMusic(0);
@@ -198,6 +200,7 @@ public class GamePanel extends JPanel implements Runnable {
             // updateNPCs();
             for (NPC n : npc) {
                 if (n != null) {
+                    System.out.println("Updating NPC " + n.getClass().getSimpleName());
                     n.update();
                 }
             }
@@ -230,6 +233,11 @@ public class GamePanel extends JPanel implements Runnable {
             for (Asset a : assetPool) {
                 if (a instanceof Entity) {
                     ((Entity) a).draw(g2);
+                    System.out.println("Drawing Entity " + a.getClass().getSimpleName());
+                    System.out.println("Entity XY: " + ((Entity)a).getWorldX() + " " + ((Entity)a).getWorldY());
+
+//                    if (a instanceof NPC)
+//                    System.out.println(((Entity)a).getIdle1().toString());
                 }
                 else if (a instanceof SuperObject) {
                     ((SuperObject) a).draw(g2);
@@ -330,18 +338,10 @@ public class GamePanel extends JPanel implements Runnable {
     public Graphics2D getG2() {
         return g2;
     }
+
     public List<Asset> getAssetPool() {
         return assetPool;
     }
-
-    // Combine NPC lists from ShopManager and update the npc list
-    public void updateNPCs() {
-        //npc.clear();  // Clear the current npc list
-
-        // Combine customerNPCs and freeRoamingNPCs into the npc list
-        npc.addAll(shopManager.getAllNPCs());
-    }
-
 
     public int getMaxCustomers() {
         return maxCustomers;
@@ -351,60 +351,20 @@ public class GamePanel extends JPanel implements Runnable {
         return maxRoamers;
     }
 
-    /*
+    public void setupNPCDeployment(int tileSize) {
+        // Create a ShopManager instance
+        ShopManager shopManager = new ShopManager(this);
 
-    public List<NPC_Customer> getNpcCustomer() {
-        return npcCustomer;
+        // Generate NPCs
+        shopManager.generateNPCs();
+        System.out.println("Generated NPCs in ShopManager: " + shopManager.getAllNPCs().size());
+
+        // Deploy NPCs to the map
+        Utility.AssetSetter.deployNPCInMap(this, tileSize, this.npc, shopManager);
+
+        // Confirm deployment
+        System.out.println("Total NPCs deployed to map: " + this.npc.size());
     }
 
-    private void generateCustomers(){
-        Random random = new Random();
-        for (int i = 0; i < maxCustomers; i++) {
-            // Randomly choose an NPC type (StudentMale, StudentFemale, Teacher, Tambay)
-            NPC customerNPC = generateRandomNPC();
 
-            // Create an NPC_Customer with the chosen NPC type
-            NPC_Customer customer = new NPC_Customer(this, customerNPC);
-
-            // Assign a random seat to the customer
-            Point seat = seatLocations.get(random.nextInt(seatLocations.size()));
-            customer.assignSeat(seat);
-
-            // Add the customer to the list and the asset pool
-            npcCustomer.add(customer);
-            npc.add(customer);
-            assetPool.add(customer);
-        }
-    }
-
-    private void generateFreeRoamingNPCs(){
-        Random random = new Random();
-        for (int i = 0; i < maxRoamers; i++) {
-            // Randomly choose an NPC type (StudentMale, StudentFemale, Teacher, Tambay)
-            NPC freeRoamingNPC = generateRandomNPC();
-            npc.add(freeRoamingNPC);
-            shopManager.addFreeRoamingNPC(freeRoamingNPC);
-
-        }
-    }
-
-    private NPC generateRandomNPC() {
-        Random rand = new Random();
-        int npcTypeIndex = rand.nextInt(4);  // Random index to select one of the NPC types
-
-        // Generate and return the appropriate NPC
-        switch (npcTypeIndex) {
-            case 0:
-                return new NPC.StudentMale(this);    // Create a StudentMale
-            case 1:
-                return new NPC.StudentFemale(this);  // Create a StudentFemale
-            case 2:
-                return new NPC.civilianFemale1(this);        // Create a Teacher
-            case 3:
-                return new NPC.Tambay1(this);         // Create a Tambay
-            default:
-                return new NPC.StudentMale(this);    // Default to StudentMale if something goes wrong
-        }
-    }
-    */
 }

@@ -137,7 +137,7 @@ public class Utility {
 
             try {
 
-    /*
+            /*
                 // Add StudentFemale NPC
                 npc.add(new NPC.StudentFemale(gp));
                 npc.get(npc.size() - 1).setWorldX(tileSize * 12);
@@ -160,7 +160,9 @@ public class Utility {
                 npc.get(npc.size() - 1).setWorldX(tileSize * 15);
                 npc.get(npc.size() - 1).setWorldY(tileSize * 13);
 */
+                // shopManager.generateNPCs();
                 List<NPC> shopManagerNPCs = shopManager.getAllNPCs();  // Get the combined list of customers and free-roaming NPCs
+                System.out.println("Deploying NPCs. Count: " + shopManagerNPCs.size());
 
                 // Loop through each NPC from the ShopManager
                 for (NPC shopNPC : shopManagerNPCs) {
@@ -176,7 +178,7 @@ public class Utility {
                             shopNPC.setWorldX(seat.x * tileSize);
                             shopNPC.setWorldY(seat.y * tileSize);
                         }
-                    } else {
+                    } else if (shopNPC instanceof NPC_FreeRoaming) {
                         // For free-roaming NPCs or others, assign default/random positions
                         int worldX = shopNPC.getDefaultX();  // Placeholder for default X
                         int worldY = shopNPC.getDefaultY();  // Placeholder for default Y
@@ -190,6 +192,7 @@ public class Utility {
                             " at (" + shopNPC.getWorldX() / tileSize +
                             ", " + shopNPC.getWorldY() / tileSize + ")");
                 }
+                shopManager.update();
 
             }
             catch (NullPointerException e) {

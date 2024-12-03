@@ -11,41 +11,48 @@ public class ShopManager {
     private Queue<NPC_Customer> waitingQueue;
     private NPC_Customer[] seatedCustomers;
     private List<NPC> freeRoamingNPCs;
+    private Random random = new Random(); // Reuse the same Random instance
 
-    private Point[] seatLocations =  {
+    private Point[] seatLocations = {
             new Point(4, 5), new Point(4, 6), new Point(4, 7), new Point(4, 8),
             new Point(10, 11), new Point(11, 11), new Point(11, 12), new Point(11, 13),
             new Point(14, 11)
-
     };
 
     public ShopManager(GamePanel gp) {
         this.gp = gp;
         waitingQueue = new LinkedList<>();
-        // seatedCustomers = new NPC_Customer[seatLocations.length];
-        seatedCustomers = new NPC_Customer[gp.getMaxCustomers()];
+        seatedCustomers = new NPC_Customer[seatLocations.length];
         freeRoamingNPCs = new ArrayList<>();
     }
 
-    public void addCustomer(NPC_Customer customer){
-        waitingQueue.add(getRandomCustomer());
+    public void addCustomer(NPC_Customer customer) {
+        waitingQueue.add(customer);
     }
 
-    public void addFreeRoamingNPC(NPC npc){
+    public void addFreeRoamingNPC(NPC npc) {
         freeRoamingNPCs.add(npc);
     }
 
     // Generate customers and free-roaming NPCs
     public void generateNPCs() {
-        Random random = new Random();
+        Set<Point> occupiedSeats = new HashSet<>();
+        System.out.println("Generating NPCs");
 
         // Generate customers and assign seats
         for (int i = 0; i < gp.getMaxCustomers(); i++) {
             NPC_Customer customer = getRandomCustomer();
-            Point seat = seatLocations[random.nextInt(seatLocations.length)];
+
+            System.out.println("OUTFIT: " + getRandomCustomer().getIdle1().toString());
+            Point seat;
+            do {
+                seat = seatLocations[random.nextInt(seatLocations.length)];
+            } while (occupiedSeats.contains(seat));
+            occupiedSeats.add(seat);
             customer.assignSeat(seat);
             gp.getNpc().add(customer);  // Add customer to the general npc list
             gp.getAssetPool().add(customer);  // Add customer to asset pool
+           // System.out.println("Generated customer: " + customer.getClass().getSimpleName());
         }
 
         // Generate free-roaming NPCs
@@ -54,39 +61,43 @@ public class ShopManager {
             gp.getNpc().add(freeRoamingNPC);  // Add free-roaming NPC to the general npc list
             freeRoamingNPCs.add(freeRoamingNPC);  // Add to the freeRoamingNPCs list
             gp.getAssetPool().add(freeRoamingNPC);  // Add to asset pool
+            //System.out.println("Generated freeRoamingNPC: " + freeRoamingNPC.getClass().getSimpleName());
         }
+
+        System.out.println("Customer in waiting queue: " + occupiedSeats.size());
+        System.out.println("Free roaming npcs: " + freeRoamingNPCs.size());;
     }
 
-    public void update(){
-        // seat the waiting customers when a seat is available
+    public void update() {
+        // Seat waiting customers when seats are available
         for (int i = 0; i < seatedCustomers.length; i++) {
             if (seatedCustomers[i] == null && !waitingQueue.isEmpty()) {
-                // poll a customer from the waiting queue
                 NPC_Customer customer = waitingQueue.poll();
-                // assign the customer to the seat
                 customer.assignSeat(seatLocations[i]);
                 seatedCustomers[i] = customer;
             }
         }
 
-        // update the seated customers patience timer and handle them leaving
-        for (int i = 0; i <seatedCustomers.length; i++) {
+        // Update seated customers and handle those leaving
+        for (int i = 0; i < seatedCustomers.length; i++) {
             NPC_Customer customer = seatedCustomers[i];
-            if (customer != null && customer.reducePatienceTimer()){
-                // if customer has no patience, they leave their seat
+            if (customer != null && customer.reducePatienceTimer()) {
                 seatedCustomers[i] = null;
                 customer.leaveSeat();
+                System.out.println("Customer left seat at: " + seatLocations[i]);
             }
         }
 
+        // Update free-roaming NPCs
         for (NPC npc : freeRoamingNPCs) {
-            npc.update();
+            if (npc instanceof NPC_FreeRoaming) {
+                npc.update();
+            }
         }
     }
 
     public List<NPC> getNPCs() {
-        List<NPC> npcs = new ArrayList<>();
-        npcs.addAll(waitingQueue);
+        List<NPC> npcs = new ArrayList<>(waitingQueue);
         Collections.addAll(npcs, seatedCustomers);
         npcs.addAll(freeRoamingNPCs);
         npcs.removeIf(Objects::isNull);
@@ -97,8 +108,8 @@ public class ShopManager {
         return seatLocations;
     }
 
-    private NPC_Customer getRandomCustomer(){
-        Random random = new Random();
+    // return a new instance of NPC_Customer
+    private NPC_Customer getRandomCustomer() {
         int npcTypeIndex = random.nextInt(4);
 
         NPC customerNPC = switch (npcTypeIndex) {
@@ -112,8 +123,8 @@ public class ShopManager {
         return new NPC_Customer(gp, customerNPC);
     }
 
-    private NPC getRandomNPC(){
-        Random random = new Random();
+    // return a new NPC_Free Roaming
+    private NPC getRandomNPC() {
         int npcTypeIndex = random.nextInt(4);
 
         NPC randomNPC = switch (npcTypeIndex) {
@@ -127,18 +138,13 @@ public class ShopManager {
         return new NPC_FreeRoaming(gp, randomNPC);
     }
 
-
     public int getDefaultX() {
-        Random rand = new Random();
-        return rand.nextInt(25);  // Generate a random X position within a valid range
+        return random.nextInt(25);  // Generate a random X position within a valid range
     }
+
     public int getDefaultY() {
-        Random rand = new Random();
-        return rand.nextInt(15);  // Generate a random Y position within a valid range
+        return random.nextInt(15);  // Generate a random Y position within a valid range
     }
-
-
-    // PUBLIC GETTERS
 
     public Queue<NPC_Customer> getWaitingQueue() {
         return waitingQueue;
@@ -158,14 +164,15 @@ public class ShopManager {
         return seated;
     }
 
-    public List<NPC> getAllNPCs(){
-        List<NPC> allNPCs = new ArrayList<>();
+    public List<NPC> getAllNPCs() {
+        Set<NPC> allNPCs = new HashSet<>();
         allNPCs.addAll(waitingQueue);
         allNPCs.addAll(freeRoamingNPCs);
         allNPCs.addAll(getSeatedCustomers());
-        for(NPC npc : allNPCs){
+        for (NPC npc : allNPCs) {
             System.out.println(npc.getClass());
+            //System.out.println("NPC SKIN: " + npc.idle1.toString());
         }
-        return allNPCs;
+        return new ArrayList<>(allNPCs);
     }
 }
