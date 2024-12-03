@@ -1,5 +1,9 @@
 package food;
 
+import animation.AnimationFactory;
+import animation.AnimationState;
+import entity.Entity;
+import interfaces.Pickupable;
 import main.GamePanel;
 
 public abstract class Dish extends Food {
@@ -23,6 +27,23 @@ public abstract class Dish extends Food {
             loadImage("TODO pPATHHH OF TAPSILOIG");
         }
 
+        @Override
+        public boolean isPickingUp(AnimationState curr) {
+
+            if (curr == AnimationState.BASE) {
+                return true;
+            }
+            // TODO CHANGE
+            if (curr == AnimationState.CARRY_COKE) {
+                return false;
+            }
+            return false;
+        }
+
+        @Override
+        public void interact(Entity en, AnimationFactory animF, Pickupable obj) {
+
+        }
     }
 
     public static class Spamsilog extends Dish{
@@ -31,7 +52,24 @@ public abstract class Dish extends Food {
             super(gp, "Spamsilog");
             loadImage("TODO pPATHHH OF SPAMSILOG");
         }
+        @Override
+        public boolean isPickingUp(AnimationState curr) {
 
+            if (curr == AnimationState.BASE) {
+                return true;
+            }
+            // TODO CHANGE
+            if (curr == AnimationState.CARRY_COKE) {
+                return false;
+            }
+            return false;
+        }
+
+
+        @Override
+        public void interact(Entity en, AnimationFactory animF, Pickupable obj) {
+
+        }
     }
 
     public static class Cornsilog extends Dish{
@@ -39,6 +77,23 @@ public abstract class Dish extends Food {
         public Cornsilog(GamePanel gp) {
             super(gp, "Cornsilog");
             loadImage("TODO pPATHHH OF CONRSILOG");
+        }
+        @Override
+        public boolean isPickingUp(AnimationState curr) {
+
+            if (curr == AnimationState.BASE) {
+                return true;
+            }
+            // TODO CHANGE
+            if (curr == AnimationState.CARRY_COKE) {
+                return false;
+            }
+            return false;
+        }
+
+        @Override
+        public void interact(Entity en, AnimationFactory animF, Pickupable obj) {
+
         }
     }
 

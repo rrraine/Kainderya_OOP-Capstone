@@ -5,6 +5,7 @@ import animation.AnimationFactory;
 import animation.AnimationState;
 import entity.Entity;
 import entity.Player;
+import food.Drink;
 import food.Ingredients;
 import interfaces.Importable;
 import interfaces.Pickupable;
@@ -32,10 +33,19 @@ public abstract class WorkStation extends Station{
             // if carrying -> clear hand -> deploy item
             if (animF.getCurrentState() != AnimationState.BASE) {
 
-                ((Pickupable)obj).reposition(obj, this); // repositions obj's coordinates
+                (obj).reposition(obj, this); // repositions obj's coordinates
                 gp.getAssetPool().add((SuperObject)obj); // add to pool for printing
+                System.out.println("YOU ARE HOLDING: " + obj);
                 gp.player.setItemOnHandDestroy(true); // destroy item on player's hand
-                animF.switchState((AnimationState.BASE)); // base animation
+                animF.switchState((AnimationState.BASE));// base animation
+                isOccupied = true;
+            }else{
+                if(animF.getCurrentState() == AnimationState.BASE && isOccupied){
+                    //(obj).reposition(obj, this); // repositions obj's coordinates
+                    //gp.getAssetPool().remove((SuperObject)obj);
+                    //gp.player.setItemOnHandCreate(new Ingredients.Onion(gp));
+                    //animF.switchState((AnimationState.CARRY_COKE));
+                }
             }
         }
     }

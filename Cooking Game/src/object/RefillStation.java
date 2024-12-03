@@ -8,7 +8,7 @@ import food.Drink;
 import food.Ingredients;
 import interfaces.Importable;
 import interfaces.Pickupable;
-import main.Asset;
+
 import main.GamePanel;
 
 public abstract class RefillStation extends Station{
@@ -20,8 +20,9 @@ public abstract class RefillStation extends Station{
         super(gp, name);
     }
 
-    public abstract Asset createCopy();
+    public abstract void createCopy();
 
+    // inner classes
     public static class WaterDispenser extends RefillStation implements Importable {
         public WaterDispenser(GamePanel gp) {
             super(gp, "Water Dispenser");
@@ -41,8 +42,9 @@ public abstract class RefillStation extends Station{
         }
 
         @Override
-        public Asset createCopy() {
-            return new Drink.Water(gp);
+        public void createCopy() {
+
+            gp.player.setItemOnHandCreate(new Drink.Water(gp));
         }
     }
 
@@ -66,8 +68,8 @@ public abstract class RefillStation extends Station{
         }
 
         @Override
-        public Asset createCopy() {
-            return new Drink.Cola(gp);
+        public void createCopy() {
+            gp.player.setItemOnHandCreate(new Drink.Cola(gp));
         }
     }
 
@@ -90,8 +92,8 @@ public abstract class RefillStation extends Station{
         }
 
         @Override
-        public Asset createCopy() {
-            return new Ingredients.Egg(gp);
+        public void createCopy() {
+            gp.player.setItemOnHandCreate(new Ingredients.Egg(gp));
         }
     }
 
@@ -114,8 +116,8 @@ public abstract class RefillStation extends Station{
         }
 
         @Override
-        public Asset createCopy() {
-            return new Ingredients.Spam(gp);
+        public void createCopy() {
+            gp.player.setItemOnHandCreate(new Ingredients.Spam(gp));
         }
     }
 
@@ -137,8 +139,8 @@ public abstract class RefillStation extends Station{
         }
 
         @Override
-        public Asset createCopy() {
-            return new Ingredients.CornedBeef(gp);
+        public void createCopy() {
+            gp.player.setItemOnHandCreate(new Ingredients.CornedBeef(gp));
         }
     }
 
@@ -160,8 +162,8 @@ public abstract class RefillStation extends Station{
         }
 
         @Override
-        public Asset createCopy() {
-            return new Ingredients.Rice(gp);
+        public void createCopy() {
+            gp.player.setItemOnHandCreate(new Ingredients.Rice(gp));
         }
     }
 
@@ -185,8 +187,8 @@ public abstract class RefillStation extends Station{
         }
 
         @Override
-        public Asset createCopy() {
-            return new Ingredients.Tapa(gp);
+        public void createCopy() {
+            gp.player.setItemOnHandCreate(new Ingredients.Tapa(gp));
         }
     }
 
@@ -201,6 +203,7 @@ public abstract class RefillStation extends Station{
         public void interact(Entity en, AnimationFactory animF, Pickupable obj) {
             if(en instanceof Player){
                 if (animF.getCurrentState() == AnimationState.BASE) {
+                    createCopy();
                     animF.switchState((AnimationState.CARRY_ONION));
                 }
                 else if (animF.getCurrentState() == AnimationState.CARRY_ONION) {
@@ -210,8 +213,8 @@ public abstract class RefillStation extends Station{
         }
 
         @Override
-        public Asset createCopy() {
-            return new Ingredients.Onion(gp);
+        public void createCopy() {
+            gp.player.setItemOnHandCreate(new Ingredients.Onion(gp));
         }
     }
 

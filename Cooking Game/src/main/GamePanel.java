@@ -213,6 +213,7 @@ public class GamePanel extends JPanel implements Runnable {
             for (Asset a : assetPool) {
                 if (a instanceof Entity) {
                     ((Entity) a).draw(g2);
+                    System.out.println(((Entity) a).getIdle1().toString());
                 }
                 else if (a instanceof SuperObject) {
                     ((SuperObject) a).draw(g2);

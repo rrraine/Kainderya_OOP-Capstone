@@ -305,7 +305,7 @@ public class Player extends Entity {
             if (keyB.isPlayer1EnterPressed() && obj != null) {
 
                 if (obj instanceof Pickupable) {
-
+                    System.out.println("I am here!!!!!!!!!!!!!!!!!!!!!");
                     if (((Pickupable) obj).isPickingUp(animF.getCurrentState())) {
                         if (itemOnHand == null) itemOnHand = (Pickupable) obj;
                         obj.interact(this, animF, itemOnHand);
@@ -349,5 +349,8 @@ public class Player extends Entity {
         if (destroy) {
             itemOnHand = null;
         }
+    }
+    public void setItemOnHandCreate(Pickupable obj) {
+        itemOnHand = obj;
     }
 }

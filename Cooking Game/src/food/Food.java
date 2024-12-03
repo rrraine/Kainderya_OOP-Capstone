@@ -1,6 +1,7 @@
 package food;
 
 import interfaces.Importable;
+import interfaces.Pickupable;
 import main.Asset;
 import main.GamePanel;
 import object.SuperObject;
@@ -8,7 +9,7 @@ import object.SuperObject;
 import java.awt.image.BufferedImage;
 import java.util.List;
 
-public abstract class Food extends Asset implements Importable {
+public abstract class Food extends SuperObject implements Importable, Pickupable {
 
     // NOTE: THIS CLASS CAN USE ASSET CLASS' ABSOLUTE POSITIONING IN MAP & ALSO COLLISION BOX
 
@@ -19,7 +20,7 @@ public abstract class Food extends Asset implements Importable {
     protected List<Ingredients> ingredients;
 
     public Food(GamePanel gp, String name) {
-        super(gp);
+        super(gp, name);
         this.name = name;
     }
 
