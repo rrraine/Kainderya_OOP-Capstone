@@ -9,6 +9,8 @@ import interfaces.Importable;
 import interfaces.Pickupable;
 import main.GamePanel;
 
+import java.awt.image.BufferedImage;
+
 public abstract class Item extends SuperObject {
 
     // NOTE: DEPLOY THE ITEMS IN THE UTILITY CLASS, ASSETSETTER SUBCLASS!!!
@@ -31,7 +33,7 @@ public abstract class Item extends SuperObject {
         }
 
         @Override
-        public void interact(Entity en, AnimationFactory animF) {
+        public void interact(Entity en, AnimationFactory animF, Pickupable obj) {
             if (en instanceof NPC) {
                 // TODO
             }
@@ -47,7 +49,7 @@ public abstract class Item extends SuperObject {
         }
 
         @Override
-        public void interact(Entity en, AnimationFactory animF) {
+        public void interact(Entity en, AnimationFactory animF, Pickupable obj) {
 
         }
     }
@@ -61,7 +63,7 @@ public abstract class Item extends SuperObject {
         }
 
         @Override
-        public void interact(Entity en, AnimationFactory animF) {
+        public void interact(Entity en, AnimationFactory animF, Pickupable obj) {
 
         }
     }
@@ -71,11 +73,11 @@ public abstract class Item extends SuperObject {
         public Pan (GamePanel gp) {
             super(gp, "Pan");
             image = importImage("/objects/item/kitchenTools/pan", gp.tileSize);
-            setDefaultCollisions(true, 12, 24, 50, 30);
+            setDefaultCollisions(false, -8, -8, 80, 80);
         }
 
         @Override
-        public void interact(Entity en, AnimationFactory animF) {
+        public void interact(Entity en, AnimationFactory animF, Pickupable obj) {
             if(en instanceof Player){
                 if (animF.getCurrentState() == AnimationState.BASE) {
                     animF.switchState((AnimationState.CARRY_PAN));
@@ -85,26 +87,23 @@ public abstract class Item extends SuperObject {
                 }
             }
         }
-
         @Override
         public boolean isPickingUp(AnimationState curr) {
-
-            if (curr == AnimationState.BASE) {
-
-                return true;
-            }
-            if (curr == AnimationState.CARRY_PAN) {
-                return false;
-            }
-            return false;
+            return curr == AnimationState.BASE;
         }
-
-
     }
 
     public static class Plates extends Item implements Importable, Pickupable{
 
-        public Plates (GamePanel gp) { super(gp, "Plates"); }
+        BufferedImage diningPlate, counterPlate;
+
+        public Plates (GamePanel gp) {
+            super(gp, "Plates");
+            setDefaultCollisions(false, -8, -8, 80, 80);
+            diningPlate = importImage("/objects/item/kitchenTools/plate", gp.tileSize);
+            counterPlate = importImage("/objects/item/kitchenTools/plateCounter", gp.tileSize);
+            image = counterPlate;
+        }
 
         @Override
         public boolean isPickingUp(AnimationState curr) {
@@ -116,47 +115,24 @@ public abstract class Item extends SuperObject {
             }
             return false;
         }
-
-
-        // inner classes
-        public static class counterPlates extends Plates implements Importable{
-            public counterPlates (GamePanel gp) {
-                super(gp);
-                image = importImage("/objects/item/kitchenTools/plateCounter", gp.tileSize);
-                setDefaultCollisions(true, 12, 24, 40, 37);
-            }
-
-            @Override
-            public void interact(Entity en, AnimationFactory animF) {
-                if(en instanceof Player){
-                    if (animF.getCurrentState() == AnimationState.BASE) {
-                        animF.switchState((AnimationState.CARRY_PLATE));
-                    }
-                    else if (animF.getCurrentState() == AnimationState.CARRY_PLATE) {
-                        animF.switchState((AnimationState.BASE));
-                    }
-                }
-            }
-        }
-
-        public static class diningPlate extends Plates implements Importable{
-            public diningPlate (GamePanel gp) {
-                super(gp);
-                image = importImage("/objects/item/kitchenTools/plate", gp.tileSize);
-                setDefaultCollisions(true, 12, 24, 40, 37);
-            }
-        }
-
         @Override
-        public void interact(Entity en, AnimationFactory animF) {
+        public void interact(Entity en, AnimationFactory animF, Pickupable obj) {
+
             if(en instanceof Player){
                 if (animF.getCurrentState() == AnimationState.BASE) {
-                    // animF.switchState((AnimationState.CARRY_PAN));
+                    CounterToDiningPlate(false);
+                    animF.switchState((AnimationState.CARRY_PLATE));
                 }
-                else if (animF.getCurrentState() == AnimationState.CARRY_PAN) {
+                else if (animF.getCurrentState() == AnimationState.CARRY_PLATE) {
                     animF.switchState((AnimationState.BASE));
                 }
             }
+        }
+
+        public void CounterToDiningPlate(boolean change) {
+
+            if (change) { image = diningPlate; }
+            else if (image != counterPlate) { image = counterPlate; }
         }
     }
 
@@ -168,7 +144,7 @@ public abstract class Item extends SuperObject {
             image = importImage("/objects/item/kitchenArea/rightWall", gp.tileSize);
             setDefaultCollisions(true, 40, 0, 24, 64);
         }
-        public void interact(Entity en, AnimationFactory animF) {}
+        public void interact(Entity en, AnimationFactory animF, Pickupable obj) {}
     }
 
     public static class bush extends Item implements Importable{
@@ -177,7 +153,7 @@ public abstract class Item extends SuperObject {
             image = importImage("/objects/item/outsideRestaurant/bush", gp.tileSize);
             setDefaultCollisions(true, 0, 0, 10, 64);
         }
-        public void interact(Entity en, AnimationFactory animF) {}
+        public void interact(Entity en, AnimationFactory animF, Pickupable obj) {}
     }
 
     public static class rightShelf1 extends Item implements Importable{
@@ -186,7 +162,7 @@ public abstract class Item extends SuperObject {
             image = importImage("/objects/item/kitchenArea/rightShelf1", gp.tileSize);
             setDefaultCollisions(true, 20, 20, 44, 54);
         }
-        public void interact(Entity en, AnimationFactory animF) {
+        public void interact(Entity en, AnimationFactory animF, Pickupable obj) {
             if(en instanceof Player){
                 // animF.switchState((AnimationState.CARRY_PAN));
             }
@@ -199,7 +175,7 @@ public abstract class Item extends SuperObject {
             image = importImage("/objects/item/kitchenArea/rightShelf2", gp.tileSize);
             setDefaultCollisions(true, 20, 0, 44, 64);
         }
-        public void interact(Entity en, AnimationFactory animF) {
+        public void interact(Entity en, AnimationFactory animF, Pickupable obj) {
             if(en instanceof Player){
                 // animF.switchState((AnimationState.CARRY_PAN));
             }

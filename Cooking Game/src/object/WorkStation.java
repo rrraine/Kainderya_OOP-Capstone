@@ -5,16 +5,19 @@ import animation.AnimationFactory;
 import animation.AnimationState;
 import entity.Entity;
 import entity.Player;
+import food.Drink;
+import food.Ingredients;
 import interfaces.Importable;
+import interfaces.Pickupable;
 import main.GamePanel;
 
 public abstract class WorkStation extends Station{
+
     boolean isOccupied;
 
     public boolean isOccupied() {
         return isOccupied;
     }
-
     public void setOccupied(boolean occupied) {
         isOccupied = occupied;
     }
@@ -23,49 +26,118 @@ public abstract class WorkStation extends Station{
         super(gp, name);
         isOccupied = false;
     }
+    public void interact(Entity en, AnimationFactory animF, Pickupable obj) {
+
+        if(en instanceof Player){
+
+            // if carrying -> clear hand -> deploy item
+            if (animF.getCurrentState() != AnimationState.BASE) {
+
+                (obj).reposition(obj, this); // repositions obj's coordinates
+                gp.getAssetPool().add((SuperObject)obj); // add to pool for printing
+                System.out.println("YOU ARE HOLDING: " + obj);
+                gp.player.setItemOnHandDestroy(); // destroy item on player's hand
+                animF.switchState((AnimationState.BASE));// base animation
+                isOccupied = true;
+            } else {
+                //if(animF.getCurrentState() == AnimationState.BASE && isOccupied){
+                    //(obj).reposition(obj, this); // repositions obj's coordinates
+                    //gp.getAssetPool().remove((SuperObject)obj);
+                    //gp.player.setItemOnHandCreate(new Ingredients.Onion(gp));
+                    //animF.switchState((AnimationState.CARRY_COKE));
+                //}
+            }
+        }
+    }
 
 
+    // inner classes
+
+    // actual work stations
+    public static class centerSink extends WorkStation implements Importable {
+        // INTERACTION ONLY WORKS WHEN ANIMATION STATE IS CARRYING DIRTY PLATE -> THEN CARRY CLEAN PLATE
+        public centerSink(GamePanel gp) {
+            super(gp, "centerSink");
+            image = importImage("/objects/item/kitchenArea/sink", gp.tileSize);
+            setDefaultCollisions(true, 12, 24, 40, 37);
+        }
+    }
+    public static class leftChoppingBoard extends WorkStation implements Importable {
+        // INTERACTION ONLY WORKS WHEN ANIMATION STATE IS CARRYING ONION -> THEN CARRY CHOPPED ONION
+
+        public leftChoppingBoard(GamePanel gp) {
+            super(gp, "leftChoppingBoard");
+            image = importImage("/objects/item/kitchenArea/leftChoppingBoard", gp.tileSize);
+            setDefaultCollisions(true, 0, 24, 67, 37);
+        }
+
+        @Override
+        public void interact(Entity en, AnimationFactory animF, Pickupable obj) {
+
+            if (obj instanceof Ingredients) {
+                super.interact(en, animF, obj);
+            }
+        }
+    }
+    public static class leftRiceCooker extends Counter  {
+        // INTERACTION ONLY WORKS WHEN ANIMATION STATE IS CARRYING RICE -> MUST CARRY CLEAN PLATE -> THEN CARRY PLATE RICE
+
+        public leftRiceCooker(GamePanel gp) {
+            super(gp);
+            image = importImage("/objects/item/kitchenArea/leftRiceCooker", gp.tileSize);
+            setDefaultCollisions(true, 0, 0, 58, 64);
+        }
+    }
+    public static class leftStove extends Counter  {
+        // INTERACTION ONLY WORKS WHEN ANIMATION STATE IS CARRYING COOKABLE INGREDIENTS -> MUST CARRY CLEAN PLATE -> THEN CARRY COOKED PRODUCT
+
+        public leftStove(GamePanel gp) {
+            super(gp);
+            image = importImage("/objects/item/kitchenArea/leftStove", gp.tileSize);
+            setDefaultCollisions(true, 0, 0, 58, 64);
+        }
+
+        @Override
+        public void interact(Entity en, AnimationFactory animF, Pickupable obj) {
+
+            if (obj instanceof Item.Pan) {
+                super.interact(en, animF, obj);
+            }
+        }
+
+    }
+
+    // surfaces
     public static class Tables extends WorkStation implements Importable {
+
         public Tables (GamePanel gp){
             super(gp, "Tables");
         }
 
-        public void interact(Entity en, AnimationFactory animF) {
-            if(en instanceof Player){
-                // animF.switchState((AnimationState.CARRY_PAN));
+        public void interact(Entity en, AnimationFactory animF, Pickupable obj) {
+
+            if (obj instanceof Item.Plates) {
+                ((Item.Plates) obj).CounterToDiningPlate(true);
             }
+            super.interact(en, animF, obj);
         }
 
 
-
+        // insideRestaurant
         public static class leftTable extends Tables implements Importable{
             public leftTable(GamePanel gp){
                 super(gp);
                 image = importImage("/objects/item/diningArea/leftTable", gp.tileSize);
                 setDefaultCollisions(true, 12, 24, 40, 37);
             }
-
-            public void interact(Entity en, AnimationFactory animF) {
-                if(en instanceof Player){
-                    // animF.switchState((AnimationState.CARRY_PAN));
-                }
-            }
         }
-
         public static class middleTable extends Tables implements Importable{
             public middleTable(GamePanel gp){
                 super(gp);
                 image = importImage("/objects/item/diningArea/middleTable", gp.tileSize);
                 setDefaultCollisions(true, 12, 24, 40, 37);
             }
-
-            public void interact(Entity en, AnimationFactory animF) {
-                if(en instanceof Player){
-                    // animF.switchState((AnimationState.CARRY_PAN));
-                }
-            }
         }
-
         public static class rightTable extends Tables implements Importable{
             public rightTable(GamePanel gp){
                 super(gp);
@@ -82,7 +154,6 @@ public abstract class WorkStation extends Station{
                 setDefaultCollisions(true, 24, 10, 30, 50);
             }
         }
-
         public static class outsideLowerTable extends Tables implements Importable{
             public outsideLowerTable(GamePanel gp){
                 super(gp);
@@ -91,46 +162,10 @@ public abstract class WorkStation extends Station{
             }
         }
     }
-
-    public static class centerSink extends WorkStation implements Importable {
-
-        public centerSink(GamePanel gp) {
-            super(gp, "centerSink");
-            image = importImage("/objects/item/kitchenArea/sink", gp.tileSize);
-            setDefaultCollisions(true, 12, 24, 40, 37);
-        }
-
-        public void interact(Entity en, AnimationFactory animF) {
-            if(en instanceof Player){
-                // animF.switchState((AnimationState.CARRY_PAN));
-            }
-        }
-
-    }
-
-    public static class leftChoppingBoard extends WorkStation implements Importable {
-
-        public leftChoppingBoard(GamePanel gp) {
-            super(gp, "leftChoppingBoard");
-            image = importImage("/objects/item/kitchenArea/leftChoppingBoard", gp.tileSize);
-            setDefaultCollisions(true, 0, 24, 67, 37);
-        }
-
-        public void interact(Entity en, AnimationFactory animF) {
-            if(en instanceof Player){
-                // animF.switchState((AnimationState.CARRY_PAN));
-            }
-        }
-
-    }
-
     public static class Counter extends WorkStation implements Importable{
+
         public Counter(GamePanel gp) {
             super(gp, "Counter");
-        }
-
-        public void interact(Entity en, AnimationFactory animF) {
-
         }
 
         public static class leftCounter extends Counter  {
@@ -139,16 +174,6 @@ public abstract class WorkStation extends Station{
                 super(gp);
                 image = importImage("/objects/item/kitchenArea/leftCounter", gp.tileSize);
                 setDefaultCollisions(true, 0, 0, 55, 64);
-            }
-
-            public void interact(Entity en, AnimationFactory animF) {
-
-                if(en instanceof Player){
-                    if (animF.getCurrentState() != AnimationState.BASE) {
-                        animF.switchState((AnimationState.BASE));
-                    }
-                }
-
             }
 
         }
@@ -160,18 +185,7 @@ public abstract class WorkStation extends Station{
                 setDefaultCollisions(true, 12, 24, 50, 64);
             }
 
-            public void interact(Entity en, AnimationFactory animF) {
-
-                if(en instanceof Player){
-                    if (animF.getCurrentState() != AnimationState.BASE) {
-                        animF.switchState((AnimationState.BASE));
-                    }
-                }
-
-            }
-
         }
-
         public static class leftCornerTable extends Counter  {
 
             public leftCornerTable(GamePanel gp) {
@@ -180,62 +194,8 @@ public abstract class WorkStation extends Station{
                 setDefaultCollisions(true, 0, 0, 50, 64);
             }
 
-            public void interact(Entity en, AnimationFactory animF) {
-
-                if(en instanceof Player){
-                    if (animF.getCurrentState() != AnimationState.BASE) {
-                        animF.switchState((AnimationState.BASE));
-                    }
-                }
-
-            }
-
 
         }
-
-        public static class leftRiceCooker extends Counter  {
-
-            public leftRiceCooker(GamePanel gp) {
-                super(gp);
-                image = importImage("/objects/item/kitchenArea/leftRiceCooker", gp.tileSize);
-                setDefaultCollisions(true, 0, 0, 58, 64);
-            }
-
-            public void interact(Entity en, AnimationFactory animF) {
-
-                if(en instanceof Player){
-                    Player player = (Player) en;
-                    if (animF.getCurrentState() != AnimationState.BASE) {
-                        animF.switchState((AnimationState.BASE));
-                    }
-
-
-                }
-
-            }
-
-        }
-
-        public static class leftStove extends Counter  {
-
-            public leftStove(GamePanel gp) {
-                super(gp);
-                image = importImage("/objects/item/kitchenArea/leftStove", gp.tileSize);
-                setDefaultCollisions(true, 0, 0, 58, 64);
-            }
-
-            public void interact(Entity en, AnimationFactory animF) {
-
-                if(en instanceof Player){
-                    if (animF.getCurrentState() != AnimationState.BASE) {
-                        animF.switchState((AnimationState.BASE));
-                    }
-                }
-
-            }
-
-        }
-
         public static class leftStraightTable extends Counter  {
 
             public leftStraightTable(GamePanel gp) {
@@ -243,83 +203,47 @@ public abstract class WorkStation extends Station{
                 image = importImage("/objects/item/kitchenArea/leftStraightTable", gp.tileSize);
                 setDefaultCollisions(true, 0, 0, 58, 64);
             }
-            public void interact(Entity en, AnimationFactory animF) {
 
-                if(en instanceof Player){
-                    if (animF.getCurrentState() != AnimationState.BASE) {
-                        animF.switchState((AnimationState.BASE));
-                    }
-                }
-
-            }
         }
-
-
     }
-
     public static class KitchenIsland extends WorkStation implements Importable {
-
         public KitchenIsland(GamePanel gp) {
             super(gp, "KitchenIsland");
             image = importImage("/objects/item/kitchenArea/centerSink", gp.tileSize);
             setDefaultCollisions(true, 12, 24, 40, 37);
         }
 
-        public void interact(Entity en, AnimationFactory animF) {
-            if(en instanceof Player){
-                // animF.switchState((AnimationState.CARRY_PAN));
-            }
-        }
-
-        public static class leftKitchenIsland extends Item implements Importable {
+        public static class leftKitchenIsland extends KitchenIsland implements Importable {
 
             public leftKitchenIsland(GamePanel gp) {
-                super(gp, "leftKitchenIsland");
+                super(gp);
                 image = importImage("/objects/item/kitchenArea/leftKitchenIsland", gp.tileSize);
                 setDefaultCollisions(true, 12, 24, 40, 37);
             }
 
-            public void interact(Entity en, AnimationFactory animF) {
-                if(en instanceof Player){
-                    // animF.switchState((AnimationState.CARRY_PAN));
-                }
-            }
         }
-
-        public static class rightKitchenIsland extends Item implements Importable {
+        public static class rightKitchenIsland extends KitchenIsland implements Importable {
 
             public rightKitchenIsland(GamePanel gp) {
-                super(gp, "rightKitchenIsland");
+                super(gp);
                 image = importImage("/objects/item/kitchenArea/rightKitchenIsland", gp.tileSize);
                 setDefaultCollisions(true, 12, 24, 40, 37);
             }
 
-            public void interact(Entity en, AnimationFactory animF) {
-                if(en instanceof Player){
-                    // animF.switchState((AnimationState.CARRY_PAN));
-                }
-            }
 
         }
-
-        public static class middleKitchenIsland extends Item implements Importable {
+        public static class middleKitchenIsland extends KitchenIsland implements Importable {
 
             public middleKitchenIsland(GamePanel gp) {
-                super(gp, "middleKitchenIsland");
+                super(gp);
                 image = importImage("/objects/item/kitchenArea/middleKitchenIsland", gp.tileSize);
                 setDefaultCollisions(true, 12, 24, 40, 37);
             }
 
-            public void interact(Entity en, AnimationFactory animF) {
-                if(en instanceof Player){
-                    // animF.switchState((AnimationState.CARRY_PAN));
-                }
-            }
 
         }
 
     }
-
     public static class lowerRef extends Item implements Importable {
 
         public lowerRef(GamePanel gp) {
@@ -328,7 +252,7 @@ public abstract class WorkStation extends Station{
             setDefaultCollisions(true, 20, 0, 46, 44);
         }
 
-        public void interact(Entity en, AnimationFactory animF) {
+        public void interact(Entity en, AnimationFactory animF, Pickupable obj) {
             if(en instanceof Player){
                 // animF.switchState((AnimationState.CARRY_PAN));
             }

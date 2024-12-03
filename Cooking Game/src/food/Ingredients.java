@@ -1,35 +1,50 @@
 package food;
 
+import animation.AnimationFactory;
+import animation.AnimationState;
+import entity.Entity;
+import entity.Player;
 import interfaces.Importable;
-import main.Asset;
+import interfaces.Pickupable;
 import main.GamePanel;
+import object.SuperObject;
 
-import java.awt.image.BufferedImage;
-import java.util.List;
-
-public class Ingredients extends Asset implements Importable {
+public abstract class Ingredients extends SuperObject implements Importable, Pickupable {
 
     GamePanel gp;
 
-    BufferedImage ingredient;
-    String name;
-
     public Ingredients(GamePanel gp, String name) {
-        super(gp);
-        this.name = name;
+        super(gp, name);
     }
 
+    void loadIngredientImage(String path) {
+        image = importImage(path, gp.tileSize);
+        setDefaultCollisions(false, -8, -8, 80, 80);
+    }
 
-    void loadImage(String path) {
-        ingredient = importImage(path, gp.tileSize);
+    @Override
+    public boolean isPickingUp(AnimationState curr) {
+        return curr == AnimationState.BASE;
     }
 
     // inner classes
-
     public static class Tapa extends Ingredients {
 
         public Tapa(GamePanel gp) {
             super(gp, "Tapa");
+            loadIngredientImage("/food/ingredients/tapa_item");
+        }
+
+        @Override
+        public void interact(Entity en, AnimationFactory animF, Pickupable obj) {
+            if (en instanceof Player) {
+                if (animF.getCurrentState() == AnimationState.BASE) {
+                    animF.switchState(AnimationState.CARRY_TAPA);
+                }
+                else if (animF.getCurrentState() == AnimationState.CARRY_TAPA) {
+                    animF.switchState((AnimationState.BASE));
+                }
+            }
         }
     }
 
@@ -37,6 +52,19 @@ public class Ingredients extends Asset implements Importable {
 
         public CornedBeef(GamePanel gp) {
             super(gp, "CornedBeef");
+            loadIngredientImage("/food/ingredients/cBeef");
+        }
+
+        @Override
+        public void interact(Entity en, AnimationFactory animF, Pickupable obj) {
+            if (en instanceof Player) {
+                if (animF.getCurrentState() == AnimationState.BASE) {
+                    animF.switchState(AnimationState.CARRY_CORNEDBEEF);
+                }
+                else if (animF.getCurrentState() == AnimationState.CARRY_CORNEDBEEF) {
+                    animF.switchState((AnimationState.BASE));
+                }
+            }
         }
     }
 
@@ -44,6 +72,19 @@ public class Ingredients extends Asset implements Importable {
 
         public Spam(GamePanel gp) {
             super(gp, "Spam");
+            loadIngredientImage("/food/ingredients/spam");
+        }
+
+        @Override
+        public void interact(Entity en, AnimationFactory animF, Pickupable obj) {
+            if (en instanceof Player) {
+                if (animF.getCurrentState() == AnimationState.BASE) {
+                    animF.switchState(AnimationState.CARRY_SPAM);
+                }
+                else if (animF.getCurrentState() == AnimationState.CARRY_SPAM) {
+                    animF.switchState((AnimationState.BASE));
+                }
+            }
         }
     }
 
@@ -51,13 +92,40 @@ public class Ingredients extends Asset implements Importable {
 
         public Egg(GamePanel gp) {
             super(gp, "Egg");
+            loadIngredientImage("/food/ingredients/egg");
+        }
+
+        @Override
+        public void interact(Entity en, AnimationFactory animF, Pickupable obj) {
+            if (en instanceof Player) {
+                if (animF.getCurrentState() == AnimationState.BASE) {
+                    animF.switchState(AnimationState.CARRY_EGG);
+                }
+                else if (animF.getCurrentState() == AnimationState.CARRY_EGG) {
+                    animF.switchState((AnimationState.BASE));
+                }
+            }
         }
     }
 
+    // TODO ADD RICE IMAGE
     public static class Rice extends Ingredients {
 
         public Rice(GamePanel gp) {
             super(gp, "Rice");
+            loadIngredientImage("/food/ingredients/rice");
+        }
+
+        @Override
+        public void interact(Entity en, AnimationFactory animF, Pickupable obj) {
+            if (en instanceof Player) {
+                if (animF.getCurrentState() == AnimationState.BASE) {
+                    animF.switchState(AnimationState.CARRY_RAW_RICE);
+                }
+                else if (animF.getCurrentState() == AnimationState.CARRY_RAW_RICE) {
+                    animF.switchState((AnimationState.BASE));
+                }
+            }
         }
     }
 
@@ -65,6 +133,20 @@ public class Ingredients extends Asset implements Importable {
 
         public Onion(GamePanel gp) {
             super(gp, "Onion");
+            loadIngredientImage("/food/ingredients/onion");
+        }
+
+        @Override
+        public void interact(Entity en, AnimationFactory animF, Pickupable obj) {
+
+           if (en instanceof Player) {
+                if (animF.getCurrentState() == AnimationState.BASE) {
+                    animF.switchState(AnimationState.CARRY_ONION);
+                }
+                else if (animF.getCurrentState() == AnimationState.CARRY_ONION) {
+                    animF.switchState((AnimationState.BASE));
+                }
+            }
         }
     }
 }

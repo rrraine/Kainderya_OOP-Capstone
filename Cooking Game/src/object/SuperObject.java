@@ -12,9 +12,7 @@ import java.awt.image.BufferedImage;
 public abstract class SuperObject extends Asset implements Drawable, Observable, Interactable {
 
     // ~ FIELDS --------------------------------------------------------------
-    Graphics2D g2;
-
-    BufferedImage image;
+    protected BufferedImage image;
     String name;
     boolean collision;
 
@@ -31,7 +29,7 @@ public abstract class SuperObject extends Asset implements Drawable, Observable,
     }
 
     // MANUALLY SET COLLISION
-    void setDefaultCollisions(boolean collision, int solidAreaDefaultX, int solidAreaDefaultY, int width, int height) {
+    protected void setDefaultCollisions(boolean collision, int solidAreaDefaultX, int solidAreaDefaultY, int width, int height) {
 
         this.collision = collision;
         // COLLISION DIMENSIONS

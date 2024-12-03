@@ -5,5 +5,5 @@ import entity.Entity;
 
 public interface Interactable {
 
-    public void interact(Entity en, AnimationFactory animF);
+    public void interact(Entity en, AnimationFactory animF, Pickupable obj);
 }
