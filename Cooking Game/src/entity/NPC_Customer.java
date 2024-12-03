@@ -20,6 +20,8 @@ public class NPC_Customer extends NPC{
         super(gp, 1, "idle");
         generateOrder();
         this.npcType = npcType;
+
+        System.out.println("NPCCUSTOMER SKIN: " + npcType.idle1.toString());
         getAvatar();
         patienceTimer = 30 * 60;
         isSeated = false;

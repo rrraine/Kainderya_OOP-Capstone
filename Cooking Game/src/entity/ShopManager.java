@@ -43,7 +43,7 @@ public class ShopManager {
         for (int i = 0; i < gp.getMaxCustomers(); i++) {
             NPC_Customer customer = getRandomCustomer();
 
-            System.out.println("OUTFIT: " + getRandomCustomer().getIdle1().toString());
+            //System.out.println("OUTFIT: " + getRandomCustomer().getIdle1().toString());
             Point seat;
             do {
                 seat = seatLocations[random.nextInt(seatLocations.length)];
