@@ -305,7 +305,6 @@ public class Player extends Entity {
             if (keyB.isPlayer1EnterPressed() && obj != null) {
 
                 if (obj instanceof Pickupable) {
-                    System.out.println("I am here!!!!!!!!!!!!!!!!!!!!!");
                     if (((Pickupable) obj).isPickingUp(animF.getCurrentState())) {
                         if (itemOnHand == null) itemOnHand = (Pickupable) obj;
                         obj.interact(this, animF, itemOnHand);
@@ -326,11 +325,9 @@ public class Player extends Entity {
             // TODO SOON
         }
     }
-
     private boolean sprint() {
         return keyB.isPlayer1ShiftPressed() && stamina >= 0 && (keyB.isPlayer1UpPressed() || keyB.isPlayer1DownPressed() || keyB.isLeftPressed() || keyB.isPlayer1RightPressed());
     }
-
 
 
     // GETTERS & SETTERS ---------------------------------------------------
@@ -346,10 +343,8 @@ public class Player extends Entity {
     public String getPlayerName() {
         return playerName;
     }
-    public void setItemOnHandDestroy(boolean destroy) {
-        if (destroy) {
-            itemOnHand = null;
-        }
+    public void setItemOnHandDestroy() {
+        itemOnHand = null;
     }
     public void setItemOnHandCreate(Pickupable obj) {
         itemOnHand = obj;

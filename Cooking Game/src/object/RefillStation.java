@@ -13,14 +13,9 @@ import main.GamePanel;
 
 public abstract class RefillStation extends Station{
 
-    // THIS CLASS SHARES THE METHOD CREATECOPY() THAT CREATES INSTANCES OF THEIR RESPECTIVE REFILLS
-    // TODO REFACTOR PAN AND PLATES AS ITEMS
-
     public RefillStation(GamePanel gp, String name) {
         super(gp, name);
     }
-
-    public abstract void createCopy();
 
     // inner classes
     public static class WaterDispenser extends RefillStation implements Importable {
@@ -33,18 +28,14 @@ public abstract class RefillStation extends Station{
         public void interact(Entity en, AnimationFactory animF, Pickupable obj) {
             if(en instanceof Player){
                 if (animF.getCurrentState() == AnimationState.BASE) {
+                    gp.player.setItemOnHandCreate(new Drink.Water(gp));
                     animF.switchState((AnimationState.CARRY_PLATE));
                 }
                 else if (animF.getCurrentState() == AnimationState.CARRY_PLATE) {
+                    gp.player.setItemOnHandDestroy();
                     animF.switchState((AnimationState.BASE));
                 }
             }
-        }
-
-        @Override
-        public void createCopy() {
-
-            gp.player.setItemOnHandCreate(new Drink.Water(gp));
         }
     }
 
@@ -59,17 +50,14 @@ public abstract class RefillStation extends Station{
             if(en instanceof Player){
 
                 if (animF.getCurrentState() == AnimationState.BASE) {
+                    gp.player.setItemOnHandCreate(new Drink.Cola(gp));
                     animF.switchState((AnimationState.CARRY_COKE));
                 }
                 else if (animF.getCurrentState() == AnimationState.CARRY_COKE) {
+                    gp.player.setItemOnHandDestroy();
                     animF.switchState((AnimationState.BASE));
                 }
             }
-        }
-
-        @Override
-        public void createCopy() {
-            gp.player.setItemOnHandCreate(new Drink.Cola(gp));
         }
     }
 
@@ -81,20 +69,17 @@ public abstract class RefillStation extends Station{
             setDefaultCollisions(true, 0, 12, 40, 64);
         }
         public void interact(Entity en, AnimationFactory animF, Pickupable obj) {
+
             if(en instanceof Player){
                 if (animF.getCurrentState() == AnimationState.BASE) {
-                    createCopy();
+                    gp.player.setItemOnHandCreate(new Ingredients.Egg(gp));
                     animF.switchState((AnimationState.CARRY_EGG));
                 }
                 else if (animF.getCurrentState() == AnimationState.CARRY_EGG) {
+                    gp.player.setItemOnHandDestroy();
                     animF.switchState((AnimationState.BASE));
                 }
             }
-        }
-
-        @Override
-        public void createCopy() {
-            gp.player.setItemOnHandCreate(new Ingredients.Egg(gp));
         }
     }
 
@@ -108,17 +93,14 @@ public abstract class RefillStation extends Station{
         public void interact(Entity en, AnimationFactory animF, Pickupable obj) {
             if(en instanceof Player){
                 if (animF.getCurrentState() == AnimationState.BASE) {
+                    gp.player.setItemOnHandCreate(new Ingredients.Spam(gp));
                     animF.switchState((AnimationState.CARRY_SPAM));
                 }
                 else if (animF.getCurrentState() == AnimationState.CARRY_SPAM) {
+                    gp.player.setItemOnHandDestroy();
                     animF.switchState((AnimationState.BASE));
                 }
             }
-        }
-
-        @Override
-        public void createCopy() {
-            gp.player.setItemOnHandCreate(new Ingredients.Spam(gp));
         }
     }
 
@@ -131,17 +113,14 @@ public abstract class RefillStation extends Station{
         public void interact(Entity en, AnimationFactory animF, Pickupable obj) {
             if(en instanceof Player){
                 if (animF.getCurrentState() == AnimationState.BASE) {
+                    gp.player.setItemOnHandCreate(new Ingredients.CornedBeef(gp));
                     animF.switchState((AnimationState.CARRY_CORNEDBEEF));
                 }
                 else if (animF.getCurrentState() == AnimationState.CARRY_CORNEDBEEF) {
+                    gp.player.setItemOnHandDestroy();
                     animF.switchState((AnimationState.BASE));
                 }
             }
-        }
-
-        @Override
-        public void createCopy() {
-            gp.player.setItemOnHandCreate(new Ingredients.CornedBeef(gp));
         }
     }
 
@@ -154,18 +133,14 @@ public abstract class RefillStation extends Station{
         public void interact(Entity en, AnimationFactory animF, Pickupable obj) {
             if(en instanceof Player){
                 if (animF.getCurrentState() == AnimationState.BASE) {
-                    createCopy();
+                    gp.player.setItemOnHandCreate(new Ingredients.Rice(gp));
                     animF.switchState((AnimationState.CARRY_RAW_RICE));
                 }
                 else if (animF.getCurrentState() == AnimationState.CARRY_RAW_RICE) {
+                    gp.player.setItemOnHandDestroy();
                     animF.switchState((AnimationState.BASE));
                 }
             }
-        }
-
-        @Override
-        public void createCopy() {
-            gp.player.setItemOnHandCreate(new Ingredients.Rice(gp));
         }
     }
 
@@ -180,17 +155,14 @@ public abstract class RefillStation extends Station{
         public void interact(Entity en, AnimationFactory animF, Pickupable obj) {
             if(en instanceof Player){
                 if (animF.getCurrentState() == AnimationState.BASE) {
+                    gp.player.setItemOnHandCreate(new Ingredients.Tapa(gp));
                     animF.switchState((AnimationState.CARRY_TAPA));
                 }
                 else if (animF.getCurrentState() == AnimationState.CARRY_TAPA) {
+                    gp.player.setItemOnHandDestroy();
                     animF.switchState((AnimationState.BASE));
                 }
             }
-        }
-
-        @Override
-        public void createCopy() {
-            gp.player.setItemOnHandCreate(new Ingredients.Tapa(gp));
         }
     }
 
@@ -205,18 +177,14 @@ public abstract class RefillStation extends Station{
         public void interact(Entity en, AnimationFactory animF, Pickupable obj) {
             if(en instanceof Player){
                 if (animF.getCurrentState() == AnimationState.BASE) {
-                    createCopy();
+                    gp.player.setItemOnHandCreate(new Ingredients.Onion(gp));
                     animF.switchState((AnimationState.CARRY_ONION));
                 }
                 else if (animF.getCurrentState() == AnimationState.CARRY_ONION) {
+                    gp.player.setItemOnHandDestroy();
                     animF.switchState((AnimationState.BASE));
                 }
             }
-        }
-
-        @Override
-        public void createCopy() {
-            gp.player.setItemOnHandCreate(new Ingredients.Onion(gp));
         }
     }
 

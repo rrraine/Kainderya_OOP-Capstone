@@ -36,10 +36,10 @@ public abstract class WorkStation extends Station{
                 (obj).reposition(obj, this); // repositions obj's coordinates
                 gp.getAssetPool().add((SuperObject)obj); // add to pool for printing
                 System.out.println("YOU ARE HOLDING: " + obj);
-                gp.player.setItemOnHandDestroy(true); // destroy item on player's hand
+                gp.player.setItemOnHandDestroy(); // destroy item on player's hand
                 animF.switchState((AnimationState.BASE));// base animation
                 isOccupied = true;
-            }else{
+            } else {
                 //if(animF.getCurrentState() == AnimationState.BASE && isOccupied){
                     //(obj).reposition(obj, this); // repositions obj's coordinates
                     //gp.getAssetPool().remove((SuperObject)obj);

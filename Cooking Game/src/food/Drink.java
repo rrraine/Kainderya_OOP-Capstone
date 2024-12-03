@@ -3,6 +3,7 @@ package food;
 import animation.AnimationFactory;
 import animation.AnimationState;
 import entity.Entity;
+import entity.Player;
 import interfaces.Pickupable;
 import main.GamePanel;
 
@@ -19,29 +20,29 @@ public abstract class Drink extends Food {
     }
 
     // inner classes
+
+    // TODO IMPORT WATER IMAGE
     public static class Water extends Drink{
 
         public Water(GamePanel gp) {
             super(gp, "Water");
-            loadImage("TODO pPATHHH OF WATER");
-        }
-
-        @Override
-        public boolean isPickingUp(AnimationState curr) {
-
-            if (curr == AnimationState.BASE) {
-                return true;
-            }
-            // TODO CHANGE
-            if (curr == AnimationState.CARRY_COKE) {
-                return false;
-            }
-            return false;
+            loadFoodImage("TODO pPATHHH OF WATER");
         }
 
         @Override
         public void interact(Entity en, AnimationFactory animF, Pickupable obj) {
-
+            if (en instanceof Player) {
+                if (animF.getCurrentState() == AnimationState.BASE) {
+                    animF.switchState(AnimationState.CARRY_WATER);
+                }
+                else if (animF.getCurrentState() == AnimationState.CARRY_WATER) {
+                    animF.switchState((AnimationState.BASE));
+                }
+            }
+        }
+        @Override
+        public boolean isPickingUp(AnimationState curr) {
+            return curr == AnimationState.BASE;
         }
     }
 
@@ -49,24 +50,23 @@ public abstract class Drink extends Food {
 
         public Cola(GamePanel gp) {
             super(gp, "Cola");
-            loadImage("/food/coke/coke1");
-        }
-
-        @Override
-        public boolean isPickingUp(AnimationState curr) {
-
-            if (curr == AnimationState.BASE) {
-                return true;
-            }
-            if (curr == AnimationState.CARRY_COKE) {
-                return false;
-            }
-            return false;
+            loadFoodImage("/food/drinks/cola");
         }
 
         @Override
         public void interact(Entity en, AnimationFactory animF, Pickupable obj) {
-
+            if (en instanceof Player) {
+                if (animF.getCurrentState() == AnimationState.BASE) {
+                    animF.switchState(AnimationState.CARRY_COKE);
+                }
+                else if (animF.getCurrentState() == AnimationState.CARRY_COKE) {
+                    animF.switchState((AnimationState.BASE));
+                }
+            }
+        }
+        @Override
+        public boolean isPickingUp(AnimationState curr) {
+            return curr == AnimationState.BASE;
         }
     }
 }
