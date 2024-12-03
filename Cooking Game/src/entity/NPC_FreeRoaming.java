@@ -7,11 +7,11 @@ import java.util.Random;
 
 public class NPC_FreeRoaming extends NPC{
 
-    private NPC npctype;
+    private NPC npcType;
 
     public NPC_FreeRoaming(GamePanel gp, NPC npc) {
         super(gp, 1, "idle");
-        this.npctype = npc;
+        this.npcType = npc;
     }
 
     @Override
@@ -48,7 +48,17 @@ public class NPC_FreeRoaming extends NPC{
 
     @Override
     void getAvatar() {
-        npctype.getAvatar();
+        //npctype.getAvatar();
+        idle1 = npcType.idle1;
+        idle2 = npcType.idle2;
+        left1 = npcType.left1;
+        left2 = npcType.left2;
+        right1 = npcType.right1;
+        right2 = npcType.right2;
+        down1 = npcType.down1;
+        down2 = npcType.down2;
+        up1 = npcType.up1;
+        up2 = npcType.up2;
     }
 
     //@Override

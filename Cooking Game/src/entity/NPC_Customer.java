@@ -3,6 +3,7 @@ package entity;
 import main.GamePanel;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.util.*;
 
 public class NPC_Customer extends NPC{
@@ -21,12 +22,12 @@ public class NPC_Customer extends NPC{
         generateOrder();
         this.npcType = npcType;
 
-        System.out.println("NPCCUSTOMER SKIN: " + npcType.idle1.toString());
         getAvatar();
         patienceTimer = 30 * 60;
         isSeated = false;
         isMovingToSeat = false;
         seatLocation = null;
+
     }
 
     private void generateOrder(){
@@ -106,7 +107,17 @@ public class NPC_Customer extends NPC{
     @Override
     void getAvatar() {
         // todo getAvatar based on what kind of NPC
-        npcType.getAvatar();
+        //npcType.getAvatar();
+        idle1 = npcType.idle1;
+        idle2 = npcType.idle2;
+        left1 = npcType.left1;
+        left2 = npcType.left2;
+        right1 = npcType.right1;
+        right2 = npcType.right2;
+        down1 = npcType.down1;
+        down2 = npcType.down2;
+        up1 = npcType.up1;
+        up2 = npcType.up2;
 
     }
 
@@ -122,6 +133,10 @@ public class NPC_Customer extends NPC{
 
     public int getDefaultY() {
         return random.nextInt(20); // Replace with logic for determining Y
+    }
+
+    public BufferedImage getImageTest() {
+        return npcType.idle1;
     }
 
 }

@@ -43,15 +43,15 @@ public class ShopManager {
         for (int i = 0; i < gp.getMaxCustomers(); i++) {
             NPC_Customer customer = getRandomCustomer();
 
-            //System.out.println("OUTFIT: " + getRandomCustomer().getIdle1().toString());
             Point seat;
             do {
                 seat = seatLocations[random.nextInt(seatLocations.length)];
             } while (occupiedSeats.contains(seat));
             occupiedSeats.add(seat);
             customer.assignSeat(seat);
+            System.out.println("BEFORE ADDING TO NPC LIST: " + customer.idle1.toString());
             gp.getNpc().add(customer);  // Add customer to the general npc list
-            gp.getAssetPool().add(customer);  // Add customer to asset pool
+            //gp.getAssetPool().add(customer);  // Add customer to asset pool
            // System.out.println("Generated customer: " + customer.getClass().getSimpleName());
         }
 
@@ -170,8 +170,9 @@ public class ShopManager {
         allNPCs.addAll(freeRoamingNPCs);
         allNPCs.addAll(getSeatedCustomers());
         for (NPC npc : allNPCs) {
+
             System.out.println(npc.getClass());
-            //System.out.println("NPC SKIN: " + npc.idle1.toString());
+
         }
         return new ArrayList<>(allNPCs);
     }

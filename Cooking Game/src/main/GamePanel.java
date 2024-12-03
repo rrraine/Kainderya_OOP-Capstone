@@ -59,7 +59,7 @@ public class GamePanel extends JPanel implements Runnable {
     final List<NPC> npc = new ArrayList<>();
     final List<SuperObject> obj = new ArrayList<>();
     private List<Asset> assetPool = new ArrayList<>();
-    ShopManager shopManager;
+    ShopManager shopManager = new ShopManager(this);
 
     // NPC Customer
 //    private List<NPC_Customer> npcCustomer = new ArrayList<>();
@@ -161,7 +161,10 @@ public class GamePanel extends JPanel implements Runnable {
         assetPool.addAll(npc);
         assetPool.addAll(obj);
 
-
+        for (NPC n : npc) {
+            if (n instanceof NPC_Customer)
+            System.out.println("AFTER ADDING TO NPC LIST: " + n.getIdle1().toString());
+        }
         // LOAD MUSIC
         playBGMusic(0);
         music.stopSound();
@@ -229,20 +232,23 @@ public class GamePanel extends JPanel implements Runnable {
             // SORT ASSETS
             Collections.sort(assetPool);
 
-            // 3. DRAW ASSETS
-            for (Asset a : assetPool) {
-                if (a instanceof Entity) {
-                    ((Entity) a).draw(g2);
-                    System.out.println("Drawing Entity " + a.getClass().getSimpleName());
-                    System.out.println("Entity XY: " + ((Entity)a).getWorldX() + " " + ((Entity)a).getWorldY());
-
-//                    if (a instanceof NPC)
-//                    System.out.println(((Entity)a).getIdle1().toString());
+            // 3. DRAW ASSETS / THE TRY CATCH IS DEBUGGING CAN BE REMOVED RA
+            try {
+                for (Asset a : assetPool) {
+                    if (a instanceof Entity) {
+                        ((Entity) a).draw(g2);
+                        System.out.println("Drawing Entity " + a.getClass().getSimpleName());
+                        System.out.println("Entity XY: " + ((Entity)a).getWorldX() + " " + ((Entity)a).getWorldY());
+                        System.out.println("Entity Image: " + ((Entity) a).getIdle1().toString());
+                    }
+                    else if (a instanceof SuperObject) {
+                        ((SuperObject) a).draw(g2);
+                    }
                 }
-                else if (a instanceof SuperObject) {
-                    ((SuperObject) a).draw(g2);
-                }
+            } catch (NullPointerException e) {
+                System.err.println("Trouble drawing asset: " + e.getMessage());
             }
+
 
             // 5. DRAW UI
             uiM.draw(g2);
@@ -353,7 +359,7 @@ public class GamePanel extends JPanel implements Runnable {
 
     public void setupNPCDeployment(int tileSize) {
         // Create a ShopManager instance
-        ShopManager shopManager = new ShopManager(this);
+//        ShopManager shopManager = new ShopManager(this);
 
         // Generate NPCs
         shopManager.generateNPCs();
