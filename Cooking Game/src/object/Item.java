@@ -89,21 +89,8 @@ public abstract class Item extends SuperObject {
         }
         @Override
         public boolean isPickingUp(AnimationState curr) {
-
-            if (curr == AnimationState.BASE) {
-
-                return true;
-            }
-            if (curr == AnimationState.CARRY_PAN) {
-                return false;
-            }
-
-
-            return false;
+            return curr == AnimationState.BASE;
         }
-
-
-
     }
 
     public static class Plates extends Item implements Importable, Pickupable{
@@ -130,6 +117,7 @@ public abstract class Item extends SuperObject {
         }
         @Override
         public void interact(Entity en, AnimationFactory animF, Pickupable obj) {
+
             if(en instanceof Player){
                 if (animF.getCurrentState() == AnimationState.BASE) {
                     CounterToDiningPlate(false);
@@ -143,26 +131,8 @@ public abstract class Item extends SuperObject {
 
         public void CounterToDiningPlate(boolean change) {
 
-            if (change) {
-                image = diningPlate;
-            }
-            else if (image != counterPlate) {
-                image = counterPlate;
-            }
-        }
-
-        // inner classes
-        public static class counterPlates extends Plates implements Importable{
-            public counterPlates (GamePanel gp) {
-                super(gp);
-                image = importImage("/objects/item/kitchenTools/plateCounter", gp.tileSize);
-            }
-        }
-        public static class diningPlate extends Plates implements Importable{
-            public diningPlate (GamePanel gp) {
-                super(gp);
-                image = importImage("/objects/item/kitchenTools/plate", gp.tileSize);
-            }
+            if (change) { image = diningPlate; }
+            else if (image != counterPlate) { image = counterPlate; }
         }
     }
 

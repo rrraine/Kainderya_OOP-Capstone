@@ -116,8 +116,8 @@ public abstract class WorkStation extends Station{
 
         public void interact(Entity en, AnimationFactory animF, Pickupable obj) {
 
-            if (obj instanceof Item.Plates.counterPlates) {
-                ((Item.Plates.counterPlates) obj).CounterToDiningPlate(true);
+            if (obj instanceof Item.Plates) {
+                ((Item.Plates) obj).CounterToDiningPlate(true);
             }
             super.interact(en, animF, obj);
         }
