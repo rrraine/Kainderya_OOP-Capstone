@@ -13,7 +13,6 @@ import object.WorkStation;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.sql.Ref;
 import java.util.List;
 
 public class Player extends Entity {
@@ -37,6 +36,9 @@ public class Player extends Entity {
     // PLAYER PREFERENCES
     private final String playerAvatar;
     private String playerName;
+
+    // CARRY ON HAND
+    Pickupable itemOnHand;
 
     // ~ METHODS ---------------------------------------------------
     public int staminaMeter() {
@@ -146,7 +148,6 @@ public class Player extends Entity {
             interactSuperObject(objIndex);
 
             if (objIndex != 999) {
-                System.out.println("YO ARE COLLIDING AGAINST: " + gp.getAssetPool().get(objIndex));
 
                 if (gp.getAssetPool().get(objIndex) instanceof Item) {
                     System.out.println("ITEM");
@@ -296,29 +297,25 @@ public class Player extends Entity {
     private void interactSuperObject(int i) {
 
         if (i != 999) {
-            // TODO
-            // USE .INTERACT HERE
-            // CHECK WHAT INSTANCE
-            // THEN DEFINE THE INTERACT METHOD IN THE ABSTRACT CLASS
 
+            // obj being interacted
             SuperObject obj = (SuperObject) gp.getAssetPool().get(i);
 
             // IF INTERACT EXECUTED
-            if (keyB.isPlayer1EnterPressed() && obj != null ) {
-
+            if (keyB.isPlayer1EnterPressed() && obj != null) {
 
                 if (obj instanceof Pickupable) {
-
                     if (((Pickupable) obj).isPickingUp(animF.getCurrentState())) {
-                        obj.interact(this, animF);
+                        if (itemOnHand == null) itemOnHand = (Pickupable) obj;
+                        obj.interact(this, animF, itemOnHand);
                         gp.getAssetPool().remove(i);
                     }
                 }
                 else {
-                    obj.interact(this, animF);
+                    obj.interact(this, animF, itemOnHand);
+
                 }
             }
-
         }
 
     }
@@ -328,12 +325,9 @@ public class Player extends Entity {
             // TODO SOON
         }
     }
-
     private boolean sprint() {
-
         return keyB.isPlayer1ShiftPressed() && stamina >= 0 && (keyB.isPlayer1UpPressed() || keyB.isPlayer1DownPressed() || keyB.isLeftPressed() || keyB.isPlayer1RightPressed());
     }
-
 
 
     // GETTERS & SETTERS ---------------------------------------------------
@@ -348,5 +342,11 @@ public class Player extends Entity {
     }
     public String getPlayerName() {
         return playerName;
+    }
+    public void setItemOnHandDestroy() {
+        itemOnHand = null;
+    }
+    public void setItemOnHandCreate(Pickupable obj) {
+        itemOnHand = obj;
     }
 }

@@ -8,7 +8,7 @@ import food.Drink;
 import food.Ingredients;
 import interfaces.Importable;
 import interfaces.Pickupable;
-import main.Asset;
+
 import main.GamePanel;
 
 public abstract class RefillStation extends Station{
@@ -17,8 +17,7 @@ public abstract class RefillStation extends Station{
         super(gp, name);
     }
 
-    public abstract Asset createCopy();
-
+    // inner classes
     public static class WaterDispenser extends RefillStation implements Importable {
         public WaterDispenser(GamePanel gp) {
             super(gp, "Water Dispenser");
@@ -26,20 +25,17 @@ public abstract class RefillStation extends Station{
             setDefaultCollisions(true, 0, 0, 64, 40);
         }
 
-        public void interact(Entity en, AnimationFactory animF) {
+        public void interact(Entity en, AnimationFactory animF, Pickupable obj) {
             if(en instanceof Player){
                 if (animF.getCurrentState() == AnimationState.BASE) {
+                    gp.player.setItemOnHandCreate(new Drink.Water(gp));
                     animF.switchState((AnimationState.CARRY_PLATE));
                 }
                 else if (animF.getCurrentState() == AnimationState.CARRY_PLATE) {
+                    gp.player.setItemOnHandDestroy();
                     animF.switchState((AnimationState.BASE));
                 }
             }
-        }
-
-        @Override
-        public Asset createCopy() {
-            return new Drink.Water(gp);
         }
     }
 
@@ -50,21 +46,18 @@ public abstract class RefillStation extends Station{
             setDefaultCollisions(true, 0, 0, 50, 40);
         }
 
-        public void interact(Entity en, AnimationFactory animF) {
+        public void interact(Entity en, AnimationFactory animF, Pickupable obj) {
             if(en instanceof Player){
 
                 if (animF.getCurrentState() == AnimationState.BASE) {
+                    gp.player.setItemOnHandCreate(new Drink.Cola(gp));
                     animF.switchState((AnimationState.CARRY_COKE));
                 }
                 else if (animF.getCurrentState() == AnimationState.CARRY_COKE) {
+                    gp.player.setItemOnHandDestroy();
                     animF.switchState((AnimationState.BASE));
                 }
             }
-        }
-
-        @Override
-        public Asset createCopy() {
-            return new Drink.Cola(gp);
         }
     }
 
@@ -75,20 +68,18 @@ public abstract class RefillStation extends Station{
             image = importImage("/objects/item/ingredients/stationaryEgg", gp.tileSize);
             setDefaultCollisions(true, 0, 12, 40, 64);
         }
-        public void interact(Entity en, AnimationFactory animF) {
+        public void interact(Entity en, AnimationFactory animF, Pickupable obj) {
+
             if(en instanceof Player){
                 if (animF.getCurrentState() == AnimationState.BASE) {
+                    gp.player.setItemOnHandCreate(new Ingredients.Egg(gp));
                     animF.switchState((AnimationState.CARRY_EGG));
                 }
                 else if (animF.getCurrentState() == AnimationState.CARRY_EGG) {
+                    gp.player.setItemOnHandDestroy();
                     animF.switchState((AnimationState.BASE));
                 }
             }
-        }
-
-        @Override
-        public Asset createCopy() {
-            return new Ingredients.Egg(gp);
         }
     }
 
@@ -99,20 +90,17 @@ public abstract class RefillStation extends Station{
             setDefaultCollisions(true, 12, 24, 40, 37);
         }
 
-        public void interact(Entity en, AnimationFactory animF) {
+        public void interact(Entity en, AnimationFactory animF, Pickupable obj) {
             if(en instanceof Player){
                 if (animF.getCurrentState() == AnimationState.BASE) {
+                    gp.player.setItemOnHandCreate(new Ingredients.Spam(gp));
                     animF.switchState((AnimationState.CARRY_SPAM));
                 }
                 else if (animF.getCurrentState() == AnimationState.CARRY_SPAM) {
+                    gp.player.setItemOnHandDestroy();
                     animF.switchState((AnimationState.BASE));
                 }
             }
-        }
-
-        @Override
-        public Asset createCopy() {
-            return new Ingredients.Spam(gp);
         }
     }
 
@@ -122,20 +110,17 @@ public abstract class RefillStation extends Station{
             image = importImage ("/objects/item/ingredients/stationaryCornedBeef", gp.tileSize);
             setDefaultCollisions(true, 12, 24, 40, 37);
         }
-        public void interact(Entity en, AnimationFactory animF) {
+        public void interact(Entity en, AnimationFactory animF, Pickupable obj) {
             if(en instanceof Player){
                 if (animF.getCurrentState() == AnimationState.BASE) {
+                    gp.player.setItemOnHandCreate(new Ingredients.CornedBeef(gp));
                     animF.switchState((AnimationState.CARRY_CORNEDBEEF));
                 }
                 else if (animF.getCurrentState() == AnimationState.CARRY_CORNEDBEEF) {
+                    gp.player.setItemOnHandDestroy();
                     animF.switchState((AnimationState.BASE));
                 }
             }
-        }
-
-        @Override
-        public Asset createCopy() {
-            return new Ingredients.CornedBeef(gp);
         }
     }
 
@@ -145,20 +130,17 @@ public abstract class RefillStation extends Station{
             image = importImage("/objects/item/ingredients/riceSack", gp.tileSize);
             setDefaultCollisions(true, 0, 0, 64, 40);
         }
-        public void interact(Entity en, AnimationFactory animF) {
+        public void interact(Entity en, AnimationFactory animF, Pickupable obj) {
             if(en instanceof Player){
                 if (animF.getCurrentState() == AnimationState.BASE) {
+                    gp.player.setItemOnHandCreate(new Ingredients.Rice(gp));
                     animF.switchState((AnimationState.CARRY_RAW_RICE));
                 }
                 else if (animF.getCurrentState() == AnimationState.CARRY_RAW_RICE) {
+                    gp.player.setItemOnHandDestroy();
                     animF.switchState((AnimationState.BASE));
                 }
             }
-        }
-
-        @Override
-        public Asset createCopy() {
-            return new Ingredients.Rice(gp);
         }
     }
 
@@ -170,20 +152,17 @@ public abstract class RefillStation extends Station{
             setDefaultCollisions(true, 20, 0, 46, 44);
         }
 
-        public void interact(Entity en, AnimationFactory animF) {
+        public void interact(Entity en, AnimationFactory animF, Pickupable obj) {
             if(en instanceof Player){
                 if (animF.getCurrentState() == AnimationState.BASE) {
+                    gp.player.setItemOnHandCreate(new Ingredients.Tapa(gp));
                     animF.switchState((AnimationState.CARRY_TAPA));
                 }
                 else if (animF.getCurrentState() == AnimationState.CARRY_TAPA) {
+                    gp.player.setItemOnHandDestroy();
                     animF.switchState((AnimationState.BASE));
                 }
             }
-        }
-
-        @Override
-        public Asset createCopy() {
-            return new Ingredients.Tapa(gp);
         }
     }
 
@@ -195,120 +174,14 @@ public abstract class RefillStation extends Station{
             setDefaultCollisions(true, 0, 12, 40, 64);
         }
 
-        public void interact(Entity en, AnimationFactory animF) {
+        public void interact(Entity en, AnimationFactory animF, Pickupable obj) {
             if(en instanceof Player){
                 if (animF.getCurrentState() == AnimationState.BASE) {
+                    gp.player.setItemOnHandCreate(new Ingredients.Onion(gp));
                     animF.switchState((AnimationState.CARRY_ONION));
                 }
                 else if (animF.getCurrentState() == AnimationState.CARRY_ONION) {
-                    animF.switchState((AnimationState.BASE));
-                }
-            }
-        }
-
-        @Override
-        public Asset createCopy() {
-            return new Ingredients.Onion(gp);
-        }
-    }
-
-    // kitchenTools -------------------------------
-    public static class Pan extends RefillStation implements Importable, Pickupable {
-        public Pan (GamePanel gp) {
-            super(gp, "Pan");
-            image = importImage("/objects/item/kitchenTools/pan", gp.tileSize);
-            setDefaultCollisions(true, 12, 24, 50, 30);
-        }
-
-        @Override
-        public void interact(Entity en, AnimationFactory animF) {
-            if(en instanceof Player){
-                if (animF.getCurrentState() == AnimationState.BASE) {
-                    animF.switchState((AnimationState.CARRY_PAN));
-                }
-                else if (animF.getCurrentState() == AnimationState.CARRY_PAN) {
-                    animF.switchState((AnimationState.BASE));
-                }
-            }
-        }
-
-        @Override
-        public boolean isPickingUp(AnimationState curr) {
-
-            if (curr == AnimationState.BASE) {
-
-                return true;
-            }
-            if (curr == AnimationState.CARRY_PAN) {
-                return false;
-            }
-            return false;
-        }
-
-
-        @Override
-        public Asset createCopy() {
-            return new RefillStation.Pan(gp);
-        }
-    }
-
-    public static class Plates extends RefillStation implements Importable, Pickupable{
-
-        public Plates (GamePanel gp) { super(gp, "Plates"); }
-
-        @Override
-        public boolean isPickingUp(AnimationState curr) {
-            if (curr == AnimationState.BASE) {
-                return true;
-            }
-            if (curr == AnimationState.CARRY_PLATE) {
-                return false;
-            }
-            return false;
-        }
-
-        @Override
-        public Asset createCopy() {
-            return new RefillStation.Plates(gp);
-        }
-
-
-        // inner classes
-        public static class counterPlates extends Plates implements Importable{
-            public counterPlates (GamePanel gp) {
-                super(gp);
-                image = importImage("/objects/item/kitchenTools/plateCounter", gp.tileSize);
-                setDefaultCollisions(true, 12, 24, 40, 37);
-            }
-
-            @Override
-            public void interact(Entity en, AnimationFactory animF) {
-                if(en instanceof Player){
-                    if (animF.getCurrentState() == AnimationState.BASE) {
-                        animF.switchState((AnimationState.CARRY_PLATE));
-                    }
-                    else if (animF.getCurrentState() == AnimationState.CARRY_PLATE) {
-                        animF.switchState((AnimationState.BASE));
-                    }
-                }
-            }
-        }
-
-        public static class diningPlate extends Plates implements Importable{
-            public diningPlate (GamePanel gp) {
-                super(gp);
-                image = importImage("/objects/item/kitchenTools/plate", gp.tileSize);
-                setDefaultCollisions(true, 12, 24, 40, 37);
-            }
-        }
-
-        @Override
-        public void interact(Entity en, AnimationFactory animF) {
-            if(en instanceof Player){
-                if (animF.getCurrentState() == AnimationState.BASE) {
-                    // animF.switchState((AnimationState.CARRY_PAN));
-                }
-                else if (animF.getCurrentState() == AnimationState.CARRY_PAN) {
+                    gp.player.setItemOnHandDestroy();
                     animF.switchState((AnimationState.BASE));
                 }
             }
