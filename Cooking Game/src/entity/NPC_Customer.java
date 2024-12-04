@@ -61,7 +61,8 @@ public class NPC_Customer extends NPC{
                 worldY -= speed;
             } else {
                 // Reached the seat
-                direction = " "; // todo should change depending on the seat if right-faced seat or up sitting smth
+                System.out.println(gp.getDebug() + "Customer has left their seat." + gp.getReset());
+                direction = "idle1"; // todo should change depending on the seat if right-faced seat or up sitting smth
                 isMovingToSeat = false;
                 isSeated = true;
             }

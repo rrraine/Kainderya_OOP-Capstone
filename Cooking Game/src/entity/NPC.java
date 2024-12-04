@@ -291,6 +291,7 @@ public abstract class NPC extends Entity {
         }
 
         // FROM CLASS: NPC ----------------------------------------
+
         @Override
         public void setNPCAction() {
             // NPC RANDOM BEHAVIOR

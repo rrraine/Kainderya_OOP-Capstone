@@ -219,8 +219,8 @@ public class Utility {
             int x, y;
 
             // Example map boundaries: adjust based on your map size
-            int mapWidth = 25;  // Example map width
-            int mapHeight = 15; // Example map height
+            int mapWidth = 24;  // Example map width
+            int mapHeight = 14; // Example map height
 
             do {
                 x = random.nextInt(mapWidth);
@@ -235,7 +235,7 @@ public class Utility {
             int y = point.y;
 
             // Restricted area for the restaurant
-            return (x >= 7 && x <= 16) && (y >= 5 && y <= 11);
+            return (x >= 7 && x <= 16) && (y >= 3 && y <= 11);
         }
 
     }

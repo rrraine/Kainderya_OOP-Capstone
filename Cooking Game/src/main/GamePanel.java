@@ -341,6 +341,14 @@ public class GamePanel extends JPanel implements Runnable {
         return maxRoamers;
     }
 
+    public String getReset() {
+        return reset;
+    }
+
+    public String getDebug() {
+        return debug;
+    }
+
     public void setupNPCDeployment(int tileSize) {
 
         // Generate NPCs

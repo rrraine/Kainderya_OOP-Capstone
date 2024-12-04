@@ -21,32 +21,64 @@ public class NPC_FreeRoaming extends NPC{
         actionInterval++;
 
         if (actionInterval == 120) {
-
             Random random = new Random();
-            int i = random.nextInt(125) +1;
+            int i = random.nextInt(99) + 1;
 
+            // Determine direction
+            String proposedDirection;
             if (i <= 25) {
-                direction = "up";
-                lastDirection = lastRecordedDirection.UP;
+                proposedDirection = "up";
+            } else if (i <= 50) {
+                proposedDirection = "down";
+            } else if (i <= 75) {
+                proposedDirection = "left";
+            } else if (i <= 100) {
+                proposedDirection = "right";
+            } else {
+                proposedDirection = "idle";
             }
-            else if (i <= 50) {
-                direction = "down";
-                lastDirection = lastRecordedDirection.DOWN;
+
+            // Check if the proposed direction is valid
+            if (isDirectionWithinBounds(proposedDirection)) {
+                direction = proposedDirection;
+            } else {
+                direction = "idle"; // Default to idle if the direction would go out of bounds
             }
-            else if (i <= 75) {
-                direction = "left";
-            }
-            else if (i <= 100){
-                direction = "right";
-            }
-            else {
-                direction = "idle";
+
+            // Update the last direction
+            switch (direction) {
+                case "up" -> lastDirection = lastRecordedDirection.UP;
+                case "down" -> lastDirection = lastRecordedDirection.DOWN;
+                case "left" -> lastDirection = lastRecordedDirection.DOWN;
+                case "right" -> lastDirection = lastRecordedDirection.UP;
+                default -> {} // Keep last direction unchanged if idle
             }
 
             actionInterval = 0;
         }
-
     }
+
+    // Helper method to check if a direction is valid
+    private boolean isDirectionWithinBounds(String direction) {
+        int tileSize = gp.tileSize; // Assuming GamePanel has a method to get the tile size
+        int mapWidth = 25 * tileSize; // Map width in pixels
+        int mapHeight = 15 * tileSize; // Map height in pixels
+
+        // Predict new position
+        int newX = worldX;
+        int newY = worldY;
+
+        switch (direction) {
+            case "up" -> newY -= tileSize;
+            case "down" -> newY += tileSize;
+            case "left" -> newX -= tileSize;
+            case "right" -> newX += tileSize;
+        }
+
+        // Check if the new position is within bounds
+        return newX >= 0 && newX < mapWidth && newY >= 0 && newY < mapHeight;
+    }
+
 
     @Override
     void getAvatar() {
