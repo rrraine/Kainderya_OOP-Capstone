@@ -186,7 +186,6 @@ public class Utility {
                         // Assign world positions for seated customers based on their seat
                         Point seat = customer.getAssignedSeat();
                         if (seat != null) {
-
                             ((NPC_Customer) shopNPC).moveToSeat();
                         }
                     }

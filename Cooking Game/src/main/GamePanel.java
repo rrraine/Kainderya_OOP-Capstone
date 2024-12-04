@@ -65,14 +65,6 @@ public class GamePanel extends JPanel implements Runnable {
     private List<Asset> assetPool = new ArrayList<>();
     ShopManager shopManager = new ShopManager(this);
 
-    // NPC Customer
-//    private List<NPC_Customer> npcCustomer = new ArrayList<>();
-//    private List<Point> seatLocations  = List.of(new Point[]{
-//            new Point(4, 5), new Point(4, 6), new Point(4, 7), new Point(4, 8),
-//            new Point(10, 11), new Point(11, 11), new Point(11, 12), new Point(11, 13),
-//            new Point(14, 11)
-//    });
-
     private final int maxCustomers = 9;
     private final int maxRoamers = 20;
 
@@ -349,8 +341,6 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     public void setupNPCDeployment(int tileSize) {
-        // Create a ShopManager instance
-//        ShopManager shopManager = new ShopManager(this);
 
         // Generate NPCs
         shopManager.generateNPCs();

@@ -49,6 +49,7 @@ public class ShopManager {
             } while (occupiedSeats.contains(seat));
             occupiedSeats.add(seat);
             customer.assignSeat(seat);
+            addCustomer(customer);
             gp.getNpc().add(customer);  // Add customer to the general npc list
             //gp.getAssetPool().add(customer);  // Add customer to asset pool
            // System.out.println("Generated customer: " + customer.getClass().getSimpleName());
