@@ -6,6 +6,7 @@ import entity.Player;
 import game.Time;
 import object.SuperObject;
 import tile.TileManager;
+import ui.PlayUI;
 import ui.UIFactory;
 
 import javax.swing.*;
@@ -237,6 +238,7 @@ public class GamePanel extends JPanel implements Runnable {
     private void newGame() {
         newGame = true;
         time.reinitialize();
+        uiM.getPlayUI().resetLoadTime();
     }
 
 
