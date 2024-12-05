@@ -9,14 +9,36 @@ import java.awt.*;
 
 public class PlayUI extends UI implements Drawable {
 
-    UIElement staminaBar;
+    public static substate playState;
+    public enum substate { LOADING, GAME }
+
+    UIElement staminaBar, loadingBar;
+
+    private int loadTime;
 
     public PlayUI(GamePanel gp, Time time) {
         super(gp, time);
         staminaBar = new UIElement(gp, "staminaBar", "staminaBar", 0, false);
+        loadingBar = new UIElement(gp, "staminaBar", "staminaBar", 0, false);
+        playState = substate.LOADING;
+
+        loadTime = 60 * 6;
     }
     @Override
     public void draw(Graphics2D g2) {
+
+        switch (playState) {
+
+            case LOADING:
+                playLOADING(g2);
+                break;
+            case GAME:
+                playGAME(g2);
+                break;
+        }
+    }
+
+    private void playGAME(Graphics2D g2) {
 
         // DRAW TIMER
         if (gp.gameState != GamePanel.state.HOME) {
@@ -71,5 +93,23 @@ public class PlayUI extends UI implements Drawable {
                 g2.drawString("Stamina: " + gp.player.getStamina(), gp.tileSize * 16 + 5, 100);
             }
         }
+    }
+    private void playLOADING(Graphics2D g2) {
+
+        g2.setColor(primary);
+        g2.fillRect(0, 0, gp.screenWidth, gp.screenHeight);
+
+        if (loadTime <= 0) {
+            loadTime = 0;
+            playState = substate.GAME;
+        }
+
+        loadTime--;
+        loadingBar.drawLoadingBar(g2, loadTime);
+    }
+
+
+    public void resetLoadTime() {
+        loadTime = 60 * 6;
     }
 }

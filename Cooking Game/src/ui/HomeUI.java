@@ -17,9 +17,13 @@ public class HomeUI extends UI implements Drawable {
     private BufferedImage wallpaper;
     private BufferedImage wallpaperFront;
 
+    private int loadTime;
+
     // ANIMATED WALLPAPER
     UIElement girl, boy, civilian;
     UIElement cook1, cook2, cook3, cook4;
+    UIElement loadingBar;
+
 
     public HomeUI(GamePanel gp, Time time) {
         super(gp, time);
@@ -37,12 +41,10 @@ public class HomeUI extends UI implements Drawable {
         civilian = new UIElement(gp, "npc","civilianfem1", 20, true);
         civilian.reposition((gp.tileSize * 11) + gp.tileSize * 5, (gp.tileSize *3+20) + gp.tileSize * 5);
 
-        // TODO UPDATE IMAGE ARGUMENT
         cook1 = new UIElement(gp, "player", "cook1",  12,true);
         cook2 = new UIElement(gp, "player", "cook2",  12,true);
         cook3 = new UIElement(gp, "player", "cook3",  12,true);
         cook4 = new UIElement(gp, "player", "cook4",  12,true);
-
     }
     @Override
     public void draw(Graphics2D g2) {
@@ -67,6 +69,8 @@ public class HomeUI extends UI implements Drawable {
             case MULTIPLAYER:
                 homeMULTIPLAYER(g2);
                 break;
+
+
         }
     }
 
