@@ -81,8 +81,11 @@ public class ShopManager {
 
         // Update seated customers and handle those leaving
         for (int i = 0; i < seatedCustomers.length; i++) {
+
             NPC_Customer customer = seatedCustomers[i];
-            if (customer != null && customer.reducePatienceTimer()) {
+            boolean patienceNone = customer.reducePatienceTimer();
+
+            if (customer != null && patienceNone) {
                 seatedCustomers[i] = null;
                 customer.leaveSeat();
                 System.out.println("Customer left seat at: " + seatLocations[i]);

@@ -186,6 +186,8 @@ public class Utility {
                         // Assign world positions for seated customers based on their seat
                         Point seat = customer.getAssignedSeat();
                         if (seat != null) {
+                            ((NPC_Customer) shopNPC).assignSeat(seat);
+                            ((NPC_Customer) shopNPC).setMovingToSeat(true);
                             ((NPC_Customer) shopNPC).moveToSeat();
                         }
                     }
@@ -235,7 +237,7 @@ public class Utility {
             int y = point.y;
 
             // Restricted area for the restaurant
-            return (x >= 7 && x <= 16) && (y >= 3 && y <= 11);
+            return (x >= 6 && x <= 16) && (y >= 3 && y <= 11);
         }
 
     }

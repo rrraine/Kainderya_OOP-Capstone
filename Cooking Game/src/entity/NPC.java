@@ -78,6 +78,8 @@ public abstract class NPC extends Entity {
                 }
                 spriteCounter = 0;
             }
+
+
         }
     }
 

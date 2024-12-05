@@ -40,12 +40,12 @@ public class NPC_Customer extends NPC{
     }
 
     public void assignSeat(Point location){
-        seatLocation = location;
+        this.seatLocation = location;
         isMovingToSeat = true;
     }
 
     public void moveToSeat(){
-        if (seatLocation != null){
+        if (seatLocation!= null && !isSeated){
             if (worldX < seatLocation.x){
                 direction = "right";
                 worldX += speed;
@@ -61,10 +61,14 @@ public class NPC_Customer extends NPC{
                 worldY -= speed;
             } else {
                 // Reached the seat
-                System.out.println(gp.getDebug() + "Customer has left their seat." + gp.getReset());
+                System.out.println(gp.getDebug() + "Customer has reached their seat." + gp.getReset());
                 direction = "idle1"; // todo should change depending on the seat if right-faced seat or up sitting smth
                 isMovingToSeat = false;
                 isSeated = true;
+                if (reducePatienceTimer()){
+                    leaveSeat();
+                }
+
             }
         } // todo ano mangyari if naa na sila sa seat
         // todo mag-add ng animation????
@@ -93,13 +97,14 @@ public class NPC_Customer extends NPC{
         Point exitPoint = new Point(0, 0);
         seatLocation = exitPoint;
         //moveToSeat();
-        isMovingToSeat = true;
+        //isMovingToSeat = false;
     }
     @Override
     public void setNPCAction() {
         if (isMovingToSeat){
             moveToSeat();
         } else if (isSeated){
+            reducePatienceTimer();
             direction = "idle"; // todo change photo depends on location
             // todo change the photo if facing right or up
         }
@@ -122,6 +127,18 @@ public class NPC_Customer extends NPC{
 
     }
 
+
+    @Override
+    public void update(){
+
+        if (isMovingToSeat) {
+            moveToSeat();
+        } else {
+            super.update(); // Use the default behavior if not moving to a seat
+        }
+
+
+    }
     // In NPC_Customer class
     public Point getAssignedSeat() {
         return seatLocation; // Ensure this is a Point field updated in assignSeat()
@@ -134,6 +151,10 @@ public class NPC_Customer extends NPC{
 
     public int getDefaultY() {
         return random.nextInt(20); // Replace with logic for determining Y
+    }
+
+    public void setMovingToSeat(boolean movingToSeat) {
+        isMovingToSeat = movingToSeat;
     }
 }
 
