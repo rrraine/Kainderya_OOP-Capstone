@@ -7,6 +7,7 @@ public enum AnimationState {
 
     // ITEMS
     CARRY_PLATE,
+    CARRY_PLATE_DIRTY,
     CARRY_PAN,
 
     // INGREDIENTS
