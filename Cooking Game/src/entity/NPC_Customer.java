@@ -46,6 +46,9 @@ public class NPC_Customer extends NPC{
 
     public void moveToSeat(){
         if (seatLocation!= null && !isSeated){
+            System.out.println("Current Position: " + worldX + ", " + worldY);
+            // System.out.println("Assigned seat: " + seatLocation);
+            System.out.println("Target Seat: " + seatLocation);
             if (worldX < seatLocation.x){
                 direction = "right";
                 worldX += speed;

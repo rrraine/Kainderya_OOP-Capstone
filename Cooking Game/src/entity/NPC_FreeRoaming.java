@@ -42,7 +42,7 @@ public class NPC_FreeRoaming extends NPC{
             if (isDirectionWithinBounds(proposedDirection)) {
                 direction = proposedDirection;
             } else {
-                direction = "idle"; // Default to idle if the direction would go out of bounds
+                direction = "up"; // Default to idle if the direction would go out of bounds
             }
 
             // Update the last direction
