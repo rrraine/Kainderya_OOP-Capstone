@@ -16,7 +16,7 @@ public abstract class Entity extends Asset implements Drawable, Observable, Impo
 
     // SPRITE
     BufferedImage idle1, idle2, up1, up2, down1, down2, left1, left2, right1, right2;
-    protected enum lastRecordedDirection { UP, DOWN };
+    protected enum lastRecordedDirection { UP, DOWN, LEFT, RIGHT };
     protected lastRecordedDirection lastDirection;
     String direction;
     int standCounter;

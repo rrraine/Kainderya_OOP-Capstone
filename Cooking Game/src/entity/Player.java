@@ -3,6 +3,7 @@ package entity;
 import animation.AnimationFactory;
 import animation.AnimationState;
 import interfaces.Pickupable;
+import main.Asset;
 import main.GamePanel;
 import main.KeyBindings;
 import main.Utility;
@@ -32,6 +33,7 @@ public class Player extends Entity {
     // STAMINA SYSTEM
     private int stamina;
     private int maxStamina;
+    private boolean isWorking;
 
     // PLAYER PREFERENCES
     private final String playerAvatar;
@@ -86,6 +88,8 @@ public class Player extends Entity {
         this.solidAreaDefaultX = solidArea.x;
         this.solidAreaDefaultY = solidArea.y;
 
+        isWorking = false;
+
         setDefaultPlayerValues();
         getAvatar();
     }
@@ -117,21 +121,28 @@ public class Player extends Entity {
             else { direction = "right"; }
 
             // sprint
-            if (sprint()) {
-                speed = 6;
-                stamina--;
+            if (!isWorking) {
 
-                // when exhausted, takes 5 second cooldown to sprint again
-                if (stamina <= 0) {
-                    stamina = -6 * GamePanel.FPS;
+                if (sprint()) {
+                    speed = 6;
+                    stamina--;
+
+                    // when exhausted, takes 5 second cooldown to sprint again
+                    if (stamina <= 0) {
+                        stamina = -6 * GamePanel.FPS;
+                    }
+                }
+                else {
+                    speed = 3;
+                    stamina++;
+
+                    if (stamina > maxStamina) stamina = maxStamina;
                 }
             }
             else {
-                speed = 3;
-                stamina++;
-
-                if (stamina > maxStamina) stamina = maxStamina;
+                speed = 0;
             }
+
 
             // speed penalty if exhausted
             if (stamina < 1) {
@@ -232,23 +243,34 @@ public class Player extends Entity {
                 if (spriteNum == 1) { image = up1; }
                 if (spriteNum == 2) { image = up2; }
                 if (spriteNum == 3) { image = idle2; }
+                lastDirection = lastRecordedDirection.UP;
                 break;
 
             case "down":
                 if (spriteNum == 1) { image = down1; }
                 if (spriteNum == 2) { image = down2; }
                 if (spriteNum == 3) { image = idle1; }
+                lastDirection = lastRecordedDirection.DOWN;
                 break;
 
             case "left":
                 if (spriteNum == 1 || spriteNum == 3) { image = left1; }
                 if (spriteNum == 2) { image = left2; }
+                lastDirection = lastRecordedDirection.LEFT;
                 break;
 
             case "right":
                 if (spriteNum == 1 || spriteNum == 3) { image = right1; }
                 if (spriteNum == 2) { image = right2; }
+                lastDirection = lastRecordedDirection.RIGHT;
                 break;
+        }
+
+        if (!isWorking) {
+            keyB.enableMovement(true);
+        }
+        else {
+            keyB.enableMovement(false);
         }
         g2.drawImage(image, playerCenteredScreenX, playerCenteredScreenY, null);
     }
@@ -348,5 +370,8 @@ public class Player extends Entity {
     }
     public void setItemOnHandCreate(Pickupable obj) {
         itemOnHand = obj;
+    }
+    public void setIsWorking(boolean toggle) {
+        isWorking = toggle;
     }
 }
