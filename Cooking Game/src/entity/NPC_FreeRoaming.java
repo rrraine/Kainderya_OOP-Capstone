@@ -22,7 +22,7 @@ public class NPC_FreeRoaming extends NPC{
 
         if (actionInterval == 120) {
             Random random = new Random();
-            int i = random.nextInt(99) + 1;
+            int i = random.nextInt(120) + 1;
 
             // Determine direction
             String proposedDirection;
