@@ -16,6 +16,8 @@ public abstract class SuperObject extends Asset implements Drawable, Observable,
     String name;
     boolean collision;
 
+    protected int screenX, screenY;
+
 
     // CONSTRUCTOR --------------------------------------------------------------
     public SuperObject(GamePanel gp, String name) {
@@ -47,8 +49,8 @@ public abstract class SuperObject extends Asset implements Drawable, Observable,
     public void draw(Graphics2D g2) {
 
         // DRAW ITEM AT SET LOCATION IN WORLD
-        int screenX = worldX - gp.player.getWorldX() + gp.player.getPlayerCenteredScreenX();
-        int screenY = worldY - gp.player.getWorldY() + gp.player.getPlayerCenteredScreenY();
+        screenX = worldX - gp.player.getWorldX() + gp.player.getPlayerCenteredScreenX();
+        screenY = worldY - gp.player.getWorldY() + gp.player.getPlayerCenteredScreenY();
 
         // IMPROVED RENDERING
         if (inView(gp.tileSize, gp.player, worldX, worldY)) {

@@ -9,6 +9,7 @@ public class KeyBindings implements KeyListener {
 
     // ~ FIELDS -----------------------------------------------------------------
     private static KeyBindings instance;
+    private boolean canMove;
 
     GamePanel gp;
     UIFactory uiM;
@@ -36,6 +37,7 @@ public class KeyBindings implements KeyListener {
     private KeyBindings(GamePanel gp, UIFactory uiM) {
         this.gp = gp;
         this.uiM = uiM;
+        canMove = true;
     }
     // SINGLETON INSTANTIATE -------------------------------------------------
     public static KeyBindings instantiate(GamePanel gp, UIFactory uiM) {
@@ -48,7 +50,6 @@ public class KeyBindings implements KeyListener {
    // FROM INTERFACE: KEYLISTENER ------------------------------------------------
     @Override
     public void keyPressed(KeyEvent e) {
-
         int code = e.getKeyCode();
 
         switch (gp.gameState) {
@@ -76,6 +77,7 @@ public class KeyBindings implements KeyListener {
     }
     @Override
     public void keyReleased(KeyEvent e) {
+
         int code = e.getKeyCode();
 
         // PLAYER 1 CONTROLS
@@ -117,6 +119,7 @@ public class KeyBindings implements KeyListener {
         if (code == KeyEvent.VK_ENTER) {
             player2EnterPressed = false;
         }
+
     }
     @Override
     public void keyTyped(KeyEvent e) {} // USELESS
@@ -245,6 +248,8 @@ public class KeyBindings implements KeyListener {
                         throw new Exception("Unexpected Character Selection Error");
                     }
                     gp.selectCharacter(playerAvatar, playerName);
+                    PlayUI.generateRandomNum();
+                    PlayUI.playState = PlayUI.substate.LOADING;
                     gp.gameState = GamePanel.state.PLAY;
                 } catch (Exception e) {
                     throw new RuntimeException(e.getMessage());
@@ -300,21 +305,23 @@ public class KeyBindings implements KeyListener {
     }
     private void playBindings(int code) {
 
-        // player 1 movement
-        if (code == KeyEvent.VK_W) { player1UpPressed = true; }
-        if (code == KeyEvent.VK_S) { player1DownPressed = true; }
-        if (code == KeyEvent.VK_A) { player1LeftPressed = true; }
-        if (code == KeyEvent.VK_D) { player1RightPressed = true; }
-        if (code == KeyEvent.VK_F) { player1EnterPressed = true; }
-        if (code == KeyEvent.VK_SHIFT) { player1ShiftPressed = true; }
+        if (canMove) {
+            // player 1 movement
+            if (code == KeyEvent.VK_W) { player1UpPressed = true; }
+            if (code == KeyEvent.VK_S) { player1DownPressed = true; }
+            if (code == KeyEvent.VK_A) { player1LeftPressed = true; }
+            if (code == KeyEvent.VK_D) { player1RightPressed = true; }
+            if (code == KeyEvent.VK_F) { player1EnterPressed = true; }
+            if (code == KeyEvent.VK_SHIFT) { player1ShiftPressed = true; }
 
-        // player 2 movement
-        if (code == KeyEvent.VK_UP) { player2UpPressed = true; }
-        if (code == KeyEvent.VK_DOWN) { player2DownPressed = true; }
-        if (code == KeyEvent.VK_LEFT) { player2LeftPressed = true; }
-        if (code == KeyEvent.VK_RIGHT) { player2RightPressed = true; }
-        if (code == KeyEvent.VK_ENTER) { player2EnterPressed = true; }
-        if (code == KeyEvent.VK_CONTROL) { player2ShiftPressed = true; }
+            // player 2 movement
+            if (code == KeyEvent.VK_UP) { player2UpPressed = true; }
+            if (code == KeyEvent.VK_DOWN) { player2DownPressed = true; }
+            if (code == KeyEvent.VK_LEFT) { player2LeftPressed = true; }
+            if (code == KeyEvent.VK_RIGHT) { player2RightPressed = true; }
+            if (code == KeyEvent.VK_ENTER) { player2EnterPressed = true; }
+            if (code == KeyEvent.VK_CONTROL) { player2ShiftPressed = true; }
+        }
 
         // options
         if (code == KeyEvent.VK_ESCAPE) {
@@ -408,6 +415,10 @@ public class KeyBindings implements KeyListener {
     }
     public boolean isPlayer1ShiftPressed() {
         return player1ShiftPressed;
+    }
+
+    public void enableMovement(boolean toggle) {
+        canMove = toggle;
     }
 
 

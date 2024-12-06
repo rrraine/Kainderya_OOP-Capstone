@@ -58,6 +58,7 @@ public class UIElement implements Importable {
         image6 = importImage("/ui/staminaBar/staminaBar_emptyRed", gp.tileSize);
     }
 
+
     public void reposition(int x, int y) {
         this.x = x;
         this.y = y;
@@ -162,6 +163,24 @@ public class UIElement implements Importable {
                 }
 
                 break;
+        }
+    }
+    public void drawLoadingBar(Graphics2D g2, int time) {
+
+        if (time > 300) {
+            g2.drawImage(image5, gp.screenWidth/2 - gp.tileSize*3 -24, gp.screenHeight/2 - gp.tileSize *4, gp.tileSize * 7, gp.tileSize * 5, null);
+        }
+        else if (time > 180) {
+            g2.drawImage(image4, gp.screenWidth/2 - gp.tileSize*3 -24, gp.screenHeight/2 - gp.tileSize *4, gp.tileSize * 7, gp.tileSize * 5, null);
+        }
+        else if (time > 120) {
+            g2.drawImage(image3, gp.screenWidth/2 - gp.tileSize*3 -24, gp.screenHeight/2 - gp.tileSize *4, gp.tileSize * 7, gp.tileSize * 5, null);
+        }
+        else if (time > 60) {
+            g2.drawImage(image2, gp.screenWidth/2 - gp.tileSize*3 -24, gp.screenHeight/2 - gp.tileSize *4, gp.tileSize * 7, gp.tileSize * 5, null);
+        }
+        else {
+            g2.drawImage(image1, gp.screenWidth/2 - gp.tileSize*3 -24, gp.screenHeight/2 - gp.tileSize *4, gp.tileSize * 7, gp.tileSize * 5, null);
         }
     }
 }

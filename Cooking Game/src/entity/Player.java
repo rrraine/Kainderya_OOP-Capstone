@@ -3,6 +3,7 @@ package entity;
 import animation.AnimationFactory;
 import animation.AnimationState;
 import interfaces.Pickupable;
+import main.Asset;
 import main.GamePanel;
 import main.KeyBindings;
 import main.Utility;
@@ -116,7 +117,6 @@ public class Player extends Entity {
             else if (keyB.isLeftPressed()) { direction = "left"; }
             else { direction = "right"; }
 
-            // sprint
             if (sprint()) {
                 speed = 6;
                 stamina--;
@@ -132,7 +132,7 @@ public class Player extends Entity {
 
                 if (stamina > maxStamina) stamina = maxStamina;
             }
-
+            // sprint
             // speed penalty if exhausted
             if (stamina < 1) {
                 speed = 1;
@@ -232,24 +232,29 @@ public class Player extends Entity {
                 if (spriteNum == 1) { image = up1; }
                 if (spriteNum == 2) { image = up2; }
                 if (spriteNum == 3) { image = idle2; }
+                lastDirection = lastRecordedDirection.UP;
                 break;
 
             case "down":
                 if (spriteNum == 1) { image = down1; }
                 if (spriteNum == 2) { image = down2; }
                 if (spriteNum == 3) { image = idle1; }
+                lastDirection = lastRecordedDirection.DOWN;
                 break;
 
             case "left":
                 if (spriteNum == 1 || spriteNum == 3) { image = left1; }
                 if (spriteNum == 2) { image = left2; }
+                lastDirection = lastRecordedDirection.LEFT;
                 break;
 
             case "right":
                 if (spriteNum == 1 || spriteNum == 3) { image = right1; }
                 if (spriteNum == 2) { image = right2; }
+                lastDirection = lastRecordedDirection.RIGHT;
                 break;
         }
+        
         g2.drawImage(image, playerCenteredScreenX, playerCenteredScreenY, null);
     }
     @Override
@@ -313,7 +318,6 @@ public class Player extends Entity {
                 }
                 else {
                     obj.interact(this, animF, itemOnHand);
-
                 }
             }
         }

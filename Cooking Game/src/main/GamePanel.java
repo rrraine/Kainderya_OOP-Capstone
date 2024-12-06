@@ -4,6 +4,7 @@ import entity.*;
 import game.Time;
 import object.SuperObject;
 import tile.TileManager;
+import ui.PlayUI;
 import ui.UIFactory;
 
 import javax.swing.*;
@@ -251,6 +252,7 @@ public class GamePanel extends JPanel implements Runnable {
     private void newGame() {
         newGame = true;
         time.reinitialize();
+        uiM.getPlayUI().resetLoadTime();
     }
 
 
@@ -278,7 +280,7 @@ public class GamePanel extends JPanel implements Runnable {
     private void playBGMusic(int i) {
 
         music.setSound(i);
-        music.adjustSoundVolume(-5); // DECIBELS
+        music.adjustSoundVolume(-20); // DECIBELS
         music.playSound();
         music.loopSound();
     }

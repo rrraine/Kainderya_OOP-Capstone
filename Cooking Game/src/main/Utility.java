@@ -353,7 +353,7 @@ public class Utility {
                                     // TODO change accordingly to what station
                                     if (obj.get(i) instanceof WorkStation) {
                                         // Handle interaction with workstation
-                                        handleWorkStationInteraction((Player) en, (WorkStation) obj.get(i));
+                                     //   handleWorkStationInteraction((Player) en, (WorkStation) obj.get(i));
                                     }
                                     index = i; // Store the index of the workstation or object
                                     index = i;
@@ -559,8 +559,8 @@ public class Utility {
     // HANDLES TIME OR DURATION CONTROL
     public static class Regulator {
 
-        private static double blockedTime = 0;
-        public static boolean block(int sec) {
+        private double blockedTime = 0;
+        public boolean block(int sec) {
 
             if (blockedTime > (GamePanel.FPS * sec)) {
                 blockedTime = 0;
@@ -587,15 +587,15 @@ public class Utility {
     }
 
     // added for debugging
-    private static void handleWorkStationInteraction(Player player, WorkStation workStation) {
-        // Check if the workstation is occupied
-        if (workStation.isOccupied()) {
-            // Handle the case where the workstation is occupied (could show a message or prevent interaction)
-            System.out.println("The " + workStation.getName() + " is currently occupied!");
-        } else {
-            // Handle the case where the workstation is not occupied (could trigger interaction or task)
-            System.out.println(player.getPlayerName() + " is interacting with the " + workStation.getName());
-            workStation.setOccupied(true); // Mark the workstation as occupied
-        }
-    }
+//    private static void handleWorkStationInteraction(Player player, WorkStation workStation) {
+//        // Check if the workstation is occupied
+//        if (workStation.isOccupied()) {
+//            // Handle the case where the workstation is occupied (could show a message or prevent interaction)
+//            System.out.println("The " + workStation.getName() + " is currently occupied!");
+//        } else {
+//            // Handle the case where the workstation is not occupied (could trigger interaction or task)
+//            System.out.println(player.getPlayerName() + " is interacting with the " + workStation.getName());
+//            workStation.setOccupied(true); // Mark the workstation as occupied
+//        }
+//    }
 }
