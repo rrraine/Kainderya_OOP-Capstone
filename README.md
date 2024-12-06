@@ -23,13 +23,13 @@ Complete orders quickly within a fixed duration to achieve high scores.
 # DESIGN PATTERNS USED
 
 FACTORY 
-<br>
+<br> -The AnimationFactory class itself behaves as a Factory by creating and managing different types of Animation objects, such as carryPlate, carryCornedBeef, and other animations.
 
 ABSTRACT FACTORY 
 <br>
 
 SINGLETON 
-<br>
+<br> - The AnimationFactory manages various animation states for the avatar. By making it a Singleton, the game ensures that all the animation states are handled by a single, consistent instance, preventing multiple instances from creating unnecessary copies of these states.
 
 BUILDER  
 <br>
