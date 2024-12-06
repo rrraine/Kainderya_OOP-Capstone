@@ -23,13 +23,14 @@ Complete orders quickly within a fixed duration to achieve high scores.
 # DESIGN PATTERNS USED
 
 FACTORY 
-<br> -The AnimationFactory class itself behaves as a Factory by creating and managing different types of Animation objects, such as carryPlate, carryCornedBeef, and other animations.
+<br> 
 
 ABSTRACT FACTORY 
 <br>
 
 SINGLETON 
-<br> - The AnimationFactory manages various animation states for the avatar. By making it a Singleton, the game ensures that all the animation states are handled by a single, consistent instance, preventing multiple instances from creating unnecessary copies of these states.
-
+<br>The Singleton pattern ensures that only one instance of certain classes exists throughout the game. This is important for components like GamePanel, EventHandler, and Sound, where only one instance should control the game state, handle events, and manage the audio. For example, GamePanel is responsible for the game loop, and having multiple instances could lead to inconsistent behavior.
+<br>Classes:
+GamePanel, EventHandler, KeyBindings, Sound.
 BUILDER  
 <br>
