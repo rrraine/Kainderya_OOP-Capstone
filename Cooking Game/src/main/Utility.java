@@ -561,15 +561,22 @@ public class Utility {
     // HANDLES TIME OR DURATION CONTROL
     public static class Regulator {
 
+        private boolean stop = false;
         private double blockedTime = 0;
         public boolean block(int sec) {
 
-            if (blockedTime > (GamePanel.FPS * sec)) {
-                blockedTime = 0;
-                return true;
+            if (!stop) {
+                if (blockedTime > (GamePanel.FPS * sec)) {
+                    blockedTime = GamePanel.FPS * sec;
+                    stop = true;
+                }
+                blockedTime++;
+                return false;
             }
-            blockedTime++;
-            return false;
+            return true;
+        }
+        public double getBlockedTime() {
+            return blockedTime;
         }
 
         private static long lastToggleTime = 0;

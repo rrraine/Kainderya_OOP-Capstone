@@ -5,34 +5,43 @@ import animation.AnimationFactory;
 import animation.AnimationState;
 import entity.Entity;
 import entity.Player;
+import food.Drink;
 import interfaces.Drawable;
 import interfaces.Importable;
 import interfaces.Pickupable;
 import main.GamePanel;
 import main.Utility;
+import ui.UIElement;
 
 import java.awt.*;
 
 public abstract class WorkStation extends Station implements Drawable {
 
+    boolean isCooked;
     boolean isOccupied;
     boolean playerLocked;
     int processTime;
 
     Utility.Regulator utilTool;
+    UIElement processBar;
 
     public WorkStation(GamePanel gp, String name, int processTime) {
         super(gp, name);
         this.processTime = processTime;
+
+        utilTool = new Utility.Regulator();
+
+        isCooked = false;
         isOccupied = false;
         playerLocked = false;
-        utilTool = new Utility.Regulator();
+
+        processBar = new UIElement(gp, "loadingBar", null, 0, false);
     }
     public void interact(Entity en, AnimationFactory animF, Pickupable obj) {
 
         if(en instanceof Player){
 
-            // if carrying -> clear hand -> deploy item
+            // GENERAL ITEM DEPLOY ON SURFACE
             if (animF.getCurrentState() != AnimationState.BASE) {
 
                 (obj).reposition(obj, this); // repositions obj's coordinates
@@ -53,7 +62,7 @@ public abstract class WorkStation extends Station implements Drawable {
             drawProcessing(g2);
 
             if (utilTool.block(processTime)) {
-                isOccupied = false;
+                isCooked = true;
 
                 if (playerLocked) {
                     playerLocked = false;
@@ -66,13 +75,17 @@ public abstract class WorkStation extends Station implements Drawable {
     // draw processing bar
     public void drawProcessing(Graphics2D g2) {
 
-        g2.setColor(Color.BLACK);
-        g2.fillRect(screenX -10, screenY -15, gp.tileSize +20, 10);
+        int time = (int) utilTool.getBlockedTime();
+        time /= GamePanel.FPS;
+
+        processBar.drawProcessBar(g2, screenX -10, screenY - 40, time, processTime);
+
+        if (this instanceof WorkStation.leftRiceCooker) {
+            g2.setColor(Color.WHITE);
+            g2.drawString(Integer.toString(WorkStation.leftRiceCooker.getServingsCount()), screenX + 42, screenY + 48);
+        }
     }
 
-    public boolean isOccupied() {
-        return isOccupied;
-    }
 
     // inner classes ---------------------------------
 
@@ -136,25 +149,50 @@ public abstract class WorkStation extends Station implements Drawable {
     public static class leftRiceCooker extends WorkStation implements Importable  {
         // INTERACTION ONLY WORKS WHEN ANIMATION STATE IS CARRYING RICE -> MUST CARRY CLEAN PLATE -> THEN CARRY PLATE RICE
 
+        private static int servingsCount;
+
         public leftRiceCooker(GamePanel gp) {
             super(gp, "Rice Cooker", 5);
             image = importImage("/objects/item/kitchenArea/leftRiceCooker", gp.tileSize);
-            setDefaultCollisions(true, 0, 0, 58, 64);
+            setDefaultCollisions(true, 0, 0, 64, 64);
         }
 
         public void interact(Entity en, AnimationFactory animF, Pickupable obj) {
 
-            if (en instanceof Player && !isOccupied) {
 
-                // if carrying rice -> clear hand -> deploy item
-                if (animF.getCurrentState() == AnimationState.CARRY_RAW_RICE) {
+            if (en instanceof Player) {
 
-                    (obj).reposition(obj, this); // repositions obj's coordinates
+                // COOK RAW RICE
+                if (animF.getCurrentState() == AnimationState.CARRY_RAW_RICE && !isOccupied) {
+
                     gp.player.setItemOnHandDestroy(); // destroy item on player's hand
                     animF.switchState((AnimationState.BASE));// base animation
+                    isCooked = false;
                     isOccupied = true;
+                    servingsCount = 3;
+                }
+
+                // SANDOK COOKED RICE
+                if (animF.getCurrentState() == AnimationState.CARRY_PLATE && isOccupied && isCooked) {
+
+                    servingsCount--;
+
+                    if (servingsCount >= 0) {
+                        // create new plate instance
+                        gp.player.setItemOnHandDestroy();
+                        gp.player.setItemOnHandCreate(new Drink.Cola(gp));
+                        animF.switchState(AnimationState.CARRY_COKE);
+
+                        if (servingsCount == 0) {
+                            isOccupied = false;
+                        }
+                    }
                 }
             }
+        }
+
+        static int getServingsCount() {
+            return servingsCount;
         }
     }
 
@@ -172,7 +210,14 @@ public abstract class WorkStation extends Station implements Drawable {
         public void interact(Entity en, AnimationFactory animF, Pickupable obj) {
 
             if (obj instanceof Item.Pan) {
-                super.interact(en, animF, obj);
+                super.interact(en, animF, obj); // deploy pan on stove
+
+                // if pan on stove, can put ingredients on pan
+                
+                // load time
+
+                // once done, sandok 1 serving
+
             }
         }
 
