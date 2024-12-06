@@ -22,9 +22,11 @@ Complete orders quickly within a fixed duration to achieve high scores.
 
 # DESIGN PATTERNS USED
 
-FACTORY - // animation
+FACTORY 
+// animation
 
-ABSTRACT FACTORY - //
+ABSTRACT FACTORY 
+//  UI, Asset, SuperObject, Entity
 
 SINGLETON - //
 
