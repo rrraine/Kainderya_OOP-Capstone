@@ -18,9 +18,9 @@ import java.awt.*;
 
 public abstract class WorkStation extends Station implements Drawable {
 
-    boolean isCooked;
-    boolean isOccupied;
-    boolean playerLocked;
+    boolean isCooked; // process time is finished
+    boolean isOccupied; // station has food instance
+    boolean playerLocked; // player cannot move
     int processTime;
 
     Utility.Regulator utilTool;
@@ -38,6 +38,8 @@ public abstract class WorkStation extends Station implements Drawable {
 
         processBar = new UIElement(gp, "loadingBar", null, 0, false);
     }
+
+    // GENERAL ITEM DEPLOY ON SURFACE
     public void interact(Entity en, AnimationFactory animF, Pickupable obj) {
 
         if(en instanceof Player){
@@ -47,7 +49,6 @@ public abstract class WorkStation extends Station implements Drawable {
 
                 (obj).reposition(obj, this); // repositions obj's coordinates
                 gp.getAssetPool().add((SuperObject)obj); // add to pool for printing
-                System.out.println("YOU ARE HOLDING: " + obj);
                 gp.player.setItemOnHandDestroy(); // destroy item on player's hand
                 animF.switchState((AnimationState.BASE));// base animation
             }
@@ -138,17 +139,21 @@ public abstract class WorkStation extends Station implements Drawable {
         @Override
         public void interact(Entity en, AnimationFactory animF, Pickupable obj) {
 
-            if (en instanceof Player && !isOccupied) {
+            if (en instanceof Player) {
 
-                // if carrying rice -> clear hand -> deploy item
-                if (animF.getCurrentState() == AnimationState.CARRY_ONION) {
+                // CHOP ONIONS
+                if (animF.getCurrentState() == AnimationState.CARRY_ONION && !isOccupied) {
 
-                    (obj).reposition(obj, this); // repositions obj's coordinates
-                    gp.player.setItemOnHandDestroy(); // destroy item on player's hand
-                    animF.switchState((AnimationState.BASE));// base animation
+                    // DEPLOY ONION ON SURFACE
+                    super.interact(en, animF, obj);
                     isOccupied = true;
                     playerLocked = true;
                     gp.getKeyB().enableMovement(false);
+                }
+
+                // RETRIEVE CHOPPED ONIONS
+                if (animF.getCurrentState() == AnimationState.CARRY_PLATE && isOccupied) {
+                    // TODO GET ONION ON PLATE
                 }
             }
         }
