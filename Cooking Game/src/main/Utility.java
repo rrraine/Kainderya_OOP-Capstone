@@ -578,6 +578,10 @@ public class Utility {
         public double getBlockedTime() {
             return blockedTime;
         }
+        public void resetBlock() {
+            stop = false;
+            blockedTime = 0;
+        }
 
         private static long lastToggleTime = 0;
         private static boolean toggleState = false;

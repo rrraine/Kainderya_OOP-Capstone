@@ -29,7 +29,7 @@ public class FoodBuilder {
             throw new IllegalArgumentException("3 ingredients required");
         }
 
-        // TODO IDENTIFY WHAT DISH BIATCH
+        // TODO IDENTIFY WHAT DISH
         Dish dish = null;
 
         switch (foodName) {

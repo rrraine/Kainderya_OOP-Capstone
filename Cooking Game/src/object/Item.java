@@ -10,6 +10,7 @@ import interfaces.Pickupable;
 import main.GamePanel;
 
 import java.awt.image.BufferedImage;
+import java.nio.Buffer;
 
 public abstract class Item extends SuperObject {
 
@@ -95,13 +96,30 @@ public abstract class Item extends SuperObject {
 
     public static class Plates extends Item implements Importable, Pickupable{
 
+        // CENTERED PLATES
         BufferedImage diningPlate, counterPlate;
+        BufferedImage burnt, dirty;
+        BufferedImage noMain; // general rice + egg
+        BufferedImage cookedCBeef, cookedEgg, cookedRice, cookedSpam, cookedTapa, onlyOnion; // mga ingredients
+        BufferedImage cornsilog, cornsilogNoEgg, cornsilogNoRice; // conrsilog instances
+        BufferedImage spamsilog, spamsilogNoEgg, spamsilogNoRice; // spamsilog instances
+        BufferedImage tapsilog, tapsilogNoEgg, tapsilogNoRice; // tapsilog instances
+
+        // LOWERED PLATES
+
+
 
         public Plates (GamePanel gp) {
             super(gp, "Plates");
             setDefaultCollisions(false, -8, -8, 80, 80);
             diningPlate = importImage("/objects/item/kitchenTools/plate", gp.tileSize);
             counterPlate = importImage("/objects/item/kitchenTools/plateCounter", gp.tileSize);
+
+            // TODO IMPORT PLATE INSTANCES
+
+
+
+            // default
             image = counterPlate;
         }
 

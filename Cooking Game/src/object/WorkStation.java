@@ -80,7 +80,7 @@ public abstract class WorkStation extends Station implements Drawable {
 
         processBar.drawProcessBar(g2, screenX -10, screenY - 40, time, processTime);
 
-        if (this instanceof WorkStation.leftRiceCooker) {
+        if (this instanceof WorkStation.leftRiceCooker && isCooked) {
             g2.setColor(Color.WHITE);
             g2.drawString(Integer.toString(WorkStation.leftRiceCooker.getServingsCount()), screenX + 42, screenY + 48);
         }
@@ -185,6 +185,8 @@ public abstract class WorkStation extends Station implements Drawable {
 
                         if (servingsCount == 0) {
                             isOccupied = false;
+                            isCooked = false;
+                            utilTool.resetBlock();
                         }
                     }
                 }
