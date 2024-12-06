@@ -161,14 +161,12 @@ public class Utility {
                 npc.get(npc.size() - 1).setWorldX(tileSize * 15);
                 npc.get(npc.size() - 1).setWorldY(tileSize * 13);
 */
-                // shopManager.generateNPCs();
-                List<NPC> shopManagerNPCs = shopManager.getAllNPCs();  // Get the combined list of customers and free-roaming NPCs
+
+                List<NPC> shopManagerNPCs = new ArrayList<>(gp.getNpc());  // Get the combined list of customers and free-roaming NPCs
                 System.out.println("Deploying NPCs. Count: " + shopManagerNPCs.size());
 
                 // Loop through each NPC from the ShopManager
                 for (NPC shopNPC : shopManagerNPCs) {
-                    // Add each NPC from ShopManager into the main NPC list
-                    npc.add(shopNPC);
 
                     // generate spawnPoint outside the restaurant
                     Point spawnPoint;

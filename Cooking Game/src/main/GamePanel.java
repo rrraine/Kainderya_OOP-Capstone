@@ -353,7 +353,8 @@ public class GamePanel extends JPanel implements Runnable {
 
         // Generate NPCs
         shopManager.generateNPCs();
-        System.out.println("Generated NPCs in ShopManager: " + shopManager.getAllNPCs().size());
+        //System.out.println("Generated NPCs in ShopManager: " + shopManager.getAllNPCs().size());
+        System.out.println("Generated NPCs in ShopManager: " + npc.size());
 
         // Deploy NPCs to the map
         Utility.AssetSetter.deployNPCInMap(this, tileSize, this.npc, shopManager);

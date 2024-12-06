@@ -100,13 +100,6 @@ public class ShopManager {
         }
     }
 
-    public List<NPC> getNPCs() {
-        List<NPC> npcs = new ArrayList<>(waitingQueue);
-        Collections.addAll(npcs, seatedCustomers);
-        npcs.addAll(freeRoamingNPCs);
-        npcs.removeIf(Objects::isNull);
-        return npcs;
-    }
 
     public Point[] getSeatLocations() {
         return seatLocations;
@@ -142,6 +135,23 @@ public class ShopManager {
         return new NPC_FreeRoaming(gp, randomNPC);
     }
 
+
+    // GETTERS AND SETTERS --------------------------------------
+
+    /*public List<NPC> getAllNPCs() {
+        Set<NPC> allNPCs = new HashSet<>();
+        allNPCs.addAll(waitingQueue);
+        allNPCs.addAll(freeRoamingNPCs);
+        allNPCs.addAll(getSeatedCustomers());
+        for (NPC npc : allNPCs) {
+            System.out.println(npc.getClass().getSimpleName());
+
+        }
+        return new ArrayList<>(allNPCs);
+    }
+
+     */
+
     public int getDefaultX() {
         return random.nextInt(25);  // Generate a random X position within a valid range
     }
@@ -168,16 +178,14 @@ public class ShopManager {
         return seated;
     }
 
-    public List<NPC> getAllNPCs() {
-        Set<NPC> allNPCs = new HashSet<>();
-        allNPCs.addAll(waitingQueue);
-        allNPCs.addAll(freeRoamingNPCs);
-        allNPCs.addAll(getSeatedCustomers());
-        for (NPC npc : allNPCs) {
-
-            System.out.println(npc.getClass());
-
-        }
-        return new ArrayList<>(allNPCs);
+    // useless
+    /*
+    public List<NPC> getNPCs() {
+        List<NPC> npcs = new ArrayList<>(waitingQueue);
+        Collections.addAll(npcs, seatedCustomers);
+        npcs.addAll(freeRoamingNPCs);
+        npcs.removeIf(Objects::isNull);
+        return npcs;
     }
+     */
 }
