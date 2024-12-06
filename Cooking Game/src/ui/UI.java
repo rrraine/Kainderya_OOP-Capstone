@@ -23,6 +23,7 @@ public abstract class UI implements Drawable, Importable {
     static Font luckiestGuy;
     static Font balooMedium;
     static Font paytoneOne;
+    static Font balooBold;
 
     // TIME FORMATS
     static DecimalFormat timeFormat;
@@ -70,6 +71,7 @@ public abstract class UI implements Drawable, Importable {
         luckiestGuy = importFont("LuckiestGuy-Regular");
         balooMedium = importFont("Baloo2-Medium");
         paytoneOne = importFont("PaytoneOne-Regular");
+        balooBold = importFont("Baloo2-Bold");
 
         // OPTIONS UI
         command = 0;

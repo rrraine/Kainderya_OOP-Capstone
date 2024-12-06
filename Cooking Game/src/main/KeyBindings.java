@@ -248,6 +248,7 @@ public class KeyBindings implements KeyListener {
                         throw new Exception("Unexpected Character Selection Error");
                     }
                     gp.selectCharacter(playerAvatar, playerName);
+                    PlayUI.generateRandomNum();
                     PlayUI.playState = PlayUI.substate.LOADING;
                     gp.gameState = GamePanel.state.PLAY;
                 } catch (Exception e) {
