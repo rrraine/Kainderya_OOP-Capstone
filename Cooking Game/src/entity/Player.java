@@ -33,7 +33,6 @@ public class Player extends Entity {
     // STAMINA SYSTEM
     private int stamina;
     private int maxStamina;
-    private boolean isWorking;
 
     // PLAYER PREFERENCES
     private final String playerAvatar;
@@ -88,8 +87,6 @@ public class Player extends Entity {
         this.solidAreaDefaultX = solidArea.x;
         this.solidAreaDefaultY = solidArea.y;
 
-        isWorking = false;
-
         setDefaultPlayerValues();
         getAvatar();
     }
@@ -136,9 +133,6 @@ public class Player extends Entity {
                 if (stamina > maxStamina) stamina = maxStamina;
             }
             // sprint
-
-
-
             // speed penalty if exhausted
             if (stamina < 1) {
                 speed = 1;
@@ -260,13 +254,7 @@ public class Player extends Entity {
                 lastDirection = lastRecordedDirection.RIGHT;
                 break;
         }
-
-        if (!isWorking) {
-            keyB.enableMovement(true);
-        }
-        else {
-            keyB.enableMovement(false);
-        }
+        
         g2.drawImage(image, playerCenteredScreenX, playerCenteredScreenY, null);
     }
     @Override
@@ -330,7 +318,6 @@ public class Player extends Entity {
                 }
                 else {
                     obj.interact(this, animF, itemOnHand);
-
                 }
             }
         }
@@ -365,11 +352,5 @@ public class Player extends Entity {
     }
     public void setItemOnHandCreate(Pickupable obj) {
         itemOnHand = obj;
-    }
-    public void setIsWorking(boolean toggle) {
-        isWorking = toggle;
-    }
-    public boolean getIsWorking() {
-        return isWorking;
     }
 }
