@@ -82,12 +82,15 @@ public class NPC_Customer extends NPC{
     }
 
     public boolean reducePatienceTimer(){
-        while (patienceTimer > 0){
+        /*while (patienceTimer > 0){
             if (isSeated){
                 patienceTimer--;
                 return false; // naay patience
             }
         }
+
+          */
+
 
         return true; // no patience
     }
