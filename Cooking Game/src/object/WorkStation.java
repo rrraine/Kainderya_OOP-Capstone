@@ -124,7 +124,7 @@ public abstract class WorkStation extends Station implements Drawable {
 
                     (obj).reposition(obj, this); // repositions obj's coordinates
                     gp.player.setItemOnHandDestroy(); // destroy item on player's hand
-                    animF.switchState((AnimationState.BASE));// base animation
+                    animF.switchState((AnimationState.CARRY_ONION_PLATE));// base animation
                     isOccupied = true;
                     playerLocked = true;
                     gp.getKeyB().enableMovement(false);

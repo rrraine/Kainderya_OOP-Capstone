@@ -15,7 +15,7 @@ public class AnimationFactory {
 
     AnimationState currentState;
     Animation base, carryPlate, carryCornedBeef, carryEgg, carryOnion, carryPan, carryRawRice, carrySpam, carryTapa, carryCoke,
-              carryTapaPlate, carrySpamPlate, carryEggPlate, carryCBPlate, carryRicePlate, carryDirtyPlate,
+              carryTapaPlate, carrySpamPlate, carryEggPlate, carryCBPlate, carryRicePlate, carryDirtyPlate, carryOnionPlate,
               carryTapsi, carryCornsi, carrySpamsi, carryTaplog, carryCornlog, carrySpamlog,
               carryTapsilog, carryCornsilog, carrySpamsilog;
 
@@ -55,6 +55,8 @@ public class AnimationFactory {
         carryTaplog= new Animation(gp, avatar, "/taplog/");
         carryCornlog = new Animation(gp, avatar, "/cornlog/");
         carrySpamlog = new Animation(gp, avatar, "/spamlog/");
+
+        carryOnionPlate = new Animation(gp, avatar, "/onionPlate/");
 
 
 
@@ -98,6 +100,8 @@ public class AnimationFactory {
             case CARRY_COKE:
                 return carryCoke.getSprites();
 
+            case CARRY_RICE_PLATE:
+                return carryRicePlate.getSprites();
             case CARRY_EGG_PLATE:
                 return carryEggPlate.getSprites();
             case CARRY_TAPA_PLATE:
@@ -118,6 +122,8 @@ public class AnimationFactory {
                 return carryCornsi.getSprites();
             case CARRY_CORNLOG_PLATE:
                 return carryCornlog.getSprites();
+            case CARRY_ONION_PLATE:
+                return carryOnionPlate.getSprites();
 
 
 
