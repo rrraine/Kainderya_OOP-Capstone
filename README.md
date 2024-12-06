@@ -10,3 +10,22 @@ Programmers:
 S.Y. 2024 - 2025
 BS Computer Science
 Cebu Institute of Technology - University
+
+
+# DESCRIPTION
+KAINDERYA is a 2D pixel cooking game where players run and manage a fast-paced Filipino eatery! Inspired by popular games like 'Ready-Set-Cook' and 'Overcooked', players are challenged to cook, assemble, and serve classic dishes from local karinderya or tapsilogan under the pressure of time and customer demands. Whether it's serving silog meals or handling a busy karinderya crowd. 
+
+(Multiplayer feature coming soon.)
+
+# GAME OBJECTIVE
+Complete orders quickly within a fixed duration to achieve high scores.
+
+# DESIGN PATTERNS USED
+
+FACTORY - // animation
+
+ABSTRACT FACTORY - //
+
+SINGLETON - //
+
+BUILDER - //
