@@ -11,6 +11,7 @@ import interfaces.Importable;
 import interfaces.Pickupable;
 import main.GamePanel;
 import main.Utility;
+import ui.UI;
 import ui.UIElement;
 
 import java.awt.*;
@@ -71,18 +72,25 @@ public abstract class WorkStation extends Station implements Drawable {
             }
         }
     }
-
-    // draw processing bar
     public void drawProcessing(Graphics2D g2) {
 
+        // DRAW PROCESSING BAR
         int time = (int) utilTool.getBlockedTime();
         time /= GamePanel.FPS;
-
         processBar.drawProcessBar(g2, screenX -10, screenY - 40, time, processTime);
 
+        // DRAW SERVINGS
         if (this instanceof WorkStation.leftRiceCooker && isCooked) {
+
+            String text = WorkStation.leftRiceCooker.getServingsCount() + "x";
+            int x = screenX + 42;
+            int y = screenY + 48;
+
+            g2.setFont(UI.getStandardFont());
+            g2.setFont(g2.getFont().deriveFont(21F));
+            UI.drawLetterBorder(g2, text, Color.BLACK, 2, x, y);
             g2.setColor(Color.WHITE);
-            g2.drawString(Integer.toString(WorkStation.leftRiceCooker.getServingsCount()), screenX + 42, screenY + 48);
+            g2.drawString(text, x, y);
         }
     }
 

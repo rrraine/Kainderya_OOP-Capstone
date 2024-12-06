@@ -41,9 +41,9 @@ public class PlayUI extends UI implements Drawable {
 
     private void playGAME(Graphics2D g2) {
 
-        // DRAW TIMER
         if (gp.gameState != GamePanel.state.HOME) {
 
+            // INITIALIZE
             g2.setFont(fredokaSemiBold);
             g2.setFont(g2.getFont().deriveFont(18F));
 
@@ -71,6 +71,7 @@ public class PlayUI extends UI implements Drawable {
             staminaBar.reposition(x, y);
             staminaBar.drawStaminaBar(g2, gp.player.staminaMeter());
 
+            // TIMER
             g2.setColor(Color.WHITE);
 
             if (Time.rushTime()) {
@@ -83,7 +84,7 @@ public class PlayUI extends UI implements Drawable {
                 g2.drawString("Time: " + Time.getTimer(), gp.tileSize * 16, 65);
             }
 
-            // stamina
+            // STAMINA
             if (gp.player.getStamina() >= 0) {
                 g2.setFont(g2.getFont().deriveFont(Font.PLAIN,20F));
                 g2.drawString("Stamina: " + gp.player.getStamina(), gp.tileSize * 16 + 5, 100);
@@ -93,6 +94,7 @@ public class PlayUI extends UI implements Drawable {
                 g2.setFont(g2.getFont().deriveFont(Font.PLAIN, 20F));
                 g2.drawString("Stamina: " + gp.player.getStamina(), gp.tileSize * 16 + 5, 100);
             }
+
         }
     }
     private void playLOADING(Graphics2D g2) {
