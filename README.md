@@ -7,9 +7,9 @@ Programmers:
 - Venice Jonah Juarez
 - Lorraine Quezada
 
-S.Y. 2024 - 2025
-BS Computer Science
-Cebu Institute of Technology - University
+<br>S.Y. 2024 - 2025
+<br>BS Computer Science
+<br>Cebu Institute of Technology - University
 
 
 # DESCRIPTION
@@ -23,11 +23,13 @@ Complete orders quickly within a fixed duration to achieve high scores.
 # DESIGN PATTERNS USED
 
 FACTORY 
-// animation
+<br>
 
 ABSTRACT FACTORY 
-//  UI, Asset, SuperObject, Entity
+<br>
 
-SINGLETON - //
+SINGLETON 
+<br>
 
-BUILDER - //
+BUILDER  
+<br>
