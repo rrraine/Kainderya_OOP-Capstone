@@ -26,7 +26,7 @@ public abstract class Dish extends Food {
 
         public Tapsilog(GamePanel gp) {
             super(gp, "Tapsilog");
-            loadFoodImage("TODO pPATHHH OF TAPSILOIG");
+            loadFoodImage("/food/meals/center/tapsilog");
         }
 
         @Override
@@ -51,7 +51,7 @@ public abstract class Dish extends Food {
 
         public Spamsilog(GamePanel gp) {
             super(gp, "Spamsilog");
-            loadFoodImage("TODO pPATHHH OF SPAMSILOG");
+            loadFoodImage("/food/meals/center/spamsilog");
         }
 
         @Override
@@ -76,7 +76,7 @@ public abstract class Dish extends Food {
 
         public Cornsilog(GamePanel gp) {
             super(gp, "Cornsilog");
-            loadFoodImage("TODO pPATHHH OF CONRSILOG");
+            loadFoodImage("/food/meals/center/cornsilog");
         }
 
         @Override
