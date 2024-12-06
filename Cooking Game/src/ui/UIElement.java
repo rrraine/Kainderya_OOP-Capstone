@@ -37,6 +37,9 @@ public class UIElement implements Importable {
             case "staminaBar":
                 renderStaminaBar();
                 break;
+            case "loadingBar":
+                renderProcessBar();
+                break;
         }
     }
 
@@ -56,6 +59,14 @@ public class UIElement implements Importable {
         image4 = importImage("/ui/staminaBar/staminaBar_1", gp.tileSize);
         image5 = importImage("/ui/staminaBar/staminaBar_emptyBlack", gp.tileSize);
         image6 = importImage("/ui/staminaBar/staminaBar_emptyRed", gp.tileSize);
+    }
+    private void renderProcessBar() {
+
+        image1 = importImage("/ui/loadingBar/loadingBar_0", gp.tileSize);
+        image2 = importImage("/ui/loadingBar/loadingBar_25", gp.tileSize);
+        image3 = importImage("/ui/loadingBar/loadingBar_50", gp.tileSize);
+        image4 = importImage("/ui/loadingBar/loadingBar_75", gp.tileSize);
+        image5 = importImage("/ui/loadingBar/loadingBar_100", gp.tileSize);
     }
 
 
@@ -182,5 +193,27 @@ public class UIElement implements Importable {
         else {
             g2.drawImage(image1, gp.screenWidth/2 - gp.tileSize*3 -24, gp.screenHeight/2 - gp.tileSize *4, gp.tileSize * 7, gp.tileSize * 5, null);
         }
+    }
+    public void drawProcessBar(Graphics2D g2, int x, int y, int currTime, int destTime) {
+
+        BufferedImage image = null;
+
+        if (currTime <= destTime * 0.25) {
+            image = image1;
+        }
+        else if (currTime <= destTime * 0.50) {
+            image = image2;
+        }
+        else if (currTime <= destTime * 0.75) {
+            image = image3;
+        }
+        else if (currTime < destTime) {
+            image = image4;
+        }
+        else {
+            image = image5;
+        }
+
+        g2.drawImage(image, x, y, gp.tileSize +20, gp.tileSize, null);
     }
 }
