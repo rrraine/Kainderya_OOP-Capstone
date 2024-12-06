@@ -108,7 +108,7 @@ public class Utility {
                 addItem(46, obj, new RefillStation.stationaryTapa(gp), tileSize, 8, 4);
 
                 addItem(47, obj, new Item.Pan(gp), tileSize, 6, 6);
-                addItem(48, obj, new Item.Pan(gp), tileSize, 6, 8);
+                addItem(48, obj, new Item.Pan(gp), tileSize, 6, 9);
 
                 addItem(49, obj, new Item.bush(gp), tileSize, 16, 3);
                 addItem(50, obj, new Item.bush(gp), tileSize, 16, 4);
