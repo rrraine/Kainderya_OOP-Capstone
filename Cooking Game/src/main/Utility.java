@@ -84,10 +84,11 @@ public class Utility {
 
 
                 //left counter
-                addItem(31, obj, new WorkStation.Counter.leftCornerTable(gp), tileSize, 6, 8);
+                addItem(31, obj, new WorkStation.Counter.leftCornerTable(gp), tileSize, 6, 9);
                 addItem(32, obj, new WorkStation.Counter.leftRiceCooker(gp), tileSize, 6, 4);
                 addItem(33, obj, new WorkStation.Counter.leftStraightTable(gp), tileSize, 6, 6);
-                addItem(34, obj, new WorkStation.Counter.leftStove(gp), tileSize, 6, 7);
+                //addItem(34, obj, new WorkStation.Counter.leftStove(gp), tileSize, 6, 7);
+                addItem(34, obj, new WorkStation.Stove(gp), tileSize, 6, 7);
                 addItem(35, obj, new WorkStation.Counter.leftStraightTable(gp), tileSize, 6, 5);
 
                 addItem(36, obj, new RefillStation.stationaryEgg(gp), tileSize, 15, 8);
@@ -129,7 +130,8 @@ public class Utility {
                 addItem(64, obj, new Item.Plates(gp), tileSize, 13, 7);
                 addItem(65, obj, new Item.Plates(gp), tileSize, 12, 4);
 
-                addItem(66, obj, new RefillStation.VendingMachine(gp), tileSize, 2, 4);
+                addItem(66, obj, new WorkStation.Stove(gp), tileSize, 6, 8);
+
 
             } catch (NullPointerException e) {
                 System.err.println("Accessing null element in (List<SuperObject> obj): " + e.getMessage());
