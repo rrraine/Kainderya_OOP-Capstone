@@ -184,7 +184,7 @@ public class Utility {
                     // Determine positions for the NPCs
                     if (shopNPC instanceof NPC_Customer customer) {
                         // Assign world positions for seated customers based on their seat
-                        Point seat = customer.getAssignedSeat();
+                        Point seat = customer.getSeatLocation();
                         if (seat != null) {
                             ((NPC_Customer) shopNPC).assignSeat(seat);
                             ((NPC_Customer) shopNPC).setMovingToSeat(true);
@@ -588,16 +588,4 @@ public class Utility {
         }
     }
 
-    // added for debugging
-//    private static void handleWorkStationInteraction(Player player, WorkStation workStation) {
-//        // Check if the workstation is occupied
-//        if (workStation.isOccupied()) {
-//            // Handle the case where the workstation is occupied (could show a message or prevent interaction)
-//            System.out.println("The " + workStation.getName() + " is currently occupied!");
-//        } else {
-//            // Handle the case where the workstation is not occupied (could trigger interaction or task)
-//            System.out.println(player.getPlayerName() + " is interacting with the " + workStation.getName());
-//            workStation.setOccupied(true); // Mark the workstation as occupied
-//        }
-//    }
 }
