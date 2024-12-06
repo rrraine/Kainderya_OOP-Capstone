@@ -15,6 +15,7 @@ public class PlayUI extends UI implements Drawable {
     UIElement staminaBar, loadingBar;
 
     private int loadTime;
+    private static int randomNum;
 
     public PlayUI(GamePanel gp, Time time) {
         super(gp, time);
@@ -104,6 +105,30 @@ public class PlayUI extends UI implements Drawable {
             playState = substate.GAME;
         }
 
+        // tips
+        g2.setColor(Color.BLACK);
+        g2.setFont(balooBold);
+        g2.setFont(g2.getFont().deriveFont(24F));
+
+        String text = null;
+
+        switch (randomNum) {
+            case 1:
+                text = "COMBINE INGREDIENTS TO MAKE TASTY DISHES.";
+                break;
+            case 2:
+                text = "COLA IS NOW AVAILABLE! CHECK THE FRIDGE OUTSIDE.";
+                break;
+            case 3:
+                text = "WATCH YOUR STAMINA. KITCHEN ACCIDENTS ARE COMMON.";
+                break;
+            default:
+                text = "CUSTOMERS CAN BE PRETTY IMPATIENT.";
+                break;
+        }
+        int x = Utility.Aligner.centerTextOnScreen(text, gp, g2);
+        g2.drawString(text, x, gp.screenHeight/2 + gp.tileSize);
+
         loadTime--;
         loadingBar.drawLoadingBar(g2, loadTime);
     }
@@ -111,5 +136,8 @@ public class PlayUI extends UI implements Drawable {
 
     public void resetLoadTime() {
         loadTime = 60 * 6;
+    }
+    public static void generateRandomNum() {
+        randomNum = random.nextInt(4) +1;
     }
 }
