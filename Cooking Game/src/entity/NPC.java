@@ -78,6 +78,8 @@ public abstract class NPC extends Entity {
                 }
                 spriteCounter = 0;
             }
+
+
         }
     }
 
@@ -291,6 +293,7 @@ public abstract class NPC extends Entity {
         }
 
         // FROM CLASS: NPC ----------------------------------------
+
         @Override
         public void setNPCAction() {
             // NPC RANDOM BEHAVIOR
@@ -324,5 +327,17 @@ public abstract class NPC extends Entity {
             }
 
         }
+    }
+
+    //@Override
+    public int getDefaultX() {
+        Random rand = new Random();
+        return rand.nextInt(24);  // Generate a random X position within a valid range
+    }
+
+    // @Override
+    public int getDefaultY() {
+        Random rand = new Random();
+        return rand.nextInt(14);  // Generate a random Y position within a valid range
     }
 }

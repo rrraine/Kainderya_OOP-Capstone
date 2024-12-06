@@ -1,8 +1,6 @@
 package main;
 
-import entity.Entity;
-import entity.NPC;
-import entity.Player;
+import entity.*;
 import object.Item;
 import object.RefillStation;
 import object.SuperObject;
@@ -12,6 +10,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class Utility {
 
@@ -137,15 +136,11 @@ public class Utility {
                 System.err.println("Accessing null element in (List<SuperObject> obj): " + e.getMessage());
             }
         }
-        public static void deployNPCInMap(GamePanel gp, int tileSize, List<NPC> npc) {
+        public static void deployNPCInMap(GamePanel gp, int tileSize, List<NPC> npc, ShopManager shopManager) {
 
             try {
-                /*
-                npc.addFirst(new NPC.StudentFemale(gp));
-                npc.getFirst().setWorldX(tileSize * 21);
-                npc.getFirst().setWorldY(tileSize * 21);
-                */
 
+            /*
                 // Add StudentFemale NPC
                 npc.add(new NPC.StudentFemale(gp));
                 npc.get(npc.size() - 1).setWorldX(tileSize * 12);
@@ -167,13 +162,86 @@ public class Utility {
 
                 npc.get(npc.size() - 1).setWorldX(tileSize * 15);
                 npc.get(npc.size() - 1).setWorldY(tileSize * 13);
+*/
+
+                List<NPC> shopManagerNPCs = new ArrayList<>(gp.getNpc());  // Get the combined list of customers and free-roaming NPCs
+                System.out.println("Deploying NPCs. Count: " + shopManagerNPCs.size());
+
+                // Loop through each NPC from the ShopManager
+                for (NPC shopNPC : shopManagerNPCs) {
+
+                    // generate spawnPoint outside the restaurant
+                    Point spawnPoint;
+
+                    do {
+                        spawnPoint = getRandomSpawnPointOutsideRestaurant(tileSize);
+                    }while (isWithinRestrictedArea(spawnPoint));
+
+                    // set the coordinate of their spawn point
+                    shopNPC.setWorldX(spawnPoint.x * tileSize);
+                    shopNPC.setWorldY(spawnPoint.y * tileSize);
+
+                    // Determine positions for the NPCs
+                    if (shopNPC instanceof NPC_Customer customer) {
+                        // Assign world positions for seated customers based on their seat
+                        Point seat = customer.getAssignedSeat();
+                        if (seat != null) {
+                            ((NPC_Customer) shopNPC).assignSeat(seat);
+                            ((NPC_Customer) shopNPC).setMovingToSeat(true);
+                            ((NPC_Customer) shopNPC).moveToSeat();
+                        }
+                    }
+                    // remove the else-if for freeroamers
+                    /*
+                    else if (shopNPC instanceof NPC_FreeRoaming) {
+                        // For free-roaming NPCs or others, assign default/random positions
+                        int worldX = shopNPC.getDefaultX();  // Placeholder for default X
+                        int worldY = shopNPC.getDefaultY();  // Placeholder for default Y
+
+                        shopNPC.setWorldX(worldX * tileSize);  // Scale by tile size
+                        shopNPC.setWorldY(worldY * tileSize);  // Scale by tile size
+                    }
+                    */
+
+                    // Log deployment for debugging
+                    System.out.println("Deployed " + shopNPC.getClass().getSimpleName() +
+                            " at (" + shopNPC.getWorldX() / tileSize +
+                            ", " + shopNPC.getWorldY() / tileSize + ")");
+                }
+                shopManager.update();
 
             }
             catch (NullPointerException e) {
                 System.err.println("Accessing null element in (List<NPC> npc): " + e.getMessage());
             }
         }
+
+        private static Point getRandomSpawnPointOutsideRestaurant(int tileSize) {
+            Random random = new Random();
+            int x, y;
+
+            // Example map boundaries: adjust based on your map size
+            int mapWidth = 24;  // Example map width
+            int mapHeight = 14; // Example map height
+
+            do {
+                x = random.nextInt(mapWidth);
+                y = random.nextInt(mapHeight);
+            } while (isWithinRestrictedArea(new Point(x, y)));
+
+            return new Point(x, y);
+        }
+
+        private static boolean isWithinRestrictedArea(Point point) {
+            int x = point.x;
+            int y = point.y;
+
+            // Restricted area for the restaurant
+            return (x >= 6 && x <= 16) && (y >= 3 && y <= 11);
+        }
+
     }
+
 
     // -----------------------------------------------------------
 
