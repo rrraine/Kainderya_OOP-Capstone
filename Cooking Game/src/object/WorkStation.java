@@ -19,19 +19,14 @@ public abstract class WorkStation extends Station implements Drawable {
     boolean playerLocked;
     int processTime;
 
-    public boolean isPlayerLocked() {
-        return isOccupied;
-    }
-    public void setPlayerLocked(boolean playerLocked) {
-        System.out.println("Player locked: " + playerLocked);
-        isOccupied = playerLocked;
-    }
+    Utility.Regulator utilTool;
 
     public WorkStation(GamePanel gp, String name, int processTime) {
         super(gp, name);
         this.processTime = processTime;
         isOccupied = false;
         playerLocked = false;
+        utilTool = new Utility.Regulator();
     }
     public void interact(Entity en, AnimationFactory animF, Pickupable obj) {
 
@@ -57,20 +52,15 @@ public abstract class WorkStation extends Station implements Drawable {
         if (isOccupied) {
             drawProcessing(g2);
 
-            if (this instanceof WorkStation.leftChoppingBoard || this instanceof WorkStation.centerSink) {
-                gp.player.setIsWorking(true);
-            }
-
-            if (Utility.Regulator.block(processTime)) {
+            if (utilTool.block(processTime)) {
                 isOccupied = false;
 
                 if (playerLocked) {
                     playerLocked = false;
-                    gp.player.setIsWorking(false);
+                    gp.getKeyB().enableMovement(true);
                 }
             }
         }
-
     }
 
     // draw processing bar
@@ -108,6 +98,7 @@ public abstract class WorkStation extends Station implements Drawable {
                     animF.switchState((AnimationState.BASE));// base animation
                     isOccupied = true;
                     playerLocked = true;
+                    gp.getKeyB().enableMovement(false);
                 }
             }
         }
@@ -136,6 +127,7 @@ public abstract class WorkStation extends Station implements Drawable {
                     animF.switchState((AnimationState.BASE));// base animation
                     isOccupied = true;
                     playerLocked = true;
+                    gp.getKeyB().enableMovement(false);
                 }
             }
         }

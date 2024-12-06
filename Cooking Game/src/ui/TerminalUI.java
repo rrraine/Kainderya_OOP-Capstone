@@ -12,6 +12,8 @@ public class TerminalUI extends UI implements Drawable {
     public substate terminalState;
     public enum substate { TIMESUP, LEADERBOARD }
 
+    Utility.Regulator ut = new Utility.Regulator();
+
     public TerminalUI(GamePanel gp, Time time) {
         super(gp, time);
         terminalState = substate.TIMESUP;
@@ -42,7 +44,7 @@ public class TerminalUI extends UI implements Drawable {
         g2.drawString(text, x + shakeEffect(1), y + shakeEffect(2));
 
         // block for 2 secs then proceed
-        if (Utility.Regulator.block(2)) {
+        if (ut.block(2)) {
             terminalState = substate.LEADERBOARD;
         }
 
