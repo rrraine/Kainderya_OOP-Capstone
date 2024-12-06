@@ -1,8 +1,6 @@
 package main;
 
-import entity.Entity;
-import entity.NPC;
-import entity.Player;
+import entity.*;
 import game.Time;
 import object.SuperObject;
 import tile.TileManager;
@@ -16,6 +14,10 @@ import java.util.*;
 import java.util.List;
 
 public class GamePanel extends JPanel implements Runnable {
+
+    // DEBUG CONSOLE CAN BE DELETED
+    String reset = "\u001B[0m";
+    String debug = "\u001B[32m";
 
     // ~ FIELDS ---------------------------------------------------------------------------
     private static GamePanel instance;
@@ -62,6 +64,11 @@ public class GamePanel extends JPanel implements Runnable {
     final List<NPC> npc = new ArrayList<>();
     final List<SuperObject> obj = new ArrayList<>();
     private List<Asset> assetPool = new ArrayList<>();
+    ShopManager shopManager = new ShopManager(this);
+
+    private final int maxCustomers = 9;
+    private final int maxRoamers = 10;
+
 
     // GAME STATE
     public state gameState;
@@ -86,6 +93,7 @@ public class GamePanel extends JPanel implements Runnable {
         // ALLOWS RECEIVING OF KEYSTROKES
         this.setFocusable(true);
 
+        shopManager = new ShopManager(this);
         newGame = false;
     }
     // SINGLETON INITIALIZE
@@ -141,7 +149,12 @@ public class GamePanel extends JPanel implements Runnable {
 
         // LOAD OBJECTS AND NPC
         Utility.AssetSetter.deploySuperObjectInMap(this, tileSize, obj);
-        Utility.AssetSetter.deployNPCInMap(this, tileSize, npc);
+        System.out.println(debug + "Deploying Objects. Count: " + obj.size() + reset);
+        setupNPCDeployment(tileSize);
+        //Utility.AssetSetter.deployNPCInMap(this, tileSize, npc, shopManager);
+        // Utility.AssetSetter.deployNPCInMap(this, tileSize, npc);
+         System.out.println(debug + "Deploying NPCs. GAME PANEL Count: " + npc.size() + reset);
+
         assetPool.addAll(npc);
         assetPool.addAll(obj);
 
@@ -180,6 +193,7 @@ public class GamePanel extends JPanel implements Runnable {
 
             time.update();
             player.update();
+            // updateNPCs();
             for (NPC n : npc) {
                 if (n != null) {
                     n.update();
@@ -210,7 +224,7 @@ public class GamePanel extends JPanel implements Runnable {
             // SORT ASSETS
             Collections.sort(assetPool);
 
-            // 3. DRAW ASSETS
+            // 3. DRAW ASSETS / THE TRY CATCH IS DEBUGGING CAN BE REMOVED RA
             for (Asset a : assetPool) {
                 if (a instanceof Entity) {
                     ((Entity) a).draw(g2);
@@ -316,7 +330,40 @@ public class GamePanel extends JPanel implements Runnable {
     public Graphics2D getG2() {
         return g2;
     }
+
     public List<Asset> getAssetPool() {
         return assetPool;
     }
+
+    public int getMaxCustomers() {
+        return maxCustomers;
+    }
+
+    public int getMaxRoamers() {
+        return maxRoamers;
+    }
+
+    public String getReset() {
+        return reset;
+    }
+
+    public String getDebug() {
+        return debug;
+    }
+
+    public void setupNPCDeployment(int tileSize) {
+
+        // Generate NPCs
+        shopManager.generateNPCs();
+        //System.out.println("Generated NPCs in ShopManager: " + shopManager.getAllNPCs().size());
+        System.out.println("Generated NPCs in ShopManager: " + npc.size());
+
+        // Deploy NPCs to the map
+        Utility.AssetSetter.deployNPCInMap(this, tileSize, this.npc, shopManager);
+
+        // Confirm deployment
+        System.out.println("Total NPCs deployed to map: " + this.npc.size());
+    }
+
+
 }

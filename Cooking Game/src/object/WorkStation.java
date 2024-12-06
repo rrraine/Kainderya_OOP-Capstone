@@ -223,6 +223,26 @@ public abstract class WorkStation extends Station implements Drawable {
 
     }
 
+    ///  TODO STOVE
+    public static class Stove extends WorkStation implements Importable  {
+        // INTERACTION ONLY WORKS WHEN ANIMATION STATE IS CARRYING COOKABLE INGREDIENTS -> MUST CARRY CLEAN PLATE -> THEN CARRY COOKED PRODUCT
+
+        public Stove(GamePanel gp) {
+            super(gp, "Stove", 5);
+            image = importImage("/objects/item/kitchenArea/stove", gp.tileSize);
+            setDefaultCollisions(true, 0, 0, 58, 64);
+        }
+
+        @Override
+        public void interact(Entity en, AnimationFactory animF, Pickupable obj) {
+
+            if (obj instanceof Item.Pan) {
+                super.interact(en, animF, obj);
+            }
+        }
+
+    }
+
     // surfaces
     public static class Tables extends WorkStation implements Importable {
 
