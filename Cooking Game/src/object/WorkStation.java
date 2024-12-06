@@ -23,6 +23,7 @@ public abstract class WorkStation extends Station implements Drawable {
         return isOccupied;
     }
     public void setPlayerLocked(boolean playerLocked) {
+        System.out.println("Player locked: " + playerLocked);
         isOccupied = playerLocked;
     }
 
@@ -56,14 +57,17 @@ public abstract class WorkStation extends Station implements Drawable {
         if (isOccupied) {
             drawProcessing(g2);
 
-            if (playerLocked) {
+            if (this instanceof WorkStation.leftChoppingBoard || this instanceof WorkStation.centerSink) {
                 gp.player.setIsWorking(true);
             }
 
             if (Utility.Regulator.block(processTime)) {
                 isOccupied = false;
-                gp.player.setIsWorking(false);
-                playerLocked = false;
+
+                if (playerLocked) {
+                    playerLocked = false;
+                    gp.player.setIsWorking(false);
+                }
             }
         }
 
@@ -127,7 +131,6 @@ public abstract class WorkStation extends Station implements Drawable {
                 // if carrying rice -> clear hand -> deploy item
                 if (animF.getCurrentState() == AnimationState.CARRY_ONION) {
 
-                    en.setSpeed(0);
                     (obj).reposition(obj, this); // repositions obj's coordinates
                     gp.player.setItemOnHandDestroy(); // destroy item on player's hand
                     animF.switchState((AnimationState.BASE));// base animation
@@ -142,7 +145,7 @@ public abstract class WorkStation extends Station implements Drawable {
         // INTERACTION ONLY WORKS WHEN ANIMATION STATE IS CARRYING RICE -> MUST CARRY CLEAN PLATE -> THEN CARRY PLATE RICE
 
         public leftRiceCooker(GamePanel gp) {
-            super(gp, "Rice Cooker", 8);
+            super(gp, "Rice Cooker", 5);
             image = importImage("/objects/item/kitchenArea/leftRiceCooker", gp.tileSize);
             setDefaultCollisions(true, 0, 0, 58, 64);
         }
@@ -158,7 +161,6 @@ public abstract class WorkStation extends Station implements Drawable {
                     gp.player.setItemOnHandDestroy(); // destroy item on player's hand
                     animF.switchState((AnimationState.BASE));// base animation
                     isOccupied = true;
-                    playerLocked = false;
                 }
             }
         }
@@ -169,7 +171,7 @@ public abstract class WorkStation extends Station implements Drawable {
         // INTERACTION ONLY WORKS WHEN ANIMATION STATE IS CARRYING COOKABLE INGREDIENTS -> MUST CARRY CLEAN PLATE -> THEN CARRY COOKED PRODUCT
 
         public leftStove(GamePanel gp) {
-            super(gp, "Stove", 8);
+            super(gp, "Stove", 5);
             image = importImage("/objects/item/kitchenArea/leftStove", gp.tileSize);
             setDefaultCollisions(true, 0, 0, 58, 64);
         }

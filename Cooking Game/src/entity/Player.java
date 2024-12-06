@@ -120,28 +120,23 @@ public class Player extends Entity {
             else if (keyB.isLeftPressed()) { direction = "left"; }
             else { direction = "right"; }
 
-            // sprint
-            if (!isWorking) {
+            if (sprint()) {
+                speed = 6;
+                stamina--;
 
-                if (sprint()) {
-                    speed = 6;
-                    stamina--;
-
-                    // when exhausted, takes 5 second cooldown to sprint again
-                    if (stamina <= 0) {
-                        stamina = -6 * GamePanel.FPS;
-                    }
-                }
-                else {
-                    speed = 3;
-                    stamina++;
-
-                    if (stamina > maxStamina) stamina = maxStamina;
+                // when exhausted, takes 5 second cooldown to sprint again
+                if (stamina <= 0) {
+                    stamina = -6 * GamePanel.FPS;
                 }
             }
             else {
-                speed = 0;
+                speed = 3;
+                stamina++;
+
+                if (stamina > maxStamina) stamina = maxStamina;
             }
+            // sprint
+
 
 
             // speed penalty if exhausted
@@ -373,5 +368,8 @@ public class Player extends Entity {
     }
     public void setIsWorking(boolean toggle) {
         isWorking = toggle;
+    }
+    public boolean getIsWorking() {
+        return isWorking;
     }
 }

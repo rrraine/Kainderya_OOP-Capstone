@@ -104,6 +104,15 @@ public class PlayUI extends UI implements Drawable {
             playState = substate.GAME;
         }
 
+        // tips
+        g2.setColor(Color.BLACK);
+        g2.setFont(fredokaSemiBold);
+        g2.setFont(g2.getFont().deriveFont(24F));
+        String text = "Tips: Combine ingredients to create dishes.";
+
+        int x = Utility.Aligner.centerTextOnScreen(text, gp, g2);
+        g2.drawString(text, x, gp.screenHeight/2 + gp.tileSize);
+
         loadTime--;
         loadingBar.drawLoadingBar(g2, loadTime);
     }
