@@ -233,8 +233,27 @@ public class FoodBuilder {
         }
 
         // PAN
-        if (interactedItem instanceof Item.Pan) {
+        if (interactedItem instanceof Item.Pan pan) {
 
+            if (onHand instanceof Item.Plates) {
+
+                animF.switchState(AnimationState.CARRY_COKE);
+
+                gp.getAssetPool().remove(onHandIndex);
+                pan.surface.setOccupied(false);
+
+                ((Item.Plates) onHand).swapImage("onionOnly");
+                return onHand;
+            }
+            else if (onHand == null) {
+
+                animF.switchState(AnimationState.CARRY_PAN);
+                gp.getAssetPool().remove(onHandIndex);
+                pan.surface.setOccupied(false);
+
+                // TODO
+                return new Item.Pan(gp);
+            }
         }
 
         // SINK - DONE

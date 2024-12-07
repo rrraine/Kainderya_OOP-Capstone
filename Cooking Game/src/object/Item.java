@@ -102,34 +102,23 @@ public abstract class Item extends SuperObject {
         @Override
         public void interact(Entity en, AnimationFactory animF, Pickupable obj, int objIndex) {
 
-            if (en instanceof Player){
+            if (en instanceof Player){ //TODO COMPELTE
 
-                // GENERAL PICK UP INGREDIENTS FROM SURFACE
-                if (gp.player.getItemOnHand() == null) {
+                if (!isCooked) {
 
-                    gp.getAssetPool().remove(objIndex); // remove from printing
-                    gp.player.setItemOnHandCreate(this); // add item on player's hand
-                }
+                    if (!(surface instanceof WorkStation.Stove)) {
 
-                // FREE HAND
-                if (animF.getCurrentState() == AnimationState.BASE) {
+                        // GENERAL PICK UP INGREDIENTS FROM SURFACE
+                        if (gp.player.getItemOnHand() == null ) {
 
-                    // ON TOP OF STOVE
-                    if (surface instanceof WorkStation.Stove) {
-
-                        if (surface.isCooked && this.isCooked) {
-                            surface.isOccupied = false;
-                            gp.getAssetPool().remove(objIndex); // remove it from drawing
-                            animF.switchState((AnimationState.CARRY_PAN));
+                            gp.getAssetPool().remove(objIndex); // remove from printing
+                            gp.player.setItemOnHandCreate(this); // add item on player's hand
+                            animF.switchState(AnimationState.CARRY_PAN);
                         }
                     }
-                    else {
-                        gp.getAssetPool().remove(objIndex); // remove it from drawing
-                        animF.switchState((AnimationState.CARRY_PAN));
-                    }
                 }
-                else if (animF.getCurrentState() == AnimationState.CARRY_PAN) {
-                    animF.switchState((AnimationState.BASE));
+                else {
+                    gp.player.setItemOnHandCreate(gp.fBuilder.build(gp.player.getItemOnHand(), this, animF, objIndex));
                 }
             }
         }
