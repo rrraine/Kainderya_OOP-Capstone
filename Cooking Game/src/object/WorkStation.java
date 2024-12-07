@@ -5,10 +5,12 @@ import animation.AnimationFactory;
 import animation.AnimationState;
 import entity.Entity;
 import entity.Player;
+import food.Ingredients;
 import interfaces.Drawable;
 import interfaces.Importable;
 import interfaces.Pickupable;
 import main.GamePanel;
+import main.Sound;
 import main.Utility;
 
 import java.awt.*;
@@ -107,11 +109,13 @@ public abstract class WorkStation extends Station implements Drawable {
     }
     public static class leftChoppingBoard extends WorkStation implements Importable {
         // INTERACTION ONLY WORKS WHEN ANIMATION STATE IS CARRYING ONION -> THEN CARRY CHOPPED ONION
+        private Sound soundEffect;
 
         public leftChoppingBoard(GamePanel gp) {
             super(gp, "leftChoppingBoard", 3);
             image = importImage("/objects/item/kitchenArea/leftChoppingBoard", gp.tileSize);
             setDefaultCollisions(true, 0, 24, 67, 37);
+            soundEffect = new Sound();
         }
 
         @Override
@@ -123,10 +127,13 @@ public abstract class WorkStation extends Station implements Drawable {
                 if (animF.getCurrentState() == AnimationState.CARRY_ONION) {
 
                     (obj).reposition(obj, this); // repositions obj's coordinates
-                    gp.player.setItemOnHandDestroy(); // destroy item on player's hand
-                    animF.switchState((AnimationState.BASE));// base animation
+                    gp.player.setItemOnHandDestroy();// destroy item on player's hand
+                    gp.player.setItemOnHandCreate(new Ingredients.Onion(gp));
+                    animF.switchState((AnimationState.CARRY_ONION_PLATE));// base animation
                     isOccupied = true;
                     playerLocked = true;
+                    soundEffect.setSound(6);
+                    soundEffect.playSound();
                     gp.getKeyB().enableMovement(false);
                 }
             }

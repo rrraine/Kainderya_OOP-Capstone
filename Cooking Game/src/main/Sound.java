@@ -28,6 +28,7 @@ public class Sound implements Importable {
         soundURL.add(3, importSound("sounds", "unlock"));
         soundURL.add(4, importSound("sounds", "fanfare"));
         soundURL.add(5, importSound("sounds", "BlueBoyAdventure"));
+        soundURL.add(6, importSound("sounds", "chopping"));
 
     }
 
