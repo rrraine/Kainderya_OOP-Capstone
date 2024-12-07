@@ -7,9 +7,11 @@ import entity.NPC;
 import entity.Player;
 import interfaces.Importable;
 import interfaces.Pickupable;
+import interfaces.Swappable;
 import main.GamePanel;
 
 import java.awt.image.BufferedImage;
+import java.util.HashMap;
 
 public abstract class Item extends SuperObject {
 
@@ -93,16 +95,46 @@ public abstract class Item extends SuperObject {
         }
     }
 
-    public static class Plates extends Item implements Importable, Pickupable{
+    public static class Plates extends Item implements Importable, Pickupable, Swappable {
 
-        BufferedImage diningPlate, counterPlate;
+        @Override
+        public void swapImage(String key) {
+            image = plateVersions.get(key);
+        }
+
+        @Override
+        public boolean checkCurrentImage(String key, Pickupable obj) {
+
+            if (obj instanceof Item) {
+                return (((Item)obj).image == plateVersions.get(key));
+            }
+            return false;
+        }
+
+        // THIS CLASS ONLY STORES PLATE IMAGE VERSIONS WHICH WILL BE USED AS THE FACE OF THE ACTUAL PLATE CLASS
+
+        public HashMap<String, BufferedImage> plateVersions;
+
+        // LOWERED PLATES
 
         public Plates (GamePanel gp) {
             super(gp, "Plates");
             setDefaultCollisions(false, -8, -8, 80, 80);
-            diningPlate = importImage("/objects/item/kitchenTools/plate", gp.tileSize);
-            counterPlate = importImage("/objects/item/kitchenTools/plateCounter", gp.tileSize);
-            image = counterPlate;
+
+            plateVersions = new HashMap<>();
+
+            // TODO IMPORT PLATE IMAGE INSTANCES
+            plateVersions.put("diningPlate", importImage("/objects/item/plate/diningplate", gp.tileSize));
+            plateVersions.put("counterPlate", importImage("/objects/item/plate/counterPlate", gp.tileSize));
+
+            plateVersions.put("dirtyPlate", importImage("/objects/item/plate/dirtyPlate", gp.tileSize));
+            plateVersions.put("noMain", importImage("/objects/item/plate/noMain", gp.tileSize));
+
+            plateVersions.put("cookedEggOnly", importImage("/objects/item/plate/cookedEggOnly", gp.tileSize));
+            plateVersions.put("cookedRiceOnly", importImage("/objects/item/plate/cookedRiceOnly", gp.tileSize));
+
+            // default
+            image = plateVersions.get("counterPlate");
         }
 
         @Override
@@ -131,9 +163,11 @@ public abstract class Item extends SuperObject {
 
         public void CounterToDiningPlate(boolean change) {
 
-            if (change) { image = diningPlate; }
-            else if (image != counterPlate) { image = counterPlate; }
+            if (change) { image = plateVersions.get("diningPlate"); }
+            else if (image != plateVersions.get("counterPlate")) { image = plateVersions.get("counterPlate"); }
         }
+
+
     }
 
     // misc ---------------------------------------

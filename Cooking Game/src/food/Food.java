@@ -17,12 +17,12 @@ public abstract class Food extends SuperObject implements Importable, Pickupable
 
     public Food(GamePanel gp, String name) {
         super(gp, name);
+        setDefaultCollisions(false, -8, -8, 80, 80);
     }
 
 
     void loadFoodImage(String path) {
         image = importImage(path, gp.tileSize);
-        setDefaultCollisions(false, -8, -8, 80, 80);
     }
 
     protected void addIngredient(Ingredients i) {

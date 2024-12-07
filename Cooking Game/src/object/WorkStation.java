@@ -5,48 +5,57 @@ import animation.AnimationFactory;
 import animation.AnimationState;
 import entity.Entity;
 import entity.Player;
-import food.Ingredients;
+import food.Dish;
+import food.Drink;
 import interfaces.Drawable;
 import interfaces.Importable;
 import interfaces.Pickupable;
 import main.GamePanel;
-import main.Sound;
 import main.Utility;
+import ui.UI;
+import ui.UIElement;
 
 import java.awt.*;
 
 public abstract class WorkStation extends Station implements Drawable {
 
-    boolean isOccupied;
-    boolean playerLocked;
+    boolean isCooked; // process time is finished
+    boolean isOccupied; // station has food instance
+    boolean playerLocked; // player cannot move
     int processTime;
 
     Utility.Regulator utilTool;
+    UIElement processBar;
 
     public WorkStation(GamePanel gp, String name, int processTime) {
         super(gp, name);
         this.processTime = processTime;
+
+        utilTool = new Utility.Regulator();
+
+        isCooked = false;
         isOccupied = false;
         playerLocked = false;
-        utilTool = new Utility.Regulator();
+
+        processBar = new UIElement(gp, "loadingBar", null, 0, false);
     }
+
+    // GENERAL ITEM DEPLOY ON SURFACE
     public void interact(Entity en, AnimationFactory animF, Pickupable obj) {
 
         if(en instanceof Player){
 
-            // if carrying -> clear hand -> deploy item
+            // GENERAL ITEM DEPLOY ON SURFACE
             if (animF.getCurrentState() != AnimationState.BASE) {
 
                 (obj).reposition(obj, this); // repositions obj's coordinates
                 gp.getAssetPool().add((SuperObject)obj); // add to pool for printing
-                System.out.println("YOU ARE HOLDING: " + obj);
                 gp.player.setItemOnHandDestroy(); // destroy item on player's hand
                 animF.switchState((AnimationState.BASE));// base animation
             }
         }
     }
 
-// TODO FIGURE OUT WHY NOT WORK
     @Override
     public void draw(Graphics2D g2) {
         super.draw(g2);
@@ -55,7 +64,7 @@ public abstract class WorkStation extends Station implements Drawable {
             drawProcessing(g2);
 
             if (utilTool.block(processTime)) {
-                isOccupied = false;
+                isCooked = true;
 
                 if (playerLocked) {
                     playerLocked = false;
@@ -64,17 +73,28 @@ public abstract class WorkStation extends Station implements Drawable {
             }
         }
     }
-
-    // draw processing bar
     public void drawProcessing(Graphics2D g2) {
 
-        g2.setColor(Color.BLACK);
-        g2.fillRect(screenX -10, screenY -15, gp.tileSize +20, 10);
+        // DRAW PROCESSING BAR
+        int time = (int) utilTool.getBlockedTime();
+        time /= GamePanel.FPS;
+        processBar.drawProcessBar(g2, screenX -10, screenY - 40, time, processTime);
+
+        // DRAW SERVINGS
+        if (this instanceof WorkStation.leftRiceCooker && isCooked) {
+
+            String text = WorkStation.leftRiceCooker.getServingsCount() + "x";
+            int x = screenX + 42;
+            int y = screenY + 48;
+
+            g2.setFont(UI.getStandardFont());
+            g2.setFont(g2.getFont().deriveFont(21F));
+            UI.drawLetterBorder(g2, text, Color.BLACK, 2, x, y);
+            g2.setColor(Color.WHITE);
+            g2.drawString(text, x, y);
+        }
     }
 
-    public boolean isOccupied() {
-        return isOccupied;
-    }
 
     // inner classes ---------------------------------
 
@@ -109,63 +129,91 @@ public abstract class WorkStation extends Station implements Drawable {
     }
     public static class leftChoppingBoard extends WorkStation implements Importable {
         // INTERACTION ONLY WORKS WHEN ANIMATION STATE IS CARRYING ONION -> THEN CARRY CHOPPED ONION
-        private Sound soundEffect;
 
         public leftChoppingBoard(GamePanel gp) {
             super(gp, "leftChoppingBoard", 3);
             image = importImage("/objects/item/kitchenArea/leftChoppingBoard", gp.tileSize);
             setDefaultCollisions(true, 0, 24, 67, 37);
-            soundEffect = new Sound();
         }
 
         @Override
         public void interact(Entity en, AnimationFactory animF, Pickupable obj) {
 
-            if (en instanceof Player && !isOccupied) {
+            if (en instanceof Player) {
 
-                // if carrying rice -> clear hand -> deploy item
-                if (animF.getCurrentState() == AnimationState.CARRY_ONION) {
+                // CHOP ONIONS
+                if (animF.getCurrentState() == AnimationState.CARRY_ONION && !isOccupied) {
 
-                    (obj).reposition(obj, this); // repositions obj's coordinates
-                    gp.player.setItemOnHandDestroy();// destroy item on player's hand
-                    gp.player.setItemOnHandCreate(new Ingredients.Onion(gp));
-                    animF.switchState((AnimationState.CARRY_ONION_PLATE));// base animation
+                    // DEPLOY ONION ON SURFACE
+                    super.interact(en, animF, obj);
                     isOccupied = true;
                     playerLocked = true;
-                    soundEffect.setSound(6);
-                    soundEffect.playSound();
                     gp.getKeyB().enableMovement(false);
+                }
+
+                // RETRIEVE CHOPPED ONIONS
+                if (animF.getCurrentState() == AnimationState.CARRY_PLATE && isOccupied) {
+                    // TODO GET ONION ON PLATE
+
+                    gp.player.setItemOnHandCreate(gp.fBuilder.build(obj, this));
+                    isOccupied = false;
                 }
             }
         }
 
     }
     public static class leftRiceCooker extends WorkStation implements Importable  {
-        // INTERACTION ONLY WORKS WHEN ANIMATION STATE IS CARRYING RICE -> MUST CARRY CLEAN PLATE -> THEN CARRY PLATE RICE
+
+        private static int servingsCount;
 
         public leftRiceCooker(GamePanel gp) {
             super(gp, "Rice Cooker", 5);
             image = importImage("/objects/item/kitchenArea/leftRiceCooker", gp.tileSize);
-            setDefaultCollisions(true, 0, 0, 58, 64);
+            setDefaultCollisions(true, 0, 0, 64, 64);
         }
 
+        // TODO ALLOW SANDOK WITH OTHER PLATE INSTANCES
         public void interact(Entity en, AnimationFactory animF, Pickupable obj) {
 
-            if (en instanceof Player && !isOccupied) {
+            if (en instanceof Player) {
 
-                // if carrying rice -> clear hand -> deploy item
-                if (animF.getCurrentState() == AnimationState.CARRY_RAW_RICE) {
+                // COOK RAW RICE
+                if (animF.getCurrentState() == AnimationState.CARRY_RAW_RICE && !isOccupied) {
 
-                    (obj).reposition(obj, this); // repositions obj's coordinates
                     gp.player.setItemOnHandDestroy(); // destroy item on player's hand
                     animF.switchState((AnimationState.BASE));// base animation
+                    isCooked = false;
                     isOccupied = true;
+                    servingsCount = 3;
+                }
+
+                // SANDOK COOKED RICE
+                if ((obj instanceof Item.Plates || obj instanceof Dish) && isOccupied && isCooked) {
+
+                    servingsCount--;
+
+                    if (servingsCount >= 0) {
+                        // create new plate instance
+                        gp.player.setItemOnHandDestroy();
+                        gp.player.setItemOnHandCreate(gp.fBuilder.build(obj, this));
+                        animF.switchState(AnimationState.CARRY_COKE);
+
+                        if (servingsCount == 0) {
+                            isOccupied = false;
+                            isCooked = false;
+                            utilTool.resetBlock();
+                        }
+                    }
                 }
             }
         }
+
+        static int getServingsCount() {
+            return servingsCount;
+        }
     }
 
-    ///  TODO STOVE
+    ///  TODO STOVE PUT ALL STOVE AS SUBCLASSES
     public static class leftStove extends WorkStation implements Importable  {
         // INTERACTION ONLY WORKS WHEN ANIMATION STATE IS CARRYING COOKABLE INGREDIENTS -> MUST CARRY CLEAN PLATE -> THEN CARRY COOKED PRODUCT
 
@@ -179,7 +227,14 @@ public abstract class WorkStation extends Station implements Drawable {
         public void interact(Entity en, AnimationFactory animF, Pickupable obj) {
 
             if (obj instanceof Item.Pan) {
-                super.interact(en, animF, obj);
+                super.interact(en, animF, obj); // deploy pan on stove
+
+                // if pan on stove, can put ingredients on pan
+                
+                // load time
+
+                // once done, sandok 1 serving
+
             }
         }
 
@@ -198,10 +253,27 @@ public abstract class WorkStation extends Station implements Drawable {
         @Override
         public void interact(Entity en, AnimationFactory animF, Pickupable obj) {
 
-            if (obj instanceof Item.Pan) {
-                super.interact(en, animF, obj);
+            if (en instanceof Player) {
+
+                // CHOP ONIONS
+                if (animF.getCurrentState() == AnimationState.CARRY_PAN && !isOccupied) {
+
+                    // DEPLOY ONION ON SURFACE
+                    super.interact(en, animF, obj);
+                    isOccupied = true;
+                    playerLocked = true;
+                    gp.getKeyB().enableMovement(false);
+                }
+
+                // RETRIEVE CHOPPED ONIONS
+                if (animF.getCurrentState() == AnimationState.CARRY_PLATE && isOccupied) {
+                    // TODO GET ONION ON PLATE
+                }
             }
         }
+
+
+
 
     }
 
@@ -383,4 +455,31 @@ public abstract class WorkStation extends Station implements Drawable {
     }
     */
 
+    public boolean isCooked() {
+        return isCooked;
+    }
+
+    public void setCooked(boolean cooked) {
+        isCooked = cooked;
+    }
+
+    public boolean isOccupied() {
+        return isOccupied;
+    }
+
+    public void setOccupied(boolean occupied) {
+        isOccupied = occupied;
+    }
+
+    public boolean isPlayerLocked() {
+        return playerLocked;
+    }
+
+    public void setPlayerLocked(boolean playerLocked) {
+        this.playerLocked = playerLocked;
+    }
+
+    public int getProcessTime() {
+        return processTime;
+    }
 }

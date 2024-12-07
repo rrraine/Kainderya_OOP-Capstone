@@ -129,23 +129,40 @@ public abstract class Ingredients extends SuperObject implements Importable, Pic
 
     public static class Onion extends Ingredients {
 
+        private boolean isCooked;
+
         public Onion(GamePanel gp) {
             super(gp, "Onion");
             image = importImage("/food/ingredients/onion", gp.tileSize);
             setDefaultCollisions(false, -8, -8, 80, 80);
+
+            isCooked = false;
         }
 
         @Override
         public void interact(Entity en, AnimationFactory animF, Pickupable obj) {
 
            if (en instanceof Player) {
-                if (animF.getCurrentState() == AnimationState.BASE) {
-                    animF.switchState(AnimationState.CARRY_ONION);
-                }
-                else if (animF.getCurrentState() == AnimationState.CARRY_ONION) {
-                    animF.switchState((AnimationState.BASE));
-                }
+
+               if (!isCooked) {
+
+                   if (animF.getCurrentState() == AnimationState.BASE) {
+                       animF.switchState(AnimationState.CARRY_ONION);
+                   }
+                   else if (animF.getCurrentState() == AnimationState.CARRY_ONION) {
+                       animF.switchState((AnimationState.BASE));
+                   }
+               }
+               else {
+
+                   animF.switchState(AnimationState.CARRY_ONION);
+               }
+
             }
+        }
+
+        public void setIsCooked(boolean isCooked) {
+            this.isCooked = isCooked;
         }
     }
 }
