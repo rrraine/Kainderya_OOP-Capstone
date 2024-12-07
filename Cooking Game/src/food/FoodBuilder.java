@@ -32,7 +32,7 @@ public class FoodBuilder {
     public Pickupable build(Pickupable onHand, SuperObject interactedItem) {
 
         // RICE COOKER - DONE
-        if (interactedItem instanceof WorkStation.leftRiceCooker) {
+        if (interactedItem instanceof WorkStation.RiceCooker) {
 
             // RICE COOKER STATES
             if (!((WorkStation) interactedItem).isOccupied()) {
@@ -97,13 +97,7 @@ public class FoodBuilder {
         }
 
         // CHOPPING BOARD
-        if (interactedItem instanceof Ingredients.Onion) {
-            // INPUTS
-            if (onHand instanceof Ingredients.Onion) {
-               return new Ingredients.ChoppedOnion(gp); // OUTPUT
-            }
 
-        }
 
         // STOVE
         if (interactedItem instanceof WorkStation.Stove) {
@@ -124,19 +118,11 @@ public class FoodBuilder {
 
         // PAN
         if (interactedItem instanceof Item.Pan) {
-            if(onHand instanceof Ingredients.ChoppedOnion){
 
-            }else if(onHand instanceof Ingredients.ChoppedOnion){
-
-            }else if(onHand instanceof Ingredients.ChoppedOnion){
-
-            }else if(onHand instanceof Ingredients.ChoppedOnion){
-
-            }
         }
 
         // SINK
-        if (interactedItem instanceof WorkStation.centerSink) {
+        if (interactedItem instanceof WorkStation.Sink) {
             if(onHand instanceof Item.Plates){
                 if (((Item.Plates) onHand).checkCurrentImage("dirtyPlate", onHand)) {
                     ((Item.Plates) onHand).swapImage("counterPlate"); // SWAP IMAGE
