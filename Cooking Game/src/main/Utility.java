@@ -90,6 +90,7 @@ public class Utility {
                 addItem(34, obj, new WorkStation.Stove(gp), tileSize, 6, 7);
                 addItem(35, obj, new WorkStation.Counter.leftStraightTable(gp), tileSize, 6, 5);
 
+
                 addItem(36, obj, new RefillStation.stationaryEgg(gp), tileSize, 15, 8);
                 addItem(37, obj, new RefillStation.stationaryOnion(gp), tileSize, 15, 9);
 
@@ -130,7 +131,7 @@ public class Utility {
                 addItem(65, obj, new Item.Plates(gp), tileSize, 12, 4);
 
                 addItem(66, obj, new WorkStation.Stove(gp), tileSize, 6, 8);
-
+                addItem(67, obj, new WorkStation.TrashCan(gp), tileSize, 6, 10);
 
             } catch (NullPointerException e) {
                 System.err.println("Accessing null element in (List<SuperObject> obj): " + e.getMessage());

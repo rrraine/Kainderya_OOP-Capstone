@@ -165,4 +165,20 @@ public abstract class Ingredients extends SuperObject implements Importable, Pic
             this.isCooked = isCooked;
         }
     }
+
+    public static class ChoppedOnion extends Ingredients{
+        boolean isCooked;
+        public ChoppedOnion(GamePanel gp) {
+            super(gp, "Chopped Onion");
+            image = importImage("/objects/item/plate/onion", gp.tileSize);
+            setDefaultCollisions(false, -8, -8, 80, 80);
+
+            isCooked = false;
+        }
+
+        @Override
+        public void interact(Entity en, AnimationFactory animF, Pickupable obj) {
+
+        }
+    }
 }

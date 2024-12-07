@@ -216,6 +216,19 @@ public abstract class Item extends SuperObject {
         }
     }
 
+    public class DirtyPlate extends Item implements Importable{
+        public DirtyPlate(GamePanel gp){
+            super (gp, "R");
+            image = importImage("/objects/item/kitchenArea/rightShelf2", gp.tileSize);
+            setDefaultCollisions(true, 20, 0, 44, 64);
+        }
+        public void interact(Entity en, AnimationFactory animF, Pickupable obj) {
+            if(en instanceof Player){
+                // animF.switchState((AnimationState.CARRY_PAN));
+            }
+        }
+    }
+
 /*
     public static class Tapa extends Item implements Importable {
 

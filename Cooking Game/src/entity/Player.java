@@ -353,4 +353,8 @@ public class Player extends Entity {
     public void setItemOnHandCreate(Pickupable obj) {
         itemOnHand = obj;
     }
+
+    public Pickupable getItemOnHand(){
+        return itemOnHand;
+    }
 }
