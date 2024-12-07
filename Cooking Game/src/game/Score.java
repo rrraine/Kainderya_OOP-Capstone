@@ -25,5 +25,4 @@ public class Score {
         return totalScore;
     }
 
-
 }

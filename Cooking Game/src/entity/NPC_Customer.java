@@ -48,6 +48,7 @@ public class NPC_Customer extends NPC {
     }
 
     public void moveToSeat() {
+        // old pathfinding, dili A*
         /*
         if (seatLocation == null) return; // No seat assigned, skip movement
 
@@ -190,7 +191,7 @@ public class NPC_Customer extends NPC {
             checkPatience();
         } else {
             System.out.println("Customer is idle, waiting for seat assignment.");
-            direction = "idle"; // Default behavior
+            direction = "idle";
         }
     }
 
