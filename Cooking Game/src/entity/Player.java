@@ -329,7 +329,7 @@ public class Player extends Entity {
                         obj.interact(this, animF, itemOnHand, i); // interact with the obj
 
                         if (!(obj instanceof Item.Pan)) // pans will have their special condition removal
-                        gp.getAssetPool().remove(i); // remove it from drawing
+                            gp.getAssetPool().remove(i); // remove non pans from drawing
                     }
                 } else {
                     obj.interact(this, animF, itemOnHand, i);

@@ -85,8 +85,9 @@ public abstract class Item extends SuperObject {
         @Override
         public void interact(Entity en, AnimationFactory animF, Pickupable obj, int objIndex) {
 
-            if(en instanceof Player){
+            if (en instanceof Player){
 
+                // FREE HAND
                 if (animF.getCurrentState() == AnimationState.BASE) {
 
                     // ON TOP OF STOVE

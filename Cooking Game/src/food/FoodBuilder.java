@@ -1,5 +1,6 @@
 package food;
 
+import animation.AnimationFactory;
 import animation.AnimationState;
 import interfaces.Pickupable;
 import main.GamePanel;
@@ -29,34 +30,47 @@ public class FoodBuilder {
         return instance;
     }
 
-    public Pickupable build(Pickupable onHand, SuperObject interactedItem) {
+    public Pickupable build(Pickupable onHand, SuperObject interactedItem, AnimationFactory animF) {
 
         // RICE COOKER - DONE
-        if (interactedItem instanceof WorkStation.RiceCooker) {
+        if (interactedItem instanceof WorkStation.RiceCooker srfc) {
 
             // RICE COOKER STATES
-            if (!((WorkStation) interactedItem).isOccupied()) {
+            if (!srfc.isOccupied()) { // COOK RICE
 
                 // INPUTS
                 if (onHand instanceof Ingredients.Rice) {
+                    gp.player.setItemOnHandDestroy();
+                    animF.switchState(AnimationState.BASE);
+
+                    srfc.setOccupied(true);
+                    srfc.setCooked(false);
+
                     return null; // OUTPUT
                 }
-            } else {
+            } else { // SANDOK
+
 
                 // INPUTS
-                if (onHand instanceof Item.Plates) {
+                if (onHand instanceof Item.Plates && srfc.isOccupied() && srfc.isCooked()) {
 
                     // DETERMINE WHAT KIND OF INPUT
                     if (((Item.Plates) onHand).checkCurrentImage("counterPlate", onHand)) {
+
+                        animF.switchState(AnimationState.CARRY_RICE_PLATE);
+
                         ((Item.Plates) onHand).swapImage("cookedRiceOnly"); // SWAP IMAGE
                         return onHand; // OUTPUT
                     }
                     if (((Item.Plates) onHand).checkCurrentImage("cookedEggOnly", onHand)) {
+
+                        animF.switchState(AnimationState.CARRY_);
+
                         ((Item.Plates) onHand).swapImage("noMain"); // SWAP IMAGE
                         return onHand; // OUTPUT
                     }
                 }
-                else if (onHand instanceof Dish.Spamsilog) {
+                else if (onHand instanceof Dish.Spamsilog && srfc.isOccupied() && srfc.isCooked()) {
 
                     // DETERMINE WHAT KIND OF INPUT
                     if (((Dish.Spamsilog) onHand).checkCurrentImage("spamsilogNoRice", onHand)) {
@@ -69,7 +83,7 @@ public class FoodBuilder {
                     }
 
                 }
-                else if (onHand instanceof Dish.Cornsilog) {
+                else if (onHand instanceof Dish.Cornsilog && srfc.isOccupied() && srfc.isCooked()) {
 
                     // DETERMINE WHAT KIND OF INPUT
                     if (((Dish.Cornsilog) onHand).checkCurrentImage("cornsilogNoRice", onHand)) {
@@ -81,7 +95,7 @@ public class FoodBuilder {
                         return onHand;
                     }
                 }
-                else if (onHand instanceof Dish.Tapsilog) {
+                else if (onHand instanceof Dish.Tapsilog && srfc.isOccupied() && srfc.isCooked()) {
 
                     // DETERMINE WHAT KIND OF INPUT
                     if (((Dish)onHand).checkCurrentImage("tapsilogNoRice", onHand)) {

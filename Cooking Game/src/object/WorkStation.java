@@ -6,6 +6,7 @@ import animation.AnimationState;
 import entity.Entity;
 import entity.Player;
 import food.Dish;
+import food.Ingredients;
 import interfaces.Drawable;
 import interfaces.Importable;
 import interfaces.Pickupable;
@@ -171,7 +172,7 @@ public abstract class WorkStation extends Station implements Drawable {
                 if (animF.getCurrentState() == AnimationState.CARRY_PLATE && isOccupied) {
                     // TODO GET ONION ON PLATE
 
-                    gp.player.setItemOnHandCreate(gp.fBuilder.build(obj, this));
+                    gp.player.setItemOnHandCreate(gp.fBuilder.build(obj, this, animF));
                     isOccupied = false;
                 }
             }
@@ -188,20 +189,17 @@ public abstract class WorkStation extends Station implements Drawable {
             setDefaultCollisions(true, 0, 0, 64, 64);
         }
 
-        // TODO ALLOW SANDOK WITH OTHER PLATE INSTANCES
         public void interact(Entity en, AnimationFactory animF, Pickupable obj, int objIndex) {
 
             if (en instanceof Player) {
 
                 // COOK RAW RICE
-                if (animF.getCurrentState() == AnimationState.CARRY_RAW_RICE && !isOccupied) {
+                if (obj instanceof Ingredients.Rice && !isOccupied) {
 
-                    gp.player.setItemOnHandDestroy(); // destroy item on player's hand
-                    animF.switchState((AnimationState.BASE));// base animation
-                    isCooked = false;
-                    isOccupied = true;
+                    gp.player.setItemOnHandCreate(gp.fBuilder.build(obj, this, animF));
                     servingsCount = 3;
                 }
+
 
                 // SANDOK COOKED RICE
                 if ((obj instanceof Item.Plates || obj instanceof Dish) && isOccupied && isCooked) {
@@ -209,13 +207,12 @@ public abstract class WorkStation extends Station implements Drawable {
                     servingsCount--;
 
                     if (servingsCount >= 0) {
-                        // create new plate instance
-                        gp.player.setItemOnHandDestroy();
-                        Pickupable updatedItem = gp.fBuilder.build(obj, this);
+
+
+                        Pickupable updatedItem = gp.fBuilder.build(obj, this, animF);
                         gp.player.setItemOnHandCreate(updatedItem);
 
-                        //animF.switchState(AnimationState.CARRY_COKE);
-                        if(updatedItem instanceof Dish.Spamsilog){
+                        if (updatedItem instanceof Dish.Spamsilog){
                             animF.switchState(AnimationState.CARRY_SPAMSILOG);
                         } else if (updatedItem instanceof Dish.Cornsilog) {
                             animF.switchState(AnimationState.CARRY_CORNSILOG);
@@ -233,8 +230,11 @@ public abstract class WorkStation extends Station implements Drawable {
             }
         }
 
-        static int getServingsCount() {
+        public static int getServingsCount() {
             return servingsCount;
+        }
+        public void setServingsCount(int add) {
+            servingsCount = add;
         }
     }
     public static class Stove extends WorkStation implements Importable  {
