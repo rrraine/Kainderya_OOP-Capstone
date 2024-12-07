@@ -10,7 +10,7 @@ import interfaces.Pickupable;
 import main.GamePanel;
 
 import java.awt.image.BufferedImage;
-import java.nio.Buffer;
+import java.util.HashMap;
 
 public abstract class Item extends SuperObject {
 
@@ -94,10 +94,21 @@ public abstract class Item extends SuperObject {
         }
     }
 
-    public static class Plates extends Item implements Importable, Pickupable{
+    public static class Plates extends Item implements Importable, Pickupable {
+
+        public static class plateInstances {
+            String label;
+            BufferedImage image;
+
+            public plateInstances(String label, BufferedImage image) {
+                this.label = label;
+                this.image = image;
+            }
+        }
+
+        public HashMap<String, plateInstances> centeredPlates;
 
         // CENTERED PLATES
-        BufferedImage diningPlate, counterPlate;
         BufferedImage burnt, dirty;
         BufferedImage noMain; // general rice + egg
         BufferedImage cookedCBeef, cookedEgg, cookedRice, cookedSpam, cookedTapa, onlyOnion; // mga ingredients
@@ -107,20 +118,17 @@ public abstract class Item extends SuperObject {
 
         // LOWERED PLATES
 
-
-
         public Plates (GamePanel gp) {
             super(gp, "Plates");
             setDefaultCollisions(false, -8, -8, 80, 80);
-            diningPlate = importImage("/objects/item/kitchenTools/plate", gp.tileSize);
-            counterPlate = importImage("/objects/item/kitchenTools/plateCounter", gp.tileSize);
+
+            centeredPlates = new HashMap<>();
 
             // TODO IMPORT PLATE INSTANCES
-
-
-
+            centeredPlates.put("diningPlate", new plateInstances("diningPlate", importImage("/objects/item/kitchenTools/plate", gp.tileSize)));
+            centeredPlates.put("counterPlate",new plateInstances("diningPlate", importImage("/objects/item/kitchenTools/plateCounter", gp.tileSize)));
             // default
-            image = counterPlate;
+            image = centeredPlates.get("counterPlate").image;
         }
 
         @Override
@@ -149,8 +157,8 @@ public abstract class Item extends SuperObject {
 
         public void CounterToDiningPlate(boolean change) {
 
-            if (change) { image = diningPlate; }
-            else if (image != counterPlate) { image = counterPlate; }
+            if (change) { image = centeredPlates.get("diningPlate").image; }
+            else if (image != centeredPlates.get("counterPlate").image) { image = centeredPlates.get("counterPlate").image; }
         }
     }
 

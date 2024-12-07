@@ -1,5 +1,7 @@
 package food;
 
+import interfaces.Pickupable;
+import main.Asset;
 import main.GamePanel;
 
 import java.util.ArrayList;
@@ -7,23 +9,27 @@ import java.util.List;
 
 public class FoodBuilder {
 
+    private static FoodBuilder instance;
     GamePanel gp;
 
     private List<Ingredients> ingredients;
-    private String foodName;
 
-    public FoodBuilder(GamePanel gp, String foodName) {
+    private FoodBuilder(GamePanel gp) {
         this.gp = gp;
-        this.foodName = foodName;
+
         ingredients = new ArrayList<>();
     }
-
-    public FoodBuilder addIngredient(Ingredients ingredient) {
-        ingredients.add(ingredient);
-        return this;
+    public static FoodBuilder instantiate(GamePanel gp) {
+        if (instance == null) {
+            instance = new FoodBuilder(gp);
+        }
+        return instance;
     }
 
-    public Food build() {
+    public Asset build(Pickupable onHand, Asset interactedItem) {
+
+
+
 
         if (ingredients.size() != 3) {
             throw new IllegalArgumentException("3 ingredients required");

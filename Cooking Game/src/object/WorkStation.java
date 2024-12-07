@@ -55,7 +55,6 @@ public abstract class WorkStation extends Station implements Drawable {
         }
     }
 
-// TODO FIGURE OUT WHY NOT WORK
     @Override
     public void draw(Graphics2D g2) {
         super.draw(g2);
@@ -170,6 +169,7 @@ public abstract class WorkStation extends Station implements Drawable {
             setDefaultCollisions(true, 0, 0, 64, 64);
         }
 
+        // TODO ALLOW SANDOK WITH OTHER PLATE INSTANCES
         public void interact(Entity en, AnimationFactory animF, Pickupable obj) {
 
 
@@ -251,10 +251,27 @@ public abstract class WorkStation extends Station implements Drawable {
         @Override
         public void interact(Entity en, AnimationFactory animF, Pickupable obj) {
 
-            if (obj instanceof Item.Pan) {
-                super.interact(en, animF, obj);
+            if (en instanceof Player) {
+
+                // CHOP ONIONS
+                if (animF.getCurrentState() == AnimationState.CARRY_ONION && !isOccupied) {
+
+                    // DEPLOY ONION ON SURFACE
+                    super.interact(en, animF, obj);
+                    isOccupied = true;
+                    playerLocked = true;
+                    gp.getKeyB().enableMovement(false);
+                }
+
+                // RETRIEVE CHOPPED ONIONS
+                if (animF.getCurrentState() == AnimationState.CARRY_PLATE && isOccupied) {
+                    // TODO GET ONION ON PLATE
+                }
             }
         }
+
+
+
 
     }
 
