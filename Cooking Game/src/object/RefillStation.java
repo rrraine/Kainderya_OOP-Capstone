@@ -71,11 +71,11 @@ public abstract class RefillStation extends Station{
         public void interact(Entity en, AnimationFactory animF, Pickupable obj, int objIndex) {
 
             if(en instanceof Player){
-                if (animF.getCurrentState() == AnimationState.BASE) {
+                if (obj == null) {
                     gp.player.setItemOnHandCreate(new Ingredients.Egg(gp));
                     animF.switchState((AnimationState.CARRY_EGG));
                 }
-                else if (animF.getCurrentState() == AnimationState.CARRY_EGG) {
+                else if (obj instanceof Ingredients.Egg) {
                     gp.player.setItemOnHandDestroy();
                     animF.switchState((AnimationState.BASE));
                 }

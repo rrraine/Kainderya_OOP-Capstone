@@ -104,6 +104,13 @@ public abstract class Item extends SuperObject {
 
             if (en instanceof Player){
 
+                // GENERAL PICK UP INGREDIENTS FROM SURFACE
+                if (gp.player.getItemOnHand() == null) {
+
+                    gp.getAssetPool().remove(objIndex); // remove from printing
+                    gp.player.setItemOnHandCreate(this); // add item on player's hand
+                }
+
                 // FREE HAND
                 if (animF.getCurrentState() == AnimationState.BASE) {
 
@@ -178,6 +185,7 @@ public abstract class Item extends SuperObject {
 
             plateVersions.put("cookedEggOnly", importImage("/objects/item/plate/cookedEggOnly", gp.tileSize));
             plateVersions.put("cookedRiceOnly", importImage("/objects/item/plate/cookedRiceOnly", gp.tileSize));
+            plateVersions.put("onionOnly", importImage("/objects/item/plate/onion", gp.tileSize));
 
             // default
             image = plateVersions.get("counterPlate");
@@ -199,7 +207,12 @@ public abstract class Item extends SuperObject {
 
             if(en instanceof Player){
 
+                // GENERAL PICK UP INGREDIENTS FROM SURFACE
+                if (gp.player.getItemOnHand() == null) {
 
+                    gp.getAssetPool().remove(objIndex); // remove from printing
+                    gp.player.setItemOnHandCreate(this); // add item on player's hand
+                }
 
                 // IF FREE HAND
                 if (animF.getCurrentState() == AnimationState.BASE) {

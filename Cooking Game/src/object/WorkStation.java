@@ -5,7 +5,6 @@ import animation.AnimationFactory;
 import animation.AnimationState;
 import entity.Entity;
 import entity.Player;
-import food.Dish;
 import food.Ingredients;
 import interfaces.Drawable;
 import interfaces.Importable;
@@ -24,7 +23,7 @@ public abstract class WorkStation extends Station implements Drawable {
     boolean playerLocked; // player cannot move
     int processTime;
 
-    SuperObject itemOnTop;
+    public SuperObject itemOnTop;
 
     Utility.Regulator utilTool;
     UIElement processBar;
@@ -48,7 +47,7 @@ public abstract class WorkStation extends Station implements Drawable {
         if(en instanceof Player){
 
             // GENERAL ITEM DEPLOY ON SURFACE
-            if (animF.getCurrentState() != AnimationState.BASE) {
+            if (obj != null) {
 
                 (obj).reposition(obj, this); // repositions obj's coordinates
                 gp.getAssetPool().add((SuperObject)obj); // add to pool for printing
@@ -68,6 +67,9 @@ public abstract class WorkStation extends Station implements Drawable {
 
                 if (this instanceof WorkStation.Stove && itemOnTop instanceof Item.Pan) {
                     ((Item.Pan) itemOnTop).isCooked = true;
+                }
+                if (this instanceof WorkStation.ChoppingBoard && itemOnTop instanceof Ingredients.Onion) {
+                    ((Ingredients.Onion) itemOnTop).isCooked = true;
                 }
 
                 if (playerLocked) {
@@ -128,7 +130,10 @@ public abstract class WorkStation extends Station implements Drawable {
 
             if (en instanceof Player) {
 
-                gp.player.setItemOnHandCreate(gp.fBuilder.build(obj, this, animF));
+
+                gp.player.setItemOnHandCreate(gp.fBuilder.build(obj, this, animF, objIndex));
+
+
             }
         }
 
@@ -147,23 +152,10 @@ public abstract class WorkStation extends Station implements Drawable {
 
             if (en instanceof Player) {
 
-                // CHOP ONIONS
-                if (animF.getCurrentState() == AnimationState.CARRY_ONION && !isOccupied) {
 
-                    // DEPLOY ONION ON SURFACE
-                    super.interact(en, animF, obj, objIndex);
-                    isOccupied = true;
-                    playerLocked = true;
-                    gp.getKeyB().enableMovement(false);
-                }
+                super.interact(en, animF, obj, objIndex);
+                gp.player.setItemOnHandCreate(gp.fBuilder.build(obj, this, animF, objIndex));
 
-                // RETRIEVE CHOPPED ONIONS
-                if (animF.getCurrentState() == AnimationState.CARRY_PLATE && isOccupied) {
-                    // TODO GET ONION ON PLATE
-
-                    gp.player.setItemOnHandCreate(gp.fBuilder.build(obj, this, animF));
-                    isOccupied = false;
-                }
             }
         }
 
@@ -181,7 +173,7 @@ public abstract class WorkStation extends Station implements Drawable {
         public void interact(Entity en, AnimationFactory animF, Pickupable obj, int objIndex) {
 
             if (en instanceof Player) {
-                gp.player.setItemOnHandCreate(gp.fBuilder.build(obj, this, animF));
+                gp.player.setItemOnHandCreate(gp.fBuilder.build(obj, this, animF, objIndex));
             }
         }
 
@@ -401,7 +393,7 @@ public abstract class WorkStation extends Station implements Drawable {
 
             if(en instanceof Player){
 
-                gp.player.setItemOnHandCreate(gp.fBuilder.build(obj, this, animF));
+                gp.player.setItemOnHandCreate(gp.fBuilder.build(obj, this, animF, objIndex));
             }
         }
     }

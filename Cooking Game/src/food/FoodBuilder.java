@@ -30,40 +30,41 @@ public class FoodBuilder {
         return instance;
     }
 
-    public Pickupable build(Pickupable onHand, SuperObject interactedItem, AnimationFactory animF) {
+    public Pickupable build(Pickupable onHand, SuperObject interactedItem, AnimationFactory animF, int onHandIndex) {
 
         // RICE COOKER - DONE
-        if (interactedItem instanceof WorkStation.RiceCooker srfc) {
+        if (interactedItem instanceof WorkStation.RiceCooker cooker) {
 
             // RICE COOKER STATES
-            if (!srfc.isOccupied()) { // COOK RICE
+            if (!cooker.isOccupied()) { // COOK RICE
 
                 // INPUTS
                 if (onHand instanceof Ingredients.Rice) {
                     gp.player.setItemOnHandDestroy();
                     animF.switchState(AnimationState.BASE);
 
-                    srfc.setOccupied(true);
-                    srfc.setCooked(false);
-                    srfc.setServingsCount(3);
+                    cooker.setOccupied(true);
+                    cooker.setCooked(false);
+                    cooker.setServingsCount(3);
 
                     return null; // OUTPUT
                 }
-            } else { // SANDOK
+            }
+            else { // SANDOK
 
                 // INPUTS
-                if (onHand instanceof Item.Plates && srfc.isOccupied() && srfc.isCooked()) {
+                if (onHand instanceof Item.Plates && cooker.isOccupied() && cooker.isCooked()) {
 
                     // DETERMINE WHAT KIND OF INPUT
                     if (((Item.Plates) onHand).checkCurrentImage("counterPlate", onHand)) {
 
-                        srfc.consumeServings();
+                        cooker.consumeServings();
                         animF.switchState(AnimationState.CARRY_RICE_PLATE);
 
                         ((Item.Plates) onHand).swapImage("cookedRiceOnly"); // SWAP IMAGE
 
-                        if (srfc.getServings() == 0) {
-                            srfc.setOccupied(false);
+                        if (cooker.getServings() == 0) {
+                            cooker.setOccupied(false);
                         }
 
                         return onHand; // OUTPUT
@@ -71,31 +72,31 @@ public class FoodBuilder {
                     }
                     if (((Item.Plates) onHand).checkCurrentImage("cookedEggOnly", onHand)) {
 
-                        srfc.consumeServings();
+                        cooker.consumeServings();
                         animF.switchState(AnimationState.CARRY_EGG_PLATE);
 
                         ((Item.Plates) onHand).swapImage("noMain"); // SWAP IMAGE
 
-                        if (srfc.getServings() == 0) {
-                            srfc.setOccupied(false);
+                        if (cooker.getServings() == 0) {
+                            cooker.setOccupied(false);
                         }
 
                         return onHand; // OUTPUT
 
                     }
                 }
-                else if (onHand instanceof Dish.Spamsilog && srfc.isOccupied() && srfc.isCooked()) {
+                else if (onHand instanceof Dish.Spamsilog && cooker.isOccupied() && cooker.isCooked()) {
 
                     // DETERMINE WHAT KIND OF INPUT
                     if (((Dish.Spamsilog) onHand).checkCurrentImage("spamsilogNoRice", onHand)) {
 
-                        srfc.consumeServings();
+                        cooker.consumeServings();
                         animF.switchState(AnimationState.CARRY_SPAMSILOG);
 
                         ((Dish) onHand).swapImage("spamsilogFinal");
 
-                        if (srfc.getServings() == 0) {
-                            srfc.setOccupied(false);
+                        if (cooker.getServings() == 0) {
+                            cooker.setOccupied(false);
                         }
 
                         return onHand;
@@ -104,13 +105,13 @@ public class FoodBuilder {
                     }
                     else if (((Dish.Spamsilog) onHand).checkCurrentImage("cookedSpamOnly", onHand)) {
 
-                        srfc.consumeServings();
+                        cooker.consumeServings();
                         animF.switchState(AnimationState.CARRY_SPAMSI_PLATE);
 
                         ((Dish) onHand).swapImage("spamsilogNoEgg");
 
-                        if (srfc.getServings() == 0) {
-                            srfc.setOccupied(false);
+                        if (cooker.getServings() == 0) {
+                            cooker.setOccupied(false);
                         }
 
                         return onHand;
@@ -118,18 +119,18 @@ public class FoodBuilder {
                     }
 
                 }
-                else if (onHand instanceof Dish.Cornsilog && srfc.isOccupied() && srfc.isCooked()) {
+                else if (onHand instanceof Dish.Cornsilog && cooker.isOccupied() && cooker.isCooked()) {
 
                     // DETERMINE WHAT KIND OF INPUT
                     if (((Dish.Cornsilog) onHand).checkCurrentImage("cornsilogNoRice", onHand)) {
 
-                        srfc.consumeServings();
+                        cooker.consumeServings();
                         animF.switchState(AnimationState.CARRY_CORNSILOG);
 
                         ((Dish) onHand).swapImage("cornsilogFinal");
 
-                        if (srfc.getServings() == 0) {
-                            srfc.setOccupied(false);
+                        if (cooker.getServings() == 0) {
+                            cooker.setOccupied(false);
                         }
 
                         return onHand;
@@ -138,43 +139,43 @@ public class FoodBuilder {
                     }
                     else if (((Dish.Cornsilog) onHand).checkCurrentImage("cookedCBeefOnly", onHand)) {
 
-                        srfc.consumeServings();
+                        cooker.consumeServings();
                         animF.switchState(AnimationState.CARRY_CORNSI_PLATE);
 
                         ((Dish) onHand).swapImage("cornsilogNoEgg");
 
-                        if (srfc.getServings() == 0) {
-                            srfc.setOccupied(false);
+                        if (cooker.getServings() == 0) {
+                            cooker.setOccupied(false);
                         }
 
                         return onHand;
                     }
                 }
-                else if (onHand instanceof Dish.Tapsilog && srfc.isOccupied() && srfc.isCooked()) {
+                else if (onHand instanceof Dish.Tapsilog && cooker.isOccupied() && cooker.isCooked()) {
 
                     // DETERMINE WHAT KIND OF INPUT
                     if (((Dish)onHand).checkCurrentImage("tapsilogNoRice", onHand)) {
 
-                        srfc.consumeServings();
+                        cooker.consumeServings();
                         animF.switchState(AnimationState.CARRY_TAPSILOG);
 
                         ((Dish) onHand).swapImage("tapsilogFinal");
 
-                        if (srfc.getServings() == 0) {
-                            srfc.setOccupied(false);
+                        if (cooker.getServings() == 0) {
+                            cooker.setOccupied(false);
                         }
 
                         return onHand;
                     }
                     else if (((Dish.Tapsilog) onHand).checkCurrentImage("cookedTapaOnly", onHand)) {
 
-                        srfc.consumeServings();
+                        cooker.consumeServings();
                         animF.switchState(AnimationState.CARRY_TAPSI_PLATE);
 
                         ((Dish) onHand).swapImage("tapsilogNoEgg");
 
-                        if (srfc.getServings() == 0) {
-                            srfc.setOccupied(false);
+                        if (cooker.getServings() == 0) {
+                            cooker.setOccupied(false);
                         }
 
                         return onHand;
@@ -184,20 +185,48 @@ public class FoodBuilder {
         }
 
         // CHOPPING BOARD
+        if (interactedItem instanceof WorkStation.ChoppingBoard board) {
 
+            if (onHand instanceof Ingredients.Onion && !board.isOccupied()) {
+
+                board.setOccupied(true);
+                board.setPlayerLocked(true);
+                gp.getKeyB().enableMovement(false);
+
+                ((Ingredients.Onion) onHand).surface = board;
+                board.itemOnTop = (SuperObject) onHand;
+
+                gp.player.setItemOnHandDestroy();
+                return null;
+            }
+        }
+
+        // CHOPPING BOARD - ONION
+        if (interactedItem instanceof Ingredients.Onion onion) {
+
+            if (onHand instanceof Item.Plates) {
+
+                animF.switchState(AnimationState.CARRY_COKE);
+
+                gp.getAssetPool().remove(onHandIndex);
+                onion.surface.setOccupied(false);
+
+                ((Item.Plates) onHand).swapImage("onionOnly");
+                return onHand;
+            }
+        }
 
         // STOVE
         if (interactedItem instanceof WorkStation.Stove) {
 
             // STOVE STATES
-            if (!((WorkStation) interactedItem).isOccupied()) {
+            if (!((WorkStation) interactedItem).isOccupied()) { // EMPTY STOVE
 
                 // INPUTS
-                if (onHand instanceof Item.Pan) {
+                if (onHand instanceof Item.Pan) { // DROP
+                    gp.player.setItemOnHandDestroy();
                     return null; // OUTPUT
-                }else ((Dish) onHand).swapImage("cornsilogNoEgg");
-                return onHand;
-
+                }
 
 
             }

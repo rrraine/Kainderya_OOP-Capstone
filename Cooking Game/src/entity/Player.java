@@ -2,6 +2,7 @@ package entity;
 
 import animation.AnimationFactory;
 import animation.AnimationState;
+import food.Ingredients;
 import interfaces.Pickupable;
 import main.Asset;
 import main.GamePanel;
@@ -321,19 +322,7 @@ public class Player extends Entity {
 
             // IF INTERACT EXECUTED
             if (keyB.isPlayer1EnterPressed() && obj != null) {
-
-                if (obj instanceof Pickupable) {
-                    if (((Pickupable) obj).isHoldingSomething(animF.getCurrentState())) {
-
-                        if (itemOnHand == null) itemOnHand = (Pickupable) obj; // if item on hand is empty, pick it up
-                        obj.interact(this, animF, itemOnHand, i); // interact with the obj
-
-                        if (!(obj instanceof Item.Pan)) // pans will have their special condition removal
-                            gp.getAssetPool().remove(i); // remove non pans from drawing
-                    }
-                } else {
-                    obj.interact(this, animF, itemOnHand, i);
-                }
+                obj.interact(this, animF, itemOnHand, i);
             }
         }
 
