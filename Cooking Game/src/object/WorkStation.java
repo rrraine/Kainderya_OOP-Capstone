@@ -211,8 +211,19 @@ public abstract class WorkStation extends Station implements Drawable {
                     if (servingsCount >= 0) {
                         // create new plate instance
                         gp.player.setItemOnHandDestroy();
-                        gp.player.setItemOnHandCreate(gp.fBuilder.build(obj, this));
-                        animF.switchState(AnimationState.CARRY_COKE);
+                        Pickupable updatedItem = gp.fBuilder.build(obj, this);
+                        gp.player.setItemOnHandCreate(updatedItem);
+
+                        //animF.switchState(AnimationState.CARRY_COKE);
+                        if(updatedItem instanceof Dish.Spamsilog){
+                            animF.switchState(AnimationState.CARRY_SPAMSILOG);
+                        } else if (updatedItem instanceof Dish.Cornsilog) {
+                            animF.switchState(AnimationState.CARRY_CORNSILOG);
+                        } else if (updatedItem instanceof Dish.Tapsilog) {
+                            animF.switchState(AnimationState.CARRY_TAPSILOG);
+                        } else if (updatedItem instanceof Item.Plates) {
+                            animF.switchState(AnimationState.CARRY_RICE_PLATE);
+                        }
 
                         if (servingsCount == 0) {
                             isOccupied = false;
@@ -417,6 +428,23 @@ public abstract class WorkStation extends Station implements Drawable {
 
     }
 
+    public static class TrashCan extends Item implements Importable {
+        public TrashCan(GamePanel gp) {
+            super(gp, "Trashcan");
+            image = importImage("/objects/item/kitchenArea/rightCounter", gp.tileSize);
+            setDefaultCollisions(true, 20, 0, 46, 44);
+        }
+
+        public void interact(Entity en, AnimationFactory animF, Pickupable obj) {
+            if(en instanceof Player){
+                if(animF.getCurrentState() != AnimationState.BASE){
+                    animF.switchState((AnimationState.BASE));
+                    gp.player.setItemOnHandDestroy();
+                }
+                //animF.switchState((AnimationState.CARRY_PAN));
+            }
+        }
+    }
     /*
     public static class Counter extends WorkStation{
 
@@ -467,4 +495,6 @@ public abstract class WorkStation extends Station implements Drawable {
     public int getProcessTime() {
         return processTime;
     }
+
+
 }

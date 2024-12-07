@@ -1,5 +1,6 @@
 package food;
 
+import animation.AnimationState;
 import interfaces.Pickupable;
 import main.GamePanel;
 import object.Item;
@@ -31,7 +32,7 @@ public class FoodBuilder {
     public Pickupable build(Pickupable onHand, SuperObject interactedItem) {
 
         // RICE COOKER - DONE
-        if (interactedItem instanceof WorkStation.RiceCooker) {
+        if (interactedItem instanceof WorkStation.leftRiceCooker) {
 
             // RICE COOKER STATES
             if (!((WorkStation) interactedItem).isOccupied()) {
@@ -40,8 +41,7 @@ public class FoodBuilder {
                 if (onHand instanceof Ingredients.Rice) {
                     return null; // OUTPUT
                 }
-            }
-            else {
+            } else {
 
                 // INPUTS
                 if (onHand instanceof Item.Plates) {
@@ -56,7 +56,7 @@ public class FoodBuilder {
                         return onHand; // OUTPUT
                     }
                 }
-                else if (onHand instanceof Dish) {
+                else if (onHand instanceof Dish.Spamsilog) {
 
                     // DETERMINE WHAT KIND OF INPUT
                     if (((Dish.Spamsilog) onHand).checkCurrentImage("spamsilogNoRice", onHand)) {
@@ -98,7 +98,11 @@ public class FoodBuilder {
 
         // CHOPPING BOARD
         if (interactedItem instanceof Ingredients.Onion) {
-            
+            // INPUTS
+            if (onHand instanceof Ingredients.Onion) {
+               return new Ingredients.ChoppedOnion(gp); // OUTPUT
+            }
+
         }
 
         // STOVE
@@ -110,22 +114,49 @@ public class FoodBuilder {
                 // INPUTS
                 if (onHand instanceof Item.Pan) {
                     return null; // OUTPUT
-                }
+                }else ((Dish) onHand).swapImage("cornsilogNoEgg");
+                return onHand;
+
+
+
             }
         }
 
         // PAN
         if (interactedItem instanceof Item.Pan) {
+            if(onHand instanceof Ingredients.ChoppedOnion){
 
+            }else if(onHand instanceof Ingredients.ChoppedOnion){
+
+            }else if(onHand instanceof Ingredients.ChoppedOnion){
+
+            }else if(onHand instanceof Ingredients.ChoppedOnion){
+
+            }
         }
 
         // SINK
-        if (interactedItem instanceof WorkStation.Sink) {
-
+        if (interactedItem instanceof WorkStation.centerSink) {
+            if(onHand instanceof Item.Plates){
+                if (((Item.Plates) onHand).checkCurrentImage("dirtyPlate", onHand)) {
+                    ((Item.Plates) onHand).swapImage("counterPlate"); // SWAP IMAGE
+                    return onHand; // OUTPUT
+                }
+            }
         }
 
         // TODO TRASH CAN
-        //if (interactedItem instanceof WorkStation.TrashCan) {}
+        if (interactedItem instanceof WorkStation.TrashCan) {
+            if(onHand instanceof Item.Plates){
+                if (((Item.Plates) onHand).checkCurrentImage("dirtyPlate", onHand)) {
+                    ((Item.Plates) onHand).swapImage("counterPlate"); // SWAP IMAGE
+                    return onHand; // OUTPUT
+                }
+            }else if(onHand instanceof Ingredients){
+                return null;
+            }
+
+        }
 
         return null;
     }

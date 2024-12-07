@@ -30,6 +30,7 @@ public enum AnimationState {
 
     // ONE INGREDIENT
     CARRY_EGG_PLATE,
+    CARRY_ONION_PLATE,
     CARRY_RICE_PLATE,
     CARRY_TAPA_PLATE,
     CARRY_CB_PLATE,

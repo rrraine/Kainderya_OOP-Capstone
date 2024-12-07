@@ -90,6 +90,7 @@ public class Utility {
                 addItem(34, obj, new WorkStation.Stove(gp), tileSize, 6, 7);
                 addItem(35, obj, new WorkStation.Counter.leftStraightTable(gp), tileSize, 6, 5);
 
+
                 addItem(36, obj, new RefillStation.stationaryEgg(gp), tileSize, 15, 8);
                 addItem(37, obj, new RefillStation.stationaryOnion(gp), tileSize, 15, 9);
 
@@ -130,7 +131,7 @@ public class Utility {
                 addItem(65, obj, new Item.Plates(gp), tileSize, 12, 4);
 
                 addItem(66, obj, new WorkStation.Stove(gp), tileSize, 6, 8);
-
+                addItem(67, obj, new WorkStation.TrashCan(gp), tileSize, 6, 10);
 
             } catch (NullPointerException e) {
                 System.err.println("Accessing null element in (List<SuperObject> obj): " + e.getMessage());
@@ -184,7 +185,7 @@ public class Utility {
                     // Determine positions for the NPCs
                     if (shopNPC instanceof NPC_Customer customer) {
                         // Assign world positions for seated customers based on their seat
-                        Point seat = customer.getAssignedSeat();
+                        Point seat = customer.getSeatLocation();
                         if (seat != null) {
                             ((NPC_Customer) shopNPC).assignSeat(seat);
                             ((NPC_Customer) shopNPC).setMovingToSeat(true);
@@ -599,16 +600,4 @@ public class Utility {
         }
     }
 
-    // added for debugging
-//    private static void handleWorkStationInteraction(Player player, WorkStation workStation) {
-//        // Check if the workstation is occupied
-//        if (workStation.isOccupied()) {
-//            // Handle the case where the workstation is occupied (could show a message or prevent interaction)
-//            System.out.println("The " + workStation.getName() + " is currently occupied!");
-//        } else {
-//            // Handle the case where the workstation is not occupied (could trigger interaction or task)
-//            System.out.println(player.getPlayerName() + " is interacting with the " + workStation.getName());
-//            workStation.setOccupied(true); // Mark the workstation as occupied
-//        }
-//    }
 }
