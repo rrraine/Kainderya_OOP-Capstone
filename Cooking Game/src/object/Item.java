@@ -202,10 +202,7 @@ public abstract class Item extends SuperObject {
         }
 
         // THIS CLASS ONLY STORES PLATE IMAGE VERSIONS WHICH WILL BE USED AS THE FACE OF THE ACTUAL PLATE CLASS
-
         public HashMap<String, BufferedImage> plateVersions;
-
-        // LOWERED PLATES
 
         public Plates (GamePanel gp) {
             super(gp, "Plates");
@@ -243,9 +240,11 @@ public abstract class Item extends SuperObject {
 
             if(en instanceof Player){
 
+
+
                 // IF FREE HAND
                 if (animF.getCurrentState() == AnimationState.BASE) {
-                    CounterToDiningPlate(false);
+                    //CounterToDiningPlate(false);
                     animF.switchState((AnimationState.CARRY_PLATE));
                 }
                 else if (animF.getCurrentState() == AnimationState.CARRY_PLATE) {

@@ -87,7 +87,6 @@ public abstract class WorkStation extends Station implements Drawable {
 
         if (isOccupied) {
             drawProcessing(g2);
-
         }
     }
     public void drawProcessing(Graphics2D g2) {
@@ -127,21 +126,11 @@ public abstract class WorkStation extends Station implements Drawable {
 
         public void interact(Entity en, AnimationFactory animF, Pickupable obj, int objIndex) {
 
-            if (en instanceof Player && !isOccupied) {
+            if (en instanceof Player) {
 
-                // if carrying rice -> clear hand -> deploy item
-                if (animF.getCurrentState() == AnimationState.CARRY_PLATE_DIRTY) {
-
-                    (obj).reposition(obj, this); // repositions obj's coordinates
-                    gp.player.setItemOnHandDestroy(); // destroy item on player's hand
-                    animF.switchState((AnimationState.BASE));// base animation
-                    isOccupied = true;
-                    playerLocked = true;
-                    gp.getKeyB().enableMovement(false);
-                }
+                gp.player.setItemOnHandCreate(gp.fBuilder.build(obj, this, animF));
             }
         }
-
 
     }
     public static class ChoppingBoard extends WorkStation implements Importable {
@@ -192,44 +181,16 @@ public abstract class WorkStation extends Station implements Drawable {
         public void interact(Entity en, AnimationFactory animF, Pickupable obj, int objIndex) {
 
             if (en instanceof Player) {
-
-                // COOK RAW RICE
-                if (obj instanceof Ingredients.Rice && !isOccupied) {
-
-                    gp.player.setItemOnHandCreate(gp.fBuilder.build(obj, this, animF));
-                    servingsCount = 3;
-                }
-
-
-                // SANDOK COOKED RICE
-                if ((obj instanceof Item.Plates || obj instanceof Dish) && isOccupied && isCooked) {
-
-                    servingsCount--;
-
-                    if (servingsCount >= 0) {
-
-
-                        Pickupable updatedItem = gp.fBuilder.build(obj, this, animF);
-                        gp.player.setItemOnHandCreate(updatedItem);
-
-                        if (updatedItem instanceof Dish.Spamsilog){
-                            animF.switchState(AnimationState.CARRY_SPAMSILOG);
-                        } else if (updatedItem instanceof Dish.Cornsilog) {
-                            animF.switchState(AnimationState.CARRY_CORNSILOG);
-                        } else if (updatedItem instanceof Dish.Tapsilog) {
-                            animF.switchState(AnimationState.CARRY_TAPSILOG);
-                        } else if (updatedItem instanceof Item.Plates) {
-                            animF.switchState(AnimationState.CARRY_RICE_PLATE);
-                        }
-
-                        if (servingsCount == 0) {
-                            isOccupied = false;
-                        }
-                    }
-                }
+                gp.player.setItemOnHandCreate(gp.fBuilder.build(obj, this, animF));
             }
         }
 
+        public int getServings() {
+            return servingsCount;
+        }
+        public void consumeServings() {
+            servingsCount--;
+        }
         public static int getServingsCount() {
             return servingsCount;
         }
@@ -282,9 +243,9 @@ public abstract class WorkStation extends Station implements Drawable {
 
         public void interact(Entity en, AnimationFactory animF, Pickupable obj, int objIndex) {
 
-            if (obj instanceof Item.Plates) {
-                ((Item.Plates) obj).CounterToDiningPlate(true);
-            }
+//            if (obj instanceof Item.Plates) {
+//                ((Item.Plates) obj).CounterToDiningPlate(true);
+//            }
             super.interact(en, animF, obj, objIndex);
         }
 
