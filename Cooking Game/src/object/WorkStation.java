@@ -5,6 +5,7 @@ import animation.AnimationFactory;
 import animation.AnimationState;
 import entity.Entity;
 import entity.Player;
+import food.Dish;
 import food.Drink;
 import interfaces.Drawable;
 import interfaces.Importable;
@@ -159,7 +160,6 @@ public abstract class WorkStation extends Station implements Drawable {
 
     }
     public static class leftRiceCooker extends WorkStation implements Importable  {
-        // INTERACTION ONLY WORKS WHEN ANIMATION STATE IS CARRYING RICE -> MUST CARRY CLEAN PLATE -> THEN CARRY PLATE RICE
 
         private static int servingsCount;
 
@@ -171,7 +171,6 @@ public abstract class WorkStation extends Station implements Drawable {
 
         // TODO ALLOW SANDOK WITH OTHER PLATE INSTANCES
         public void interact(Entity en, AnimationFactory animF, Pickupable obj) {
-
 
             if (en instanceof Player) {
 
@@ -186,14 +185,14 @@ public abstract class WorkStation extends Station implements Drawable {
                 }
 
                 // SANDOK COOKED RICE
-                if (animF.getCurrentState() == AnimationState.CARRY_PLATE && isOccupied && isCooked) {
+                if ((obj instanceof Item.Plates || obj instanceof Dish) && isOccupied && isCooked) {
 
                     servingsCount--;
 
                     if (servingsCount >= 0) {
                         // create new plate instance
                         gp.player.setItemOnHandDestroy();
-                        gp.player.setItemOnHandCreate(new Drink.Cola(gp));
+                        gp.player.setItemOnHandCreate(gp.fBuilder.build(obj, this));
                         animF.switchState(AnimationState.CARRY_COKE);
 
                         if (servingsCount == 0) {
@@ -254,7 +253,7 @@ public abstract class WorkStation extends Station implements Drawable {
             if (en instanceof Player) {
 
                 // CHOP ONIONS
-                if (animF.getCurrentState() == AnimationState.CARRY_ONION && !isOccupied) {
+                if (animF.getCurrentState() == AnimationState.CARRY_PAN && !isOccupied) {
 
                     // DEPLOY ONION ON SURFACE
                     super.interact(en, animF, obj);

@@ -5,23 +5,16 @@ import animation.AnimationState;
 import entity.Entity;
 import entity.Player;
 import interfaces.Pickupable;
+import interfaces.Swappable;
 import main.GamePanel;
+import object.SuperObject;
 
 import java.awt.image.BufferedImage;
 import java.util.HashMap;
 
-public abstract class Dish extends Food {
+public abstract class Dish extends Food implements Swappable {
 
-    public static class DishInstance {
-        String label;
-        BufferedImage image;
-
-        public DishInstance(String label, BufferedImage image) {
-            this.label = label;
-            this.image = image;
-        }
-    }
-    public HashMap<String, DishInstance> silogVersions;
+    public HashMap<String, BufferedImage> silogVersions;
 
     public Dish(GamePanel gp, String name) {
         super(gp, name);
@@ -35,6 +28,20 @@ public abstract class Dish extends Food {
         }
     }
 
+    @Override
+    public void swapImage(String key) {
+        image = silogVersions.get(key);
+    }
+
+    @Override
+    public boolean checkCurrentImage(String key, Pickupable obj) {
+
+        if (obj instanceof Dish) {
+            return (((Dish)obj).image == silogVersions.get(key));
+        }
+        return false;
+    }
+
     // inner classes
 
     // TODO IMPORT TAPSILOG IMAGE
@@ -44,12 +51,12 @@ public abstract class Dish extends Food {
             super(gp, "Tapsilog");
 
             // TODO IMPORT SILOG VERSIONS
-            silogVersions.put("tapsilogFinal", new DishInstance("tapsilogFinal", importImage("/food/meals/center/tapsilog", gp.tileSize)));
-            silogVersions.put("tapsilogNoEgg", new DishInstance("tapsilogNoEgg", importImage("TODO PATH", gp.tileSize)));
-            silogVersions.put("tapsilogNoRice", new DishInstance("tapsilogNoRice", importImage("TODO PATH", gp.tileSize)));
-            silogVersions.put("cookedTapaOnly", new DishInstance("cookedTapaOnly", importImage("TODO PATH", gp.tileSize)));
+            silogVersions.put("tapsilogFinal", importImage("/food/meals/center/tapsilog", gp.tileSize));
+            silogVersions.put("tapsilogNoEgg", importImage("TODO PATH", gp.tileSize));
+            silogVersions.put("tapsilogNoRice", importImage("TODO PATH", gp.tileSize));
+            silogVersions.put("cookedTapaOnly", importImage("TODO PATH", gp.tileSize));
 
-            image = silogVersions.get("tapsilogFinal").image;
+            image = silogVersions.get("tapsilogFinal");
         }
 
         @Override
@@ -76,12 +83,12 @@ public abstract class Dish extends Food {
             super(gp, "Spamsilog");
 
             // TODO IMPORT SILOG VERSIONS
-            silogVersions.put("spamsilogFinal", new DishInstance("spamsilogFinal", importImage("/food/meals/center/spamsilog", gp.tileSize)));
-            silogVersions.put("spamsilogNoEgg", new DishInstance("spamsilogNoEgg", importImage("TODO PATH", gp.tileSize)));
-            silogVersions.put("spamsilogNoRice", new DishInstance("spamsilogNoRice", importImage("TODO PATH", gp.tileSize)));
-            silogVersions.put("cookedSpamOnly", new DishInstance("cookedSpamOnly", importImage("TODO PATH", gp.tileSize)));
+            silogVersions.put("spamsilogFinal", importImage("/food/meals/center/spamsilog", gp.tileSize));
+            silogVersions.put("spamsilogNoEgg", importImage("TODO PATH", gp.tileSize));
+            silogVersions.put("spamsilogNoRice", importImage("TODO PATH", gp.tileSize));
+            silogVersions.put("cookedSpamOnly", importImage("TODO PATH", gp.tileSize));
 
-            image = silogVersions.get("spamsilogFinal").image;
+            image = silogVersions.get("spamsilogFinal");
         }
 
         @Override
@@ -108,12 +115,12 @@ public abstract class Dish extends Food {
             super(gp, "Cornsilog");
 
             // TODO IMPORT SILOG VERSIONS
-            silogVersions.put("cornsilogFinal", new DishInstance("cornsilogFinal", importImage("/food/meals/center/cornsilog", gp.tileSize)));
-            silogVersions.put("cornsilogNoEgg", new DishInstance("cornsilogNoEgg", importImage("TODO PATH", gp.tileSize)));
-            silogVersions.put("cornsilogNoRice", new DishInstance("cornsilogNoRice", importImage("TODO PATH", gp.tileSize)));
-            silogVersions.put("cookedCBeefOnly", new DishInstance("cookedCBeefOnly", importImage("TODO PATH", gp.tileSize)));
+            silogVersions.put("cornsilogFinal", importImage("/food/meals/center/cornsilog", gp.tileSize));
+            silogVersions.put("cornsilogNoEgg", importImage("TODO PATH", gp.tileSize));
+            silogVersions.put("cornsilogNoRice", importImage("TODO PATH", gp.tileSize));
+            silogVersions.put("cookedCBeefOnly", importImage("TODO PATH", gp.tileSize));
 
-            image = silogVersions.get("cornsilogFinal").image;
+            image = silogVersions.get("cornsilogFinal");
         }
 
         @Override
