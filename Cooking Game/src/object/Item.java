@@ -22,6 +22,9 @@ public abstract class Item extends SuperObject {
         super(gp, name);
     }
 
+    @Override
+    public void interact(Entity en, AnimationFactory animF, Pickupable obj, int objIndex) {}
+
     // INNER STATIC CLASSES -----------------------------------
 
     // diningArea-----------------------------------
@@ -35,7 +38,7 @@ public abstract class Item extends SuperObject {
         }
 
         @Override
-        public void interact(Entity en, AnimationFactory animF, Pickupable obj) {
+        public void interact(Entity en, AnimationFactory animF, Pickupable obj, int objIndex) {
             if (en instanceof NPC) {
                 // TODO
             }
@@ -51,7 +54,7 @@ public abstract class Item extends SuperObject {
         }
 
         @Override
-        public void interact(Entity en, AnimationFactory animF, Pickupable obj) {
+        public void interact(Entity en, AnimationFactory animF, Pickupable obj, int objIndex) {
 
         }
     }
@@ -63,36 +66,49 @@ public abstract class Item extends SuperObject {
             super(gp, "Door");
             image = importImage("/objects/oldFiles/item/door/door", gp.tileSize);
         }
-
-        @Override
-        public void interact(Entity en, AnimationFactory animF, Pickupable obj) {
-
-        }
     }
 
     // kitchenTools -------------------------------
     public static class Pan extends Item implements Importable, Pickupable {
+
+        public boolean isCooked;
+        public WorkStation surface;
+
         public Pan (GamePanel gp) {
             super(gp, "Pan");
             image = importImage("/objects/item/kitchenTools/pan", gp.tileSize);
             setDefaultCollisions(false, -8, -8, 80, 80);
+
+            isCooked = false;
         }
 
         @Override
-        public void interact(Entity en, AnimationFactory animF, Pickupable obj) {
+        public void interact(Entity en, AnimationFactory animF, Pickupable obj, int objIndex) {
+
             if(en instanceof Player){
+
                 if (animF.getCurrentState() == AnimationState.BASE) {
-                    animF.switchState((AnimationState.CARRY_PAN));
+
+                    // ON TOP OF STOVE
+                    if (surface instanceof WorkStation.Stove) {
+
+                        if (surface.isCooked && this.isCooked) {
+                            surface.isOccupied = false;
+                            gp.getAssetPool().remove(objIndex); // remove it from drawing
+                            animF.switchState((AnimationState.CARRY_PAN));
+                        }
+                    }
+                    else {
+                        gp.getAssetPool().remove(objIndex); // remove it from drawing
+                        animF.switchState((AnimationState.CARRY_PAN));
+                    }
                 }
                 else if (animF.getCurrentState() == AnimationState.CARRY_PAN) {
                     animF.switchState((AnimationState.BASE));
                 }
             }
         }
-        @Override
-        public boolean isPickingUp(AnimationState curr) {
-            return curr == AnimationState.BASE;
-        }
+
     }
 
     public static class Plates extends Item implements Importable, Pickupable, Swappable {
@@ -138,7 +154,7 @@ public abstract class Item extends SuperObject {
         }
 
         @Override
-        public boolean isPickingUp(AnimationState curr) {
+        public boolean isHoldingSomething(AnimationState curr) {
             if (curr == AnimationState.BASE) {
                 return true;
             }
@@ -147,10 +163,13 @@ public abstract class Item extends SuperObject {
             }
             return false;
         }
+
         @Override
-        public void interact(Entity en, AnimationFactory animF, Pickupable obj) {
+        public void interact(Entity en, AnimationFactory animF, Pickupable obj, int objIndex) {
 
             if(en instanceof Player){
+
+                // IF FREE HAND
                 if (animF.getCurrentState() == AnimationState.BASE) {
                     CounterToDiningPlate(false);
                     animF.switchState((AnimationState.CARRY_PLATE));
@@ -178,7 +197,6 @@ public abstract class Item extends SuperObject {
             image = importImage("/objects/item/kitchenArea/rightWall", gp.tileSize);
             setDefaultCollisions(true, 40, 0, 24, 64);
         }
-        public void interact(Entity en, AnimationFactory animF, Pickupable obj) {}
     }
 
     public static class bush extends Item implements Importable{
@@ -187,7 +205,7 @@ public abstract class Item extends SuperObject {
             image = importImage("/objects/item/outsideRestaurant/bush", gp.tileSize);
             setDefaultCollisions(true, 0, 0, 10, 64);
         }
-        public void interact(Entity en, AnimationFactory animF, Pickupable obj) {}
+
     }
 
     public static class rightShelf1 extends Item implements Importable{
@@ -196,11 +214,6 @@ public abstract class Item extends SuperObject {
             image = importImage("/objects/item/kitchenArea/rightShelf1", gp.tileSize);
             setDefaultCollisions(true, 20, 20, 44, 54);
         }
-        public void interact(Entity en, AnimationFactory animF, Pickupable obj) {
-            if(en instanceof Player){
-                // animF.switchState((AnimationState.CARRY_PAN));
-            }
-        }
     }
 
     public static class rightShelf2 extends Item implements Importable{
@@ -208,11 +221,6 @@ public abstract class Item extends SuperObject {
             super (gp, "Right Shelf 2");
             image = importImage("/objects/item/kitchenArea/rightShelf2", gp.tileSize);
             setDefaultCollisions(true, 20, 0, 44, 64);
-        }
-        public void interact(Entity en, AnimationFactory animF, Pickupable obj) {
-            if(en instanceof Player){
-                // animF.switchState((AnimationState.CARRY_PAN));
-            }
         }
     }
 

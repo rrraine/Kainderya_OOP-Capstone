@@ -15,10 +15,6 @@ public abstract class Ingredients extends SuperObject implements Importable, Pic
         super(gp, name);
     }
 
-    @Override
-    public boolean isPickingUp(AnimationState curr) {
-        return curr == AnimationState.BASE;
-    }
 
     // inner classes
     public static class Tapa extends Ingredients {
@@ -30,7 +26,7 @@ public abstract class Ingredients extends SuperObject implements Importable, Pic
         }
 
         @Override
-        public void interact(Entity en, AnimationFactory animF, Pickupable obj) {
+        public void interact(Entity en, AnimationFactory animF, Pickupable obj, int objIndex) {
             if (en instanceof Player) {
                 if (animF.getCurrentState() == AnimationState.BASE) {
                     animF.switchState(AnimationState.CARRY_TAPA);
@@ -51,7 +47,7 @@ public abstract class Ingredients extends SuperObject implements Importable, Pic
         }
 
         @Override
-        public void interact(Entity en, AnimationFactory animF, Pickupable obj) {
+        public void interact(Entity en, AnimationFactory animF, Pickupable obj, int objIndex) {
             if (en instanceof Player) {
                 if (animF.getCurrentState() == AnimationState.BASE) {
                     animF.switchState(AnimationState.CARRY_CORNEDBEEF);
@@ -72,7 +68,7 @@ public abstract class Ingredients extends SuperObject implements Importable, Pic
         }
 
         @Override
-        public void interact(Entity en, AnimationFactory animF, Pickupable obj) {
+        public void interact(Entity en, AnimationFactory animF, Pickupable obj, int objIndex) {
             if (en instanceof Player) {
                 if (animF.getCurrentState() == AnimationState.BASE) {
                     animF.switchState(AnimationState.CARRY_SPAM);
@@ -93,7 +89,7 @@ public abstract class Ingredients extends SuperObject implements Importable, Pic
         }
 
         @Override
-        public void interact(Entity en, AnimationFactory animF, Pickupable obj) {
+        public void interact(Entity en, AnimationFactory animF, Pickupable obj, int objIndex) {
             if (en instanceof Player) {
                 if (animF.getCurrentState() == AnimationState.BASE) {
                     animF.switchState(AnimationState.CARRY_EGG);
@@ -115,7 +111,7 @@ public abstract class Ingredients extends SuperObject implements Importable, Pic
         }
 
         @Override
-        public void interact(Entity en, AnimationFactory animF, Pickupable obj) {
+        public void interact(Entity en, AnimationFactory animF, Pickupable obj, int objIndex) {
             if (en instanceof Player) {
                 if (animF.getCurrentState() == AnimationState.BASE) {
                     animF.switchState(AnimationState.CARRY_RAW_RICE);
@@ -140,7 +136,7 @@ public abstract class Ingredients extends SuperObject implements Importable, Pic
         }
 
         @Override
-        public void interact(Entity en, AnimationFactory animF, Pickupable obj) {
+        public void interact(Entity en, AnimationFactory animF, Pickupable obj, int objIndex) {
 
            if (en instanceof Player) {
 

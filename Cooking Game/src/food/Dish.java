@@ -60,7 +60,7 @@ public abstract class Dish extends Food implements Swappable {
         }
 
         @Override
-        public void interact(Entity en, AnimationFactory animF, Pickupable obj) {
+        public void interact(Entity en, AnimationFactory animF, Pickupable obj, int objIndex) {
             if (en instanceof Player) {
                 if (animF.getCurrentState() == AnimationState.BASE) {
                     animF.switchState(AnimationState.CARRY_TAPSILOG);
@@ -69,10 +69,6 @@ public abstract class Dish extends Food implements Swappable {
                     animF.switchState((AnimationState.BASE));
                 }
             }
-        }
-        @Override
-        public boolean isPickingUp(AnimationState curr) {
-            return curr == AnimationState.BASE;
         }
     }
 
@@ -92,7 +88,7 @@ public abstract class Dish extends Food implements Swappable {
         }
 
         @Override
-        public void interact(Entity en, AnimationFactory animF, Pickupable obj) {
+        public void interact(Entity en, AnimationFactory animF, Pickupable obj, int objIndex) {
             if (en instanceof Player) {
                 if (animF.getCurrentState() == AnimationState.BASE) {
                     animF.switchState(AnimationState.CARRY_SPAMSILOG);
@@ -101,10 +97,6 @@ public abstract class Dish extends Food implements Swappable {
                     animF.switchState((AnimationState.BASE));
                 }
             }
-        }
-        @Override
-        public boolean isPickingUp(AnimationState curr) {
-            return curr == AnimationState.BASE;
         }
     }
 
@@ -124,7 +116,7 @@ public abstract class Dish extends Food implements Swappable {
         }
 
         @Override
-        public void interact(Entity en, AnimationFactory animF, Pickupable obj) {
+        public void interact(Entity en, AnimationFactory animF, Pickupable obj, int objIndex) {
             if (en instanceof Player) {
                 if (animF.getCurrentState() == AnimationState.BASE) {
                     animF.switchState(AnimationState.CARRY_CORNSILOG);
@@ -133,10 +125,6 @@ public abstract class Dish extends Food implements Swappable {
                     animF.switchState((AnimationState.BASE));
                 }
             }
-        }
-        @Override
-        public boolean isPickingUp(AnimationState curr) {
-            return curr == AnimationState.BASE;
         }
     }
 

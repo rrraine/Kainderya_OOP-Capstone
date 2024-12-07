@@ -201,6 +201,12 @@ public class GamePanel extends JPanel implements Runnable {
                     n.update();
                 }
             }
+
+            for (SuperObject o : obj) {
+                if (o != null) {
+                    o.update();
+                }
+            }
         }
     }
 

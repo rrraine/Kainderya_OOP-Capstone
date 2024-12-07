@@ -29,4 +29,5 @@ public abstract class Food extends SuperObject implements Importable, Pickupable
         ingredients.add(i);
     }
     public abstract void prepare();
+
 }

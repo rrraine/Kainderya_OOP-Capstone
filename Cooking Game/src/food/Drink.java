@@ -30,7 +30,7 @@ public abstract class Drink extends Food {
         }
 
         @Override
-        public void interact(Entity en, AnimationFactory animF, Pickupable obj) {
+        public void interact(Entity en, AnimationFactory animF, Pickupable obj, int objIndex) {
             if (en instanceof Player) {
                 if (animF.getCurrentState() == AnimationState.BASE) {
                     animF.switchState(AnimationState.CARRY_WATER);
@@ -39,10 +39,6 @@ public abstract class Drink extends Food {
                     animF.switchState((AnimationState.BASE));
                 }
             }
-        }
-        @Override
-        public boolean isPickingUp(AnimationState curr) {
-            return curr == AnimationState.BASE;
         }
     }
 
@@ -54,7 +50,7 @@ public abstract class Drink extends Food {
         }
 
         @Override
-        public void interact(Entity en, AnimationFactory animF, Pickupable obj) {
+        public void interact(Entity en, AnimationFactory animF, Pickupable obj, int objIndex) {
             if (en instanceof Player) {
                 if (animF.getCurrentState() == AnimationState.BASE) {
                     animF.switchState(AnimationState.CARRY_COKE);
@@ -63,10 +59,6 @@ public abstract class Drink extends Food {
                     animF.switchState((AnimationState.BASE));
                 }
             }
-        }
-        @Override
-        public boolean isPickingUp(AnimationState curr) {
-            return curr == AnimationState.BASE;
         }
     }
 }

@@ -31,7 +31,7 @@ public class FoodBuilder {
     public Pickupable build(Pickupable onHand, SuperObject interactedItem) {
 
         // RICE COOKER - DONE
-        if (interactedItem instanceof WorkStation.leftRiceCooker) {
+        if (interactedItem instanceof WorkStation.RiceCooker) {
 
             // RICE COOKER STATES
             if (!((WorkStation) interactedItem).isOccupied()) {
@@ -98,8 +98,7 @@ public class FoodBuilder {
 
         // CHOPPING BOARD
         if (interactedItem instanceof Ingredients.Onion) {
-
-            //
+            
         }
 
         // STOVE
@@ -121,7 +120,7 @@ public class FoodBuilder {
         }
 
         // SINK
-        if (interactedItem instanceof WorkStation.centerSink) {
+        if (interactedItem instanceof WorkStation.Sink) {
 
         }
 
