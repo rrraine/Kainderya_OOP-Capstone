@@ -67,7 +67,7 @@ public class GamePanel extends JPanel implements Runnable {
     ShopManager shopManager = new ShopManager(this);
 
     private final int maxCustomers = 9;
-    private final int maxRoamers = 10;
+    private final int maxRoamers = 15;
 
 
     // GAME STATE
