@@ -431,7 +431,7 @@ public abstract class WorkStation extends Station implements Drawable {
     public static class TrashCan extends Item implements Importable {
         public TrashCan(GamePanel gp) {
             super(gp, "Trashcan");
-            image = importImage("/objects/item/kitchenArea/rightCounter", gp.tileSize);
+            image = importImage("/objects/item/kitchenArea/trashcan", gp.tileSize);
             setDefaultCollisions(true, 20, 0, 46, 44);
         }
 

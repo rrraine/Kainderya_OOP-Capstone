@@ -87,14 +87,17 @@ public class ShopManager {
             if (customer != null) {
                 if (customer.isMovingToSeat()) {
                     customer.moveToSeat(); // Update their position
-                } else if (customer.isSeated() && customer.reducePatienceTimer()) {
-                    if (customer.reducePatienceTimer()) {
-                        seatedCustomers[i] = null; // Seat is now available
-                        customer.leaveSeat(); // Customer leaves
-                        System.out.println("Customer left seat at: " + seatLocations[i]);
+                } else if (customer.isSeated()) {
+                    customer.reducePatienceTimer();
 
-                        // Generate a new customer to fill the seat
-                        generateNewCustomerForSeat(i);
+                    if (customer.getPatienceTimer() <= 0 && !customer.isOrderReceived()) {
+                        // Deduct points for not receiving order on time
+                        System.out.println("Customer at seat " + seatLocations[i] + " did not receive their" + customer.getOrder() + "order on time.");
+
+                        // Customer reorders
+                        // customer.reorder();
+                        System.out.println("Customer at seat " + seatLocations[i] + " is reordering " + customer.getOrder());
+
                     }
                 }
             }
@@ -143,16 +146,7 @@ public class ShopManager {
         return new NPC_FreeRoaming(gp, randomNPC);
     }
 
-    // Helper method to generate a new customer for the available seat
-    private void generateNewCustomerForSeat(int seatIndex) {
-        if (!waitingQueue.isEmpty()) {
-            NPC_Customer newCustomer = waitingQueue.poll();
-            // Ensure the new customer gets the correct seat
-            newCustomer.assignSeat(seatLocations[seatIndex]);
-            seatedCustomers[seatIndex] = newCustomer;
-            System.out.println("New customer assigned to seat " + seatLocations[seatIndex]);
-        }
-    }
+
 
     // GETTERS AND SETTERS --------------------------------------
 
