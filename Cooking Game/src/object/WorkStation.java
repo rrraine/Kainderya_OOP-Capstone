@@ -211,7 +211,7 @@ public abstract class WorkStation extends Station implements Drawable {
         }
     }
 
-    ///  TODO STOVE
+    ///  TODO STOVE PUT ALL STOVE AS SUBCLASSES
     public static class leftStove extends WorkStation implements Importable  {
         // INTERACTION ONLY WORKS WHEN ANIMATION STATE IS CARRYING COOKABLE INGREDIENTS -> MUST CARRY CLEAN PLATE -> THEN CARRY COOKED PRODUCT
 
@@ -453,4 +453,31 @@ public abstract class WorkStation extends Station implements Drawable {
     }
     */
 
+    public boolean isCooked() {
+        return isCooked;
+    }
+
+    public void setCooked(boolean cooked) {
+        isCooked = cooked;
+    }
+
+    public boolean isOccupied() {
+        return isOccupied;
+    }
+
+    public void setOccupied(boolean occupied) {
+        isOccupied = occupied;
+    }
+
+    public boolean isPlayerLocked() {
+        return playerLocked;
+    }
+
+    public void setPlayerLocked(boolean playerLocked) {
+        this.playerLocked = playerLocked;
+    }
+
+    public int getProcessTime() {
+        return processTime;
+    }
 }

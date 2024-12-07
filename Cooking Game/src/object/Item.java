@@ -96,25 +96,16 @@ public abstract class Item extends SuperObject {
 
     public static class Plates extends Item implements Importable, Pickupable {
 
-        public static class plateInstances {
+        public static class PlateInstance {
             String label;
             BufferedImage image;
 
-            public plateInstances(String label, BufferedImage image) {
+            public PlateInstance(String label, BufferedImage image) {
                 this.label = label;
                 this.image = image;
             }
         }
-
-        public HashMap<String, plateInstances> centeredPlates;
-
-        // CENTERED PLATES
-        BufferedImage burnt, dirty;
-        BufferedImage noMain; // general rice + egg
-        BufferedImage cookedCBeef, cookedEgg, cookedRice, cookedSpam, cookedTapa, onlyOnion; // mga ingredients
-        BufferedImage cornsilog, cornsilogNoEgg, cornsilogNoRice; // conrsilog instances
-        BufferedImage spamsilog, spamsilogNoEgg, spamsilogNoRice; // spamsilog instances
-        BufferedImage tapsilog, tapsilogNoEgg, tapsilogNoRice; // tapsilog instances
+        public HashMap<String, PlateInstance> plateVersions;
 
         // LOWERED PLATES
 
@@ -122,13 +113,20 @@ public abstract class Item extends SuperObject {
             super(gp, "Plates");
             setDefaultCollisions(false, -8, -8, 80, 80);
 
-            centeredPlates = new HashMap<>();
+            plateVersions = new HashMap<>();
 
-            // TODO IMPORT PLATE INSTANCES
-            centeredPlates.put("diningPlate", new plateInstances("diningPlate", importImage("/objects/item/kitchenTools/plate", gp.tileSize)));
-            centeredPlates.put("counterPlate",new plateInstances("diningPlate", importImage("/objects/item/kitchenTools/plateCounter", gp.tileSize)));
+            // TODO IMPORT PLATE IMAGE INSTANCES
+            plateVersions.put("diningPlate", new PlateInstance("diningPlate", importImage("/objects/item/kitchenTools/plate", gp.tileSize)));
+            plateVersions.put("counterPlate", new PlateInstance("counterPlate", importImage("/objects/item/kitchenTools/plateCounter", gp.tileSize)));
+
+            plateVersions.put("dirtyPlate", new PlateInstance("dirtyPlate", importImage("TODO PATH", gp.tileSize)));
+            plateVersions.put("noMain", new PlateInstance("noMain", importImage("TODO PATH", gp.tileSize)));
+
+            plateVersions.put("cookedEggOnly", new PlateInstance("cookedEggOnly", importImage("TODO PATH", gp.tileSize)));
+            plateVersions.put("cookedRiceOnly", new PlateInstance("cookedRiceOnly", importImage("TODO PATH", gp.tileSize)));
+
             // default
-            image = centeredPlates.get("counterPlate").image;
+            image = plateVersions.get("counterPlate").image;
         }
 
         @Override
@@ -157,8 +155,8 @@ public abstract class Item extends SuperObject {
 
         public void CounterToDiningPlate(boolean change) {
 
-            if (change) { image = centeredPlates.get("diningPlate").image; }
-            else if (image != centeredPlates.get("counterPlate").image) { image = centeredPlates.get("counterPlate").image; }
+            if (change) { image = plateVersions.get("diningPlate").image; }
+            else if (image != plateVersions.get("counterPlate").image) { image = plateVersions.get("counterPlate").image; }
         }
     }
 

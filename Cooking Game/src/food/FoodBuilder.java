@@ -3,6 +3,9 @@ package food;
 import interfaces.Pickupable;
 import main.Asset;
 import main.GamePanel;
+import object.Item;
+import object.SuperObject;
+import object.WorkStation;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,36 +29,37 @@ public class FoodBuilder {
         return instance;
     }
 
-    public Asset build(Pickupable onHand, Asset interactedItem) {
+    public Pickupable build(Pickupable onHand, SuperObject interactedItem) {
 
+        if (interactedItem instanceof WorkStation.leftRiceCooker) {
 
+            // COOK RAW RICE
+            if (!((WorkStation) interactedItem).isOccupied()) {
+                return null;
+            }
+            else {
 
-
-        if (ingredients.size() != 3) {
-            throw new IllegalArgumentException("3 ingredients required");
+                if (onHand instanceof Item.Plates) {
+                    // TODO
+                }
+            }
         }
 
-        // TODO IDENTIFY WHAT DISH
-        Dish dish = null;
+        if (interactedItem instanceof WorkStation.Stove) {
 
-        switch (foodName) {
-            case "Tapsilog":
-                dish = new Dish.Tapsilog(gp);
-                break;
-            case "Spamsilog":
-                dish = new Dish.Spamsilog(gp);
-                break;
-            case "Cornsilog":
-                dish = new Dish.Cornsilog(gp);
-                break;
-            default:
-                throw new IllegalArgumentException("3 ingredients required");
         }
 
-        for (Ingredients ingredient : ingredients) {
-            dish.addIngredient(ingredient);
+        if (interactedItem instanceof Item.Pan) {
+
         }
 
-        return dish;
+        if (interactedItem instanceof WorkStation.centerSink) {
+
+        }
+
+        // TODO TRASH CAN
+        //if (interactedItem instanceof WorkStation.TrashCan) {}
+
+        return null;
     }
 }
