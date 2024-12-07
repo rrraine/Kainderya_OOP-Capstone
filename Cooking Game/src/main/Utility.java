@@ -131,7 +131,7 @@ public class Utility {
                 addItem(65, obj, new Item.Plates(gp), tileSize, 12, 4);
 
                 addItem(66, obj, new WorkStation.Stove(gp), tileSize, 6, 8);
-                addItem(67, obj, new WorkStation.TrashCan(gp), tileSize, 6, 10);
+               // addItem(67, obj, new WorkStation.TrashCan(gp), tileSize, 6, 10);
 
             } catch (NullPointerException e) {
                 System.err.println("Accessing null element in (List<SuperObject> obj): " + e.getMessage());
