@@ -124,14 +124,14 @@ public abstract class Item extends SuperObject {
             plateVersions = new HashMap<>();
 
             // TODO IMPORT PLATE IMAGE INSTANCES
-            plateVersions.put("diningPlate", importImage("/objects/item/kitchenTools/plate", gp.tileSize));
-            plateVersions.put("counterPlate", importImage("/objects/item/kitchenTools/plateCounter", gp.tileSize));
+            plateVersions.put("diningPlate", importImage("/objects/item/plate/diningplate", gp.tileSize));
+            plateVersions.put("counterPlate", importImage("/objects/item/plate/counterPlate", gp.tileSize));
 
-            plateVersions.put("dirtyPlate", importImage("TODO PATH", gp.tileSize));
-            plateVersions.put("noMain", importImage("TODO PATH", gp.tileSize));
+            plateVersions.put("dirtyPlate", importImage("/objects/item/plate/dirtyPlate", gp.tileSize));
+            plateVersions.put("noMain", importImage("/objects/item/plate/noMain", gp.tileSize));
 
-            plateVersions.put("cookedEggOnly", importImage("TODO PATH", gp.tileSize));
-            plateVersions.put("cookedRiceOnly", importImage("TODO PATH", gp.tileSize));
+            plateVersions.put("cookedEggOnly", importImage("/objects/item/plate/cookedEggOnly", gp.tileSize));
+            plateVersions.put("cookedRiceOnly", importImage("/objects/item/plate/cookedRiceOnly", gp.tileSize));
 
             // default
             image = plateVersions.get("counterPlate");
