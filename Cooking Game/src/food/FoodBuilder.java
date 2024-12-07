@@ -208,7 +208,7 @@ public class FoodBuilder {
 
         }
 
-        // SINK
+        // SINK - DONE
         if (interactedItem instanceof WorkStation.Sink) {
             if(onHand instanceof Item.Plates){
                 if (((Item.Plates) onHand).checkCurrentImage("dirtyPlate", onHand)) {
@@ -218,7 +218,7 @@ public class FoodBuilder {
             }
         }
 
-        // TODO TRASH CAN
+        // TRASH CAN - DONE
         if (interactedItem instanceof WorkStation.TrashCan) {
 
             if(onHand instanceof Item.Plates){
