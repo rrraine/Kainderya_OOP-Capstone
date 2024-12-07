@@ -74,6 +74,7 @@ public abstract class Item extends SuperObject {
         public boolean isCooked;
         public WorkStation surface;
 
+
         public Pan (GamePanel gp) {
             super(gp, "Pan");
             image = importImage("/objects/item/kitchenTools/pan", gp.tileSize);
@@ -108,6 +109,78 @@ public abstract class Item extends SuperObject {
                 }
             }
         }
+
+        public static class panWithEgg extends Pan{
+
+
+            public panWithEgg(GamePanel gp) {
+                super(gp);
+                image = importImage("/objects/item/pan/egg", gp.tileSize);
+                setDefaultCollisions(false, -8, -8, 80, 80);
+
+                isCooked = false;
+            }
+        }
+
+        public static class panWithCbeef extends Pan{
+
+            public panWithCbeef(GamePanel gp) {
+                super(gp);
+                image = importImage("/objects/item/pan/cbeef", gp.tileSize);
+                setDefaultCollisions(false, -8, -8, 80, 80);
+
+                isCooked = false;
+            }
+        }
+
+        public static class panWithTapa extends Pan{
+
+
+            public panWithTapa(GamePanel gp) {
+                super(gp);
+                image = importImage("/objects/item/pan/tapa", gp.tileSize);
+                setDefaultCollisions(false, -8, -8, 80, 80);
+
+                isCooked = false;
+            }
+        }
+
+        public static class panWithSpam extends Pan{
+
+
+            public panWithSpam(GamePanel gp) {
+                super(gp);
+                image = importImage("/objects/item/pan/spam", gp.tileSize);
+                setDefaultCollisions(false, -8, -8, 80, 80);
+
+                isCooked = false;
+            }
+        }
+
+        public static class panWithOnion extends Pan{
+
+
+            public panWithOnion(GamePanel gp) {
+                super(gp);
+                image = importImage("/objects/item/pan/onion", gp.tileSize);
+                setDefaultCollisions(false, -8, -8, 80, 80);
+
+                isCooked = false;
+            }
+        }
+
+        public static class panWithOnionAndCbeef extends Pan{
+
+
+            public panWithOnionAndCbeef(GamePanel gp) {
+                super(gp);
+                image = importImage("/objects/item/pan/onionCbeef", gp.tileSize);
+                setDefaultCollisions(false, -8, -8, 80, 80);
+
+                isCooked = false;
+            }
+        }
+
 
     }
 
