@@ -1,14 +1,14 @@
 package entity;
 
 import main.GamePanel;
-
+import game.Score;
 import java.awt.*;
 import java.util.Random;
 
 public class NPC_Customer extends NPC {
 
-    private String mealOrder;
-    private String drinkOrder;
+    private String order;
+    // private String drinkOrder;
     private boolean orderReceived; // Tracks if the order is served
     private int patienceTimer;
     private boolean isSeated;
@@ -16,27 +16,31 @@ public class NPC_Customer extends NPC {
     private Point seatLocation; // Unified field name
     private Random random;
     private NPC npcType;
+ //    private int score;
+    private Score score;
 
     public NPC_Customer(GamePanel gp, NPC npcType) {
         super(gp, 1, "idle");
-        generateOrder();
+        //generateOrder();
         this.npcType = npcType;
-
+        score = new Score();
         getAvatar();
-        patienceTimer = 30 * 60; // 30 seconds at 60 FPS
+        patienceTimer = 30 ; // 30 seconds at 60 FPS
         isSeated = false;
         isMovingToSeat = false;
         seatLocation = null;
         orderReceived = false;
+
+        // score = 50;
     }
 
     private void generateOrder() {
         Random rand = new Random();
-        String[] meals = {"Tapsilog", "CornedSilog", "Spamsilog"};
-        String[] drinks = {"Water", "Cola"};
+        String[] mealsAndDrinks = {"Tapsilog", "CornedSilog", "Spamsilog", "Water", "Cola"};
+        //String[] drinks = {"Water", "Cola"};
 
-        mealOrder = meals[rand.nextInt(meals.length)];
-        drinkOrder = drinks[rand.nextInt(drinks.length)];
+        order = mealsAndDrinks[rand.nextInt(mealsAndDrinks.length)];
+        // drinkOrder = drinks[rand.nextInt(drinks.length)];
     }
 
     public void assignSeat(Point location) {
@@ -73,39 +77,47 @@ public class NPC_Customer extends NPC {
         patienceTimer = 30 * 60; // Reset patience timer to 30 seconds
     }
 
-    public boolean reducePatienceTimer() {
+    public void reducePatienceTimer() {
         if (isSeated && patienceTimer > 0) {
             patienceTimer--; // Reduce patience only if seated
-            return false;    // Still has patience left
+            if (patienceTimer <= 0 && !orderReceived) {
+                score.deductScore(5);
+                System.out.println("Customer at (" + seatLocation.x + "," + seatLocation.y + "): " + "did not received their order. 5 points deducted. New score: " + score.getTotalScore());
+            }
+
         }
-        return patienceTimer <= 0; // No patience left
     }
 
     private void checkPatience() {
-        if (isSeated) {
-            if (patienceTimer > 0) {
-                patienceTimer--; // Reduce patience if the customer is seated
-            } else {
-                // Patience has run out; customer leaves without receiving order
-                leaveSeat();
-                System.out.println("Customer left due to impatience.");
-            }
+        if (patienceTimer <= 0 && !orderReceived) {
+            System.out.println("Customer at (" + seatLocation.x + "," + seatLocation.y + "): " + " is impatient and their patience ran out.");
+            score.deductScore(5);
         }
     }
 
 
-
-    public void leaveSeat() {
-
-        isSeated = false;
-        isMovingToSeat = false; // Stop movement
-        seatLocation = null;   // Reset the seat
-        if (hasReceivedOrder()) {
-            System.out.println("Customer left happily after receiving their order.");
-        } else {
-            System.out.println("Customer left angrily due to impatience.");
-        }
+    public void reorder(){
+        // System.out.println("Customer is reordering.");
+        generateOrder();
+        System.out.println("Customer at (" + seatLocation.x + "," + seatLocation.y + "): reordered " + order);
+        patienceTimer = 30 ;
+        orderReceived = false;
     }
+
+    public void servingOrder(){
+        orderReceived = true;
+        System.out.println("Customer at (" + seatLocation.x + "," + seatLocation.y + "): " + " received order: " + order);
+        if (order.contains("Tapsilog") || order.contains("CornedSilog") || order.contains("Spamsilog")) {
+            score.addScore(20);
+        } else if (order.contains("Water") || order.contains("Cola")) {
+            score.addScore(15);
+        }
+
+        score.addScore((patienceTimer > 0 && patienceTimer < 15) ? 5 : 10);
+
+    }
+
+
 
     private boolean hasReceivedOrder() {
         return orderReceived;
@@ -114,17 +126,36 @@ public class NPC_Customer extends NPC {
     @Override
     public void setNPCAction() {
         if (isMovingToSeat) {
+            System.out.println("Customer is moving to their seat.");
             moveToSeat();
         } else if (isSeated) {
+            generateOrder();
+            if (!orderReceived) {
+                System.out.println("Customer at (" + seatLocation.x + "," + seatLocation.y + "): " + " is seated and waiting for their order. Patience Timer: " + patienceTimer);
+                System.out.println("Customer at (" + seatLocation.x + "," + seatLocation.y + "): " + "ordered " + order);
+            }
+            System.out.println(score.getTotalScore());
             checkPatience();
         } else {
+            System.out.println("Customer is idle, waiting for seat assignment.");
             direction = "idle"; // Default behavior
         }
     }
 
+
     @Override
     public void update() {
+
         setNPCAction();
+
+        if (isSeated && patienceTimer > 0) {
+            patienceTimer--;
+            if (patienceTimer <= 0 && !orderReceived) {
+                score.deductScore(5);
+                System.out.println("Customer at (" + seatLocation.x + "," + seatLocation.y + "): " + " did not receive their order. 5 points deducted. New score: " + score.getTotalScore());
+                reorder();
+            }
+        }
 
         // Trigger frame updates for animation
         spriteCounter++;
@@ -179,4 +210,30 @@ public class NPC_Customer extends NPC {
     public void setSeated(boolean seated) {
         isSeated = seated;
     }
+
+    public boolean isOrderReceived() {
+        return orderReceived;
+    }
+
+    public int getPatienceTimer() {
+        return patienceTimer;
+    }
+
+    public String getOrder() {
+        return order;
+    }
+
+    /*public void leaveSeat() {
+
+        isSeated = false;
+        isMovingToSeat = false; // Stop movement
+        seatLocation = null;   // Reset the seat
+        if (hasReceivedOrder()) {
+            System.out.println("Customer left happily after receiving their order.");
+        } else {
+            System.out.println("Customer left angrily due to impatience.");
+        }
+    }
+
+     */
 }
