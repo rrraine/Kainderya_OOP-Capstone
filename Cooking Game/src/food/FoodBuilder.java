@@ -96,6 +96,12 @@ public class FoodBuilder {
             }
         }
 
+        // CHOPPING BOARD
+        if (interactedItem instanceof Ingredients.Onion) {
+
+            //
+        }
+
         // STOVE
         if (interactedItem instanceof WorkStation.Stove) {
 

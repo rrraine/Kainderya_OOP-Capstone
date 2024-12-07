@@ -154,6 +154,9 @@ public abstract class WorkStation extends Station implements Drawable {
                 // RETRIEVE CHOPPED ONIONS
                 if (animF.getCurrentState() == AnimationState.CARRY_PLATE && isOccupied) {
                     // TODO GET ONION ON PLATE
+
+                    gp.player.setItemOnHandCreate(gp.fBuilder.build(obj, this));
+                    isOccupied = false;
                 }
             }
         }
