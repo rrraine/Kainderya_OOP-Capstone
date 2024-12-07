@@ -143,16 +143,7 @@ public class ShopManager {
         return new NPC_FreeRoaming(gp, randomNPC);
     }
 
-    // Helper method to generate a new customer for the available seat
-    private void generateNewCustomerForSeat(int seatIndex) {
-        if (!waitingQueue.isEmpty()) {
-            NPC_Customer newCustomer = waitingQueue.poll();
-            // Ensure the new customer gets the correct seat
-            newCustomer.assignSeat(seatLocations[seatIndex]);
-            seatedCustomers[seatIndex] = newCustomer;
-            System.out.println("New customer assigned to seat " + seatLocations[seatIndex]);
-        }
-    }
+
 
     // GETTERS AND SETTERS --------------------------------------
 
