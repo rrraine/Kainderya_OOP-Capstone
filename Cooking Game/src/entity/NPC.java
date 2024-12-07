@@ -87,7 +87,6 @@ public abstract class NPC extends Entity {
     public abstract void setNPCAction();
 
 
-
     // INNER STATIC CLASSES ----------------------------------------
 
     public static class StudentFemale extends NPC {
@@ -111,6 +110,64 @@ public abstract class NPC extends Entity {
             left2 = setAvatar("npc","studentFemale", "left2");
             right1 = setAvatar("npc","studentFemale", "right1");
             right2 = setAvatar("npc","studentFemale", "right2");
+        }
+
+        // FROM CLASS: NPC ----------------------------------------
+        @Override
+        public void setNPCAction() {
+            // NPC RANDOM BEHAVIOR
+
+            actionInterval++;
+
+            if (actionInterval == 120) {
+
+                Random random = new Random();
+                int i = random.nextInt(125) +1;
+
+                if (i <= 25) {
+                    direction = "up";
+                    lastDirection = lastRecordedDirection.UP;
+                }
+                else if (i <= 50) {
+                    direction = "down";
+                    lastDirection = lastRecordedDirection.DOWN;
+                }
+                else if (i <= 75) {
+                    direction = "left";
+                }
+                else if (i <= 100){
+                    direction = "right";
+                }
+                else {
+                    direction = "idle";
+                }
+
+                actionInterval = 0;
+            }
+
+        }
+    }
+    public static class StudentFemale2 extends NPC {
+
+        public StudentFemale2 (GamePanel gp) {
+            super(gp, 1, "idle");
+            getAvatar();
+        }
+
+        // FROM CLASS: ENTITY ----------------------------------------
+        @Override
+        void getAvatar() {
+
+            idle1 = setAvatar("npc","studentFemale2", "idle");
+            idle2 = setAvatar("npc","studentFemale2", "idleUp");
+            up1 = setAvatar("npc","studentFemale2", "up1");
+            up2 = setAvatar("npc","studentFemale2", "up2");
+            down1 = setAvatar("npc","studentFemale2", "down1");
+            down2 = setAvatar("npc","studentFemale2", "down2");
+            left1 = setAvatar("npc","studentFemale2", "left1");
+            left2 = setAvatar("npc","studentFemale2", "left2");
+            right1 = setAvatar("npc","studentFemale2", "right1");
+            right2 = setAvatar("npc","studentFemale2", "right2");
         }
 
         // FROM CLASS: NPC ----------------------------------------
@@ -210,6 +267,65 @@ public abstract class NPC extends Entity {
         }
     }
 
+    public static class StudentMale2 extends NPC {
+
+        public StudentMale2 (GamePanel gp) {
+            super(gp, 1, "idle");
+            getAvatar();
+        }
+
+        // FROM CLASS: ENTITY ----------------------------------------
+        @Override
+        void getAvatar() {
+
+            idle1 = setAvatar("npc","studentMale2", "idle");
+            idle2 = setAvatar("npc","studentMale2", "idleUp");
+            up1 = setAvatar("npc","studentMale2", "up1");
+            up2 = setAvatar("npc","studentMale2", "up2");
+            down1 = setAvatar("npc","studentMale2", "down1");
+            down2 = setAvatar("npc","studentMale2", "down2");
+            left1 = setAvatar("npc","studentMale2", "left1");
+            left2 = setAvatar("npc","studentMale2", "left2");
+            right1 = setAvatar("npc","studentMale2", "right1");
+            right2 = setAvatar("npc","studentMale2", "right2");
+        }
+
+        // FROM CLASS: NPC ----------------------------------------
+        @Override
+        public void setNPCAction() {
+            // NPC RANDOM BEHAVIOR
+
+            actionInterval++;
+
+            if (actionInterval == 120) {
+
+                Random random = new Random();
+                int i = random.nextInt(125) +1;
+
+                if (i <= 25) {
+                    direction = "up";
+                    lastDirection = lastRecordedDirection.UP;
+                }
+                else if (i <= 50) {
+                    direction = "down";
+                    lastDirection = lastRecordedDirection.DOWN;
+                }
+                else if (i <= 75) {
+                    direction = "left";
+                }
+                else if (i <= 100){
+                    direction = "right";
+                }
+                else {
+                    direction = "idle";
+                }
+
+                actionInterval = 0;
+            }
+
+        }
+    }
+
     public static class Tambay1 extends NPC {
 
         public Tambay1 (GamePanel gp) {
@@ -231,6 +347,65 @@ public abstract class NPC extends Entity {
             left2 = setAvatar("npc","tambay1", "left2");
             right1 = setAvatar("npc","tambay1", "right1");
             right2 = setAvatar("npc","tambay1", "right2");
+        }
+
+        // FROM CLASS: NPC ----------------------------------------
+        @Override
+        public void setNPCAction() {
+            // NPC RANDOM BEHAVIOR
+
+            actionInterval++;
+
+            if (actionInterval == 120) {
+
+                Random random = new Random();
+                int i = random.nextInt(125) +1;
+
+                if (i <= 25) {
+                    direction = "up";
+                    lastDirection = lastRecordedDirection.UP;
+                }
+                else if (i <= 50) {
+                    direction = "down";
+                    lastDirection = lastRecordedDirection.DOWN;
+                }
+                else if (i <= 75) {
+                    direction = "left";
+                }
+                else if (i <= 100){
+                    direction = "right";
+                }
+                else {
+                    direction = "idle";
+                }
+
+                actionInterval = 0;
+            }
+
+        }
+    }
+
+    public static class Tambay2 extends NPC {
+
+        public Tambay2 (GamePanel gp) {
+            super(gp, 1, "idle");
+            getAvatar();
+        }
+
+        // FROM CLASS: ENTITY ----------------------------------------
+        @Override
+        void getAvatar() {
+
+            idle1 = setAvatar("npc","tambay2", "idle");
+            idle2 = setAvatar("npc","tambay2", "idleUp");
+            up1 = setAvatar("npc","tambay2", "up1");
+            up2 = setAvatar("npc","tambay2", "up2");
+            down1 = setAvatar("npc","tambay2", "down1");
+            down2 = setAvatar("npc","tambay2", "down2");
+            left1 = setAvatar("npc","tambay2", "left1");
+            left2 = setAvatar("npc","tambay2", "left2");
+            right1 = setAvatar("npc","tambay2", "right1");
+            right2 = setAvatar("npc","tambay2", "right2");
         }
 
         // FROM CLASS: NPC ----------------------------------------
@@ -329,15 +504,64 @@ public abstract class NPC extends Entity {
         }
     }
 
-    //@Override
-    public int getDefaultX() {
-        Random rand = new Random();
-        return rand.nextInt(24);  // Generate a random X position within a valid range
+    public static class civilianFemale2 extends NPC {
+
+        public civilianFemale2 (GamePanel gp) {
+            super(gp, 1, "idle");
+            getAvatar();
+        }
+
+        // FROM CLASS: ENTITY ----------------------------------------
+        @Override
+        void getAvatar() {
+
+            idle1 = setAvatar("npc","civilianFem2", "idle");
+            idle2 = setAvatar("npc","civilianFem2", "idleUp");
+            up1 = setAvatar("npc","civilianFem2", "up1");
+            up2 = setAvatar("npc","civilianFem2", "up2");
+            down1 = setAvatar("npc","civilianFem2", "down1");
+            down2 = setAvatar("npc","civilianFem2", "down2");
+            left1 = setAvatar("npc","civilianFem2", "left1");
+            left2 = setAvatar("npc","civilianFem2", "left2");
+            right1 = setAvatar("npc","civilianFem2", "right1");
+            right2 = setAvatar("npc","civilianFem2", "right2");
+        }
+
+        // FROM CLASS: NPC ----------------------------------------
+
+        @Override
+        public void setNPCAction() {
+            // NPC RANDOM BEHAVIOR
+
+            actionInterval++;
+
+            if (actionInterval == 120) {
+
+                Random random = new Random();
+                int i = random.nextInt(125) +1;
+
+                if (i <= 25) {
+                    direction = "up";
+                    lastDirection = lastRecordedDirection.UP;
+                }
+                else if (i <= 50) {
+                    direction = "down";
+                    lastDirection = lastRecordedDirection.DOWN;
+                }
+                else if (i <= 75) {
+                    direction = "left";
+                }
+                else if (i <= 100){
+                    direction = "right";
+                }
+                else {
+                    direction = "idle";
+                }
+
+                actionInterval = 0;
+            }
+
+        }
     }
 
-    // @Override
-    public int getDefaultY() {
-        Random rand = new Random();
-        return rand.nextInt(14);  // Generate a random Y position within a valid range
-    }
 }
