@@ -220,15 +220,23 @@ public class FoodBuilder {
 
         // TODO TRASH CAN
         if (interactedItem instanceof WorkStation.TrashCan) {
+
             if(onHand instanceof Item.Plates){
-                if (((Item.Plates) onHand).checkCurrentImage("dirtyPlate", onHand)) {
+                if (!((Item.Plates) onHand).checkCurrentImage("counterPlate", onHand)) {
                     ((Item.Plates) onHand).swapImage("counterPlate"); // SWAP IMAGE
                     return onHand; // OUTPUT
                 }
-            }else if(onHand instanceof Ingredients){
+            }
+            else if (onHand instanceof Item.Pan) {
+                if (!((Item.Pan) onHand).checkCurrentImage("pan", onHand)) {
+                    ((Item.Pan) onHand).swapImage("pan"); // SWAP IMAGE
+                    return onHand; // OUTPUT
+                }
+            }
+            else if(onHand instanceof Ingredients){
+                gp.player.setItemOnHandDestroy();
                 return null;
             }
-
         }
 
         return onHand;

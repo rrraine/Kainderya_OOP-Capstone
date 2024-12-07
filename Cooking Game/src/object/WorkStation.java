@@ -396,13 +396,12 @@ public abstract class WorkStation extends Station implements Drawable {
             setDefaultCollisions(true, 20, 0, 46, 44);
         }
 
-        public void interact(Entity en, AnimationFactory animF, Pickupable obj) {
+        @Override
+        public void interact(Entity en, AnimationFactory animF, Pickupable obj, int objIndex) {
+
             if(en instanceof Player){
-                if(animF.getCurrentState() != AnimationState.BASE){
-                    animF.switchState((AnimationState.BASE));
-                    gp.player.setItemOnHandDestroy();
-                }
-                //animF.switchState((AnimationState.CARRY_PAN));
+
+                gp.player.setItemOnHandCreate(gp.fBuilder.build(obj, this, animF));
             }
         }
     }

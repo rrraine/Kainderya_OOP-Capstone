@@ -69,18 +69,34 @@ public abstract class Item extends SuperObject {
     }
 
     // kitchenTools -------------------------------
-    public static class Pan extends Item implements Importable, Pickupable {
+    public static class Pan extends Item implements Importable, Pickupable, Swappable {
 
         public boolean isCooked;
         public WorkStation surface;
 
+        public HashMap<String, BufferedImage> panVersions;
 
         public Pan (GamePanel gp) {
             super(gp, "Pan");
-            image = importImage("/objects/item/kitchenTools/pan", gp.tileSize);
             setDefaultCollisions(false, -8, -8, 80, 80);
 
             isCooked = false;
+
+            panVersions = new HashMap<>();
+
+            // TODO IMPORT PLATE IMAGE INSTANCES
+            panVersions.put("pan", importImage("/objects/item/pan/pan", gp.tileSize));
+            panVersions.put("burntPan", importImage("/objects/item/pan/burnt", gp.tileSize));
+            panVersions.put("cBeefPan", importImage("/objects/item/pan/cbeef", gp.tileSize));
+
+            panVersions.put("eggPan", importImage("/objects/item/pan/egg", gp.tileSize));
+            panVersions.put("onionPan", importImage("/objects/item/pan/onion", gp.tileSize));
+
+            panVersions.put("onionCBeefPan", importImage("/objects/item/pan/onionCbeef", gp.tileSize));
+            panVersions.put("spamPan", importImage("/objects/item/pan/spam", gp.tileSize));
+            panVersions.put("tapa", importImage("/objects/item/pan/tapa", gp.tileSize));
+
+            image = panVersions.get("pan");
         }
 
         @Override
@@ -111,75 +127,18 @@ public abstract class Item extends SuperObject {
             }
         }
 
-        public static class panWithEgg extends Pan{
 
-
-            public panWithEgg(GamePanel gp) {
-                super(gp);
-                image = importImage("/objects/item/pan/egg", gp.tileSize);
-                setDefaultCollisions(false, -8, -8, 80, 80);
-
-                isCooked = false;
-            }
+        @Override
+        public void swapImage(String key) {
+            image = panVersions.get(key);
         }
+        @Override
+        public boolean checkCurrentImage(String key, Pickupable obj) {
 
-        public static class panWithCbeef extends Pan{
-
-            public panWithCbeef(GamePanel gp) {
-                super(gp);
-                image = importImage("/objects/item/pan/cbeef", gp.tileSize);
-                setDefaultCollisions(false, -8, -8, 80, 80);
-
-                isCooked = false;
+            if (obj instanceof Item) {
+                return (((Item)obj).image == panVersions.get(key));
             }
-        }
-
-        public static class panWithTapa extends Pan{
-
-
-            public panWithTapa(GamePanel gp) {
-                super(gp);
-                image = importImage("/objects/item/pan/tapa", gp.tileSize);
-                setDefaultCollisions(false, -8, -8, 80, 80);
-
-                isCooked = false;
-            }
-        }
-
-        public static class panWithSpam extends Pan{
-
-
-            public panWithSpam(GamePanel gp) {
-                super(gp);
-                image = importImage("/objects/item/pan/spam", gp.tileSize);
-                setDefaultCollisions(false, -8, -8, 80, 80);
-
-                isCooked = false;
-            }
-        }
-
-        public static class panWithOnion extends Pan{
-
-
-            public panWithOnion(GamePanel gp) {
-                super(gp);
-                image = importImage("/objects/item/pan/onion", gp.tileSize);
-                setDefaultCollisions(false, -8, -8, 80, 80);
-
-                isCooked = false;
-            }
-        }
-
-        public static class panWithOnionAndCbeef extends Pan{
-
-
-            public panWithOnionAndCbeef(GamePanel gp) {
-                super(gp);
-                image = importImage("/objects/item/pan/onionCbeef", gp.tileSize);
-                setDefaultCollisions(false, -8, -8, 80, 80);
-
-                isCooked = false;
-            }
+            return false;
         }
 
 
