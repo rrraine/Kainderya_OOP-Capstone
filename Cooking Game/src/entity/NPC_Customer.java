@@ -1,9 +1,9 @@
 package entity;
 
 import animation.AnimationFactory;
-import interfaces.Drawable;
 import interfaces.Interactable;
 import interfaces.Pickupable;
+import interfaces.Servable;
 import main.GamePanel;
 import game.Score;
 import main.Utility;
@@ -27,9 +27,10 @@ public class NPC_Customer extends NPC implements Interactable {
     private Point seatLocation;
     private NPC npcType;
     private Score score;
-    private boolean orderAcknowledged;
+    private boolean orderAcknowledged; // this marks the start of the patience timer
+    private boolean hasPlacedOrder; // this locks the customer to having only one order at a time
 
-    Random rand;
+    private Random rand;
     private Utility.Regulator utilTool;
 
     private final BufferedImage tapsilog;
@@ -43,14 +44,15 @@ public class NPC_Customer extends NPC implements Interactable {
         this.npcType = npcType;
         score = new Score();
         getAvatar();
-        patienceTimer = 30 ; // 30 seconds at 60 FPS
+        patienceTimer = 30 * GamePanel.FPS; // 30 seconds at 60 FPS
         isReordered = false;
         isSeated = false;
         isMovingToSeat = false;
         seatLocation = null;
         orderReceived = false;
         orderAcknowledged = false;
-        
+        hasPlacedOrder = false;
+
         rand = new Random();
         utilTool = new Utility.Regulator();
 
@@ -68,11 +70,11 @@ public class NPC_Customer extends NPC implements Interactable {
         // only players can interact with customer
         if (en instanceof Player) {
 
-            if (!orderReceived && !orderAcknowledged) { // if not yet acknowledged and received, meaning nagpa notice pa
+            if (!orderReceived && !orderAcknowledged) { // acknowledge customers
                 orderAcknowledged = true;
             }
-            else if (orderAcknowledged) { // if order acknowledged but not yet received, meaning nagpaabot na
-                orderReceived = true;
+            else if (orderAcknowledged && obj instanceof Servable onHand) { // serve to customers
+                servingOrder(onHand);
             }
         }
     }
@@ -140,6 +142,7 @@ public class NPC_Customer extends NPC implements Interactable {
         String[] mealsAndDrinks = {"Tapsilog", "CornedSilog", "Spamsilog", "Water", "Cola"};
 
         order = mealsAndDrinks[rand.nextInt(mealsAndDrinks.length)];
+        hasPlacedOrder = true;
 
     }
 
@@ -214,7 +217,7 @@ public class NPC_Customer extends NPC implements Interactable {
 
             if (path.isEmpty()) {
                 System.out.println("Customer has reached seat at: " + seatLocation);
-                direction = "idle";
+                direction = "sitUp"; // TODO UPDATE WHETHER SIT UP OR SIT SIDE DEPENDING WHERE NA CHAIR & DELETE THE CHAIR
                 isMovingToSeat = false;
                 isSeated = true;
                 startPatienceTimer();
@@ -224,7 +227,7 @@ public class NPC_Customer extends NPC implements Interactable {
 
 
     private void startPatienceTimer() {
-        patienceTimer = 30; // Reset patience timer to 30 seconds
+        patienceTimer = 30 * GamePanel.FPS; // Reset patience timer to 30 seconds
         //patienceTimer = 30 * 60; // Reset patience timer to 30 seconds
     }
 
@@ -249,25 +252,41 @@ public class NPC_Customer extends NPC implements Interactable {
 
     public void reorder(){
         // System.out.println("Customer is reordering.");
-        generateOrder();
-        patienceTimer = 30 ;
-        System.out.println("Customer at (" + seatLocation.x + "," + seatLocation.y + "): reordered " + order +"| Patience: " + patienceTimer);
-        orderReceived = false;
-    }
 
-    public void servingOrder(){ // todo if ever player-customer interaction
-        orderReceived = true;
-        System.out.println("Customer at (" + seatLocation.x + "," + seatLocation.y + "): " + " received order: " + order);
-        if (order.contains("Tapsilog") || order.contains("CornedSilog") || order.contains("Spamsilog")) {
-            score.addScore(20);
-        } else if (order.contains("Water") || order.contains("Cola")) {
-            score.addScore(15);
+        if (!hasPlacedOrder) {
+            generateOrder();
+            patienceTimer = 30 * GamePanel.FPS;
+            System.out.println("Customer at (" + seatLocation.x + "," + seatLocation.y + "): reordered " + order +"| Patience: " + patienceTimer /60);
+            orderReceived = false;
         }
-
-        score.addScore((patienceTimer > 0 && patienceTimer < 15) ? 5 : 10);
-
     }
 
+    public void servingOrder(Servable onHand){
+
+        if (onHand.serve(onHand, order)) { // checks if order name and onHand name matches
+
+            orderReceived = true;
+            System.out.println("Customer at (" + seatLocation.x + "," + seatLocation.y + "): " + " received order: " + order);
+            if (order.contains("Tapsilog") || order.contains("CornedSilog") || order.contains("Spamsilog")) {
+                score.addScore(20);
+            } else if (order.contains("Water") || order.contains("Cola")) {
+                score.addScore(15);
+            }
+
+            resetOrderParameters();
+            score.addScore((patienceTimer > 0 && patienceTimer < 15) ? 5 : 10);
+        }
+    }
+
+    private void resetOrderParameters() {
+        order = null;
+        hasPlacedOrder = false;
+        orderAcknowledged = false;
+    }
+
+    private boolean hasReceivedOrder() {
+        return orderReceived;
+    }
 
     @Override
     public void setNPCAction() {
@@ -281,7 +300,7 @@ public class NPC_Customer extends NPC implements Interactable {
                     generateOrder();
                     isReordered = false; // Reset the reorder state after generating the order
                 }
-                System.out.println("Customer at (" + seatLocation.x + "," + seatLocation.y + "): " + " is seated and waiting for their order. Patience Timer: " + patienceTimer);
+                System.out.println("Customer at (" + seatLocation.x + "," + seatLocation.y + "): " + " is seated and waiting for their order. Patience Timer: " + patienceTimer /60);
                 System.out.println("Customer at (" + seatLocation.x + "," + seatLocation.y + "): " + "ordered " + order);
             }
             System.out.println(score.getTotalScore());
@@ -332,6 +351,8 @@ public class NPC_Customer extends NPC implements Interactable {
         down2 = npcType.down2;
         up1 = npcType.up1;
         up2 = npcType.up2;
+        sitUp = npcType.sitUp;
+        sitSide = npcType.sitSide;
     }
 
     // GETTERS & SETTERS ----------------------------------------------
@@ -366,10 +387,6 @@ public class NPC_Customer extends NPC implements Interactable {
 
     public String getOrder() {
         return order;
-    }
-
-    private boolean hasReceivedOrder() {
-        return orderReceived;
     }
 
     // PATHFINDING PURPOSES -------------------------------------------------
