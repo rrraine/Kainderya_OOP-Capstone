@@ -103,7 +103,7 @@ public abstract class Dish extends Food implements Swappable {
     public static class Cornsilog extends Dish{
 
         public Cornsilog(GamePanel gp) {
-            super(gp, "Cornsilog");
+            super(gp, "CornedSilog");
 
             // TODO IMPORT SILOG VERSIONS
             silogVersions.put("cornsilogFinal", importImage("/food/meals/cornsilog/cornsilogFinal", gp.tileSize));

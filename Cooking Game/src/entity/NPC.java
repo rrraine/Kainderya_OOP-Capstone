@@ -4,6 +4,7 @@ import main.GamePanel;
 import main.Utility;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.util.Random;
 
 public abstract class NPC extends Entity {
@@ -110,6 +111,9 @@ public abstract class NPC extends Entity {
             left2 = setAvatar("npc","studentFemale", "left2");
             right1 = setAvatar("npc","studentFemale", "right1");
             right2 = setAvatar("npc","studentFemale", "right2");
+
+            sitSide = setAvatar("npc","studentFemale", "sitSide");
+            sitUp = setAvatar("npc","studentFemale", "sitUp");
         }
 
         // FROM CLASS: NPC ----------------------------------------
@@ -168,6 +172,9 @@ public abstract class NPC extends Entity {
             left2 = setAvatar("npc","studentFemale2", "left2");
             right1 = setAvatar("npc","studentFemale2", "right1");
             right2 = setAvatar("npc","studentFemale2", "right2");
+
+            sitSide = setAvatar("npc","studentFemale2", "sitSide");
+            sitUp = setAvatar("npc","studentFemale2", "sitUp");
         }
 
         // FROM CLASS: NPC ----------------------------------------
@@ -229,6 +236,9 @@ public abstract class NPC extends Entity {
             left2 = setAvatar("npc","studentMale", "left2");
             right1 = setAvatar("npc","studentMale", "right1");
             right2 = setAvatar("npc","studentMale", "right2");
+
+            sitSide = setAvatar("npc","studentMale", "sitSide");
+            sitUp = setAvatar("npc","studentMale", "sitUp");
         }
 
         // FROM CLASS: NPC ----------------------------------------
@@ -288,6 +298,9 @@ public abstract class NPC extends Entity {
             left2 = setAvatar("npc","studentMale2", "left2");
             right1 = setAvatar("npc","studentMale2", "right1");
             right2 = setAvatar("npc","studentMale2", "right2");
+
+            sitSide = setAvatar("npc","studentMale2", "sitSide");
+            sitUp = setAvatar("npc","studentMale2", "sitUp");
         }
 
         // FROM CLASS: NPC ----------------------------------------
@@ -347,6 +360,9 @@ public abstract class NPC extends Entity {
             left2 = setAvatar("npc","tambay1", "left2");
             right1 = setAvatar("npc","tambay1", "right1");
             right2 = setAvatar("npc","tambay1", "right2");
+
+            sitSide = setAvatar("npc","tambay1", "sitSide");
+            sitUp = setAvatar("npc","tambay1", "sitUp");
         }
 
         // FROM CLASS: NPC ----------------------------------------
@@ -406,6 +422,9 @@ public abstract class NPC extends Entity {
             left2 = setAvatar("npc","tambay2", "left2");
             right1 = setAvatar("npc","tambay2", "right1");
             right2 = setAvatar("npc","tambay2", "right2");
+
+            sitSide = setAvatar("npc","tambay2", "sitSide");
+            sitUp = setAvatar("npc","tambay2", "sitUp");
         }
 
         // FROM CLASS: NPC ----------------------------------------
@@ -465,6 +484,9 @@ public abstract class NPC extends Entity {
             left2 = setAvatar("npc","civilianfem1", "left2");
             right1 = setAvatar("npc","civilianfem1", "right1");
             right2 = setAvatar("npc","civilianfem1", "right2");
+
+            sitSide = setAvatar("npc","civilianfem1", "sitSide");
+            sitUp = setAvatar("npc","civilianfem1", "sitUp");
         }
 
         // FROM CLASS: NPC ----------------------------------------
@@ -525,6 +547,9 @@ public abstract class NPC extends Entity {
             left2 = setAvatar("npc","civilianFem2", "left2");
             right1 = setAvatar("npc","civilianFem2", "right1");
             right2 = setAvatar("npc","civilianFem2", "right2");
+
+            sitSide = setAvatar("npc","civilianFem2", "sitSide");
+            sitUp = setAvatar("npc","civilianFem2", "sitUp");
         }
 
         // FROM CLASS: NPC ----------------------------------------
