@@ -157,8 +157,18 @@ public class NPC_Customer extends NPC implements Interactable {
     // TODO HELP WHY
     private String deduceSeatOrientation() {
 
+        // debugging purposes
+        System.out.println("SEAT X: " + seatLocation.x + " SEAT Y: " + seatLocation.y);
+        if (seatLocation.x == 4) {
+            System.out.println("SitSide");
+        }
+        else if (seatLocation.y == 11) {
+            System.out.println("SitUp");
+        }
+
+        // -------
         if (seatLocation.x == 4) return "sitSide";
-        else if (seatLocation.y == 1) return "sitUp";
+        else if (seatLocation.y == 11) return "sitUp";
 
         return null; // must not reach this unta, causes NPC placement camera issues
     }
