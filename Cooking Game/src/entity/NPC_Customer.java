@@ -10,6 +10,7 @@ import main.Utility;
 import ui.UI;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.util.*;
 import java.util.List;
 import java.util.Random;
@@ -28,7 +29,12 @@ public class NPC_Customer extends NPC implements Interactable {
     private Score score;
     private boolean orderAcknowledged;
 
-    Utility.Regulator utilTool;
+    private Utility.Regulator utilTool;
+    private final BufferedImage tapsilog;
+    private final BufferedImage spamsilog;
+    private final BufferedImage cornedsilog;
+    private final BufferedImage water;
+    private final BufferedImage cola;
 
     public NPC_Customer(GamePanel gp, NPC npcType) {
         super(gp, 1, "idle");
@@ -44,15 +50,26 @@ public class NPC_Customer extends NPC implements Interactable {
         orderAcknowledged = false;
 
         utilTool = new Utility.Regulator();
+        tapsilog = importImage("/food/meals/tapsilog/tapsilogFinal", gp.tileSize);
+        spamsilog = importImage("/food/meals/spamsilog/spamsilogFinal", gp.tileSize);
+        cornedsilog = importImage("/food/meals/cornsilog/cornsilogFinal", gp.tileSize);
+        water = importImage("/food/meals/center/burnt", gp.tileSize); // TODO WALA PA WATER IMAGE
+        cola = importImage("/food/drinks/cola", gp.tileSize);
     }
 
     // TODO PLAYER CUSTOMER INTERACTION HERE
     @Override
     public void interact(Entity en, AnimationFactory animF, Pickupable obj, int objIndex) {
 
-        // only players can interact
+        // only players can interact with customer
         if (en instanceof Player) {
-            orderAcknowledged = true;
+
+            if (!orderReceived && !orderAcknowledged) { // if not yet acknowledged and received, meaning nagpa notice pa
+                orderAcknowledged = true;
+            }
+            else if (orderAcknowledged) { // if order acknowledged but not yet received, meaning nagpaabot na
+                orderReceived = true;
+            }
         }
     }
 
@@ -84,6 +101,7 @@ public class NPC_Customer extends NPC implements Interactable {
 
         // ORDER BUBBLE
         g2.fillOval(x, y, 48, 48);
+        g2.drawImage(visualizeOrder(), x - 8, y - 9, null);
     }
     private void drawAcknowledgeMe(Graphics2D g2) {
 
@@ -100,6 +118,18 @@ public class NPC_Customer extends NPC implements Interactable {
         }
 
         g2.fillRect(x, y, 8, 42);
+    }
+    private BufferedImage visualizeOrder() {
+
+        return switch (order) {
+            case "Tapsilog" -> tapsilog;
+            case "CornedSilog" -> cornedsilog;
+            case "Spamsilog" -> spamsilog;
+            case "Water" -> water;
+            case "Cola" -> cola;
+            default -> null;
+        };
+
     }
 
     private void generateOrder() {
@@ -265,7 +295,7 @@ public class NPC_Customer extends NPC implements Interactable {
     }
 
 
-    // TODO UPDATE IN REAL TIME
+    // TODO UPDATE CUSTOMER STATS IN REAL TIME
     @Override
     public void update() {
 
