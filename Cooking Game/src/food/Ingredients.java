@@ -155,9 +155,15 @@ public abstract class Ingredients extends SuperObject implements Importable, Pic
 
            if (en instanceof Player) {
 
-               if (!isCooked) {
+               if (!isCooked) { // PICK UP
                    super.interact(en, animF, this, objIndex);
                    animF.switchState(AnimationState.CARRY_ONION);
+
+                   if (surface != null) {
+                       surface.itemOnTop = null;
+                       surface = null;
+                   }
+
                }
                else {
                    gp.player.setItemOnHandCreate(gp.fBuilder.build(gp.player.getItemOnHand(), this, animF, objIndex));

@@ -60,6 +60,13 @@ public abstract class WorkStation extends Station implements Drawable {
     @Override
     public void update() {
 
+        // STOVE WILL ONLY COOK IF CONDITION MET
+        if (this instanceof WorkStation.Stove && itemOnTop instanceof Item.Pan && ((Item.Pan) itemOnTop).checkCurrentImage("pan", (Pickupable) itemOnTop)) {
+            isOccupied = true;
+            ((Item.Pan) itemOnTop).isCooked = false;
+        }
+
+
         if (isOccupied) {
 
             if (utilTool.block(processTime)) {
@@ -139,7 +146,6 @@ public abstract class WorkStation extends Station implements Drawable {
 
     }
     public static class ChoppingBoard extends WorkStation implements Importable {
-        // INTERACTION ONLY WORKS WHEN ANIMATION STATE IS CARRYING ONION -> THEN CARRY CHOPPED ONION
 
         public ChoppingBoard(GamePanel gp) {
             super(gp, "leftChoppingBoard", 3);
@@ -152,10 +158,15 @@ public abstract class WorkStation extends Station implements Drawable {
 
             if (en instanceof Player) {
 
+                if (obj instanceof Ingredients.Onion onion && !isOccupied()) {
 
-                super.interact(en, animF, obj, objIndex);
-                gp.player.setItemOnHandCreate(gp.fBuilder.build(obj, this, animF, objIndex));
+                    super.interact(en, animF, obj, objIndex);
 
+                    onion.surface = this;
+                    itemOnTop = onion;
+
+                    gp.player.setItemOnHandCreate(gp.fBuilder.build(obj, this, animF, objIndex));
+                }
             }
         }
 
@@ -191,7 +202,6 @@ public abstract class WorkStation extends Station implements Drawable {
         }
     }
     public static class Stove extends WorkStation implements Importable  {
-        // INTERACTION ONLY WORKS WHEN ANIMATION STATE IS CARRYING COOKABLE INGREDIENTS -> MUST CARRY CLEAN PLATE -> THEN CARRY COOKED PRODUCT
 
         public Stove(GamePanel gp) {
             super(gp, "Stove", 5);
@@ -204,25 +214,18 @@ public abstract class WorkStation extends Station implements Drawable {
 
             if (en instanceof Player) {
 
-                if (animF.getCurrentState() == AnimationState.CARRY_PAN && !isOccupied) {
+                if (obj instanceof Item.Pan pan && !isOccupied) {
 
-                    // DEPLOY PAN ON SURFACE
+                    // DEPLOY ONLY PAN ON SURFACE
                     super.interact(en, animF, obj, objIndex);
 
-                    if (obj instanceof Item.Pan) {
-                        ((Item.Pan) obj).surface = this;
-                        itemOnTop = (SuperObject) obj;
-                    }
-                    isOccupied = true;
+                    pan.surface = this;
+                    itemOnTop = pan;
 
-                    // TODO LOGIC TO START COOKING W/ INGREDIENTS
+                    gp.player.setItemOnHandCreate(gp.fBuilder.build(obj, this, animF, objIndex));
                 }
-
             }
         }
-
-
-
 
     }
 

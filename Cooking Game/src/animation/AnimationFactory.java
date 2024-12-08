@@ -65,6 +65,7 @@ public class AnimationFactory {
 //            case CARRY_PAN_CBEEFEGG:
 //            case CARRY_PAN_SPAM:
 //            case CARRY_PAN_TAPA:
+//            case CARRY_NOMAIN:
 
         currentState = AnimationState.BASE;
     }
@@ -127,6 +128,8 @@ public class AnimationFactory {
                 return carryCornsilogNoRice.getSprites();
             case CARRY_ONIONONLY:
                 return carryOnionOnly.getSprites();
+
+            // case CARRY_NOMAIN:
 
                 // TODO pan ANIMATIONS:
 //            case CARRY_PAN_BURNT:

@@ -105,13 +105,18 @@ public abstract class Item extends SuperObject {
 
                 if (!isCooked) {
 
-                    if (!(surface instanceof WorkStation.Stove)) {
+                    if (!(surface instanceof WorkStation.Stove) || !surface.isOccupied) {
 
                         // GENERAL PICK UP INGREDIENTS FROM SURFACE
                         if (gp.player.getItemOnHand() == null ) {
 
                             gp.getAssetPool().remove(objIndex); // remove from printing
                             gp.player.setItemOnHandCreate(this); // add item on player's hand
+
+                            if (surface != null) {
+                                surface.itemOnTop = null;
+                                surface = null;
+                            }
 
                             updateSpriteAnimation(animF);
                         }
@@ -128,13 +133,13 @@ public abstract class Item extends SuperObject {
             BufferedImage img = ((SuperObject) gp.player.getItemOnHand()).image;
 
             if (img == panVersions.get("pan")) {
-                animF.switchState(AnimationState.CARRY_PLATE);
+                animF.switchState(AnimationState.CARRY_PAN);
             }
             else if (img == panVersions.get("dirtyPlate")) {
                 animF.switchState(AnimationState.CARRY_DIRTYPLATE);
             }
             else if (img == panVersions.get("noMain")) {
-                animF.switchState(AnimationState.CARRY_COKE); //TODO KANI OY
+                animF.switchState(AnimationState.CARRY_NOMAIN);
             }
             else if (img == panVersions.get("cookedEggOnly")) {
                 animF.switchState(AnimationState.CARRY_COOKEDEGGONLY);
