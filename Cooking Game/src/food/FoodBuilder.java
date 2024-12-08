@@ -204,7 +204,7 @@ public class FoodBuilder {
         // CHOPPING BOARD - ONION
         if (interactedItem instanceof Ingredients.Onion onion) {
 
-            if (onHand instanceof Item.Plates) {
+            if (onHand instanceof Item.Plates && ((Item.Plates) onHand).checkCurrentImage("counterPlate", onHand)) {
 
                 animF.switchState(AnimationState.CARRY_COKE);
 
