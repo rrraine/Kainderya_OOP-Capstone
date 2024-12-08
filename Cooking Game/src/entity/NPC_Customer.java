@@ -1,5 +1,9 @@
 package entity;
 
+import animation.AnimationFactory;
+import interfaces.Drawable;
+import interfaces.Interactable;
+import interfaces.Pickupable;
 import main.GamePanel;
 import game.Score;
 import java.awt.*;
@@ -7,7 +11,7 @@ import java.util.*;
 import java.util.List;
 import java.util.Random;
 
-public class NPC_Customer extends NPC {
+public class NPC_Customer extends NPC implements Interactable {
 
     private String order;
     private List<Point> path;
@@ -31,6 +35,22 @@ public class NPC_Customer extends NPC {
         isMovingToSeat = false;
         seatLocation = null;
         orderReceived = false;
+    }
+
+    // TODO PLAYER CUSTOMER INTERACTION HERE
+    @Override
+    public void interact(Entity en, AnimationFactory animF, Pickupable obj, int objIndex) {
+
+        // only players can interact
+        if (en instanceof Player) {
+
+        }
+    }
+
+    // TODO CUSTOMER DRAW ORDER THOUGHT BUBBLE
+    @Override
+    public void draw (Graphics2D g2) {
+
     }
 
     private void generateOrder() {
@@ -196,6 +216,7 @@ public class NPC_Customer extends NPC {
     }
 
 
+    // TODO UPDATE IN REAL TIME
     @Override
     public void update() {
 
@@ -266,7 +287,6 @@ public class NPC_Customer extends NPC {
     public String getOrder() {
         return order;
     }
-
 
     // PATHFINDING PURPOSES -------------------------------------------------
 
