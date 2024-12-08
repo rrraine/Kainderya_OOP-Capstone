@@ -128,9 +128,9 @@ public abstract class Ingredients extends SuperObject implements Importable, Pic
         public void interact(Entity en, AnimationFactory animF, Pickupable obj, int objIndex) {
             if (en instanceof Player) {
                 if (animF.getCurrentState() == AnimationState.BASE) {
-                    animF.switchState(AnimationState.CARRY_RAW_RICE);
+                    animF.switchState(AnimationState.CARRY_RAWRICE);
                 }
-                else if (animF.getCurrentState() == AnimationState.CARRY_RAW_RICE) {
+                else if (animF.getCurrentState() == AnimationState.CARRY_RAWRICE) {
                     animF.switchState((AnimationState.BASE));
                 }
             }

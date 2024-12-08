@@ -84,17 +84,16 @@ public abstract class Item extends SuperObject {
 
             panVersions = new HashMap<>();
 
-            // TODO IMPORT PLATE IMAGE INSTANCES
             panVersions.put("pan", importImage("/objects/item/pan/pan", gp.tileSize));
-            panVersions.put("burntPan", importImage("/objects/item/pan/burnt", gp.tileSize));
-            panVersions.put("cBeefPan", importImage("/objects/item/pan/cbeef", gp.tileSize));
+            panVersions.put("panBurnt", importImage("/objects/item/pan/burnt", gp.tileSize));
+            panVersions.put("panCBeef", importImage("/objects/item/pan/cbeef", gp.tileSize));
 
-            panVersions.put("eggPan", importImage("/objects/item/pan/egg", gp.tileSize));
-            panVersions.put("onionPan", importImage("/objects/item/pan/onion", gp.tileSize));
+            panVersions.put("panEgg", importImage("/objects/item/pan/egg", gp.tileSize));
+            panVersions.put("panOnion", importImage("/objects/item/pan/onion", gp.tileSize));
 
-            panVersions.put("onionCBeefPan", importImage("/objects/item/pan/onionCbeef", gp.tileSize));
-            panVersions.put("spamPan", importImage("/objects/item/pan/spam", gp.tileSize));
-            panVersions.put("tapa", importImage("/objects/item/pan/tapa", gp.tileSize));
+            panVersions.put("panCBeefEgg", importImage("/objects/item/pan/onionCbeef", gp.tileSize));
+            panVersions.put("panSpam", importImage("/objects/item/pan/spam", gp.tileSize));
+            panVersions.put("panTapa", importImage("/objects/item/pan/tapa", gp.tileSize));
 
             image = panVersions.get("pan");
         }
@@ -102,7 +101,7 @@ public abstract class Item extends SuperObject {
         @Override
         public void interact(Entity en, AnimationFactory animF, Pickupable obj, int objIndex) {
 
-            if (en instanceof Player){ //TODO COMPELTE
+            if (en instanceof Player){
 
                 if (!isCooked) {
 
@@ -113,7 +112,8 @@ public abstract class Item extends SuperObject {
 
                             gp.getAssetPool().remove(objIndex); // remove from printing
                             gp.player.setItemOnHandCreate(this); // add item on player's hand
-                            animF.switchState(AnimationState.CARRY_PAN);
+
+                            updateSpriteAnimation(animF);
                         }
                     }
                 }
@@ -123,6 +123,29 @@ public abstract class Item extends SuperObject {
             }
         }
 
+        private void updateSpriteAnimation(AnimationFactory animF) {
+
+            BufferedImage img = ((SuperObject) gp.player.getItemOnHand()).image;
+
+            if (img == panVersions.get("pan")) {
+                animF.switchState(AnimationState.CARRY_PLATE);
+            }
+            else if (img == panVersions.get("dirtyPlate")) {
+                animF.switchState(AnimationState.CARRY_DIRTYPLATE);
+            }
+            else if (img == panVersions.get("noMain")) {
+                animF.switchState(AnimationState.CARRY_COKE); //TODO KANI OY
+            }
+            else if (img == panVersions.get("cookedEggOnly")) {
+                animF.switchState(AnimationState.CARRY_COOKEDEGGONLY);
+            }
+            else if (img == panVersions.get("cookedRiceOnly")) {
+                animF.switchState(AnimationState.CARRY_COOKEDRICEONLY);
+            }
+            else if (img == panVersions.get("onionOnly")) {
+                animF.switchState(AnimationState.CARRY_ONIONONLY);
+            }
+        }
 
         @Override
         public void swapImage(String key) {
@@ -142,21 +165,6 @@ public abstract class Item extends SuperObject {
 
     public static class Plates extends Item implements Importable, Pickupable, Swappable {
 
-        @Override
-        public void swapImage(String key) {
-            image = plateVersions.get(key);
-        }
-
-        @Override
-        public boolean checkCurrentImage(String key, Pickupable obj) {
-
-            if (obj instanceof Item) {
-                return (((Item)obj).image == plateVersions.get(key));
-            }
-            return false;
-        }
-
-        // THIS CLASS ONLY STORES PLATE IMAGE VERSIONS WHICH WILL BE USED AS THE FACE OF THE ACTUAL PLATE CLASS
         public HashMap<String, BufferedImage> plateVersions;
 
         public Plates (GamePanel gp) {
@@ -201,19 +209,51 @@ public abstract class Item extends SuperObject {
 
                     gp.getAssetPool().remove(objIndex); // remove from printing
                     gp.player.setItemOnHandCreate(this); // add item on player's hand
-                }
 
-                // IF FREE HAND
-                if (animF.getCurrentState() == AnimationState.BASE) {
-                    //CounterToDiningPlate(false);
-                    animF.switchState((AnimationState.CARRY_PLATE));
-                }
-                else if (animF.getCurrentState() == AnimationState.CARRY_PLATE) {
-                    animF.switchState((AnimationState.BASE));
+                    // update animation sprite
+                    updateSpriteAnimation(animF);
                 }
             }
         }
 
+
+        @Override
+        public void swapImage(String key) {
+            image = plateVersions.get(key);
+        }
+
+        @Override
+        public boolean checkCurrentImage(String key, Pickupable obj) {
+
+            if (obj instanceof Item) {
+                return (((Item)obj).image == plateVersions.get(key));
+            }
+            return false;
+        }
+
+        private void updateSpriteAnimation(AnimationFactory animF) {
+
+            BufferedImage img = ((SuperObject) gp.player.getItemOnHand()).image;
+
+            if (img == plateVersions.get("diningPlate") || img == plateVersions.get("counterPlate")) {
+                animF.switchState(AnimationState.CARRY_PLATE);
+            }
+            else if (img == plateVersions.get("dirtyPlate")) {
+                animF.switchState(AnimationState.CARRY_DIRTYPLATE);
+            }
+            else if (img == plateVersions.get("noMain")) {
+                animF.switchState(AnimationState.CARRY_COKE); //TODO KANI OY
+            }
+            else if (img == plateVersions.get("cookedEggOnly")) {
+                animF.switchState(AnimationState.CARRY_COOKEDEGGONLY);
+            }
+            else if (img == plateVersions.get("cookedRiceOnly")) {
+                animF.switchState(AnimationState.CARRY_COOKEDRICEONLY);
+            }
+            else if (img == plateVersions.get("onionOnly")) {
+                animF.switchState(AnimationState.CARRY_ONIONONLY);
+            }
+        }
         public void CounterToDiningPlate(boolean change) {
 
             if (change) { image = plateVersions.get("diningPlate"); }
