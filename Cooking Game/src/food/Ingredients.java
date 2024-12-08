@@ -128,9 +128,9 @@ public abstract class Ingredients extends SuperObject implements Importable, Pic
         public void interact(Entity en, AnimationFactory animF, Pickupable obj, int objIndex) {
             if (en instanceof Player) {
                 if (animF.getCurrentState() == AnimationState.BASE) {
-                    animF.switchState(AnimationState.CARRY_RAW_RICE);
+                    animF.switchState(AnimationState.CARRY_RAWRICE);
                 }
-                else if (animF.getCurrentState() == AnimationState.CARRY_RAW_RICE) {
+                else if (animF.getCurrentState() == AnimationState.CARRY_RAWRICE) {
                     animF.switchState((AnimationState.BASE));
                 }
             }
@@ -155,9 +155,15 @@ public abstract class Ingredients extends SuperObject implements Importable, Pic
 
            if (en instanceof Player) {
 
-               if (!isCooked) {
+               if (!isCooked) { // PICK UP
                    super.interact(en, animF, this, objIndex);
                    animF.switchState(AnimationState.CARRY_ONION);
+
+                   if (surface != null) {
+                       surface.itemOnTop = null;
+                       surface = null;
+                   }
+
                }
                else {
                    gp.player.setItemOnHandCreate(gp.fBuilder.build(gp.player.getItemOnHand(), this, animF, objIndex));

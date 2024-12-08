@@ -134,9 +134,9 @@ public abstract class RefillStation extends Station{
             if(en instanceof Player){
                 if (animF.getCurrentState() == AnimationState.BASE) {
                     gp.player.setItemOnHandCreate(new Ingredients.Rice(gp));
-                    animF.switchState((AnimationState.CARRY_RAW_RICE));
+                    animF.switchState((AnimationState.CARRY_RAWRICE));
                 }
-                else if (animF.getCurrentState() == AnimationState.CARRY_RAW_RICE) {
+                else if (animF.getCurrentState() == AnimationState.CARRY_RAWRICE) {
                     gp.player.setItemOnHandDestroy();
                     animF.switchState((AnimationState.BASE));
                 }

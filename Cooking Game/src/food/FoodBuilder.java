@@ -59,7 +59,7 @@ public class FoodBuilder {
                     if (((Item.Plates) onHand).checkCurrentImage("counterPlate", onHand)) {
 
                         cooker.consumeServings();
-                        animF.switchState(AnimationState.CARRY_RICE_PLATE);
+                        animF.switchState(AnimationState.CARRY_COOKEDRICEONLY);
 
                         ((Item.Plates) onHand).swapImage("cookedRiceOnly"); // SWAP IMAGE
 
@@ -73,7 +73,7 @@ public class FoodBuilder {
                     if (((Item.Plates) onHand).checkCurrentImage("cookedEggOnly", onHand)) {
 
                         cooker.consumeServings();
-                        animF.switchState(AnimationState.CARRY_EGG_PLATE);
+                        animF.switchState(AnimationState.CARRY_COOKEDEGGONLY);
 
                         ((Item.Plates) onHand).swapImage("noMain"); // SWAP IMAGE
 
@@ -91,7 +91,7 @@ public class FoodBuilder {
                     if (((Dish.Spamsilog) onHand).checkCurrentImage("spamsilogNoRice", onHand)) {
 
                         cooker.consumeServings();
-                        animF.switchState(AnimationState.CARRY_SPAMSILOG);
+                        animF.switchState(AnimationState.CARRY_SPAMSILOGFINAL);
 
                         ((Dish) onHand).swapImage("spamsilogFinal");
 
@@ -106,7 +106,7 @@ public class FoodBuilder {
                     else if (((Dish.Spamsilog) onHand).checkCurrentImage("cookedSpamOnly", onHand)) {
 
                         cooker.consumeServings();
-                        animF.switchState(AnimationState.CARRY_SPAMSI_PLATE);
+                        animF.switchState(AnimationState.CARRY_SPAMSILOGNOEGG);
 
                         ((Dish) onHand).swapImage("spamsilogNoEgg");
 
@@ -125,7 +125,7 @@ public class FoodBuilder {
                     if (((Dish.Cornsilog) onHand).checkCurrentImage("cornsilogNoRice", onHand)) {
 
                         cooker.consumeServings();
-                        animF.switchState(AnimationState.CARRY_CORNSILOG);
+                        animF.switchState(AnimationState.CARRY_CORNSILOGFINAL);
 
                         ((Dish) onHand).swapImage("cornsilogFinal");
 
@@ -140,7 +140,7 @@ public class FoodBuilder {
                     else if (((Dish.Cornsilog) onHand).checkCurrentImage("cookedCBeefOnly", onHand)) {
 
                         cooker.consumeServings();
-                        animF.switchState(AnimationState.CARRY_CORNSI_PLATE);
+                        animF.switchState(AnimationState.CARRY_CORNSILOGNOEGG);
 
                         ((Dish) onHand).swapImage("cornsilogNoEgg");
 
@@ -157,7 +157,7 @@ public class FoodBuilder {
                     if (((Dish)onHand).checkCurrentImage("tapsilogNoRice", onHand)) {
 
                         cooker.consumeServings();
-                        animF.switchState(AnimationState.CARRY_TAPSILOG);
+                        animF.switchState(AnimationState.CARRY_TAPSILOGFINAL);
 
                         ((Dish) onHand).swapImage("tapsilogFinal");
 
@@ -170,7 +170,7 @@ public class FoodBuilder {
                     else if (((Dish.Tapsilog) onHand).checkCurrentImage("cookedTapaOnly", onHand)) {
 
                         cooker.consumeServings();
-                        animF.switchState(AnimationState.CARRY_TAPSI_PLATE);
+                        animF.switchState(AnimationState.CARRY_TAPSILOGNOEGG);
 
                         ((Dish) onHand).swapImage("tapsilogNoEgg");
 
@@ -193,9 +193,6 @@ public class FoodBuilder {
                 board.setPlayerLocked(true);
                 gp.getKeyB().enableMovement(false);
 
-                ((Ingredients.Onion) onHand).surface = board;
-                board.itemOnTop = (SuperObject) onHand;
-
                 gp.player.setItemOnHandDestroy();
                 return null;
             }
@@ -206,10 +203,13 @@ public class FoodBuilder {
 
             if (onHand instanceof Item.Plates && ((Item.Plates) onHand).checkCurrentImage("counterPlate", onHand)) {
 
-                animF.switchState(AnimationState.CARRY_COKE);
+                animF.switchState(AnimationState.CARRY_ONIONONLY);
 
                 gp.getAssetPool().remove(onHandIndex);
                 onion.surface.setOccupied(false);
+
+                onion.surface.itemOnTop = null;
+                onion.surface = null;
 
                 ((Item.Plates) onHand).swapImage("onionOnly");
                 return onHand;
@@ -217,24 +217,24 @@ public class FoodBuilder {
         }
 
         // STOVE
-        if (interactedItem instanceof WorkStation.Stove) {
+        if (interactedItem instanceof WorkStation.Stove stove) {
 
             // STOVE STATES
             if (!((WorkStation) interactedItem).isOccupied()) { // EMPTY STOVE
 
                 // INPUTS
                 if (onHand instanceof Item.Pan) { // DROP
+
                     gp.player.setItemOnHandDestroy();
                     return null; // OUTPUT
                 }
-
-
             }
         }
 
         // PAN
         if (interactedItem instanceof Item.Pan pan) {
 
+            // TODO
             if (onHand instanceof Item.Plates) {
 
                 animF.switchState(AnimationState.CARRY_COKE);
@@ -245,11 +245,14 @@ public class FoodBuilder {
                 ((Item.Plates) onHand).swapImage("onionOnly");
                 return onHand;
             }
-            else if (onHand == null) {
+            else if (onHand == null) { // PICK UP PAN
 
                 animF.switchState(AnimationState.CARRY_PAN);
                 gp.getAssetPool().remove(onHandIndex);
                 pan.surface.setOccupied(false);
+
+                pan.surface.itemOnTop = null;
+                pan.surface = null;
 
                 // TODO
                 return new Item.Pan(gp);

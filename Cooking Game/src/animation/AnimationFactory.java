@@ -1,9 +1,7 @@
 package animation;
 
-import interfaces.Drawable;
 import main.GamePanel;
 
-import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.List;
 
@@ -14,9 +12,9 @@ public class AnimationFactory {
     String avatar;
 
     AnimationState currentState;
-    Animation base, carryPlate, carryCornedBeef, carryEgg, carryOnion, carryPan, carryRawRice, carrySpam, carryTapa, carryCoke,
-              carryTapaPlate, carrySpamPlate, carryEggPlate, carryCBPlate, carryRicePlate, carryDirtyPlate, carryOnionPlate,
-              carryTapsi, carryCornsi, carrySpamsi, carryTaplog, carryCornlog, carrySpamlog,
+    Animation base, carryPlate, carryCornedBeef, carryEgg, carryOnion, carryPan, carryRawRice, carryCookedSpamOnly, carryTapa, carryCoke,
+            carryCookedTapaOnly, carrySpamPlate, carryCookedEggOnly, carryCookedCBeefOnly, carryCookedRiceOnly, carryDirtyPlate, carryOnionOnly,
+              carryTapsi, carryCornsilogNoEgg, carrySpamsilogNoEgg, carryTapsilogNoRice, carryCornsilogNoRice, carrySpamsilogNoRice,
               carryTapsilog, carryCornsilog, carrySpamsilog;
 
     // 2 METHODS FOR CONSTRUCTOR SINGLETON
@@ -31,37 +29,43 @@ public class AnimationFactory {
         carryOnion = new Animation(gp, avatar, "/holdingOnion/");
         carryPan = new Animation(gp, avatar, "/holdingPan/");
         carryRawRice = new Animation(gp, avatar, "/holdingRawRice/");
-        carrySpam = new Animation(gp, avatar, "/holdingSpam/");
+        carryCookedSpamOnly = new Animation(gp, avatar, "/holdingSpam/");
         carryTapa = new Animation(gp, avatar, "/holdingTapa/");
         carryCoke = new Animation(gp, avatar, "/holdingCoke/");
 
-        //new
-
         //ingredients in a plate
-        carryTapaPlate = new Animation(gp, avatar, "/cookedTapa/");
-        carryCBPlate = new Animation(gp, avatar, "/cookedCornedBeef/");
+        carryCookedTapaOnly = new Animation(gp, avatar, "/cookedTapa/");
+        carryCookedCBeefOnly = new Animation(gp, avatar, "/cookedCornedBeef/");
         carrySpamPlate = new Animation(gp, avatar, "/cookedSpam/");
-        carryEggPlate = new Animation(gp, avatar, "/cookedEgg/");
+        carryCookedEggOnly = new Animation(gp, avatar, "/cookedEgg/");
         carryDirtyPlate = new Animation(gp, avatar, "/holdingDirtyPlate/");
-        carryRicePlate = new Animation(gp, avatar, "/cookedRice/");
+        carryCookedRiceOnly = new Animation(gp, avatar, "/cookedRice/");
 
         carryTapsi= new Animation(gp, avatar, "/tapsi/");
-        carryCornsi = new Animation(gp, avatar, "/cornsi/");
-        carrySpamsi= new Animation(gp, avatar, "/spamsi/");
+        carryCornsilogNoEgg = new Animation(gp, avatar, "/cornsi/");
+        carrySpamsilogNoEgg = new Animation(gp, avatar, "/spamsi/");
         carrySpamsilog = new Animation(gp, avatar, "/spamsilog/");
         carryTapsilog= new Animation(gp, avatar, "/tapsilog/");
         carryCornsilog = new Animation(gp, avatar, "/cornsilog/");
 
-        carryTaplog= new Animation(gp, avatar, "/taplog/");
-        carryCornlog = new Animation(gp, avatar, "/cornlog/");
-        carrySpamlog = new Animation(gp, avatar, "/spamlog/");
+        carryTapsilogNoRice = new Animation(gp, avatar, "/taplog/");
+        carryCornsilogNoRice = new Animation(gp, avatar, "/cornlog/");
+        carrySpamsilogNoRice = new Animation(gp, avatar, "/spamlog/");
 
-        carryOnionPlate = new Animation(gp, avatar, "/onionPlate/");
+        carryOnionOnly = new Animation(gp, avatar, "/onionPlate/");
 
+        // TODO CARY COOKED SPAM ONLY ANIMATION
+        // TODO CARRY TAPSILOG NO EGG ANIMATIONS
 
-
-
-        // TODO OTHER HOLDINGS
+        // TODO pan ANIMATIONS:
+//            case CARRY_PAN_BURNT:
+//            case CARRY_PAN_CBEEF:
+//            case CARRY_PAN_EGG:
+//            case CARRY_PAN_ONION:
+//            case CARRY_PAN_CBEEFEGG:
+//            case CARRY_PAN_SPAM:
+//            case CARRY_PAN_TAPA:
+//            case CARRY_NOMAIN:
 
         currentState = AnimationState.BASE;
     }
@@ -91,41 +95,50 @@ public class AnimationFactory {
                return carryOnion.getSprites();
            case CARRY_PAN:
                return carryPan.getSprites();
-           case CARRY_RAW_RICE:
+           case CARRY_RAWRICE:
                 return carryRawRice.getSprites();
            case CARRY_SPAM:
-                 return carrySpam.getSprites();
+                 return carryCookedSpamOnly.getSprites();
            case CARRY_TAPA:
                 return carryTapa.getSprites();
             case CARRY_COKE:
                 return carryCoke.getSprites();
 
-            case CARRY_RICE_PLATE:
-                return carryRicePlate.getSprites();
-            case CARRY_EGG_PLATE:
-                return carryEggPlate.getSprites();
-            case CARRY_TAPA_PLATE:
-                return carryTapaPlate.getSprites();
-            case CARRY_CB_PLATE:
-                return carryCBPlate.getSprites();
-            case CARRY_SPAM_PLATE:
-                return carrySpam.getSprites();
-            case CARRY_SPAMSI_PLATE:
-                return carrySpamsi.getSprites();
-            case CARRY_SPAMLOG_PLATE:
-                return carrySpamlog.getSprites();
-            case CARRY_TAPSI_PLATE:
-                return carryEggPlate.getSprites();
-            case CARRY_TAPLOG_PLATE:
-                return carryTaplog.getSprites();
-            case CARRY_CORNSI_PLATE:
-                return carryCornsi.getSprites();
-            case CARRY_CORNLOG_PLATE:
-                return carryCornlog.getSprites();
-            case CARRY_ONION_PLATE:
-                return carryOnionPlate.getSprites();
+            case CARRY_COOKEDRICEONLY:
+                return carryCookedRiceOnly.getSprites();
+            case CARRY_COOKEDEGGONLY:
+                return carryCookedEggOnly.getSprites();
+            case CARRY_COOKEDTAPAONLY:
+                return carryCookedTapaOnly.getSprites();
+            case CARRY_COOKEDCBEEFONLY:
+                return carryCookedCBeefOnly.getSprites();
+           // case CARRY_COOKEDSPAMONLY:
+               // return carryCookedSpamOnly.getSprites();
+            case CARRY_SPAMSILOGNOEGG:
+                return carrySpamsilogNoEgg.getSprites();
+            case CARRY_SPAMSILOGNORICE:
+                return carrySpamsilogNoRice.getSprites();
+           // case CARRY_TAPSILOGNOEGG:
+             //   return carryCookedEggOnly.getSprites();
+            case CARRY_TAPSILOGNORICE:
+                return carryTapsilogNoRice.getSprites();
+            case CARRY_CORNSILOGNOEGG:
+                return carryCornsilogNoEgg.getSprites();
+            case CARRY_CORNSILOGNORICE:
+                return carryCornsilogNoRice.getSprites();
+            case CARRY_ONIONONLY:
+                return carryOnionOnly.getSprites();
 
+            // case CARRY_NOMAIN:
 
+                // TODO pan ANIMATIONS:
+//            case CARRY_PAN_BURNT:
+//            case CARRY_PAN_CBEEF:
+//            case CARRY_PAN_EGG:
+//            case CARRY_PAN_ONION:
+//            case CARRY_PAN_CBEEFEGG:
+//            case CARRY_PAN_SPAM:
+//            case CARRY_PAN_TAPA:
 
 
 
