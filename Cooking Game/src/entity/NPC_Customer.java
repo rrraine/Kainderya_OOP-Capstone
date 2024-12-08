@@ -4,9 +4,11 @@ import animation.AnimationFactory;
 import interfaces.Interactable;
 import interfaces.Pickupable;
 import interfaces.Servable;
+import main.Asset;
 import main.GamePanel;
 import game.Score;
 import main.Utility;
+import object.Item;
 import ui.UI;
 
 import java.awt.*;
@@ -152,6 +154,31 @@ public class NPC_Customer extends NPC implements Interactable {
         isSeated = false;
     }
 
+    // TODO HELP WHY
+    private String deduceSeatOrientation() {
+
+        if (seatLocation.x == 4) return "sitSide";
+        else if (seatLocation.y == 1) return "sitUp";
+
+        return null; // must not reach this unta, causes NPC placement camera issues
+    }
+
+    // TODO HELP WHY
+    private void deleteChairAssetAtLocation() {
+
+        // Create a copy of the asset pool to iterate over
+        for (Asset a : new ArrayList<>(gp.getAssetPool())) {
+            if (a instanceof Item.Stool || a instanceof Item.Stool1) {
+
+                if (a.textMapX == seatLocation.x && a.textMapY == seatLocation.y) {
+
+                    System.out.println("Customer now seated, deleting chair: x=" + a.textMapX + ", y=" + a.textMapY + " | Seat Location: " + seatLocation);
+                    gp.getAssetPool().remove(a);
+                }
+            }
+        }
+    }
+
     public void moveToSeat() {
         // old pathfinding, dili A*
         /*
@@ -217,9 +244,10 @@ public class NPC_Customer extends NPC implements Interactable {
 
             if (path.isEmpty()) {
                 System.out.println("Customer has reached seat at: " + seatLocation);
-                direction = "sitUp"; // TODO UPDATE WHETHER SIT UP OR SIT SIDE DEPENDING WHERE NA CHAIR & DELETE THE CHAIR
                 isMovingToSeat = false;
                 isSeated = true;
+                direction = deduceSeatOrientation();
+                deleteChairAssetAtLocation();
                 startPatienceTimer();
             }
         }
