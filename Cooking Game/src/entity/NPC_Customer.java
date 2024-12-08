@@ -167,8 +167,8 @@ public class NPC_Customer extends NPC implements Interactable {
         }
 
         // -------
-        if (seatLocation.x == 4) return "sitSide";
-        else if (seatLocation.y == 11) return "sitUp";
+        if (seatLocation.x == 4 && seatLocation.y != 11) return "sitSide";
+        else if (seatLocation.y == 11 && seatLocation.x != 4) return "sitUp";
 
         return null; // must not reach this unta, causes NPC placement camera issues
     }
