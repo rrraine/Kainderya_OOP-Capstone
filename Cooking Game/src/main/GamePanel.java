@@ -69,7 +69,7 @@ public class GamePanel extends JPanel implements Runnable {
     public FoodBuilder fBuilder = FoodBuilder.instantiate(this);
 
     private final int maxCustomers = 9;
-    private final int maxRoamers = 10;
+    private final int maxRoamers = 15;
 
 
     // GAME STATE

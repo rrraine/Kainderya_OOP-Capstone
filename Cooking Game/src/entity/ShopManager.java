@@ -118,13 +118,16 @@ public class ShopManager {
 
     // return a new instance of NPC_Customer
     private NPC_Customer getRandomCustomer() {
-        int npcTypeIndex = random.nextInt(4);
+        int npcTypeIndex = random.nextInt(8);
 
         NPC customerNPC = switch (npcTypeIndex) {
-            case 0 -> new NPC.StudentMale(gp);
             case 1 -> new NPC.StudentFemale(gp);
             case 2 -> new NPC.civilianFemale1(gp);
             case 3 -> new NPC.Tambay1(gp);
+            case 4 -> new NPC.civilianFemale2(gp);
+            case 5 -> new NPC.Tambay2(gp);
+            case 6 -> new NPC.StudentFemale2(gp);
+            case 7 -> new NPC.StudentMale2(gp);
             default -> new NPC.StudentMale(gp);
         };
 
@@ -133,13 +136,16 @@ public class ShopManager {
 
     // return a new NPC_Free Roaming
     private NPC getRandomNPC() {
-        int npcTypeIndex = random.nextInt(4);
+        int npcTypeIndex = random.nextInt(8);
 
         NPC randomNPC = switch (npcTypeIndex) {
-            case 0 -> new NPC.StudentMale(gp);
             case 1 -> new NPC.StudentFemale(gp);
             case 2 -> new NPC.civilianFemale1(gp);
             case 3 -> new NPC.Tambay1(gp);
+            case 4 -> new NPC.civilianFemale2(gp);
+            case 5 -> new NPC.Tambay2(gp);
+            case 6 -> new NPC.StudentFemale2(gp);
+            case 7 -> new NPC.StudentMale2(gp);
             default -> new NPC.StudentMale(gp);
         };
 
