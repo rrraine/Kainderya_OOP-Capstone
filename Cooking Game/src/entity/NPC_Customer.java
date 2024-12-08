@@ -1,7 +1,6 @@
 package entity;
 
 import animation.AnimationFactory;
-import interfaces.Drawable;
 import interfaces.Interactable;
 import interfaces.Pickupable;
 import interfaces.Servable;
@@ -28,8 +27,8 @@ public class NPC_Customer extends NPC implements Interactable {
     private Point seatLocation;
     private NPC npcType;
     private Score score;
-    private boolean orderAcknowledged;
-    private boolean hasPlacedOrder;
+    private boolean orderAcknowledged; // this marks the start of the patience timer
+    private boolean hasPlacedOrder; // this locks the customer to having only one order at a time
 
     private Random rand;
     private Utility.Regulator utilTool;
@@ -256,7 +255,6 @@ public class NPC_Customer extends NPC implements Interactable {
 
         if (!hasPlacedOrder) {
             generateOrder();
-            hasPlacedOrder = true;
             patienceTimer = 30 * GamePanel.FPS;
             System.out.println("Customer at (" + seatLocation.x + "," + seatLocation.y + "): reordered " + order +"| Patience: " + patienceTimer /60);
             orderReceived = false;
@@ -275,10 +273,16 @@ public class NPC_Customer extends NPC implements Interactable {
                 score.addScore(15);
             }
 
+            resetOrderParameters();
             score.addScore((patienceTimer > 0 && patienceTimer < 15) ? 5 : 10);
         }
     }
 
+    private void resetOrderParameters() {
+        order = null;
+        hasPlacedOrder = false;
+        orderAcknowledged = false;
+    }
 
     private boolean hasReceivedOrder() {
         return orderReceived;
