@@ -23,6 +23,9 @@ public abstract class Entity extends Asset implements Drawable, Observable, Impo
     int spriteCounter;
     int spriteNum;
 
+    // XY Coordinates
+    protected int screenX, screenY;
+
     // COLLISION ASPECTS
     boolean collisionOn;
 
@@ -54,8 +57,8 @@ public abstract class Entity extends Asset implements Drawable, Observable, Impo
         try {
 
             // DRAW ITEM AT SET LOCATION IN WORLD
-            int screenX = worldX - gp.player.worldX + gp.player.getPlayerCenteredScreenX();
-            int screenY = worldY - gp.player.worldY + gp.player.getPlayerCenteredScreenY();
+            screenX = worldX - gp.player.worldX + gp.player.getPlayerCenteredScreenX();
+            screenY = worldY - gp.player.worldY + gp.player.getPlayerCenteredScreenY();
 
             // IMPROVED RENDERING
             if (inView(gp.tileSize, gp.player, worldX, worldY)) {

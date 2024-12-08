@@ -6,6 +6,9 @@ import interfaces.Interactable;
 import interfaces.Pickupable;
 import main.GamePanel;
 import game.Score;
+import main.Utility;
+import ui.UI;
+
 import java.awt.*;
 import java.util.*;
 import java.util.List;
@@ -23,6 +26,9 @@ public class NPC_Customer extends NPC implements Interactable {
     private Point seatLocation;
     private NPC npcType;
     private Score score;
+    private boolean orderAcknowledged;
+
+    Utility.Regulator utilTool;
 
     public NPC_Customer(GamePanel gp, NPC npcType) {
         super(gp, 1, "idle");
@@ -35,6 +41,9 @@ public class NPC_Customer extends NPC implements Interactable {
         isMovingToSeat = false;
         seatLocation = null;
         orderReceived = false;
+        orderAcknowledged = false;
+
+        utilTool = new Utility.Regulator();
     }
 
     // TODO PLAYER CUSTOMER INTERACTION HERE
@@ -43,14 +52,54 @@ public class NPC_Customer extends NPC implements Interactable {
 
         // only players can interact
         if (en instanceof Player) {
-
+            orderAcknowledged = true;
         }
     }
 
     // TODO CUSTOMER DRAW ORDER THOUGHT BUBBLE
     @Override
     public void draw (Graphics2D g2) {
+        super.draw(g2);
 
+        if (order != null) {
+
+            if (orderAcknowledged) {
+                drawOrderBubble(g2);
+            }
+            else {
+                drawAcknowledgeMe(g2);
+            }
+        }
+    }
+    private void drawOrderBubble(Graphics2D g2) {
+
+        // SET FONT STYLE
+        g2.setFont(UI.getStandardFont());
+        g2.setFont(g2.getFont().deriveFont(21F));
+        g2.setColor(Color.WHITE);
+
+        // CUSTOMER'S XY COORDINATES
+        int x = screenX - 20;
+        int y = screenY - 30;
+
+        // ORDER BUBBLE
+        g2.fillOval(x, y, 48, 48);
+    }
+    private void drawAcknowledgeMe(Graphics2D g2) {
+
+        // CUSTOMER'S XY COORDINATES
+        int x = screenX;
+        int y = screenY - 30;
+
+        // EXCLAMATION POINT
+        if (Utility.Regulator.flipSwitch(2)) {
+            g2.setColor(UI.primary);
+        }
+        else {
+            g2.setColor(UI.secondary);
+        }
+
+        g2.fillRect(x, y, 8, 42);
     }
 
     private void generateOrder() {
@@ -219,6 +268,9 @@ public class NPC_Customer extends NPC implements Interactable {
     // TODO UPDATE IN REAL TIME
     @Override
     public void update() {
+
+        // Gi comment out lang nako if gi tuyo ba jud full override ang NPC Class update hehe
+        //super.update();
 
         if (isSeated && patienceTimer > 0) {
             patienceTimer--;

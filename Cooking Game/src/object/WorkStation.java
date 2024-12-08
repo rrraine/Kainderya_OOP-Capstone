@@ -59,6 +59,7 @@ public abstract class WorkStation extends Station implements Drawable {
 
     @Override
     public void update() {
+        super.update();
 
         // STOVE WILL ONLY COOK IF CONDITION MET
         if (this instanceof WorkStation.Stove && itemOnTop instanceof Item.Pan pan) {
