@@ -29,7 +29,9 @@ public class NPC_Customer extends NPC implements Interactable {
     private Score score;
     private boolean orderAcknowledged;
 
+    Random rand;
     private Utility.Regulator utilTool;
+
     private final BufferedImage tapsilog;
     private final BufferedImage spamsilog;
     private final BufferedImage cornedsilog;
@@ -48,8 +50,10 @@ public class NPC_Customer extends NPC implements Interactable {
         seatLocation = null;
         orderReceived = false;
         orderAcknowledged = false;
-
+        
+        rand = new Random();
         utilTool = new Utility.Regulator();
+
         tapsilog = importImage("/food/meals/tapsilog/tapsilogFinal", gp.tileSize);
         spamsilog = importImage("/food/meals/spamsilog/spamsilogFinal", gp.tileSize);
         cornedsilog = importImage("/food/meals/cornsilog/cornsilogFinal", gp.tileSize);
@@ -133,7 +137,6 @@ public class NPC_Customer extends NPC implements Interactable {
     }
 
     private void generateOrder() {
-        Random rand = new Random();
         String[] mealsAndDrinks = {"Tapsilog", "CornedSilog", "Spamsilog", "Water", "Cola"};
 
         order = mealsAndDrinks[rand.nextInt(mealsAndDrinks.length)];
