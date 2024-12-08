@@ -1,6 +1,7 @@
 package main;
 
 import entity.*;
+import food.FoodBuilder;
 import game.Time;
 import object.SuperObject;
 import tile.TileManager;
@@ -65,6 +66,7 @@ public class GamePanel extends JPanel implements Runnable {
     final List<SuperObject> obj = new ArrayList<>();
     private List<Asset> assetPool = new ArrayList<>();
     ShopManager shopManager = new ShopManager(this);
+    public FoodBuilder fBuilder = FoodBuilder.instantiate(this);
 
     private final int maxCustomers = 9;
     private final int maxRoamers = 15;
@@ -197,6 +199,12 @@ public class GamePanel extends JPanel implements Runnable {
             for (NPC n : npc) {
                 if (n != null) {
                     n.update();
+                }
+            }
+
+            for (SuperObject o : obj) {
+                if (o != null) {
+                    o.update();
                 }
             }
         }

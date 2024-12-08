@@ -2,6 +2,7 @@ package entity;
 
 import animation.AnimationFactory;
 import animation.AnimationState;
+import food.Ingredients;
 import interfaces.Pickupable;
 import main.Asset;
 import main.GamePanel;
@@ -38,6 +39,7 @@ public class Player extends Entity {
     private final String playerAvatar;
     private String playerName;
 
+
     // CARRY ON HAND
     Pickupable itemOnHand;
 
@@ -46,17 +48,13 @@ public class Player extends Entity {
 
         if (stamina / GamePanel.FPS >= 7) {
             return 1;
-        }
-        else if (stamina / GamePanel.FPS >= 5) {
+        } else if (stamina / GamePanel.FPS >= 5) {
             return 2;
-        }
-        else if (stamina / GamePanel.FPS >= 3) {
+        } else if (stamina / GamePanel.FPS >= 3) {
             return 3;
-        }
-        else if (stamina / GamePanel.FPS >= 1) {
+        } else if (stamina / GamePanel.FPS >= 1) {
             return 4;
-        }
-        else if (stamina / GamePanel.FPS == 0) {
+        } else if (stamina / GamePanel.FPS == 0) {
             return 5;
         }
 
@@ -77,8 +75,8 @@ public class Player extends Entity {
         animF.switchState(AnimationState.BASE);
 
         // PLAYER CENTERED ON SCREEN
-        playerCenteredScreenX = gp.screenWidth / 2 - (gp.tileSize /2);
-        playerCenteredScreenY = gp.screenHeight / 2 - (gp.tileSize /2);
+        playerCenteredScreenX = gp.screenWidth / 2 - (gp.tileSize / 2);
+        playerCenteredScreenY = gp.screenHeight / 2 - (gp.tileSize / 2);
 
         // COLLISION DIMENSIONS
         this.solidArea = new Rectangle(18, 38, 28, 23);
@@ -92,16 +90,7 @@ public class Player extends Entity {
     }
 
 
-
-
-
-
-
-
-
     // FROM CLASS: ENTITY ---------------------------------------------------
-
-
 
 
     @Override
@@ -109,13 +98,18 @@ public class Player extends Entity {
 
         // if moving
         if (keyB.isPlayer1UpPressed() || keyB.isPlayer1DownPressed() || keyB.isLeftPressed() || keyB.isPlayer1RightPressed() ||
-            keyB.isPlayer1EnterPressed()) {
+                keyB.isPlayer1EnterPressed()) {
 
             // update movements
-            if (keyB.isPlayer1UpPressed()) { direction = "up"; }
-            else if (keyB.isPlayer1DownPressed()) { direction = "down"; }
-            else if (keyB.isLeftPressed()) { direction = "left"; }
-            else { direction = "right"; }
+            if (keyB.isPlayer1UpPressed()) {
+                direction = "up";
+            } else if (keyB.isPlayer1DownPressed()) {
+                direction = "down";
+            } else if (keyB.isLeftPressed()) {
+                direction = "left";
+            } else {
+                direction = "right";
+            }
 
             if (sprint()) {
                 speed = 6;
@@ -125,8 +119,7 @@ public class Player extends Entity {
                 if (stamina <= 0) {
                     stamina = -6 * GamePanel.FPS;
                 }
-            }
-            else {
+            } else {
                 speed = 3;
                 stamina++;
 
@@ -151,8 +144,7 @@ public class Player extends Entity {
 
                 if (gp.getAssetPool().get(objIndex) instanceof Item) {
                     System.out.println("ITEM");
-                }
-                else if (gp.getAssetPool().get(objIndex) instanceof WorkStation) {
+                } else if (gp.getAssetPool().get(objIndex) instanceof WorkStation) {
                     System.out.println("WorkStation");
                 }
                 if (gp.getAssetPool().get(objIndex) instanceof RefillStation) {
@@ -197,8 +189,7 @@ public class Player extends Entity {
             if (spriteCounter > 12) {
                 if (spriteNum == 1 || spriteNum == 3) {
                     spriteNum = 2;
-                }
-                else if (spriteNum == 2) {
+                } else if (spriteNum == 2) {
                     spriteNum = 1;
                 }
                 spriteCounter = 0;
@@ -220,6 +211,7 @@ public class Player extends Entity {
         // UPDATE SPRITE IMAGES
         updateSprite();
     }
+
     @Override
     public void draw(Graphics2D g2) {
 
@@ -229,34 +221,55 @@ public class Player extends Entity {
 
             // sprite images
             case "up":
-                if (spriteNum == 1) { image = up1; }
-                if (spriteNum == 2) { image = up2; }
-                if (spriteNum == 3) { image = idle2; }
+                if (spriteNum == 1) {
+                    image = up1;
+                }
+                if (spriteNum == 2) {
+                    image = up2;
+                }
+                if (spriteNum == 3) {
+                    image = idle2;
+                }
                 lastDirection = lastRecordedDirection.UP;
                 break;
 
             case "down":
-                if (spriteNum == 1) { image = down1; }
-                if (spriteNum == 2) { image = down2; }
-                if (spriteNum == 3) { image = idle1; }
+                if (spriteNum == 1) {
+                    image = down1;
+                }
+                if (spriteNum == 2) {
+                    image = down2;
+                }
+                if (spriteNum == 3) {
+                    image = idle1;
+                }
                 lastDirection = lastRecordedDirection.DOWN;
                 break;
 
             case "left":
-                if (spriteNum == 1 || spriteNum == 3) { image = left1; }
-                if (spriteNum == 2) { image = left2; }
+                if (spriteNum == 1 || spriteNum == 3) {
+                    image = left1;
+                }
+                if (spriteNum == 2) {
+                    image = left2;
+                }
                 lastDirection = lastRecordedDirection.LEFT;
                 break;
 
             case "right":
-                if (spriteNum == 1 || spriteNum == 3) { image = right1; }
-                if (spriteNum == 2) { image = right2; }
+                if (spriteNum == 1 || spriteNum == 3) {
+                    image = right1;
+                }
+                if (spriteNum == 2) {
+                    image = right2;
+                }
                 lastDirection = lastRecordedDirection.RIGHT;
                 break;
         }
-        
+
         g2.drawImage(image, playerCenteredScreenX, playerCenteredScreenY, null);
     }
+
     @Override
     void getAvatar() {
 
@@ -299,6 +312,7 @@ public class Player extends Entity {
         maxStamina = seconds * GamePanel.FPS;
         stamina = maxStamina;
     }
+
     private void interactSuperObject(int i) {
 
         if (i != 999) {
@@ -308,27 +322,19 @@ public class Player extends Entity {
 
             // IF INTERACT EXECUTED
             if (keyB.isPlayer1EnterPressed() && obj != null) {
-
-                if (obj instanceof Pickupable) {
-                    if (((Pickupable) obj).isPickingUp(animF.getCurrentState())) {
-                        if (itemOnHand == null) itemOnHand = (Pickupable) obj;
-                        obj.interact(this, animF, itemOnHand);
-                        gp.getAssetPool().remove(i);
-                    }
-                }
-                else {
-                    obj.interact(this, animF, itemOnHand);
-                }
+                obj.interact(this, animF, itemOnHand, i);
             }
         }
 
     }
+
     private void interactNPC(int i) {
 
         if (i != 999) {
             // TODO SOON
         }
     }
+
     private boolean sprint() {
         return keyB.isPlayer1ShiftPressed() && stamina >= 0 && (keyB.isPlayer1UpPressed() || keyB.isPlayer1DownPressed() || keyB.isLeftPressed() || keyB.isPlayer1RightPressed());
     }
@@ -338,19 +344,28 @@ public class Player extends Entity {
     public int getPlayerCenteredScreenX() {
         return playerCenteredScreenX;
     }
+
     public int getPlayerCenteredScreenY() {
         return playerCenteredScreenY;
     }
+
     public int getStamina() {
         return stamina / GamePanel.FPS;
     }
+
     public String getPlayerName() {
         return playerName;
     }
+
     public void setItemOnHandDestroy() {
         itemOnHand = null;
     }
+
     public void setItemOnHandCreate(Pickupable obj) {
         itemOnHand = obj;
+    }
+
+    public Pickupable getItemOnHand(){
+        return itemOnHand;
     }
 }

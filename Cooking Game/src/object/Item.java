@@ -7,9 +7,11 @@ import entity.NPC;
 import entity.Player;
 import interfaces.Importable;
 import interfaces.Pickupable;
+import interfaces.Swappable;
 import main.GamePanel;
 
 import java.awt.image.BufferedImage;
+import java.util.HashMap;
 
 public abstract class Item extends SuperObject {
 
@@ -19,6 +21,9 @@ public abstract class Item extends SuperObject {
     public Item(GamePanel gp, String name) {
         super(gp, name);
     }
+
+    @Override
+    public void interact(Entity en, AnimationFactory animF, Pickupable obj, int objIndex) {}
 
     // INNER STATIC CLASSES -----------------------------------
 
@@ -33,7 +38,7 @@ public abstract class Item extends SuperObject {
         }
 
         @Override
-        public void interact(Entity en, AnimationFactory animF, Pickupable obj) {
+        public void interact(Entity en, AnimationFactory animF, Pickupable obj, int objIndex) {
             if (en instanceof NPC) {
                 // TODO
             }
@@ -49,7 +54,7 @@ public abstract class Item extends SuperObject {
         }
 
         @Override
-        public void interact(Entity en, AnimationFactory animF, Pickupable obj) {
+        public void interact(Entity en, AnimationFactory animF, Pickupable obj, int objIndex) {
 
         }
     }
@@ -61,52 +66,122 @@ public abstract class Item extends SuperObject {
             super(gp, "Door");
             image = importImage("/objects/oldFiles/item/door/door", gp.tileSize);
         }
-
-        @Override
-        public void interact(Entity en, AnimationFactory animF, Pickupable obj) {
-
-        }
     }
 
     // kitchenTools -------------------------------
-    public static class Pan extends Item implements Importable, Pickupable {
+    public static class Pan extends Item implements Importable, Pickupable, Swappable {
+
+        public boolean isCooked;
+        public WorkStation surface;
+
+        public HashMap<String, BufferedImage> panVersions;
+
         public Pan (GamePanel gp) {
             super(gp, "Pan");
-            image = importImage("/objects/item/kitchenTools/pan", gp.tileSize);
             setDefaultCollisions(false, -8, -8, 80, 80);
+
+            isCooked = false;
+
+            panVersions = new HashMap<>();
+
+            // TODO IMPORT PLATE IMAGE INSTANCES
+            panVersions.put("pan", importImage("/objects/item/pan/pan", gp.tileSize));
+            panVersions.put("burntPan", importImage("/objects/item/pan/burnt", gp.tileSize));
+            panVersions.put("cBeefPan", importImage("/objects/item/pan/cbeef", gp.tileSize));
+
+            panVersions.put("eggPan", importImage("/objects/item/pan/egg", gp.tileSize));
+            panVersions.put("onionPan", importImage("/objects/item/pan/onion", gp.tileSize));
+
+            panVersions.put("onionCBeefPan", importImage("/objects/item/pan/onionCbeef", gp.tileSize));
+            panVersions.put("spamPan", importImage("/objects/item/pan/spam", gp.tileSize));
+            panVersions.put("tapa", importImage("/objects/item/pan/tapa", gp.tileSize));
+
+            image = panVersions.get("pan");
         }
 
         @Override
-        public void interact(Entity en, AnimationFactory animF, Pickupable obj) {
-            if(en instanceof Player){
-                if (animF.getCurrentState() == AnimationState.BASE) {
-                    animF.switchState((AnimationState.CARRY_PAN));
+        public void interact(Entity en, AnimationFactory animF, Pickupable obj, int objIndex) {
+
+            if (en instanceof Player){ //TODO COMPELTE
+
+                if (!isCooked) {
+
+                    if (!(surface instanceof WorkStation.Stove)) {
+
+                        // GENERAL PICK UP INGREDIENTS FROM SURFACE
+                        if (gp.player.getItemOnHand() == null ) {
+
+                            gp.getAssetPool().remove(objIndex); // remove from printing
+                            gp.player.setItemOnHandCreate(this); // add item on player's hand
+                            animF.switchState(AnimationState.CARRY_PAN);
+                        }
+                    }
                 }
-                else if (animF.getCurrentState() == AnimationState.CARRY_PAN) {
-                    animF.switchState((AnimationState.BASE));
+                else {
+                    gp.player.setItemOnHandCreate(gp.fBuilder.build(gp.player.getItemOnHand(), this, animF, objIndex));
                 }
             }
         }
+
+
         @Override
-        public boolean isPickingUp(AnimationState curr) {
-            return curr == AnimationState.BASE;
+        public void swapImage(String key) {
+            image = panVersions.get(key);
         }
+        @Override
+        public boolean checkCurrentImage(String key, Pickupable obj) {
+
+            if (obj instanceof Item) {
+                return (((Item)obj).image == panVersions.get(key));
+            }
+            return false;
+        }
+
+
     }
 
-    public static class Plates extends Item implements Importable, Pickupable{
+    public static class Plates extends Item implements Importable, Pickupable, Swappable {
 
-        BufferedImage diningPlate, counterPlate;
+        @Override
+        public void swapImage(String key) {
+            image = plateVersions.get(key);
+        }
+
+        @Override
+        public boolean checkCurrentImage(String key, Pickupable obj) {
+
+            if (obj instanceof Item) {
+                return (((Item)obj).image == plateVersions.get(key));
+            }
+            return false;
+        }
+
+        // THIS CLASS ONLY STORES PLATE IMAGE VERSIONS WHICH WILL BE USED AS THE FACE OF THE ACTUAL PLATE CLASS
+        public HashMap<String, BufferedImage> plateVersions;
 
         public Plates (GamePanel gp) {
             super(gp, "Plates");
             setDefaultCollisions(false, -8, -8, 80, 80);
-            diningPlate = importImage("/objects/item/kitchenTools/plate", gp.tileSize);
-            counterPlate = importImage("/objects/item/kitchenTools/plateCounter", gp.tileSize);
-            image = counterPlate;
+
+            plateVersions = new HashMap<>();
+
+            // TODO IMPORT PLATE IMAGE INSTANCES
+            plateVersions.put("diningPlate", importImage("/objects/item/plate/diningplate", gp.tileSize));
+            plateVersions.put("counterPlate", importImage("/objects/item/plate/counterPlate", gp.tileSize));
+
+            plateVersions.put("dirtyPlate", importImage("/objects/item/plate/dirtyPlate", gp.tileSize));
+            plateVersions.put("noMain", importImage("/objects/item/plate/noMain", gp.tileSize));
+
+            plateVersions.put("cookedEggOnly", importImage("/objects/item/plate/cookedEggOnly", gp.tileSize));
+            plateVersions.put("cookedRiceOnly", importImage("/objects/item/plate/cookedRiceOnly", gp.tileSize));
+            plateVersions.put("onionOnly", importImage("/objects/item/plate/onion", gp.tileSize));
+
+            // default
+            image = plateVersions.get("counterPlate");
         }
 
         @Override
-        public boolean isPickingUp(AnimationState curr) {
+        public boolean isHoldingSomething(AnimationState curr) {
             if (curr == AnimationState.BASE) {
                 return true;
             }
@@ -115,12 +190,22 @@ public abstract class Item extends SuperObject {
             }
             return false;
         }
+
         @Override
-        public void interact(Entity en, AnimationFactory animF, Pickupable obj) {
+        public void interact(Entity en, AnimationFactory animF, Pickupable obj, int objIndex) {
 
             if(en instanceof Player){
+
+                // GENERAL PICK UP INGREDIENTS FROM SURFACE
+                if (gp.player.getItemOnHand() == null) {
+
+                    gp.getAssetPool().remove(objIndex); // remove from printing
+                    gp.player.setItemOnHandCreate(this); // add item on player's hand
+                }
+
+                // IF FREE HAND
                 if (animF.getCurrentState() == AnimationState.BASE) {
-                    CounterToDiningPlate(false);
+                    //CounterToDiningPlate(false);
                     animF.switchState((AnimationState.CARRY_PLATE));
                 }
                 else if (animF.getCurrentState() == AnimationState.CARRY_PLATE) {
@@ -131,9 +216,11 @@ public abstract class Item extends SuperObject {
 
         public void CounterToDiningPlate(boolean change) {
 
-            if (change) { image = diningPlate; }
-            else if (image != counterPlate) { image = counterPlate; }
+            if (change) { image = plateVersions.get("diningPlate"); }
+            else if (image != plateVersions.get("counterPlate")) { image = plateVersions.get("counterPlate"); }
         }
+
+
     }
 
     // misc ---------------------------------------
@@ -144,7 +231,6 @@ public abstract class Item extends SuperObject {
             image = importImage("/objects/item/kitchenArea/rightWall", gp.tileSize);
             setDefaultCollisions(true, 40, 0, 24, 64);
         }
-        public void interact(Entity en, AnimationFactory animF, Pickupable obj) {}
     }
 
     public static class bush extends Item implements Importable{
@@ -153,7 +239,7 @@ public abstract class Item extends SuperObject {
             image = importImage("/objects/item/outsideRestaurant/bush", gp.tileSize);
             setDefaultCollisions(true, 0, 0, 10, 64);
         }
-        public void interact(Entity en, AnimationFactory animF, Pickupable obj) {}
+
     }
 
     public static class rightShelf1 extends Item implements Importable{
@@ -162,16 +248,19 @@ public abstract class Item extends SuperObject {
             image = importImage("/objects/item/kitchenArea/rightShelf1", gp.tileSize);
             setDefaultCollisions(true, 20, 20, 44, 54);
         }
-        public void interact(Entity en, AnimationFactory animF, Pickupable obj) {
-            if(en instanceof Player){
-                // animF.switchState((AnimationState.CARRY_PAN));
-            }
-        }
     }
 
     public static class rightShelf2 extends Item implements Importable{
         public rightShelf2(GamePanel gp){
             super (gp, "Right Shelf 2");
+            image = importImage("/objects/item/kitchenArea/rightShelf2", gp.tileSize);
+            setDefaultCollisions(true, 20, 0, 44, 64);
+        }
+    }
+
+    public class DirtyPlate extends Item implements Importable{
+        public DirtyPlate(GamePanel gp){
+            super (gp, "R");
             image = importImage("/objects/item/kitchenArea/rightShelf2", gp.tileSize);
             setDefaultCollisions(true, 20, 0, 44, 64);
         }

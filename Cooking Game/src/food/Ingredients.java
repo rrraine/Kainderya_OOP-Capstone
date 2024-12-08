@@ -8,6 +8,7 @@ import interfaces.Importable;
 import interfaces.Pickupable;
 import main.GamePanel;
 import object.SuperObject;
+import object.WorkStation;
 
 public abstract class Ingredients extends SuperObject implements Importable, Pickupable {
 
@@ -15,10 +16,18 @@ public abstract class Ingredients extends SuperObject implements Importable, Pic
         super(gp, name);
     }
 
-    @Override
-    public boolean isPickingUp(AnimationState curr) {
-        return curr == AnimationState.BASE;
+    public void interact(Entity en, AnimationFactory animF, Pickupable obj, int objIndex) {
+
+        if(en instanceof Player){
+
+            // GENERAL PICK UP INGREDIENTS FROM SURFACE
+            if (gp.player.getItemOnHand() == null) {
+                gp.player.setItemOnHandCreate(this);
+                gp.getAssetPool().remove(objIndex); // remove from printing
+            }
+        }
     }
+
 
     // inner classes
     public static class Tapa extends Ingredients {
@@ -30,7 +39,7 @@ public abstract class Ingredients extends SuperObject implements Importable, Pic
         }
 
         @Override
-        public void interact(Entity en, AnimationFactory animF, Pickupable obj) {
+        public void interact(Entity en, AnimationFactory animF, Pickupable obj, int objIndex) {
             if (en instanceof Player) {
                 if (animF.getCurrentState() == AnimationState.BASE) {
                     animF.switchState(AnimationState.CARRY_TAPA);
@@ -51,7 +60,7 @@ public abstract class Ingredients extends SuperObject implements Importable, Pic
         }
 
         @Override
-        public void interact(Entity en, AnimationFactory animF, Pickupable obj) {
+        public void interact(Entity en, AnimationFactory animF, Pickupable obj, int objIndex) {
             if (en instanceof Player) {
                 if (animF.getCurrentState() == AnimationState.BASE) {
                     animF.switchState(AnimationState.CARRY_CORNEDBEEF);
@@ -72,7 +81,7 @@ public abstract class Ingredients extends SuperObject implements Importable, Pic
         }
 
         @Override
-        public void interact(Entity en, AnimationFactory animF, Pickupable obj) {
+        public void interact(Entity en, AnimationFactory animF, Pickupable obj, int objIndex) {
             if (en instanceof Player) {
                 if (animF.getCurrentState() == AnimationState.BASE) {
                     animF.switchState(AnimationState.CARRY_SPAM);
@@ -93,14 +102,15 @@ public abstract class Ingredients extends SuperObject implements Importable, Pic
         }
 
         @Override
-        public void interact(Entity en, AnimationFactory animF, Pickupable obj) {
+        public void interact(Entity en, AnimationFactory animF, Pickupable obj, int objIndex) {
             if (en instanceof Player) {
-                if (animF.getCurrentState() == AnimationState.BASE) {
+                super.interact(en, animF, obj, objIndex);
+
+                if (obj == null) {
+                    gp.player.setItemOnHandCreate(this);
                     animF.switchState(AnimationState.CARRY_EGG);
                 }
-                else if (animF.getCurrentState() == AnimationState.CARRY_EGG) {
-                    animF.switchState((AnimationState.BASE));
-                }
+
             }
         }
     }
@@ -115,7 +125,7 @@ public abstract class Ingredients extends SuperObject implements Importable, Pic
         }
 
         @Override
-        public void interact(Entity en, AnimationFactory animF, Pickupable obj) {
+        public void interact(Entity en, AnimationFactory animF, Pickupable obj, int objIndex) {
             if (en instanceof Player) {
                 if (animF.getCurrentState() == AnimationState.BASE) {
                     animF.switchState(AnimationState.CARRY_RAW_RICE);
@@ -129,23 +139,37 @@ public abstract class Ingredients extends SuperObject implements Importable, Pic
 
     public static class Onion extends Ingredients {
 
+        public boolean isCooked;
+        public WorkStation surface;
+
         public Onion(GamePanel gp) {
             super(gp, "Onion");
             image = importImage("/food/ingredients/onion", gp.tileSize);
             setDefaultCollisions(false, -8, -8, 80, 80);
+
+            isCooked = false;
         }
 
         @Override
-        public void interact(Entity en, AnimationFactory animF, Pickupable obj) {
+        public void interact(Entity en, AnimationFactory animF, Pickupable obj, int objIndex) {
 
            if (en instanceof Player) {
-                if (animF.getCurrentState() == AnimationState.BASE) {
-                    animF.switchState(AnimationState.CARRY_ONION);
-                }
-                else if (animF.getCurrentState() == AnimationState.CARRY_ONION) {
-                    animF.switchState((AnimationState.BASE));
-                }
-            }
+
+               if (!isCooked) {
+                   super.interact(en, animF, this, objIndex);
+                   animF.switchState(AnimationState.CARRY_ONION);
+               }
+               else {
+                   gp.player.setItemOnHandCreate(gp.fBuilder.build(gp.player.getItemOnHand(), this, animF, objIndex));
+               }
+           }
+        }
+
+        public void setIsCooked(boolean isCooked) {
+            this.isCooked = isCooked;
         }
     }
+
+
+
 }

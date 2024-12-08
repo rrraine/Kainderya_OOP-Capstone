@@ -25,7 +25,7 @@ public abstract class RefillStation extends Station{
             setDefaultCollisions(true, 0, 0, 64, 40);
         }
 
-        public void interact(Entity en, AnimationFactory animF, Pickupable obj) {
+        public void interact(Entity en, AnimationFactory animF, Pickupable obj, int objIndex) {
             if(en instanceof Player){
                 if (animF.getCurrentState() == AnimationState.BASE) {
                     gp.player.setItemOnHandCreate(new Drink.Water(gp));
@@ -46,7 +46,7 @@ public abstract class RefillStation extends Station{
             setDefaultCollisions(true, 0, 0, 50, 40);
         }
 
-        public void interact(Entity en, AnimationFactory animF, Pickupable obj) {
+        public void interact(Entity en, AnimationFactory animF, Pickupable obj, int objIndex) {
             if(en instanceof Player){
 
                 if (animF.getCurrentState() == AnimationState.BASE) {
@@ -68,14 +68,14 @@ public abstract class RefillStation extends Station{
             image = importImage("/objects/item/ingredients/stationaryEgg", gp.tileSize);
             setDefaultCollisions(true, 0, 12, 40, 64);
         }
-        public void interact(Entity en, AnimationFactory animF, Pickupable obj) {
+        public void interact(Entity en, AnimationFactory animF, Pickupable obj, int objIndex) {
 
             if(en instanceof Player){
-                if (animF.getCurrentState() == AnimationState.BASE) {
+                if (obj == null) {
                     gp.player.setItemOnHandCreate(new Ingredients.Egg(gp));
                     animF.switchState((AnimationState.CARRY_EGG));
                 }
-                else if (animF.getCurrentState() == AnimationState.CARRY_EGG) {
+                else if (obj instanceof Ingredients.Egg) {
                     gp.player.setItemOnHandDestroy();
                     animF.switchState((AnimationState.BASE));
                 }
@@ -90,7 +90,7 @@ public abstract class RefillStation extends Station{
             setDefaultCollisions(true, 12, 24, 40, 37);
         }
 
-        public void interact(Entity en, AnimationFactory animF, Pickupable obj) {
+        public void interact(Entity en, AnimationFactory animF, Pickupable obj, int objIndex) {
             if(en instanceof Player){
                 if (animF.getCurrentState() == AnimationState.BASE) {
                     gp.player.setItemOnHandCreate(new Ingredients.Spam(gp));
@@ -110,7 +110,7 @@ public abstract class RefillStation extends Station{
             image = importImage ("/objects/item/ingredients/stationaryCornedBeef", gp.tileSize);
             setDefaultCollisions(true, 12, 24, 40, 37);
         }
-        public void interact(Entity en, AnimationFactory animF, Pickupable obj) {
+        public void interact(Entity en, AnimationFactory animF, Pickupable obj, int objIndex) {
             if(en instanceof Player){
                 if (animF.getCurrentState() == AnimationState.BASE) {
                     gp.player.setItemOnHandCreate(new Ingredients.CornedBeef(gp));
@@ -130,7 +130,7 @@ public abstract class RefillStation extends Station{
             image = importImage("/objects/item/ingredients/riceSack", gp.tileSize);
             setDefaultCollisions(true, 0, 0, 64, 40);
         }
-        public void interact(Entity en, AnimationFactory animF, Pickupable obj) {
+        public void interact(Entity en, AnimationFactory animF, Pickupable obj, int objIndex) {
             if(en instanceof Player){
                 if (animF.getCurrentState() == AnimationState.BASE) {
                     gp.player.setItemOnHandCreate(new Ingredients.Rice(gp));
@@ -152,7 +152,7 @@ public abstract class RefillStation extends Station{
             setDefaultCollisions(true, 20, 0, 46, 44);
         }
 
-        public void interact(Entity en, AnimationFactory animF, Pickupable obj) {
+        public void interact(Entity en, AnimationFactory animF, Pickupable obj, int objIndex) {
             if(en instanceof Player){
                 if (animF.getCurrentState() == AnimationState.BASE) {
                     gp.player.setItemOnHandCreate(new Ingredients.Tapa(gp));
@@ -174,7 +174,7 @@ public abstract class RefillStation extends Station{
             setDefaultCollisions(true, 0, 12, 40, 64);
         }
 
-        public void interact(Entity en, AnimationFactory animF, Pickupable obj) {
+        public void interact(Entity en, AnimationFactory animF, Pickupable obj, int objIndex) {
             if(en instanceof Player){
                 if (animF.getCurrentState() == AnimationState.BASE) {
                     gp.player.setItemOnHandCreate(new Ingredients.Onion(gp));

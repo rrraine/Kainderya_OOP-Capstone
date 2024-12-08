@@ -1,14 +1,16 @@
 package interfaces;
 
 import animation.AnimationState;
-import main.Asset;
 import object.SuperObject;
 
 public interface Pickupable {
     // THIS INTERFACE PICKS UP THE OBJECT AND DELETES THE COPY IN THE WORLD
 
     // flip state
-    boolean isPickingUp(AnimationState curr);
+    default boolean isHoldingSomething(AnimationState curr) {
+
+        return curr == AnimationState.BASE;
+    }
 
     // deploy
     default void reposition(Pickupable obj, SuperObject surface) {
@@ -19,4 +21,5 @@ public interface Pickupable {
         ((SuperObject) obj).setWorldX(surfaceX);
         ((SuperObject) obj).setWorldY(surfaceY);
     }
+
 }

@@ -67,14 +67,14 @@ public class Utility {
                 addItem(17, obj, new Item.Stool1(gp), tileSize, 4, 6);
                 addItem(18, obj, new Item.Stool1(gp), tileSize, 4, 5);
 
-                addItem(19, obj, new WorkStation.KitchenIsland.leftChoppingBoard(gp), tileSize, 9, 7);
+                addItem(19, obj, new WorkStation.ChoppingBoard(gp), tileSize, 9, 7);
                 addItem(20, obj, new WorkStation.KitchenIsland.middleKitchenIsland(gp), tileSize, 10, 7);
                 addItem(21, obj, new WorkStation.KitchenIsland.middleKitchenIsland(gp), tileSize, 11, 7);
                 addItem(22, obj, new WorkStation.KitchenIsland.middleKitchenIsland(gp), tileSize, 12, 7);
                 addItem(23, obj, new WorkStation.KitchenIsland.rightKitchenIsland(gp), tileSize, 13, 7);
 
                 addItem(24, obj, new WorkStation.KitchenIsland.leftKitchenIsland(gp), tileSize, 9, 4);
-                addItem(25, obj, new WorkStation.centerSink(gp), tileSize, 10, 4);
+                addItem(25, obj, new WorkStation.Sink(gp), tileSize, 10, 4);
                 addItem(26, obj, new WorkStation.KitchenIsland.middleKitchenIsland(gp), tileSize, 11, 4);
                 addItem(27, obj, new WorkStation.KitchenIsland.middleKitchenIsland(gp), tileSize, 12, 4);
                 addItem(28, obj, new WorkStation.KitchenIsland.rightKitchenIsland(gp), tileSize, 13, 4);
@@ -84,11 +84,12 @@ public class Utility {
 
                 //left counter
                 addItem(31, obj, new WorkStation.Counter.leftCornerTable(gp), tileSize, 6, 9);
-                addItem(32, obj, new WorkStation.Counter.leftRiceCooker(gp), tileSize, 6, 4);
+                addItem(32, obj, new WorkStation.RiceCooker(gp), tileSize, 6, 4);
                 addItem(33, obj, new WorkStation.Counter.leftStraightTable(gp), tileSize, 6, 6);
                 //addItem(34, obj, new WorkStation.Counter.leftStove(gp), tileSize, 6, 7);
                 addItem(34, obj, new WorkStation.Stove(gp), tileSize, 6, 7);
                 addItem(35, obj, new WorkStation.Counter.leftStraightTable(gp), tileSize, 6, 5);
+
 
                 addItem(36, obj, new RefillStation.stationaryEgg(gp), tileSize, 15, 8);
                 addItem(37, obj, new RefillStation.stationaryOnion(gp), tileSize, 15, 9);
@@ -130,7 +131,7 @@ public class Utility {
                 addItem(65, obj, new Item.Plates(gp), tileSize, 12, 4);
 
                 addItem(66, obj, new WorkStation.Stove(gp), tileSize, 6, 8);
-
+               // addItem(67, obj, new WorkStation.TrashCan(gp), tileSize, 6, 10);
 
             } catch (NullPointerException e) {
                 System.err.println("Accessing null element in (List<SuperObject> obj): " + e.getMessage());
@@ -577,6 +578,10 @@ public class Utility {
         }
         public double getBlockedTime() {
             return blockedTime;
+        }
+        public void resetBlock() {
+            stop = false;
+            blockedTime = 0;
         }
 
         private static long lastToggleTime = 0;

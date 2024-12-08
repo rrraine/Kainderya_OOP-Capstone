@@ -175,7 +175,7 @@ public abstract class UI implements Drawable, Importable {
         g2.setStroke(new BasicStroke(5));
         g2.drawOval(x+5, y+5, width -10, height -10);
     }
-    static void drawLetterBorder(Graphics2D g2, String text, Color color, int thickness, int x, int y) {
+    public static void drawLetterBorder(Graphics2D g2, String text, Color color, int thickness, int x, int y) {
 
         g2.setColor(color);
         for (int i = thickness *-1; i <= thickness; i++) {
@@ -195,5 +195,7 @@ public abstract class UI implements Drawable, Importable {
     public static void setNotif(String notif) {
         UI.notif = notif;
     }
-
+    public static Font getStandardFont() {
+        return balooBold;
+    }
 }
