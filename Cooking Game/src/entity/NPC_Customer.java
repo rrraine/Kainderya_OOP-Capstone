@@ -4,9 +4,11 @@ import animation.AnimationFactory;
 import interfaces.Interactable;
 import interfaces.Pickupable;
 import interfaces.Servable;
+import main.Asset;
 import main.GamePanel;
 import game.Score;
 import main.Utility;
+import object.Item;
 import ui.UI;
 
 import java.awt.*;
@@ -26,7 +28,6 @@ public class NPC_Customer extends NPC implements Interactable {
     private boolean isMovingToSeat;
     private Point seatLocation;
     private NPC npcType;
-    private Score score;
     private boolean orderAcknowledged; // this marks the start of the patience timer
     private boolean hasPlacedOrder; // this locks the customer to having only one order at a time
 
@@ -42,7 +43,6 @@ public class NPC_Customer extends NPC implements Interactable {
     public NPC_Customer(GamePanel gp, NPC npcType) {
         super(gp, 1, "idle");
         this.npcType = npcType;
-        score = new Score();
         getAvatar();
         patienceTimer = 30 * GamePanel.FPS; // 30 seconds at 60 FPS
         isReordered = false;
@@ -152,6 +152,41 @@ public class NPC_Customer extends NPC implements Interactable {
         isSeated = false;
     }
 
+    // TODO HELP WHY
+    private String deduceSeatOrientation() {
+
+        // debugging purposes
+        System.out.println("SEAT X: " + seatLocation.x + " SEAT Y: " + seatLocation.y);
+        if (seatLocation.x == 4) {
+            System.out.println("SitSide");
+        }
+        else if (seatLocation.y == 11) {
+            System.out.println("SitUp");
+        }
+
+        // -------
+        if (seatLocation.x == 4 && seatLocation.y != 11) return "sitSide";
+        else if (seatLocation.y == 11 && seatLocation.x != 4) return "sitUp";
+
+        return null; // must not reach this unta, causes NPC placement camera issues
+    }
+
+    // TODO HELP WHY
+    private void deleteChairAssetAtLocation() {
+
+        // Create a copy of the asset pool to iterate over
+        for (Asset a : new ArrayList<>(gp.getAssetPool())) {
+            if (a instanceof Item.Stool || a instanceof Item.Stool1) {
+
+                if (a.textMapX == seatLocation.x && a.textMapY == seatLocation.y) {
+
+                    System.out.println("Customer now seated, deleting chair: x=" + a.textMapX + ", y=" + a.textMapY + " | Seat Location: " + seatLocation);
+                    gp.getAssetPool().remove(a);
+                }
+            }
+        }
+    }
+
     public void moveToSeat() {
         // old pathfinding, dili A*
         /*
@@ -217,9 +252,10 @@ public class NPC_Customer extends NPC implements Interactable {
 
             if (path.isEmpty()) {
                 System.out.println("Customer has reached seat at: " + seatLocation);
-                direction = "sitUp"; // TODO UPDATE WHETHER SIT UP OR SIT SIDE DEPENDING WHERE NA CHAIR & DELETE THE CHAIR
                 isMovingToSeat = false;
                 isSeated = true;
+                direction = deduceSeatOrientation();
+                deleteChairAssetAtLocation();
                 startPatienceTimer();
             }
         }
@@ -235,8 +271,8 @@ public class NPC_Customer extends NPC implements Interactable {
         if (isSeated && patienceTimer > 0) {
             patienceTimer--; // Reduce patience only if seated
             if (patienceTimer <= 0 && !orderReceived) {
-                score.deductScore(5);
-                System.out.println("Customer at (" + seatLocation.x + "," + seatLocation.y + "): " + "did not received their order. 5 points deducted. New score: " + score.getTotalScore());
+                gp.score.deductScore(5);
+                System.out.println("Customer at (" + seatLocation.x + "," + seatLocation.y + "): " + "did not received their order. 5 points deducted. New score: " +  gp.score.getTotalScore());
             }
 
         }
@@ -245,7 +281,7 @@ public class NPC_Customer extends NPC implements Interactable {
     private void checkPatience() {
         if (patienceTimer <= 0 && !orderReceived) {
             System.out.println("Customer at (" + seatLocation.x + "," + seatLocation.y + "): " + " is impatient and their patience ran out.");
-            score.deductScore(5);
+            gp.score.deductScore(5);
         }
     }
 
@@ -268,13 +304,13 @@ public class NPC_Customer extends NPC implements Interactable {
             orderReceived = true;
             System.out.println("Customer at (" + seatLocation.x + "," + seatLocation.y + "): " + " received order: " + order);
             if (order.contains("Tapsilog") || order.contains("CornedSilog") || order.contains("Spamsilog")) {
-                score.addScore(20);
+               gp.score.addScore(20);
             } else if (order.contains("Water") || order.contains("Cola")) {
-                score.addScore(15);
+                gp.score.addScore(15);
             }
 
             resetOrderParameters();
-            score.addScore((patienceTimer > 0 && patienceTimer < 15) ? 5 : 10);
+            gp.score.addScore((patienceTimer > 0 && patienceTimer < 15) ? 5 : 10);
         }
     }
 
@@ -303,7 +339,7 @@ public class NPC_Customer extends NPC implements Interactable {
                 System.out.println("Customer at (" + seatLocation.x + "," + seatLocation.y + "): " + " is seated and waiting for their order. Patience Timer: " + patienceTimer /60);
                 System.out.println("Customer at (" + seatLocation.x + "," + seatLocation.y + "): " + "ordered " + order);
             }
-            System.out.println(score.getTotalScore());
+            System.out.println( gp.score.getTotalScore());
             checkPatience();
         } else {
             System.out.println("Customer is idle, waiting for seat assignment.");
@@ -322,8 +358,8 @@ public class NPC_Customer extends NPC implements Interactable {
         if (isSeated && patienceTimer > 0) {
             patienceTimer--;
             if (patienceTimer <= 0 && !orderReceived) {
-                score.deductScore(5);
-                System.out.println("Customer at (" + seatLocation.x + "," + seatLocation.y + "): " + " did not receive their order. 5 points deducted. New score: " + score.getTotalScore());
+                gp.score.deductScore(5);
+                System.out.println("Customer at (" + seatLocation.x + "," + seatLocation.y + "): " + " did not receive their order. 5 points deducted. New score: " +  gp.score.getTotalScore());
                 reorder();
                 isReordered = true;
             }

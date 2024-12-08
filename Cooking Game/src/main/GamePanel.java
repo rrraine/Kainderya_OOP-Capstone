@@ -2,6 +2,7 @@ package main;
 
 import entity.*;
 import food.FoodBuilder;
+import game.Score;
 import game.Time;
 import object.SuperObject;
 import tile.TileManager;
@@ -59,6 +60,7 @@ public class GamePanel extends JPanel implements Runnable {
     KeyBindings keyB = KeyBindings.instantiate(this, uiM);
     EventHandler eH = EventHandler.instantiate(this);
     Thread gameThread;
+    public Score score = Score.instantiate(this);
 
     // OBJECTS AND ENTITY
     public Player player;

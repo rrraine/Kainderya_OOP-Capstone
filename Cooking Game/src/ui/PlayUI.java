@@ -95,6 +95,15 @@ public class PlayUI extends UI implements Drawable {
                 g2.drawString("Stamina: " + gp.player.getStamina(), gp.tileSize * 16 + 5, 100);
             }
 
+            // SCORE
+            String score = Integer.toString(gp.score.getTotalScore());
+            g2.setFont(g2.getFont().deriveFont(24F));
+            x = gp.tileSize * 18 + 5;
+            y = gp.screenHeight/2;
+            drawLetterBorder(g2, "Score: " + score, Color.BLACK, 3, x, y);
+            g2.setColor(Color.WHITE);
+            g2.drawString("Score: " + score, x, y);
+
         }
     }
     private void playLOADING(Graphics2D g2) {

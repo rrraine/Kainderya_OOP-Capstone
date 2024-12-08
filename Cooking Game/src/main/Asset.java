@@ -9,9 +9,12 @@ public abstract class Asset implements Comparable<Asset> {
 
     public GamePanel gp;
 
-    // ABSOLUTE POS IN MAP
+    // ABSOLUTE POS IN MAP * TILESIZE
     public int worldX;
     public int worldY;
+
+    // XY COORDINATED BASED ON RAW TEXT FILE MAP
+    public int textMapX, textMapY;
 
     // COLLISION BOX
     public Rectangle solidArea;

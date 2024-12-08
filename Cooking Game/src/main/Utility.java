@@ -38,9 +38,10 @@ public class Utility {
             obj.add(index, item);
             obj.get(index).setWorldX(tileSize * x);
             obj.get(index).setWorldY(tileSize * y);
+
+            obj.get(index).textMapX = x;
+            obj.get(index).textMapY = y;
         }
-
-
 
         public static void deploySuperObjectInMap(GamePanel gp, int tileSize, List<SuperObject> obj) {
 
