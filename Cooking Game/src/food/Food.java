@@ -5,12 +5,13 @@ import entity.Entity;
 import entity.Player;
 import interfaces.Importable;
 import interfaces.Pickupable;
+import interfaces.Servable;
 import main.GamePanel;
 import object.SuperObject;
 
 import java.util.List;
 
-public abstract class Food extends SuperObject implements Importable, Pickupable {
+public abstract class Food extends SuperObject implements Importable, Pickupable, Servable {
 
     // NOTE: THIS CLASS CAN USE ASSET CLASS' ABSOLUTE POSITIONING IN MAP & ALSO COLLISION BOX
 
