@@ -217,7 +217,7 @@ public class NPC_Customer extends NPC implements Interactable {
 
             if (path.isEmpty()) {
                 System.out.println("Customer has reached seat at: " + seatLocation);
-                direction = "idle";
+                direction = "sitUp"; // TODO UPDATE WHETHER SIT UP OR SIT SIDE DEPENDING WHERE NA CHAIR & DELETE THE CHAIR
                 isMovingToSeat = false;
                 isSeated = true;
                 startPatienceTimer();
@@ -351,6 +351,8 @@ public class NPC_Customer extends NPC implements Interactable {
         down2 = npcType.down2;
         up1 = npcType.up1;
         up2 = npcType.up2;
+        sitUp = npcType.sitUp;
+        sitSide = npcType.sitSide;
     }
 
     // GETTERS & SETTERS ----------------------------------------------

@@ -15,13 +15,15 @@ public abstract class Entity extends Asset implements Drawable, Observable, Impo
     int speed;
 
     // SPRITE
-    BufferedImage idle1, idle2, up1, up2, down1, down2, left1, left2, right1, right2;
+    protected BufferedImage idle1, idle2, up1, up2, down1, down2, left1, left2, right1, right2, sitUp, sitSide;
     protected enum lastRecordedDirection { UP, DOWN, LEFT, RIGHT };
     protected lastRecordedDirection lastDirection;
-    String direction;
+    protected String direction;
     int standCounter;
     int spriteCounter;
     int spriteNum;
+
+    private BufferedImage image;
 
     // XY Coordinates
     protected int screenX, screenY;
@@ -52,7 +54,7 @@ public abstract class Entity extends Asset implements Drawable, Observable, Impo
     @Override
     public void draw(Graphics2D g2) {
 
-        BufferedImage image = null;
+        image = null;
 
         try {
 
@@ -109,6 +111,14 @@ public abstract class Entity extends Asset implements Drawable, Observable, Impo
                         else {
                             image = idle1;
                         }
+                        break;
+
+                    case "sitUp":
+                        image = sitUp;
+                        break;
+
+                    case "sitSide":
+                        image = sitSide;
                         break;
                 }
 
