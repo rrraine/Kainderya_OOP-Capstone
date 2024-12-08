@@ -143,6 +143,7 @@ public class NPC_Customer extends NPC implements Interactable {
         String[] mealsAndDrinks = {"Tapsilog", "CornedSilog", "Spamsilog", "Water", "Cola"};
 
         order = mealsAndDrinks[rand.nextInt(mealsAndDrinks.length)];
+        hasPlacedOrder = true;
 
     }
 
