@@ -269,11 +269,6 @@ public class NPC_Customer extends NPC implements Interactable {
     }
 
 
-
-    private boolean hasReceivedOrder() {
-        return orderReceived;
-    }
-
     @Override
     public void setNPCAction() {
         if (isMovingToSeat) {
@@ -371,6 +366,10 @@ public class NPC_Customer extends NPC implements Interactable {
 
     public String getOrder() {
         return order;
+    }
+
+    private boolean hasReceivedOrder() {
+        return orderReceived;
     }
 
     // PATHFINDING PURPOSES -------------------------------------------------
