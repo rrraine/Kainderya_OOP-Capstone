@@ -61,11 +61,14 @@ public abstract class WorkStation extends Station implements Drawable {
     public void update() {
 
         // STOVE WILL ONLY COOK IF CONDITION MET
-        if (this instanceof WorkStation.Stove && itemOnTop instanceof Item.Pan && ((Item.Pan) itemOnTop).checkCurrentImage("pan", (Pickupable) itemOnTop)) {
-            isOccupied = true;
-            ((Item.Pan) itemOnTop).isCooked = false;
-        }
+        if (this instanceof WorkStation.Stove && itemOnTop instanceof Item.Pan pan) {
 
+            // not empty, not burnt, not only cbeef, not only onion, then cook
+            if (!pan.checkCurrentImage("pan", pan) && !pan.checkCurrentImage("panBurnt", pan) && !pan.checkCurrentImage("panCBeef", pan) && !pan.checkCurrentImage("onionOnly", pan)) {
+                isOccupied = true;
+                ((Item.Pan) itemOnTop).isCooked = false;
+            }
+        }
 
         if (isOccupied) {
 
