@@ -86,4 +86,9 @@ public class UIFactory implements Drawable {
 
     // OTHER GETTERS & SETTERS
     public void setNotif(String notif) { UI.setNotif(notif); }
+
+    public void resetParams() {
+        playUI.resetParams();
+        instance = null;
+    }
 }

@@ -14,6 +14,7 @@ public class PlayUI extends UI implements Drawable {
 
     UIElement staminaBar, loadingBar;
 
+
     private int loadTime;
     private static int randomNum;
 
@@ -47,13 +48,28 @@ public class PlayUI extends UI implements Drawable {
             g2.setFont(fredokaSemiBold);
             g2.setFont(g2.getFont().deriveFont(18F));
 
-            // PLAYER NAME
-            int x = Utility.Aligner.centerTextOnAvatar(gp.player.getPlayerName(), gp, g2);
-            int y = gp.player.getPlayerCenteredScreenY() - 10;
-            g2.setFont(g2.getFont().deriveFont(Font.PLAIN,18F));
-            drawLetterBorder(g2, gp.player.getPlayerName(), Color.BLACK, 1, x, y);
-            g2.setColor(player1);
-            g2.drawString(gp.player.getPlayerName(), x, y);
+            // PLAYER NAMECARD
+            int x = gp.tileSize;
+            int y = gp.tileSize;
+            drawPopUpWindow(g2, x - 10, y - 10, gp.tileSize *3 + 46, gp.tileSize + 20, transBlack, Color.WHITE);
+
+            renderAvatarOnNameCard();
+            chosenAvatar.reposition(x, y);
+            chosenAvatar.drawAvatarFrontStatic(g2, gp.tileSize, gp.tileSize);
+
+//            x = Utility.Aligner.centerTextOnAvatar(gp.player.getPlayerName(), gp, g2);
+//            y = gp.player.getPlayerCenteredScreenY() - 10;
+
+            x += gp.tileSize + 10;
+            y += 40;
+            g2.setFont(g2.getFont().deriveFont(Font.PLAIN,24F));
+            drawLetterBorder(g2, gp.player.getPlayerName().toUpperCase(), Color.BLACK, 3, x, y);
+            g2.setColor(Color.WHITE);
+            g2.drawString(gp.player.getPlayerName().toUpperCase(), x, y);
+            // ------
+
+
+
 
             // ORDER PANE
             x = -10;
@@ -66,8 +82,8 @@ public class PlayUI extends UI implements Drawable {
             drawCircle(g2, gp.tileSize/2, y - gp.tileSize + 12, gp.tileSize + 48 + 6, gp.tileSize + 48, Color.WHITE, Color.BLACK);
 
             // STAMINA BAR
-            x = gp.screenWidth - gp.tileSize *2 - 20;
-            y -= gp.tileSize * 2;
+            x = gp.screenWidth - gp.tileSize *4 + 20;
+            y -= (gp.tileSize * 3);
             staminaBar.reposition(x, y);
             staminaBar.drawStaminaBar(g2, gp.player.staminaMeter());
 
@@ -84,25 +100,14 @@ public class PlayUI extends UI implements Drawable {
                 g2.drawString("Time: " + Time.getTimer(), gp.tileSize * 16, 65);
             }
 
-            // STAMINA
-            if (gp.player.getStamina() >= 0) {
-                g2.setFont(g2.getFont().deriveFont(Font.PLAIN,20F));
-                g2.drawString("Stamina: " + gp.player.getStamina(), gp.tileSize * 16 + 5, 100);
-            }
-            else {
-                g2.setColor(Color.RED);
-                g2.setFont(g2.getFont().deriveFont(Font.PLAIN, 20F));
-                g2.drawString("Stamina: " + gp.player.getStamina(), gp.tileSize * 16 + 5, 100);
-            }
-
             // SCORE
-            String score = Integer.toString(gp.score.getTotalScore());
+            String text = Integer.toString(gp.score.getTotalScore());
             g2.setFont(g2.getFont().deriveFont(24F));
             x = gp.tileSize * 18 + 5;
             y = gp.screenHeight/2;
-            drawLetterBorder(g2, "Score: " + score, Color.BLACK, 3, x, y);
+            drawLetterBorder(g2, "Score: " + text, Color.BLACK, 3, x, y);
             g2.setColor(Color.WHITE);
-            g2.drawString("Score: " + score, x, y);
+            g2.drawString("Score: " + text, x, y);
 
         }
     }
@@ -145,10 +150,8 @@ public class PlayUI extends UI implements Drawable {
     }
 
 
-    public void resetLoadTime() {
-        loadTime = 60 * 6;
-    }
     public static void generateRandomNum() {
         randomNum = random.nextInt(4) +1;
     }
+
 }

@@ -34,8 +34,8 @@ public class Player extends Entity {
     private int maxStamina;
 
     // PLAYER PREFERENCES
-    private final String playerAvatar;
-    private String playerName;
+    private String playerAvatar;
+    public String playerName;
 
 
     // CARRY ON HAND
@@ -270,7 +270,6 @@ public class Player extends Entity {
 
     @Override
     void getAvatar() {
-
         idle1 = setAvatar("player", playerAvatar, "idle");
         idle2 = setAvatar("player", playerAvatar, "idleUp");
         up1 = setAvatar("player", playerAvatar, "up1");
@@ -382,5 +381,19 @@ public class Player extends Entity {
 
     public Pickupable getItemOnHand(){
         return itemOnHand;
+    }
+
+    public void resetParams() {
+        super.resetParams();
+        idle1 = idle2 = up1 = up2 = down1 = down2 = left1 = left2 = right1 = right2 = null;
+        playerAvatar = "";
+        playerName = "";
+        animF.resetParams();
+        animF = null;
+        setDefaultPlayerValues();
+    }
+
+    public String getPlayerAvatar() {
+        return playerAvatar;
     }
 }

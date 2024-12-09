@@ -7,6 +7,9 @@ import java.util.*;
 import java.util.List;
 
 public class ShopManager {
+
+    private static ShopManager instance;
+
     GamePanel gp;
     private Queue<NPC_Customer> waitingQueue;
     private NPC_Customer[] seatedCustomers;
@@ -19,11 +22,18 @@ public class ShopManager {
             new Point(14, 11)
     };
 
-    public ShopManager(GamePanel gp) {
+    private ShopManager(GamePanel gp) {
         this.gp = gp;
         waitingQueue = new LinkedList<>();
         seatedCustomers = new NPC_Customer[seatLocations.length];
         freeRoamingNPCs = new ArrayList<>();
+    }
+    public static ShopManager instantiate(GamePanel gp) {
+        if (instance == null) {
+            instance = new ShopManager(gp);
+        }
+
+        return instance;
     }
 
     public void addCustomer(NPC_Customer customer) {
@@ -182,4 +192,8 @@ public class ShopManager {
         return seated;
     }
 
+    public void resetParams() {
+
+        instance = null;
+    }
 }

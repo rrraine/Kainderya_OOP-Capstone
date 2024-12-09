@@ -1,6 +1,7 @@
 package entity;
 
 import animation.AnimationFactory;
+import animation.AnimationState;
 import interfaces.Interactable;
 import interfaces.Pickupable;
 import interfaces.Servable;
@@ -44,8 +45,9 @@ public class NPC_Customer extends NPC implements Interactable {
         super(gp, 1, "idle");
         this.npcType = npcType;
         getAvatar();
+        order = null;
         patienceTimer = 30 * GamePanel.FPS; // 30 seconds at 60 FPS
-        isReordered = false;
+//        isReordered = false;
         isSeated = false;
         isMovingToSeat = false;
         seatLocation = null;
@@ -59,7 +61,7 @@ public class NPC_Customer extends NPC implements Interactable {
         tapsilog = importImage("/food/meals/tapsilog/tapsilogFinal", gp.tileSize);
         spamsilog = importImage("/food/meals/spamsilog/spamsilogFinal", gp.tileSize);
         cornedsilog = importImage("/food/meals/cornsilog/cornsilogFinal", gp.tileSize);
-        water = importImage("/food/meals/center/burnt", gp.tileSize); // TODO WALA PA WATER IMAGE
+        water = importImage("/food/drinks/water", gp.tileSize);
         cola = importImage("/food/drinks/cola", gp.tileSize);
     }
 
@@ -68,13 +70,13 @@ public class NPC_Customer extends NPC implements Interactable {
     public void interact(Entity en, AnimationFactory animF, Pickupable obj, int objIndex) {
 
         // only players can interact with customer
-        if (en instanceof Player) {
+        if (en instanceof Player p) {
 
             if (!orderReceived && !orderAcknowledged) { // acknowledge customers
                 orderAcknowledged = true;
             }
             else if (orderAcknowledged && obj instanceof Servable onHand) { // serve to customers
-                servingOrder(onHand);
+                servingOrder(onHand, p, animF);
             }
         }
     }
@@ -143,7 +145,6 @@ public class NPC_Customer extends NPC implements Interactable {
 
         order = mealsAndDrinks[rand.nextInt(mealsAndDrinks.length)];
         hasPlacedOrder = true;
-
     }
 
     public void assignSeat(Point location) {
@@ -298,18 +299,22 @@ public class NPC_Customer extends NPC implements Interactable {
         }
     }
 
-    public void servingOrder(Servable onHand){
+    public void servingOrder(Servable onHand, Player player, AnimationFactory animF){
 
         if (onHand.serve(onHand, order)) { // checks if order name and onHand name matches
 
+            player.setItemOnHandDestroy();
+            animF.switchState(AnimationState.BASE);
+
             orderReceived = true;
+            hasPlacedOrder = false;
             System.out.println("Customer at (" + seatLocation.x + "," + seatLocation.y + "): " + " received order: " + order);
             if (order.contains("Tapsilog") || order.contains("CornedSilog") || order.contains("Spamsilog")) {
                gp.score.addScore(20);
             } else if (order.contains("Water") || order.contains("Cola")) {
                 gp.score.addScore(15);
             }
-
+            System.out.println("CUSTOMER RECEIVED ORDER");
             resetOrderParameters();
             gp.score.addScore((patienceTimer > 0 && patienceTimer < 15) ? 5 : 10);
         }
@@ -332,11 +337,11 @@ public class NPC_Customer extends NPC implements Interactable {
             moveToSeat();
         } else if (isSeated) {
             // generateOrder();
-            if (!orderReceived) {
-                if (order == null || !isReordered) { // Only generate a new order if there's none or it's a reorder
-                    generateOrder();
-                    isReordered = false; // Reset the reorder state after generating the order
-                }
+            if ((!orderReceived || order == null) && !hasPlacedOrder) {
+                 // Only generate a new order if there's none or it's a reorder
+                generateOrder();
+//               isReordered = false; // Reset the reorder state after generating the order
+
                 System.out.println("Customer at (" + seatLocation.x + "," + seatLocation.y + "): " + " is seated and waiting for their order. Patience Timer: " + patienceTimer /60);
                 System.out.println("Customer at (" + seatLocation.x + "," + seatLocation.y + "): " + "ordered " + order);
             } else {
@@ -359,17 +364,24 @@ public class NPC_Customer extends NPC implements Interactable {
         // Gi comment out lang nako if gi tuyo ba jud full override ang NPC Class update hehe
         //super.update();
 
+
+
         if (isSeated && patienceTimer > 0) {
             patienceTimer--;
             if (patienceTimer <= 0 && !orderReceived) {
                 gp.score.deductScore(5);
                 System.out.println("Customer at (" + seatLocation.x + "," + seatLocation.y + "): " + " did not receive their order. 5 points deducted. New score: " +  gp.score.getTotalScore());
                 reorder();
-                isReordered = true;
+//                isReordered = true;
             }
         }
 
         setNPCAction();
+
+
+
+
+
         // Trigger frame updates for animation
         spriteCounter++;
         if (spriteCounter > 10) { // Example: change frame every 10 frames
@@ -526,6 +538,20 @@ public class NPC_Customer extends NPC implements Interactable {
     private int calculateHeuristic(Point a, Point b) {
         // Manhattan distance heuristic
         return Math.abs(a.x - b.x) + Math.abs(a.y - b.y);
+    }
+
+
+    public void resetParams() {
+        super.resetParams();
+        order = null;
+        patienceTimer = 30 * GamePanel.FPS; // 30 seconds at 60 FPS
+//        isReordered = false;
+        isSeated = false;
+        isMovingToSeat = false;
+        seatLocation = null;
+        orderReceived = false;
+        orderAcknowledged = false;
+        hasPlacedOrder = false;
     }
 
 }

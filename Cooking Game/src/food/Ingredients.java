@@ -12,6 +12,9 @@ import object.WorkStation;
 
 public abstract class Ingredients extends SuperObject implements Importable, Pickupable {
 
+    public boolean isCooked;
+    public WorkStation surface;
+
     public Ingredients(GamePanel gp, String name) {
         super(gp, name);
     }
@@ -41,12 +44,9 @@ public abstract class Ingredients extends SuperObject implements Importable, Pic
         @Override
         public void interact(Entity en, AnimationFactory animF, Pickupable obj, int objIndex) {
             if (en instanceof Player) {
-                if (animF.getCurrentState() == AnimationState.BASE) {
-                    animF.switchState(AnimationState.CARRY_TAPA);
-                }
-                else if (animF.getCurrentState() == AnimationState.CARRY_TAPA) {
-                    animF.switchState((AnimationState.BASE));
-                }
+                super.interact(en, animF, obj, objIndex);
+                animF.switchState(AnimationState.CARRY_TAPA);
+
             }
         }
     }
@@ -62,12 +62,9 @@ public abstract class Ingredients extends SuperObject implements Importable, Pic
         @Override
         public void interact(Entity en, AnimationFactory animF, Pickupable obj, int objIndex) {
             if (en instanceof Player) {
-                if (animF.getCurrentState() == AnimationState.BASE) {
-                    animF.switchState(AnimationState.CARRY_CORNEDBEEF);
-                }
-                else if (animF.getCurrentState() == AnimationState.CARRY_CORNEDBEEF) {
-                    animF.switchState((AnimationState.BASE));
-                }
+                super.interact(en, animF, obj, objIndex);
+                animF.switchState(AnimationState.CARRY_CORNEDBEEF);
+
             }
         }
     }
@@ -83,12 +80,9 @@ public abstract class Ingredients extends SuperObject implements Importable, Pic
         @Override
         public void interact(Entity en, AnimationFactory animF, Pickupable obj, int objIndex) {
             if (en instanceof Player) {
-                if (animF.getCurrentState() == AnimationState.BASE) {
-                    animF.switchState(AnimationState.CARRY_SPAM);
-                }
-                else if (animF.getCurrentState() == AnimationState.CARRY_SPAM) {
-                    animF.switchState((AnimationState.BASE));
-                }
+                super.interact(en, animF, obj, objIndex);
+                animF.switchState(AnimationState.CARRY_SPAM);
+
             }
         }
     }
@@ -105,12 +99,7 @@ public abstract class Ingredients extends SuperObject implements Importable, Pic
         public void interact(Entity en, AnimationFactory animF, Pickupable obj, int objIndex) {
             if (en instanceof Player) {
                 super.interact(en, animF, obj, objIndex);
-
-                if (obj == null) {
-                    gp.player.setItemOnHandCreate(this);
-                    animF.switchState(AnimationState.CARRY_EGG);
-                }
-
+                animF.switchState(AnimationState.CARRY_EGG);
             }
         }
     }
@@ -127,20 +116,13 @@ public abstract class Ingredients extends SuperObject implements Importable, Pic
         @Override
         public void interact(Entity en, AnimationFactory animF, Pickupable obj, int objIndex) {
             if (en instanceof Player) {
-                if (animF.getCurrentState() == AnimationState.BASE) {
-                    animF.switchState(AnimationState.CARRY_RAWRICE);
-                }
-                else if (animF.getCurrentState() == AnimationState.CARRY_RAWRICE) {
-                    animF.switchState((AnimationState.BASE));
-                }
+                super.interact(en, animF, obj, objIndex);
+                animF.switchState(AnimationState.CARRY_RAWRICE);
             }
         }
     }
 
     public static class Onion extends Ingredients {
-
-        public boolean isCooked;
-        public WorkStation surface;
 
         public Onion(GamePanel gp) {
             super(gp, "Onion");
@@ -176,6 +158,10 @@ public abstract class Ingredients extends SuperObject implements Importable, Pic
         }
     }
 
-
+    public void resetParams() {
+        super.resetParams();
+        isCooked = false;
+        surface = null;
+    }
 
 }

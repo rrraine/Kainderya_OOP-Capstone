@@ -12,9 +12,9 @@ public class AnimationFactory {
     String avatar;
 
     AnimationState currentState;
-    Animation base, carryPlate, carryCornedBeef, carryEgg, carryOnion, carryPan, carryRawRice, carryCookedSpamOnly, carryTapa, carryCoke,
+    Animation base, carryPlate, carryCornedBeef, carryEgg, carryOnion, carryPan, carryRawRice, carryCookedSpamOnly, carryTapa, carryCoke, carryWater,
             carryCookedTapaOnly, carrySpamPlate, carryCookedEggOnly, carryCookedCBeefOnly, carryCookedRiceOnly, carryDirtyPlate, carryOnionOnly,
-              carryTapsi, carryCornsilogNoEgg, carrySpamsilogNoEgg, carryTapsilogNoRice, carryCornsilogNoRice, carrySpamsilogNoRice,
+              carryTapsi, carryCornsilogNoEgg, carrySpamsilogNoEgg, carryTapsilogNoRice, carryCornsilogNoRice, carrySpamsilogNoRice, carryNoMain,
               carryTapsilog, carryCornsilog, carrySpamsilog;
 
     // 2 METHODS FOR CONSTRUCTOR SINGLETON
@@ -32,6 +32,7 @@ public class AnimationFactory {
         carryCookedSpamOnly = new Animation(gp, avatar, "/holdingSpam/");
         carryTapa = new Animation(gp, avatar, "/holdingTapa/");
         carryCoke = new Animation(gp, avatar, "/holdingCoke/");
+        carryWater = new Animation(gp, avatar, "/holdingWater/");
 
         //ingredients in a plate
         carryCookedTapaOnly = new Animation(gp, avatar, "/cookedTapa/");
@@ -53,6 +54,8 @@ public class AnimationFactory {
         carrySpamsilogNoRice = new Animation(gp, avatar, "/spamlog/");
 
         carryOnionOnly = new Animation(gp, avatar, "/onionPlate/");
+
+        carryNoMain = new Animation(gp, avatar, "/noMain/");
 
         // TODO CARY COOKED SPAM ONLY ANIMATION
         // TODO CARRY TAPSILOG NO EGG ANIMATIONS
@@ -128,8 +131,10 @@ public class AnimationFactory {
                 return carryCornsilogNoRice.getSprites();
             case CARRY_ONIONONLY:
                 return carryOnionOnly.getSprites();
+            case CARRY_NOMAIN:
+                return carryNoMain.getSprites();
 
-            // case CARRY_NOMAIN:
+            // case CARRY_NOMAIN:   DONE
 
                 // TODO pan ANIMATIONS:
 //            case CARRY_PAN_BURNT:
@@ -148,5 +153,47 @@ public class AnimationFactory {
     }
     public AnimationState getCurrentState() {
         return currentState;
+    }
+
+    public void resetParams() {
+        avatar = "";
+
+        base = null;
+        carryPlate = null;
+        carryCornedBeef = null;
+        carryEgg = null;
+        carryOnion = null;
+        carryPan = null;
+        carryRawRice = null;
+        carryCookedSpamOnly = null;
+        carryTapa = null;
+        carryCoke = null;
+
+        //ingredients in a plate
+        carryCookedTapaOnly = null;
+        carryCookedCBeefOnly = null;
+        carrySpamPlate = null;
+        carryCookedEggOnly = null;
+        carryDirtyPlate = null;
+        carryCookedRiceOnly = null;
+
+        carryTapsi= null;
+        carryCornsilogNoEgg = null;
+        carrySpamsilogNoEgg = null;
+        carrySpamsilog = null;
+        carryTapsilog= null;
+        carryCornsilog = null;
+
+        carryTapsilogNoRice = null;
+        carryCornsilogNoRice = null;
+        carrySpamsilogNoRice = null;
+
+        carryOnionOnly = null;
+
+        carryNoMain = null;
+
+        currentState = null;
+
+        instance = null;
     }
 }

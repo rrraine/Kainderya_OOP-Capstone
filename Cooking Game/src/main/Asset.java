@@ -30,4 +30,6 @@ public abstract class Asset implements Comparable<Asset> {
     public int compareTo(Asset other) {
         return Integer.compare(this.worldY, other.worldY);
     }
+
+    public void resetParams() {}
 }

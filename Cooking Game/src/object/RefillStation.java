@@ -27,11 +27,11 @@ public abstract class RefillStation extends Station{
 
         public void interact(Entity en, AnimationFactory animF, Pickupable obj, int objIndex) {
             if(en instanceof Player){
-                if (animF.getCurrentState() == AnimationState.BASE) {
+                if (obj == null) {
                     gp.player.setItemOnHandCreate(new Drink.Water(gp));
-                    animF.switchState((AnimationState.CARRY_PLATE));
+                    animF.switchState((AnimationState.CARRY_WATER));
                 }
-                else if (animF.getCurrentState() == AnimationState.CARRY_PLATE) {
+                else if (obj instanceof Drink.Cola) {
                     gp.player.setItemOnHandDestroy();
                     animF.switchState((AnimationState.BASE));
                 }
@@ -49,11 +49,11 @@ public abstract class RefillStation extends Station{
         public void interact(Entity en, AnimationFactory animF, Pickupable obj, int objIndex) {
             if(en instanceof Player){
 
-                if (animF.getCurrentState() == AnimationState.BASE) {
+                if (obj == null) {
                     gp.player.setItemOnHandCreate(new Drink.Cola(gp));
                     animF.switchState((AnimationState.CARRY_COKE));
                 }
-                else if (animF.getCurrentState() == AnimationState.CARRY_COKE) {
+                else if (obj instanceof Drink.Cola) {
                     gp.player.setItemOnHandDestroy();
                     animF.switchState((AnimationState.BASE));
                 }

@@ -16,6 +16,7 @@ import java.util.HashMap;
 public abstract class Item extends SuperObject {
 
     // NOTE: DEPLOY THE ITEMS IN THE UTILITY CLASS, ASSETSETTER SUBCLASS!!!
+    public WorkStation surface;
 
     // CONSTRUCTOR --------------------------------------------
     public Item(GamePanel gp, String name) {
@@ -72,7 +73,7 @@ public abstract class Item extends SuperObject {
     public static class Pan extends Item implements Importable, Pickupable, Swappable {
 
         public boolean isCooked;
-        public WorkStation surface;
+
 
         public HashMap<String, BufferedImage> panVersions;
 
@@ -214,7 +215,7 @@ public abstract class Item extends SuperObject {
 
                     gp.getAssetPool().remove(objIndex); // remove from printing
                     gp.player.setItemOnHandCreate(this); // add item on player's hand
-
+                    gp.playSFX(8);
                     // update animation sprite
                     updateSpriteAnimation(animF);
                 }
@@ -247,7 +248,7 @@ public abstract class Item extends SuperObject {
                 animF.switchState(AnimationState.CARRY_DIRTYPLATE);
             }
             else if (img == plateVersions.get("noMain")) {
-                animF.switchState(AnimationState.CARRY_COKE); //TODO KANI OY
+                animF.switchState(AnimationState.CARRY_NOMAIN); //TODO KANI OY
             }
             else if (img == plateVersions.get("cookedEggOnly")) {
                 animF.switchState(AnimationState.CARRY_COOKEDEGGONLY);
@@ -423,4 +424,8 @@ public abstract class Item extends SuperObject {
     }
 */
 
+    public void resetParams() {
+        super.resetParams();
+        surface = null;
+    }
 }
