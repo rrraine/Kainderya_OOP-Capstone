@@ -52,11 +52,13 @@ public abstract class RefillStation extends Station{
                 if (obj == null) {
                     gp.player.setItemOnHandCreate(new Drink.Cola(gp));
                     animF.switchState((AnimationState.CARRY_COKE));
+
                 }
                 else if (obj instanceof Drink.Cola) {
                     gp.player.setItemOnHandDestroy();
                     animF.switchState((AnimationState.BASE));
                 }
+                gp.playSFX(11);
             }
         }
     }

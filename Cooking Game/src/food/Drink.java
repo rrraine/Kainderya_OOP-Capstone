@@ -34,6 +34,7 @@ public abstract class Drink extends Food {
             if (en instanceof Player) {
                 super.interact(en, animF, obj, objIndex);
                 animF.switchState(AnimationState.CARRY_WATER);
+                gp.playSFX(10);
             }
         }
     }
@@ -50,6 +51,7 @@ public abstract class Drink extends Food {
             if (en instanceof Player) {
                 super.interact(en, animF, obj, objIndex);
                 animF.switchState(AnimationState.CARRY_COKE);
+                gp.playSFX(10);
             }
         }
     }

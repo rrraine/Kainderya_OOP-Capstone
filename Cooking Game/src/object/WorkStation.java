@@ -30,7 +30,9 @@ public abstract class WorkStation extends Station implements Drawable {
 
     public WorkStation(GamePanel gp, String name, int processTime) {
         super(gp, name);
+        gp.playSFX(11);
         this.processTime = processTime;
+
 
         utilTool = new Utility.Regulator();
 

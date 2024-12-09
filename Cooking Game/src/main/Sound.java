@@ -33,6 +33,7 @@ public class Sound implements Importable {
         soundURL.add(8, importSound("sounds", "plate"));
         soundURL.add(9, importSound("sounds", "cook"));
         soundURL.add(10, importSound("sounds", "pickUpDrink"));
+        soundURL.add(11, importSound("sounds", "vending"));
 
     }
 
