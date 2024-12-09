@@ -14,7 +14,7 @@ public class AnimationFactory {
     AnimationState currentState;
     Animation base, carryPlate, carryCornedBeef, carryEgg, carryOnion, carryPan, carryRawRice, carryCookedSpamOnly, carryTapa, carryCoke,
             carryCookedTapaOnly, carrySpamPlate, carryCookedEggOnly, carryCookedCBeefOnly, carryCookedRiceOnly, carryDirtyPlate, carryOnionOnly,
-              carryTapsi, carryCornsilogNoEgg, carrySpamsilogNoEgg, carryTapsilogNoRice, carryCornsilogNoRice, carrySpamsilogNoRice,
+              carryTapsi, carryCornsilogNoEgg, carrySpamsilogNoEgg, carryTapsilogNoRice, carryCornsilogNoRice, carrySpamsilogNoRice, carryNoMain,
               carryTapsilog, carryCornsilog, carrySpamsilog;
 
     // 2 METHODS FOR CONSTRUCTOR SINGLETON
@@ -53,6 +53,8 @@ public class AnimationFactory {
         carrySpamsilogNoRice = new Animation(gp, avatar, "/spamlog/");
 
         carryOnionOnly = new Animation(gp, avatar, "/onionPlate/");
+
+        carryNoMain = new Animation(gp, avatar, "/noMain/");
 
         // TODO CARY COOKED SPAM ONLY ANIMATION
         // TODO CARRY TAPSILOG NO EGG ANIMATIONS
@@ -128,8 +130,10 @@ public class AnimationFactory {
                 return carryCornsilogNoRice.getSprites();
             case CARRY_ONIONONLY:
                 return carryOnionOnly.getSprites();
+            case CARRY_NOMAIN:
+                return carryNoMain.getSprites();
 
-            // case CARRY_NOMAIN:
+            // case CARRY_NOMAIN:   DONE
 
                 // TODO pan ANIMATIONS:
 //            case CARRY_PAN_BURNT:
