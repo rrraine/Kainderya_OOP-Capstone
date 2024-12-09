@@ -293,13 +293,24 @@ public class KeyBindings implements KeyListener {
                 gp.playSFX(2);
 
                 if (uiM.getCommand() == 0) {
+                    uiM.getHomeUI().homeState = HomeUI.substate.SELECTION;
                     gp.setMultiplayer(false);
                 }
                 else if (uiM.getCommand() == 1) {
-                    gp.setMultiplayer(true);
+                    uiM.getHomeUI().homeState = HomeUI.substate.COMINGSOON;
                 }
 
-                uiM.getHomeUI().homeState = HomeUI.substate.SELECTION;
+
+            }
+        }
+
+        // HOME STATE -> COMING SOON SUB-STATE
+        else if (uiM.getHomeUI().homeState == HomeUI.substate.COMINGSOON) {
+
+            if (code == KeyEvent.VK_ENTER || code == KeyEvent.VK_F) {
+                gp.playSFX(2);
+
+                uiM.getHomeUI().homeState = HomeUI.substate.MULTIPLAYER;
             }
         }
     }
