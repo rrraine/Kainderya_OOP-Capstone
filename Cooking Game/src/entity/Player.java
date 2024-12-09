@@ -35,7 +35,7 @@ public class Player extends Entity {
 
     // PLAYER PREFERENCES
     private final String playerAvatar;
-    private String playerName;
+    public String playerName;
 
 
     // CARRY ON HAND

@@ -5,6 +5,7 @@ import interfaces.Drawable;
 import main.GamePanel;
 import main.Utility;
 
+import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
@@ -12,12 +13,16 @@ import java.awt.image.BufferedImage;
 public class HomeUI extends UI implements Drawable {
 
     public static substate homeState;
+
     public enum substate { TITLE, SELECTION, CREDITS, MULTIPLAYER, COMINGSOON }
 
     private BufferedImage wallpaper;
     private BufferedImage wallpaperFront;
 
     private int loadTime;
+
+    String inputText = " ";
+    private boolean characterSelected = false;
 
     // ANIMATED WALLPAPER
     UIElement girl, boy, civilian;
@@ -223,18 +228,29 @@ public class HomeUI extends UI implements Drawable {
         // MAIN TEXT COLOR
 
         // DRAW NAME
-        if (command == 0) {
+        if (gp.getKeyB().getCharacterSelectedNum() == 1) {
+            g2.setColor(player1);
+        }
+        else if (command == 0) {
             g2.setColor(primary);
-            drawCursor(g2, text, x, y, true, false);
         } else
             g2.setColor(Color.WHITE);
         g2.drawString(text, x, y);
 
-        // DRAW GRID BOX
         if (command == 0) {
+            drawCursor(g2, text, x, y, true, false);
+        }
+
+        // DRAW GRID BOX
+        if (gp.getKeyB().getCharacterSelectedNum() == 1) {
+            drawPopUpWindow(g2, gridX, gridY, gridWidth, gridHeight, primary, Color.BLACK);
+            cook1.drawAvatarFrontMoving(g2);
+        }
+        else if (command == 0) {
             drawPopUpWindow(g2, gridX, gridY, gridWidth, gridHeight, primaryAccent, primary);
             cook1.drawAvatarFrontMoving(g2);
-        } else {
+        }
+        else {
             drawPopUpWindow(g2, gridX, gridY, gridWidth, gridHeight, transWhite, Color.BLACK);
             cook1.drawAvatarFrontStatic(g2);
         }
@@ -252,15 +268,25 @@ public class HomeUI extends UI implements Drawable {
         drawLetterBorder(g2, text, Color.BLACK, 3, x, y);
 
         // DRAW NAME
-        if (command == 1) {
+        if (gp.getKeyB().getCharacterSelectedNum() == 2) {
+            g2.setColor(player1);
+        }
+        else if (command == 1) {
             g2.setColor(primary);
-            drawCursor(g2, text, x, y, true, false);
         } else
             g2.setColor(Color.WHITE);
         g2.drawString(text, x, y);
 
-        // DRAW GRID BOX
         if (command == 1) {
+            drawCursor(g2, text, x, y, true, false);
+        }
+
+        // DRAW GRID BOX
+        if (gp.getKeyB().getCharacterSelectedNum() == 2) {
+            drawPopUpWindow(g2, gridX, gridY, gridWidth, gridHeight, primary, Color.BLACK);
+            cook2.drawAvatarFrontMoving(g2);
+        }
+        else if (command == 1) {
             drawPopUpWindow(g2, gridX, gridY, gridWidth, gridHeight, primaryAccent, primary);
             cook2.drawAvatarFrontMoving(g2);
         } else {
@@ -282,15 +308,25 @@ public class HomeUI extends UI implements Drawable {
         drawLetterBorder(g2, text, Color.BLACK, 3, x, y);
 
         // DRAW NAME
-        if (command == 2) {
+        if (gp.getKeyB().getCharacterSelectedNum() == 3) {
+            g2.setColor(player1);
+        }
+        else if (command == 2) {
             g2.setColor(primary);
-            drawCursor(g2, text, x, y, true, false);
         } else
             g2.setColor(Color.WHITE);
         g2.drawString(text, x, y);
 
-        // DRAW GRID BOX
         if (command == 2) {
+            drawCursor(g2, text, x, y, true, false);
+        }
+
+        // DRAW GRID BOX
+        if (gp.getKeyB().getCharacterSelectedNum() == 3) {
+            drawPopUpWindow(g2, gridX, gridY, gridWidth, gridHeight, primary, Color.BLACK);
+            cook3.drawAvatarFrontMoving(g2);
+        }
+        else if (command == 2) {
             drawPopUpWindow(g2, gridX, gridY, gridWidth, gridHeight, primaryAccent, primary);
             cook3.drawAvatarFrontMoving(g2);
         } else {
@@ -312,15 +348,25 @@ public class HomeUI extends UI implements Drawable {
         drawLetterBorder(g2, text, Color.BLACK, 3, x, y);
 
         // DRAW NAME
-        if (command == 3) {
+        if (gp.getKeyB().getCharacterSelectedNum() == 4) {
+            g2.setColor(player1);
+        }
+        else if (command == 3) {
             g2.setColor(primary);
-            drawCursor(g2, text, x, y, true, false);
         } else
             g2.setColor(Color.WHITE);
         g2.drawString(text, x, y);
 
-        // DRAW GRID BOX
         if (command == 3) {
+            drawCursor(g2, text, x, y, true, false);
+        }
+
+        // DRAW GRID BOX
+        if (gp.getKeyB().getCharacterSelectedNum() == 4) {
+            drawPopUpWindow(g2, gridX, gridY, gridWidth, gridHeight, primary, Color.BLACK);
+            cook4.drawAvatarFrontMoving(g2);
+        }
+        else if (command == 3) {
             drawPopUpWindow(g2, gridX, gridY, gridWidth, gridHeight, primaryAccent, primary);
             cook4.drawAvatarFrontMoving(g2);
         } else {
@@ -328,6 +374,7 @@ public class HomeUI extends UI implements Drawable {
             cook4.drawAvatarFrontStatic(g2);
         }
 
+        //  TEXTFIELD HERE!!!!!!!!!!!!!!
         text = "Name: ";
         x = Utility.Aligner.centerTextOnScreen(text, gp, g2) - (gp.tileSize * 4);
         y += gp.tileSize * 2 - gp.tileSize /2;
@@ -338,20 +385,28 @@ public class HomeUI extends UI implements Drawable {
         drawLetterBorder(g2, text, Color.BLACK, 3, x, y);
 
         // DRAW TEXT
-        if (command == 4) {
-            g2.setColor(primary);
+        if (gp.getKeyB().isTypingName()) {
             drawCursor(g2, text, x, y, true, false);
+            g2.setColor(secondary);
+        }
+        else if (command == 4 && !gp.getKeyB().isTypingName()) {
+            drawCursor(g2, text, x, y, true, false);
+            g2.setColor(primary);
         } else
             g2.setColor(Color.WHITE);
         g2.drawString(text, x, y);
 
         // NAME FIELD
-        // TODO IMPLEMENT TEXT FIELD WITH LISTENER
         x += gp.tileSize * 3;
         y -= 40;
         int width = gp.tileSize * 7;
         int height = gp.tileSize - 10;
-        drawPopUpWindow(g2, x, y, width, height, transWhite, Color.BLACK);
+        drawPopUpWindow(g2, x, y, width, height, Color.WHITE, Color.BLACK);
+
+        g2.setColor(Color.BLACK);
+        g2.setFont(fredokaSemiBold);
+        g2.setFont(g2.getFont().deriveFont(24F));
+        g2.drawString(gp.getKeyB().getInputText(), x + 25, y + 35);
     }
     private void homeCREDITS(Graphics2D g2) {
 
@@ -591,4 +646,11 @@ public class HomeUI extends UI implements Drawable {
         drawCursor(g2, text, x, y, false, true);
     }
 
+    public boolean isCharacterSelected() {
+        return characterSelected;
+    }
+
+    public void setCharacterSelected(boolean characterSelected) {
+        this.characterSelected = characterSelected;
+    }
 }
