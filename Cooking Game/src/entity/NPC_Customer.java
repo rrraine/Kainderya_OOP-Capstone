@@ -1,6 +1,7 @@
 package entity;
 
 import animation.AnimationFactory;
+import animation.AnimationState;
 import interfaces.Interactable;
 import interfaces.Pickupable;
 import interfaces.Servable;
@@ -69,13 +70,13 @@ public class NPC_Customer extends NPC implements Interactable {
     public void interact(Entity en, AnimationFactory animF, Pickupable obj, int objIndex) {
 
         // only players can interact with customer
-        if (en instanceof Player) {
+        if (en instanceof Player p) {
 
             if (!orderReceived && !orderAcknowledged) { // acknowledge customers
                 orderAcknowledged = true;
             }
             else if (orderAcknowledged && obj instanceof Servable onHand) { // serve to customers
-                servingOrder(onHand);
+                servingOrder(onHand, p, animF);
             }
         }
     }
@@ -297,9 +298,12 @@ public class NPC_Customer extends NPC implements Interactable {
         }
     }
 
-    public void servingOrder(Servable onHand){
+    public void servingOrder(Servable onHand, Player player, AnimationFactory animF){
 
         if (onHand.serve(onHand, order)) { // checks if order name and onHand name matches
+
+            player.setItemOnHandDestroy();
+            animF.switchState(AnimationState.BASE);
 
             orderReceived = true;
             hasPlacedOrder = false;
