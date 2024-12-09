@@ -6,7 +6,6 @@ import game.Score;
 import game.Time;
 import object.SuperObject;
 import tile.TileManager;
-import ui.PlayUI;
 import ui.UIFactory;
 
 import javax.swing.*;
@@ -261,8 +260,12 @@ public class GamePanel extends JPanel implements Runnable {
     // NEW GAME INSTANCE
     private void newGame() {
         newGame = true;
-        time.reinitialize();
-        uiM.getPlayUI().resetLoadTime();
+        time.resetParams();
+        uiM.getPlayUI().resetParams();
+        keyB.resetParams();
+
+        if (player != null)
+            player.resetParams();
     }
 
 

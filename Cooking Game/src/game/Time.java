@@ -83,7 +83,7 @@ public class Time implements Drawable {
         }
         return instance;
     }
-    public void reinitialize() {
+    public void resetParams() {
 
         try {
             if (instance == null)

@@ -31,11 +31,11 @@ public class KeyBindings implements KeyListener {
     private boolean player2ShiftPressed;
     private boolean player2CtrlPressed;
 
-    private String inputText = "";
-    private String playerAvatar = "";
-    private boolean isTypingName = false;
-    private boolean characterSelected = false;
-    private int characterSelectedNum = 0;
+    private String inputText;
+    private String playerAvatar;
+    private boolean isTypingName;
+    private boolean characterSelected;
+    private int characterSelectedNum;
 
     private int lastCommand = 0;
 
@@ -44,6 +44,12 @@ public class KeyBindings implements KeyListener {
         this.gp = gp;
         this.uiM = uiM;
         canMove = true;
+
+        inputText = "";
+        playerAvatar = "";
+        isTypingName = false;
+        characterSelected = false;
+        characterSelectedNum = 0;
     }
     // SINGLETON INSTANTIATE -------------------------------------------------
     public static KeyBindings instantiate(GamePanel gp, UIFactory uiM) {
@@ -151,7 +157,7 @@ public class KeyBindings implements KeyListener {
             }
 
             // press enter to start game if all values r filled
-            else if (keyChar == KeyEvent.VK_ENTER && !inputText.isBlank() && !playerAvatar.isBlank()) {
+            if (keyChar == KeyEvent.VK_ENTER && !inputText.isBlank() && !playerAvatar.isBlank()) {
 
                 gp.playSFX(2);
 
@@ -160,7 +166,17 @@ public class KeyBindings implements KeyListener {
                 PlayUI.generateRandomNum();
                 PlayUI.playState = PlayUI.substate.LOADING;
                 gp.gameState = GamePanel.state.PLAY;
+            }
 
+            if (keyChar == KeyEvent.VK_ESCAPE) {
+                characterSelected = false;
+                characterSelectedNum = 0;
+                playerAvatar = " ";
+                inputText = "";
+                isTypingName = false;
+                gp.playSFX(2);
+
+                uiM.setCommand(0);
             }
         }
 
@@ -350,12 +366,18 @@ public class KeyBindings implements KeyListener {
                     gp.playSFX(2);
 
                     if (code == KeyEvent.VK_ENTER) {
-                            isTypingName = true;
-
-
+                        isTypingName = true;
                     }
-
                 }
+            }
+
+            if (code == KeyEvent.VK_ESCAPE) {
+                characterSelected = false;
+                characterSelectedNum = 0;
+                playerAvatar = " ";
+                gp.playSFX(2);
+
+                uiM.setCommand(0);
             }
         }
 
@@ -564,5 +586,13 @@ public class KeyBindings implements KeyListener {
 
     public String getInputText() {
         return inputText;
+    }
+
+    public void resetParams() {
+        inputText = "";
+        playerAvatar = "";
+        isTypingName = false;
+        characterSelected = false;
+        characterSelectedNum = 0;
     }
 }

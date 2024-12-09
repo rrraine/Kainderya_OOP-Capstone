@@ -383,4 +383,9 @@ public class Player extends Entity {
     public Pickupable getItemOnHand(){
         return itemOnHand;
     }
+
+    public void resetParams() {
+        idle1 = idle2 = up1 = up2 = down1 = down2 = left1 = left2 = right1 = right2 = null;
+        setDefaultPlayerValues();
+    }
 }

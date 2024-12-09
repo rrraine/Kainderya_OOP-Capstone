@@ -210,8 +210,17 @@ public class HomeUI extends UI implements Drawable {
         g2.setColor(Color.WHITE);
         g2.drawString(text, x, y);
 
+        // instructions
+        text = "ESC to Reset   |   ENTER to Confirm";
+        g2.setFont(g2.getFont().deriveFont(18F));
+        x = Utility.Aligner.centerTextOnScreen(text, gp, g2);
+        y += gp.tileSize - 10;
+        drawLetterBorder(g2, text, Color.BLACK, 2, x, y);
+        g2.setColor(Color.WHITE);
+        g2.drawString(text, x, y);
+
         // SELECTION HERE
-        int gridX = gp.tileSize * 3 + 24, gridY = gp.tileSize * 4 -20;
+        int gridX = gp.tileSize * 3 + 24, gridY = gp.tileSize * 4;
         int gridWidth = gp.tileSize * 3;
         int gridHeight = gp.tileSize * 4;
 
@@ -221,8 +230,8 @@ public class HomeUI extends UI implements Drawable {
 
         // GRID 1
         text = "Miguel";
-        x = gridX + gp.tileSize - 6;
-        y = gridY * 2 + gp.tileSize;
+        x = gridX + gp.tileSize - 17;
+        y = gridY * 2 + gp.tileSize /2;
         // BORDER
         drawLetterBorder(g2, text, Color.BLACK, 3, x, y);
         // MAIN TEXT COLOR
@@ -263,7 +272,7 @@ public class HomeUI extends UI implements Drawable {
 
         text = "Gina";
         x = gridX + gp.tileSize - 4;
-        y = gridY * 2 + gp.tileSize;
+        y = gridY * 2 + gp.tileSize /2;
         // BORDER
         drawLetterBorder(g2, text, Color.BLACK, 3, x, y);
 
@@ -303,7 +312,7 @@ public class HomeUI extends UI implements Drawable {
 
         text = "Javier";
         x = gridX + gp.tileSize - 18;
-        y = gridY * 2 + gp.tileSize;
+        y = gridY * 2 + gp.tileSize /2;
         // BORDER
         drawLetterBorder(g2, text, Color.BLACK, 3, x, y);
 
@@ -343,7 +352,7 @@ public class HomeUI extends UI implements Drawable {
 
         text = "Sofia";
         x = gridX + gp.tileSize - 6;
-        y = gridY * 2 + gp.tileSize;
+        y = gridY * 2 + gp.tileSize /2;
         // BORDER
         drawLetterBorder(g2, text, Color.BLACK, 3, x, y);
 
@@ -377,7 +386,7 @@ public class HomeUI extends UI implements Drawable {
         //  TEXTFIELD HERE!!!!!!!!!!!!!!
         text = "Name: ";
         x = Utility.Aligner.centerTextOnScreen(text, gp, g2) - (gp.tileSize * 4);
-        y += gp.tileSize * 2 - gp.tileSize /2;
+        y += gp.tileSize + 32;
         // SHADOW TEXT COLOR
         g2.setColor(Color.BLACK);
         g2.drawString(text, x + 6, y);
@@ -387,7 +396,7 @@ public class HomeUI extends UI implements Drawable {
         // DRAW TEXT
         if (gp.getKeyB().isTypingName()) {
             drawCursor(g2, text, x, y, true, false);
-            g2.setColor(secondary);
+            g2.setColor(player1);
         }
         else if (command == 4 && !gp.getKeyB().isTypingName()) {
             drawCursor(g2, text, x, y, true, false);
@@ -401,7 +410,21 @@ public class HomeUI extends UI implements Drawable {
         y -= 40;
         int width = gp.tileSize * 7;
         int height = gp.tileSize - 10;
-        drawPopUpWindow(g2, x, y, width, height, Color.WHITE, Color.BLACK);
+
+        if (gp.getKeyB().isTypingName()) {
+
+            if (gp.getKeyB().getInputText().isBlank()) {
+                drawPopUpWindow(g2, x, y, width, height, secondary, Color.BLACK);
+            }
+            else {
+                drawPopUpWindow(g2, x, y, width, height, player1, Color.BLACK);
+            }
+
+        }
+        else if (command == 4) {
+            drawPopUpWindow(g2, x, y, width, height, transWhite, Color.BLACK);
+        }
+
 
         g2.setColor(Color.BLACK);
         g2.setFont(fredokaSemiBold);
