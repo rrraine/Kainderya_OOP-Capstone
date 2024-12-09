@@ -46,7 +46,7 @@ public class NPC_Customer extends NPC implements Interactable {
         getAvatar();
         order = null;
         patienceTimer = 30 * GamePanel.FPS; // 30 seconds at 60 FPS
-        isReordered = false;
+//        isReordered = false;
         isSeated = false;
         isMovingToSeat = false;
         seatLocation = null;
@@ -60,7 +60,7 @@ public class NPC_Customer extends NPC implements Interactable {
         tapsilog = importImage("/food/meals/tapsilog/tapsilogFinal", gp.tileSize);
         spamsilog = importImage("/food/meals/spamsilog/spamsilogFinal", gp.tileSize);
         cornedsilog = importImage("/food/meals/cornsilog/cornsilogFinal", gp.tileSize);
-        water = importImage("/food/meals/center/burnt", gp.tileSize); // TODO WALA PA WATER IMAGE
+        water = importImage("/food/drinks/water", gp.tileSize);
         cola = importImage("/food/drinks/cola", gp.tileSize);
     }
 
@@ -144,7 +144,6 @@ public class NPC_Customer extends NPC implements Interactable {
 
         order = mealsAndDrinks[rand.nextInt(mealsAndDrinks.length)];
         hasPlacedOrder = true;
-
     }
 
     public void assignSeat(Point location) {
@@ -303,13 +302,14 @@ public class NPC_Customer extends NPC implements Interactable {
         if (onHand.serve(onHand, order)) { // checks if order name and onHand name matches
 
             orderReceived = true;
+            hasPlacedOrder = false;
             System.out.println("Customer at (" + seatLocation.x + "," + seatLocation.y + "): " + " received order: " + order);
             if (order.contains("Tapsilog") || order.contains("CornedSilog") || order.contains("Spamsilog")) {
                gp.score.addScore(20);
             } else if (order.contains("Water") || order.contains("Cola")) {
                 gp.score.addScore(15);
             }
-
+            System.out.println("CUSTOMER RECEIVED ORDER");
             resetOrderParameters();
             gp.score.addScore((patienceTimer > 0 && patienceTimer < 15) ? 5 : 10);
         }
@@ -332,11 +332,11 @@ public class NPC_Customer extends NPC implements Interactable {
             moveToSeat();
         } else if (isSeated) {
             // generateOrder();
-            if (!orderReceived) {
-                if (order == null || !isReordered) { // Only generate a new order if there's none or it's a reorder
-                    generateOrder();
-                    isReordered = false; // Reset the reorder state after generating the order
-                }
+            if ((!orderReceived || order == null) && !hasPlacedOrder) {
+                 // Only generate a new order if there's none or it's a reorder
+                generateOrder();
+//               isReordered = false; // Reset the reorder state after generating the order
+
                 System.out.println("Customer at (" + seatLocation.x + "," + seatLocation.y + "): " + " is seated and waiting for their order. Patience Timer: " + patienceTimer /60);
                 System.out.println("Customer at (" + seatLocation.x + "," + seatLocation.y + "): " + "ordered " + order);
             }
@@ -356,17 +356,24 @@ public class NPC_Customer extends NPC implements Interactable {
         // Gi comment out lang nako if gi tuyo ba jud full override ang NPC Class update hehe
         //super.update();
 
+
+
         if (isSeated && patienceTimer > 0) {
             patienceTimer--;
             if (patienceTimer <= 0 && !orderReceived) {
                 gp.score.deductScore(5);
                 System.out.println("Customer at (" + seatLocation.x + "," + seatLocation.y + "): " + " did not receive their order. 5 points deducted. New score: " +  gp.score.getTotalScore());
                 reorder();
-                isReordered = true;
+//                isReordered = true;
             }
         }
 
         setNPCAction();
+
+
+
+
+
         // Trigger frame updates for animation
         spriteCounter++;
         if (spriteCounter > 10) { // Example: change frame every 10 frames
@@ -530,7 +537,7 @@ public class NPC_Customer extends NPC implements Interactable {
         super.resetParams();
         order = null;
         patienceTimer = 30 * GamePanel.FPS; // 30 seconds at 60 FPS
-        isReordered = false;
+//        isReordered = false;
         isSeated = false;
         isMovingToSeat = false;
         seatLocation = null;
