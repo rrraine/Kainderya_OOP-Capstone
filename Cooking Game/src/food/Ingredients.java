@@ -130,6 +130,7 @@ public abstract class Ingredients extends SuperObject implements Importable, Pic
                 }
 
             }
+            sfx(7);
         }
     }
 
@@ -150,7 +151,11 @@ public abstract class Ingredients extends SuperObject implements Importable, Pic
                 gp.player.setItemOnHandCreate(this);
                 animF.switchState(AnimationState.CARRY_RAWRICE);
             }
+
+            sfx(7);
         }
+
+
     }
 
     public static class Onion extends Ingredients {
