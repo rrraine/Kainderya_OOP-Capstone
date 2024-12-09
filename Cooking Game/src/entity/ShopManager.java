@@ -98,9 +98,10 @@ public class ShopManager {
                 if (customer.isMovingToSeat()) {
                     customer.moveToSeat(); // Update their position
                 } else if (customer.isSeated()) {
-                    customer.reducePatienceTimer();
+                    // customer.reducePatienceTimer();
 
-                    if (customer.getPatienceTimer() <= 0 && !customer.isOrderReceived()) {
+                    // if (customer.getPatienceTimer() <= 0 && !customer.isOrderReceived())
+                        if (!customer.isOrderReceived()){
                         // Deduct points for not receiving order on time
                         System.out.println("Customer at seat " + seatLocations[i] + " did not receive their" + customer.getOrder() + "order on time.");
 
