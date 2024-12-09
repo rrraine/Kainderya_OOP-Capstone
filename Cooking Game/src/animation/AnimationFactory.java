@@ -57,8 +57,6 @@ public class AnimationFactory {
 
         carryNoMain = new Animation(gp, avatar, "/noMain/");
 
-        // TODO CARY COOKED SPAM ONLY ANIMATION
-        // TODO CARRY TAPSILOG NO EGG ANIMATIONS
 
         // TODO pan ANIMATIONS:
 //            case CARRY_PAN_BURNT:

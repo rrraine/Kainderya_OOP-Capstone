@@ -65,7 +65,7 @@ public abstract class WorkStation extends Station implements Drawable {
         if (this instanceof WorkStation.Stove && itemOnTop instanceof Item.Pan pan) {
 
             // not empty, not burnt, not only cbeef, not only onion, then cook
-            if (!pan.checkCurrentImage("pan", pan) && !pan.checkCurrentImage("panBurnt", pan) && !pan.checkCurrentImage("panCBeef", pan) && !pan.checkCurrentImage("onionOnly", pan)) {
+            if (!pan.checkCurrentImage("pan", pan) && !pan.checkCurrentImage("panBurnt", pan) && !pan.checkCurrentImage("panCBeef", pan) && !pan.checkCurrentImage("panOnion", pan)) {
                 isOccupied = true;
                 ((Item.Pan) itemOnTop).isCooked = false;
             }
@@ -402,11 +402,11 @@ public abstract class WorkStation extends Station implements Drawable {
                 gp.playSFX(7);
 
                 if (gp.player.getItemOnHand() instanceof Item.Plates) {
-                    ((Plates) gp.player.getItemOnHand()).swapImage("counterPlate");
+                    ((Item.Plates) gp.player.getItemOnHand()).swapImage("counterPlate");
                     animF.switchState(AnimationState.CARRY_PLATE);
                 }
                 else if (gp.player.getItemOnHand() instanceof Item.Pan) {
-                    ((Plates) gp.player.getItemOnHand()).swapImage("pan");
+                    ((Item.Pan) gp.player.getItemOnHand()).swapImage("pan");
                     animF.switchState(AnimationState.CARRY_PAN);
                 }
             }

@@ -170,6 +170,7 @@ public abstract class Item extends SuperObject {
             swapImage("pan");
             isCooked = false;
             surface.isCooked = false;
+            surface.isOccupied = false;
         }
 
 
