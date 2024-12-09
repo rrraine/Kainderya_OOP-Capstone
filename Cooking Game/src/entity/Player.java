@@ -3,7 +3,6 @@ package entity;
 import animation.AnimationFactory;
 import animation.AnimationState;
 import interfaces.Pickupable;
-import main.Asset;
 import main.GamePanel;
 import main.KeyBindings;
 import main.Utility;
@@ -154,7 +153,7 @@ public class Player extends Entity {
 
             // check npc collision
             int npcIndex = Utility.CollisionChecker.entityHitsNPC(this, gp.getNpc());
-            interactNPC(npcIndex);
+            interactNPCCustomer(npcIndex);
 
             // check event collision
             Utility.CollisionChecker.entityHitsEvent(this, gp);
@@ -316,33 +315,38 @@ public class Player extends Entity {
 
         if (i != 999) {
 
-            // obj being interacted
             SuperObject obj = (SuperObject) gp.getAssetPool().get(i);
 
-            // IF INTERACT EXECUTED
+            // if interact F executed
             if (keyB.isPlayer1EnterPressed() && obj != null) {
-
-                if (obj instanceof Pickupable) {
-                    if (((Pickupable) obj).isHoldingSomething(animF.getCurrentState())) {
-
-                        if (itemOnHand == null) itemOnHand = (Pickupable) obj; // if item on hand is empty, pick it up
-                        obj.interact(this, animF, itemOnHand, i); // interact with the obj
-
-                        if (!(obj instanceof Item.Pan)) // pans will have their special condition removal
-                        gp.getAssetPool().remove(i); // remove it from drawing
-                    }
-                } else {
-                    obj.interact(this, animF, itemOnHand, i);
-                }
+                obj.interact(this, animF, itemOnHand, i);
             }
         }
 
     }
 
-    private void interactNPC(int i) {
+    private void interactNPCCustomer(int i) {
+
+        // i = npc index from gamepanel's general npc array
+        // npc = the actual npc in the array (npc.get(i))
 
         if (i != 999) {
-            // TODO SOON
+
+            NPC npc = gp.getNpc().get(i);
+
+            // only interact with npc_customers
+            if (npc instanceof NPC_Customer customer) {
+
+                // if interact F executed
+                if (keyB.isPlayer1EnterPressed()) {
+
+                    // this = player class
+                    // animF = to change animations
+                    // itemOnHand = useful for serving orders
+                    // i = index from npc array
+                    customer.interact(this, animF, itemOnHand, i);
+                }
+            }
         }
     }
 

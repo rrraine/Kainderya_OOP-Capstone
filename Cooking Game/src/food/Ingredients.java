@@ -8,11 +8,24 @@ import interfaces.Importable;
 import interfaces.Pickupable;
 import main.GamePanel;
 import object.SuperObject;
+import object.WorkStation;
 
 public abstract class Ingredients extends SuperObject implements Importable, Pickupable {
 
     public Ingredients(GamePanel gp, String name) {
         super(gp, name);
+    }
+
+    public void interact(Entity en, AnimationFactory animF, Pickupable obj, int objIndex) {
+
+        if(en instanceof Player){
+
+            // GENERAL PICK UP INGREDIENTS FROM SURFACE
+            if (gp.player.getItemOnHand() == null) {
+                gp.player.setItemOnHandCreate(this);
+                gp.getAssetPool().remove(objIndex); // remove from printing
+            }
+        }
     }
 
 
@@ -28,11 +41,11 @@ public abstract class Ingredients extends SuperObject implements Importable, Pic
         @Override
         public void interact(Entity en, AnimationFactory animF, Pickupable obj, int objIndex) {
             if (en instanceof Player) {
-                if (animF.getCurrentState() == AnimationState.BASE) {
-                    animF.switchState(AnimationState.CARRY_TAPA);
-                }
-                else if (animF.getCurrentState() == AnimationState.CARRY_TAPA) {
-                    animF.switchState((AnimationState.BASE));
+                super.interact(en, animF, obj, objIndex);
+
+                if (obj == null) {
+                    gp.player.setItemOnHandCreate(this);
+                    animF.switchState(AnimationState.CARRY_EGG);
                 }
             }
         }
@@ -49,11 +62,20 @@ public abstract class Ingredients extends SuperObject implements Importable, Pic
         @Override
         public void interact(Entity en, AnimationFactory animF, Pickupable obj, int objIndex) {
             if (en instanceof Player) {
-                if (animF.getCurrentState() == AnimationState.BASE) {
+                /*if (animF.getCurrentState() == AnimationState.BASE) {
                     animF.switchState(AnimationState.CARRY_CORNEDBEEF);
                 }
                 else if (animF.getCurrentState() == AnimationState.CARRY_CORNEDBEEF) {
                     animF.switchState((AnimationState.BASE));
+                }
+
+                 */
+
+                super.interact(en, animF, obj, objIndex);
+
+                if (obj == null) {
+                    gp.player.setItemOnHandCreate(this);
+                    animF.switchState(AnimationState.CARRY_CORNEDBEEF);
                 }
             }
         }
@@ -70,11 +92,20 @@ public abstract class Ingredients extends SuperObject implements Importable, Pic
         @Override
         public void interact(Entity en, AnimationFactory animF, Pickupable obj, int objIndex) {
             if (en instanceof Player) {
-                if (animF.getCurrentState() == AnimationState.BASE) {
+               /* if (animF.getCurrentState() == AnimationState.BASE) {
                     animF.switchState(AnimationState.CARRY_SPAM);
                 }
                 else if (animF.getCurrentState() == AnimationState.CARRY_SPAM) {
                     animF.switchState((AnimationState.BASE));
+                }
+
+                */
+
+                super.interact(en, animF, obj, objIndex);
+
+                if (obj == null) {
+                    gp.player.setItemOnHandCreate(this);
+                    animF.switchState(AnimationState.CARRY_SPAM);
                 }
             }
         }
@@ -91,12 +122,13 @@ public abstract class Ingredients extends SuperObject implements Importable, Pic
         @Override
         public void interact(Entity en, AnimationFactory animF, Pickupable obj, int objIndex) {
             if (en instanceof Player) {
-                if (animF.getCurrentState() == AnimationState.BASE) {
+                super.interact(en, animF, obj, objIndex);
+
+                if (obj == null) {
+                    gp.player.setItemOnHandCreate(this);
                     animF.switchState(AnimationState.CARRY_EGG);
                 }
-                else if (animF.getCurrentState() == AnimationState.CARRY_EGG) {
-                    animF.switchState((AnimationState.BASE));
-                }
+
             }
         }
     }
@@ -112,20 +144,19 @@ public abstract class Ingredients extends SuperObject implements Importable, Pic
 
         @Override
         public void interact(Entity en, AnimationFactory animF, Pickupable obj, int objIndex) {
-            if (en instanceof Player) {
-                if (animF.getCurrentState() == AnimationState.BASE) {
-                    animF.switchState(AnimationState.CARRY_RAW_RICE);
-                }
-                else if (animF.getCurrentState() == AnimationState.CARRY_RAW_RICE) {
-                    animF.switchState((AnimationState.BASE));
-                }
+            super.interact(en, animF, obj, objIndex);
+
+            if (obj == null) {
+                gp.player.setItemOnHandCreate(this);
+                animF.switchState(AnimationState.CARRY_RAWRICE);
             }
         }
     }
 
     public static class Onion extends Ingredients {
 
-        private boolean isCooked;
+        public boolean isCooked;
+        public WorkStation surface;
 
         public Onion(GamePanel gp) {
             super(gp, "Onion");
@@ -140,21 +171,20 @@ public abstract class Ingredients extends SuperObject implements Importable, Pic
 
            if (en instanceof Player) {
 
-               if (!isCooked) {
+               if (!isCooked) { // PICK UP
+                   super.interact(en, animF, this, objIndex);
+                   animF.switchState(AnimationState.CARRY_ONION);
 
-                   if (animF.getCurrentState() == AnimationState.BASE) {
-                       animF.switchState(AnimationState.CARRY_ONION);
+                   if (surface != null) {
+                       surface.itemOnTop = null;
+                       surface = null;
                    }
-                   else if (animF.getCurrentState() == AnimationState.CARRY_ONION) {
-                       animF.switchState((AnimationState.BASE));
-                   }
+
                }
                else {
-
-                   animF.switchState(AnimationState.CARRY_ONION);
+                   gp.player.setItemOnHandCreate(gp.fBuilder.build(gp.player.getItemOnHand(), this, animF, objIndex));
                }
-
-            }
+           }
         }
 
         public void setIsCooked(boolean isCooked) {

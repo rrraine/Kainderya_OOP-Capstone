@@ -43,16 +43,16 @@ public abstract class UI implements Drawable, Importable {
     static Random random;
 
     // COLORS
-    static Color transBlack;
-    static Color transWhite;
-    static Color primary;
-    static Color primaryAccent;
-    static Color secondary;
-    static Color secondaryAccent;
-    static Color blue;
-    static Color orange;
+    public static final Color transBlack = new Color(0,0,0, 175);
+    public static Color transWhite = new Color(255, 255, 255, 185);
+    public static Color primary = new Color( 255, 219, 75);
+    public static Color primaryAccent = new Color(65, 52, 18);
+    public static Color secondary = new Color(255, 75, 81);
+    public static Color secondaryAccent;
+    public static Color blue = new Color(75, 165, 255);
+    public static Color orange = new Color(255, 171, 75);
 
-    static Color player1;
+    public static Color player1 = new Color(173, 227, 63);
 
 
     // CONSTRUCTOR -----------------------------------------------------------------
@@ -78,26 +78,13 @@ public abstract class UI implements Drawable, Importable {
 
         // SHAKE EFFECT
         random = new Random();
-
-        // COLOR PALLETTE
-        transBlack = new Color(0,0,0, 175);
-        transWhite = new Color(255, 255, 255, 185);
-        primary = new Color( 255, 219, 75);
-        primaryAccent = new Color(65, 52, 18);
-        secondary = new Color(255, 75, 81);
-        blue = new Color(75, 165, 255);
-        orange = new Color(255, 171, 75);
-        player1 = new Color(173, 227, 63);
     }
 
     // FROM INTERFACE: DRAWABLE -----------------------------------------------------
     @Override
     public void update() {} // USELESS
     @Override
-    public void draw(Graphics2D g2) {
-
-
-    }
+    public void draw(Graphics2D g2) {}
 
     // FROM THIS CLASS -------------------------------------------------------------
     static void drawCursor(Graphics2D g2, String text, int x, int y, boolean singleArrow, boolean underline) {

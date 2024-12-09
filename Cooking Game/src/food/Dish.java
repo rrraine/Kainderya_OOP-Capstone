@@ -7,7 +7,6 @@ import entity.Player;
 import interfaces.Pickupable;
 import interfaces.Swappable;
 import main.GamePanel;
-import object.SuperObject;
 
 import java.awt.image.BufferedImage;
 import java.util.HashMap;
@@ -63,9 +62,9 @@ public abstract class Dish extends Food implements Swappable {
         public void interact(Entity en, AnimationFactory animF, Pickupable obj, int objIndex) {
             if (en instanceof Player) {
                 if (animF.getCurrentState() == AnimationState.BASE) {
-                    animF.switchState(AnimationState.CARRY_TAPSILOG);
+                    animF.switchState(AnimationState.CARRY_TAPSILOGFINAL);
                 }
-                else if (animF.getCurrentState() == AnimationState.CARRY_TAPSILOG) {
+                else if (animF.getCurrentState() == AnimationState.CARRY_TAPSILOGFINAL) {
                     animF.switchState((AnimationState.BASE));
                 }
             }
@@ -91,9 +90,9 @@ public abstract class Dish extends Food implements Swappable {
         public void interact(Entity en, AnimationFactory animF, Pickupable obj, int objIndex) {
             if (en instanceof Player) {
                 if (animF.getCurrentState() == AnimationState.BASE) {
-                    animF.switchState(AnimationState.CARRY_SPAMSILOG);
+                    animF.switchState(AnimationState.CARRY_SPAMSILOGFINAL);
                 }
-                else if (animF.getCurrentState() == AnimationState.CARRY_SPAMSILOG) {
+                else if (animF.getCurrentState() == AnimationState.CARRY_SPAMSILOGFINAL) {
                     animF.switchState((AnimationState.BASE));
                 }
             }
@@ -104,7 +103,7 @@ public abstract class Dish extends Food implements Swappable {
     public static class Cornsilog extends Dish{
 
         public Cornsilog(GamePanel gp) {
-            super(gp, "Cornsilog");
+            super(gp, "CornedSilog");
 
             // TODO IMPORT SILOG VERSIONS
             silogVersions.put("cornsilogFinal", importImage("/food/meals/cornsilog/cornsilogFinal", gp.tileSize));
@@ -119,9 +118,9 @@ public abstract class Dish extends Food implements Swappable {
         public void interact(Entity en, AnimationFactory animF, Pickupable obj, int objIndex) {
             if (en instanceof Player) {
                 if (animF.getCurrentState() == AnimationState.BASE) {
-                    animF.switchState(AnimationState.CARRY_CORNSILOG);
+                    animF.switchState(AnimationState.CARRY_CORNSILOGFINAL);
                 }
-                else if (animF.getCurrentState() == AnimationState.CARRY_CORNSILOG) {
+                else if (animF.getCurrentState() == AnimationState.CARRY_CORNSILOGFINAL) {
                     animF.switchState((AnimationState.BASE));
                 }
             }
