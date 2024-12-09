@@ -197,9 +197,14 @@ public abstract class Entity extends Asset implements Drawable, Observable, Impo
     }
 
     public void resetParams() {
+        super.resetParams();
+//        idle1 = idle2 = up1 = up2 = down1 = down2 = left1 = left2 = right1 = right2 = sitUp = sitSide = null;
+//        image = null;
 
-        idle1 = idle2 = up1 = up2 = down1 = down2 = left1 = left2 = right1 = right2 = sitUp = sitSide = null;
-        image = null;
+        lastDirection = lastRecordedDirection.DOWN;
+        standCounter = spriteCounter = 0;
+        spriteNum = 1;
+        collisionOn = false;
     }
 
 }

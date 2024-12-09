@@ -44,6 +44,7 @@ public class NPC_Customer extends NPC implements Interactable {
         super(gp, 1, "idle");
         this.npcType = npcType;
         getAvatar();
+        order = null;
         patienceTimer = 30 * GamePanel.FPS; // 30 seconds at 60 FPS
         isReordered = false;
         isSeated = false;
@@ -522,6 +523,20 @@ public class NPC_Customer extends NPC implements Interactable {
     private int calculateHeuristic(Point a, Point b) {
         // Manhattan distance heuristic
         return Math.abs(a.x - b.x) + Math.abs(a.y - b.y);
+    }
+
+
+    public void resetParams() {
+        super.resetParams();
+        order = null;
+        patienceTimer = 30 * GamePanel.FPS; // 30 seconds at 60 FPS
+        isReordered = false;
+        isSeated = false;
+        isMovingToSeat = false;
+        seatLocation = null;
+        orderReceived = false;
+        orderAcknowledged = false;
+        hasPlacedOrder = false;
     }
 
 }

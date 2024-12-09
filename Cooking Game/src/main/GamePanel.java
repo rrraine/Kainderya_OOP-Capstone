@@ -66,7 +66,7 @@ public class GamePanel extends JPanel implements Runnable {
     final List<NPC> npc = new ArrayList<>();
     final List<SuperObject> obj = new ArrayList<>();
     private List<Asset> assetPool = new ArrayList<>();
-    ShopManager shopManager = new ShopManager(this);
+    ShopManager shopManager = ShopManager.instantiate(this);
     public FoodBuilder fBuilder = FoodBuilder.instantiate(this);
 
     private final int maxCustomers = 9;
@@ -96,7 +96,6 @@ public class GamePanel extends JPanel implements Runnable {
         // ALLOWS RECEIVING OF KEYSTROKES
         this.setFocusable(true);
 
-        shopManager = new ShopManager(this);
         newGame = true;
     }
     // SINGLETON INITIALIZE
@@ -257,16 +256,27 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
 
-    // NEW GAME INSTANCE
+    // NEW GAME INSTANCE RESET
     private void newGame() {
         newGame = true;
-        time.resetParams();
-        uiM.getPlayUI().resetParams();
+
         keyB.resetParams();
+        uiM.resetParams();
+        score.resetParams();
+        time.resetParams();
+        fBuilder.resetParams();
+        shopManager.resetParams();
 
         if (player != null) {
             player.resetParams();
             player = null;
+        }
+
+        // RESET ALL ASSET PARAMS
+        for (Asset a : assetPool) {
+            if (a instanceof SuperObject) {
+                a.resetParams();
+            }
         }
 
     }

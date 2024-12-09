@@ -292,4 +292,9 @@ public class FoodBuilder {
 
         return onHand;
     }
+
+    public void resetParams() {
+
+        instance = null;
+    }
 }

@@ -594,5 +594,7 @@ public class KeyBindings implements KeyListener {
         isTypingName = false;
         characterSelected = false;
         characterSelectedNum = 0;
+
+        instance = null;
     }
 }
