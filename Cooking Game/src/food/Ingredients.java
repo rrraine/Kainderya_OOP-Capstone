@@ -41,11 +41,11 @@ public abstract class Ingredients extends SuperObject implements Importable, Pic
         @Override
         public void interact(Entity en, AnimationFactory animF, Pickupable obj, int objIndex) {
             if (en instanceof Player) {
-                if (animF.getCurrentState() == AnimationState.BASE) {
-                    animF.switchState(AnimationState.CARRY_TAPA);
-                }
-                else if (animF.getCurrentState() == AnimationState.CARRY_TAPA) {
-                    animF.switchState((AnimationState.BASE));
+                super.interact(en, animF, obj, objIndex);
+
+                if (obj == null) {
+                    gp.player.setItemOnHandCreate(this);
+                    animF.switchState(AnimationState.CARRY_EGG);
                 }
             }
         }
@@ -62,11 +62,20 @@ public abstract class Ingredients extends SuperObject implements Importable, Pic
         @Override
         public void interact(Entity en, AnimationFactory animF, Pickupable obj, int objIndex) {
             if (en instanceof Player) {
-                if (animF.getCurrentState() == AnimationState.BASE) {
+                /*if (animF.getCurrentState() == AnimationState.BASE) {
                     animF.switchState(AnimationState.CARRY_CORNEDBEEF);
                 }
                 else if (animF.getCurrentState() == AnimationState.CARRY_CORNEDBEEF) {
                     animF.switchState((AnimationState.BASE));
+                }
+
+                 */
+
+                super.interact(en, animF, obj, objIndex);
+
+                if (obj == null) {
+                    gp.player.setItemOnHandCreate(this);
+                    animF.switchState(AnimationState.CARRY_CORNEDBEEF);
                 }
             }
         }
@@ -83,11 +92,20 @@ public abstract class Ingredients extends SuperObject implements Importable, Pic
         @Override
         public void interact(Entity en, AnimationFactory animF, Pickupable obj, int objIndex) {
             if (en instanceof Player) {
-                if (animF.getCurrentState() == AnimationState.BASE) {
+               /* if (animF.getCurrentState() == AnimationState.BASE) {
                     animF.switchState(AnimationState.CARRY_SPAM);
                 }
                 else if (animF.getCurrentState() == AnimationState.CARRY_SPAM) {
                     animF.switchState((AnimationState.BASE));
+                }
+
+                */
+
+                super.interact(en, animF, obj, objIndex);
+
+                if (obj == null) {
+                    gp.player.setItemOnHandCreate(this);
+                    animF.switchState(AnimationState.CARRY_SPAM);
                 }
             }
         }
@@ -126,13 +144,11 @@ public abstract class Ingredients extends SuperObject implements Importable, Pic
 
         @Override
         public void interact(Entity en, AnimationFactory animF, Pickupable obj, int objIndex) {
-            if (en instanceof Player) {
-                if (animF.getCurrentState() == AnimationState.BASE) {
-                    animF.switchState(AnimationState.CARRY_RAWRICE);
-                }
-                else if (animF.getCurrentState() == AnimationState.CARRY_RAWRICE) {
-                    animF.switchState((AnimationState.BASE));
-                }
+            super.interact(en, animF, obj, objIndex);
+
+            if (obj == null) {
+                gp.player.setItemOnHandCreate(this);
+                animF.switchState(AnimationState.CARRY_RAWRICE);
             }
         }
     }
