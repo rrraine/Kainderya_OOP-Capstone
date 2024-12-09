@@ -23,8 +23,7 @@ public class NPC_Customer extends NPC implements Interactable {
     private String order;
     private List<Point> path;
     private boolean orderReceived;
-    private int patienceTimer;
-    private boolean isReordered;
+    //private int patienceTimer;
     private boolean isSeated;
     private boolean isMovingToSeat;
     private Point seatLocation;
@@ -46,8 +45,7 @@ public class NPC_Customer extends NPC implements Interactable {
         this.npcType = npcType;
         getAvatar();
         order = null;
-        patienceTimer = 30 * GamePanel.FPS; // 30 seconds at 60 FPS
-//        isReordered = false;
+        // patienceTimer = 30 * GamePanel.FPS; // 30 seconds at 60 FPS
         isSeated = false;
         isMovingToSeat = false;
         seatLocation = null;
@@ -188,6 +186,174 @@ public class NPC_Customer extends NPC implements Interactable {
         }
     }
 
+    public void reorder(){
+        // System.out.println("Customer is reordering.");
+
+        if (!hasPlacedOrder) {
+            generateOrder();
+            // patienceTimer = 30 * GamePanel.FPS;
+            // startPatienceTimer();
+            System.out.println("Customer at (" + seatLocation.x + "," + seatLocation.y + "): reordered " + order);
+            //System.out.println("Customer at (" + seatLocation.x + "," + seatLocation.y + "): reordered " + order +"| Patience: " + patienceTimer /60);
+            orderReceived = false;
+        }
+    }
+
+    public void servingOrder(Servable onHand, Player player, AnimationFactory animF){
+
+        if (onHand.serve(onHand, order)) { // checks if order name and onHand name matches
+
+            player.setItemOnHandDestroy();
+            animF.switchState(AnimationState.BASE);
+
+            orderReceived = true;
+            hasPlacedOrder = false;
+            System.out.println("Customer at (" + seatLocation.x + "," + seatLocation.y + "): " + " received order: " + order);
+            if (order.contains("Tapsilog") || order.contains("CornedSilog") || order.contains("Spamsilog")) {
+               gp.score.addScore(20);
+            } else if (order.contains("Water") || order.contains("Cola")) {
+                gp.score.addScore(15);
+            }
+            System.out.println("CUSTOMER RECEIVED ORDER");
+            resetOrderParameters();
+            //gp.score.addScore((patienceTimer > 0 && patienceTimer < 15) ? 5 : 10);
+        }
+    }
+
+    private void resetOrderParameters() {
+        order = null;
+        hasPlacedOrder = false;
+        orderAcknowledged = false;
+    }
+
+    private boolean hasReceivedOrder() {
+        return orderReceived;
+    }
+
+    @Override
+    public void setNPCAction() {
+        if (isMovingToSeat) {
+            System.out.println("Customer is moving to their seat.");
+            moveToSeat();
+        } else if (isSeated) {
+
+            if ((!hasPlacedOrder || order == null) && !orderReceived) {
+                 // Only generate a new order if there's none or it's a reorder
+                generateOrder();
+                //System.out.println("Customer at (" + seatLocation.x + "," + seatLocation.y + "): " + " is seated and waiting for their order. Patience Timer: " + patienceTimer /60);
+                System.out.println("Customer at (" + seatLocation.x + "," + seatLocation.y + "): " + " is seated and waiting for their order.");
+                System.out.println("Customer at (" + seatLocation.x + "," + seatLocation.y + "): " + "ordered " + order);
+            } else if (orderReceived) {
+                reorder();
+
+            }
+
+           // checkPatience();
+        } else {
+            System.out.println("Customer is idle, waiting for seat assignment.");
+            direction = "idle";
+        }
+    }
+
+
+    // TODO UPDATE CUSTOMER STATS IN REAL TIME
+    @Override
+    public void update() {
+
+        // Gi comment out lang nako if gi tuyo ba jud full override ang NPC Class update hehe
+        //super.update();
+
+    // if patience exist implement the commented code
+    /*
+            if (isSeated && patienceTimer > 0) {
+                patienceTimer--;
+                if (patienceTimer <= 0 && !orderReceived) {
+                    gp.score.deductScore(5);
+                    System.out.println("Customer at (" + seatLocation.x + "," + seatLocation.y + "): " + " did not receive their order. 5 points deducted. New score: " +  gp.score.getTotalScore());
+                    reorder();
+    //                isReordered = true;
+                }
+            }
+
+     */
+        setNPCAction();
+
+        // Trigger frame updates for animation
+        spriteCounter++;
+        if (spriteCounter > 10) { // Example: change frame every 10 frames
+            spriteNum = (spriteNum == 1) ? 2 : 1; // Alternate between sprite 1 and 2
+            spriteCounter = 0;
+        }
+    }
+
+    @Override
+    void getAvatar() {
+        // Assign sprites based on NPC type
+        idle1 = npcType.idle1;
+        idle2 = npcType.idle2;
+        left1 = npcType.left1;
+        left2 = npcType.left2;
+        right1 = npcType.right1;
+        right2 = npcType.right2;
+        down1 = npcType.down1;
+        down2 = npcType.down2;
+        up1 = npcType.up1;
+        up2 = npcType.up2;
+        sitUp = npcType.sitUp;
+        sitSide = npcType.sitSide;
+    }
+
+    // GETTERS & SETTERS ----------------------------------------------
+
+    public Point getSeatLocation() {
+        return seatLocation;
+    }
+
+    public boolean isSeated() {
+        return isSeated;
+    }
+
+    public void setMovingToSeat(boolean movingToSeat) {
+        isMovingToSeat = movingToSeat;
+    }
+
+    public boolean isMovingToSeat() {
+        return isMovingToSeat;
+    }
+
+    public void setSeated(boolean seated) {
+        isSeated = seated;
+    }
+
+    public boolean isOrderReceived() {
+        return orderReceived;
+    }
+
+
+    public String getOrder() {
+        return order;
+    }
+
+    // PATHFINDING PURPOSES -------------------------------------------------
+
+    private class Node {
+        Point position;
+        Node parent;
+        int gCost; // Cost from start
+        int hCost; // Heuristic cost
+
+        Node(Point position) {
+            this.position = position;
+        }
+
+        int getFCost() {
+            return gCost + hCost;
+        }
+    }
+
+
+    // A* Pathfinding Logic
+
     public void moveToSeat() {
         // old pathfinding, dili A*
         /*
@@ -257,209 +423,11 @@ public class NPC_Customer extends NPC implements Interactable {
                 isSeated = true;
                 direction = deduceSeatOrientation();
                 deleteChairAssetAtLocation();
-                startPatienceTimer();
+                // startPatienceTimer();
             }
         }
     }
 
-
-    private void startPatienceTimer() {
-        patienceTimer = 30 * GamePanel.FPS; // Reset patience timer to 30 seconds
-        //patienceTimer = 30 * 60; // Reset patience timer to 30 seconds
-    }
-
-    public void reducePatienceTimer() {
-        if (isSeated && patienceTimer > 0) {
-            patienceTimer--; // Reduce patience only if seated
-            if (patienceTimer <= 0 && !orderReceived) {
-                gp.score.deductScore(5);
-                System.out.println("Customer at (" + seatLocation.x + "," + seatLocation.y + "): " + "did not received their order. 5 points deducted. New score: " +  gp.score.getTotalScore());
-            }
-
-        }
-    }
-
-    private void checkPatience() {
-        if (patienceTimer <= 0 && !orderReceived) {
-            System.out.println("Customer at (" + seatLocation.x + "," + seatLocation.y + "): " + " is impatient and their patience ran out.");
-            gp.score.deductScore(5);
-        }
-    }
-
-
-    public void reorder(){
-        // System.out.println("Customer is reordering.");
-
-        if (!hasPlacedOrder) {
-            generateOrder();
-            // patienceTimer = 30 * GamePanel.FPS;
-            startPatienceTimer();
-            System.out.println("Customer at (" + seatLocation.x + "," + seatLocation.y + "): reordered " + order +"| Patience: " + patienceTimer /60);
-            orderReceived = false;
-        }
-    }
-
-    public void servingOrder(Servable onHand, Player player, AnimationFactory animF){
-
-        if (onHand.serve(onHand, order)) { // checks if order name and onHand name matches
-
-            player.setItemOnHandDestroy();
-            animF.switchState(AnimationState.BASE);
-
-            orderReceived = true;
-            hasPlacedOrder = false;
-            System.out.println("Customer at (" + seatLocation.x + "," + seatLocation.y + "): " + " received order: " + order);
-            if (order.contains("Tapsilog") || order.contains("CornedSilog") || order.contains("Spamsilog")) {
-               gp.score.addScore(20);
-            } else if (order.contains("Water") || order.contains("Cola")) {
-                gp.score.addScore(15);
-            }
-            System.out.println("CUSTOMER RECEIVED ORDER");
-            resetOrderParameters();
-            gp.score.addScore((patienceTimer > 0 && patienceTimer < 15) ? 5 : 10);
-        }
-    }
-
-    private void resetOrderParameters() {
-        order = null;
-        hasPlacedOrder = false;
-        orderAcknowledged = false;
-    }
-
-    private boolean hasReceivedOrder() {
-        return orderReceived;
-    }
-
-    @Override
-    public void setNPCAction() {
-        if (isMovingToSeat) {
-            System.out.println("Customer is moving to their seat.");
-            moveToSeat();
-        } else if (isSeated) {
-            // generateOrder();
-            if ((!orderReceived || order == null) && !hasPlacedOrder) {
-                 // Only generate a new order if there's none or it's a reorder
-                generateOrder();
-//               isReordered = false; // Reset the reorder state after generating the order
-
-                System.out.println("Customer at (" + seatLocation.x + "," + seatLocation.y + "): " + " is seated and waiting for their order. Patience Timer: " + patienceTimer /60);
-                System.out.println("Customer at (" + seatLocation.x + "," + seatLocation.y + "): " + "ordered " + order);
-            } else {
-                reorder();
-                isReordered = true;
-            }
-            System.out.println( gp.score.getTotalScore());
-            checkPatience();
-        } else {
-            System.out.println("Customer is idle, waiting for seat assignment.");
-            direction = "idle";
-        }
-    }
-
-
-    // TODO UPDATE CUSTOMER STATS IN REAL TIME
-    @Override
-    public void update() {
-
-        // Gi comment out lang nako if gi tuyo ba jud full override ang NPC Class update hehe
-        //super.update();
-
-
-
-        if (isSeated && patienceTimer > 0) {
-            patienceTimer--;
-            if (patienceTimer <= 0 && !orderReceived) {
-                gp.score.deductScore(5);
-                System.out.println("Customer at (" + seatLocation.x + "," + seatLocation.y + "): " + " did not receive their order. 5 points deducted. New score: " +  gp.score.getTotalScore());
-                reorder();
-//                isReordered = true;
-            }
-        }
-
-        setNPCAction();
-
-
-
-
-
-        // Trigger frame updates for animation
-        spriteCounter++;
-        if (spriteCounter > 10) { // Example: change frame every 10 frames
-            spriteNum = (spriteNum == 1) ? 2 : 1; // Alternate between sprite 1 and 2
-            spriteCounter = 0;
-        }
-    }
-
-    @Override
-    void getAvatar() {
-        // Assign sprites based on NPC type
-        idle1 = npcType.idle1;
-        idle2 = npcType.idle2;
-        left1 = npcType.left1;
-        left2 = npcType.left2;
-        right1 = npcType.right1;
-        right2 = npcType.right2;
-        down1 = npcType.down1;
-        down2 = npcType.down2;
-        up1 = npcType.up1;
-        up2 = npcType.up2;
-        sitUp = npcType.sitUp;
-        sitSide = npcType.sitSide;
-    }
-
-    // GETTERS & SETTERS ----------------------------------------------
-
-    public Point getSeatLocation() {
-        return seatLocation;
-    }
-
-    public boolean isSeated() {
-        return isSeated;
-    }
-
-    public void setMovingToSeat(boolean movingToSeat) {
-        isMovingToSeat = movingToSeat;
-    }
-
-    public boolean isMovingToSeat() {
-        return isMovingToSeat;
-    }
-
-    public void setSeated(boolean seated) {
-        isSeated = seated;
-    }
-
-    public boolean isOrderReceived() {
-        return orderReceived;
-    }
-
-    public int getPatienceTimer() {
-        return patienceTimer;
-    }
-
-    public String getOrder() {
-        return order;
-    }
-
-    // PATHFINDING PURPOSES -------------------------------------------------
-
-    private class Node {
-        Point position;
-        Node parent;
-        int gCost; // Cost from start
-        int hCost; // Heuristic cost
-
-        Node(Point position) {
-            this.position = position;
-        }
-
-        int getFCost() {
-            return gCost + hCost;
-        }
-    }
-
-
-    // A* Pathfinding Logic
     private List<Point> findPath(Point start, Point target) {
         List<Node> openList = new ArrayList<>();
         List<Node> closedList = new ArrayList<>();
@@ -530,6 +498,7 @@ public class NPC_Customer extends NPC implements Interactable {
         return neighbors;
     }
 
+    // todo : check every tile for collision
     private boolean isNavigable(Point point) {
         // Replace with actual game logic for checking tile navigability
         return true; // For example purposes, assume all points are navigable
@@ -544,14 +513,40 @@ public class NPC_Customer extends NPC implements Interactable {
     public void resetParams() {
         super.resetParams();
         order = null;
-        patienceTimer = 30 * GamePanel.FPS; // 30 seconds at 60 FPS
-//        isReordered = false;
+        // patienceTimer = 30 * GamePanel.FPS; // 30 seconds at 60 FPS
         isSeated = false;
         isMovingToSeat = false;
         seatLocation = null;
         orderReceived = false;
         orderAcknowledged = false;
         hasPlacedOrder = false;
+    }
+
+    // implement the commented code for patience timer
+    private void startPatienceTimer() {
+        // patienceTimer = 30 * GamePanel.FPS; // Reset patience timer to 30 seconds
+        //patienceTimer = 30 * 60; // Reset patience timer to 30 seconds
+    }
+
+    public void reducePatienceTimer() {
+        /*
+        if (isSeated && patienceTimer > 0) {
+            patienceTimer--; // Reduce patience only if seated
+            if (patienceTimer <= 0 && !orderReceived) {
+                gp.score.deductScore(5);
+                System.out.println("Customer at (" + seatLocation.x + "," + seatLocation.y + "): " + "did not received their order. 5 points deducted. New score: " +  gp.score.getTotalScore());
+            }
+
+        }
+    }
+
+    private void checkPatience() {
+        if (patienceTimer <= 0 && !orderReceived) {
+            System.out.println("Customer at (" + seatLocation.x + "," + seatLocation.y + "): " + " is impatient and their patience ran out.");
+            gp.score.deductScore(5);
+        }
+
+         */
     }
 
 }
