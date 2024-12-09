@@ -166,6 +166,12 @@ public abstract class Item extends SuperObject {
             return false;
         }
 
+        public void resetState() {
+            swapImage("pan");
+            isCooked = false;
+            surface.isCooked = false;
+        }
+
 
     }
 

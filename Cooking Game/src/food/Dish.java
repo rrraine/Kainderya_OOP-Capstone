@@ -86,7 +86,7 @@ public abstract class Dish extends Food implements Swappable {
         public void interact(Entity en, AnimationFactory animF, Pickupable obj, int objIndex) {
             if (en instanceof Player) {
                 super.interact(en, animF, obj, objIndex);
-                animF.switchState(AnimationState.CARRY_WATER);
+                animF.switchState(AnimationState.CARRY_SPAMSILOGFINAL);
             }
         }
     }
@@ -110,7 +110,7 @@ public abstract class Dish extends Food implements Swappable {
         public void interact(Entity en, AnimationFactory animF, Pickupable obj, int objIndex) {
             if (en instanceof Player) {
                 super.interact(en, animF, obj, objIndex);
-                animF.switchState(AnimationState.CARRY_WATER);
+                animF.switchState(AnimationState.CARRY_CORNSILOGFINAL);
             }
         }
     }

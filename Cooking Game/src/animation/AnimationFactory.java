@@ -106,6 +106,8 @@ public class AnimationFactory {
                 return carryTapa.getSprites();
             case CARRY_COKE:
                 return carryCoke.getSprites();
+            case CARRY_WATER:
+                return carryWater.getSprites();
 
             case CARRY_COOKEDRICEONLY:
                 return carryCookedRiceOnly.getSprites();
@@ -115,14 +117,14 @@ public class AnimationFactory {
                 return carryCookedTapaOnly.getSprites();
             case CARRY_COOKEDCBEEFONLY:
                 return carryCookedCBeefOnly.getSprites();
-           // case CARRY_COOKEDSPAMONLY:
-               // return carryCookedSpamOnly.getSprites();
+           case CARRY_COOKEDSPAMONLY:
+               return carrySpamPlate.getSprites();
             case CARRY_SPAMSILOGNOEGG:
                 return carrySpamsilogNoEgg.getSprites();
             case CARRY_SPAMSILOGNORICE:
                 return carrySpamsilogNoRice.getSprites();
-           // case CARRY_TAPSILOGNOEGG:
-             //   return carryCookedEggOnly.getSprites();
+           case CARRY_TAPSILOGNOEGG:
+             return carryCookedEggOnly.getSprites();
             case CARRY_TAPSILOGNORICE:
                 return carryTapsilogNoRice.getSprites();
             case CARRY_CORNSILOGNOEGG:
@@ -134,7 +136,13 @@ public class AnimationFactory {
             case CARRY_NOMAIN:
                 return carryNoMain.getSprites();
 
-            // case CARRY_NOMAIN:   DONE
+            case CARRY_CORNSILOGFINAL:
+                return carryCornsilog.getSprites();
+            case CARRY_SPAMSILOGFINAL:
+                return carryCornsilog.getSprites();
+            case CARRY_TAPSILOGFINAL:
+                return carryTapsilog.getSprites();
+
 
                 // TODO pan ANIMATIONS:
 //            case CARRY_PAN_BURNT:
