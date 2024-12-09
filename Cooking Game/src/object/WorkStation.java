@@ -399,36 +399,20 @@ public abstract class WorkStation extends Station implements Drawable {
         public void interact(Entity en, AnimationFactory animF, Pickupable obj, int objIndex) {
 
             if(en instanceof Player){
-                gp.player.setItemOnHandDestroy();
-                animF.switchState(AnimationState.BASE);
-                //gp.player.setItemOnHandCreate(gp.fBuilder.build(obj, this, animF, objIndex));
-
                 gp.playSFX(7);
+
+                if (gp.player.getItemOnHand() instanceof Item.Plates) {
+                    ((Plates) gp.player.getItemOnHand()).swapImage("counterPlate");
+                    animF.switchState(AnimationState.CARRY_PLATE);
+                }
+                else if (gp.player.getItemOnHand() instanceof Item.Pan) {
+                    ((Plates) gp.player.getItemOnHand()).swapImage("pan");
+                    animF.switchState(AnimationState.CARRY_PAN);
+                }
             }
         }
     }
-    /*
-    public static class Counter extends WorkStation{
 
-        public Counter(GamePanel gp, String name) {
-            super(gp, name);
-        }
-    }
-
-    public static class Sink extends WorkStation{
-
-        public Sink(GamePanel gp, String name) {
-            super(gp, name);
-        }
-    }
-
-    public static class Stove extends WorkStation{
-
-        public Stove(GamePanel gp, String name) {
-            super(gp, name);
-        }
-    }
-    */
 
     public boolean isCooked() {
         return isCooked;

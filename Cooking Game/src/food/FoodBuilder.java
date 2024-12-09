@@ -235,15 +235,81 @@ public class FoodBuilder {
         if (interactedItem instanceof Item.Pan pan) {
 
             // TODO
-            if (onHand instanceof Item.Plates) {
+            if (onHand instanceof Item.Plates plate) {
 
-                animF.switchState(AnimationState.CARRY_COKE);
+                if (plate.checkCurrentImage("onionOnly", plate)) {
+
+                    if (pan.checkCurrentImage("pan", (Pickupable) interactedItem)) {
+
+                        gp.player.setItemOnHandDestroy();
+                        animF.switchState(AnimationState.BASE);
+
+                        ((Item.Pan) interactedItem).swapImage("panOnion");
+                        return null;
+                    }
+                    else if (pan.checkCurrentImage("panCBeef", (Pickupable) interactedItem)) {
+
+                        gp.player.setItemOnHandDestroy();
+                        animF.switchState(AnimationState.BASE);
+
+                        ((Item.Pan) interactedItem).swapImage("panCBeefOnion");
+                        return null;
+                    }
+                }
+
+                animF.switchState(AnimationState.CARRY_COKE); // TODO
 
                 gp.getAssetPool().remove(onHandIndex);
                 pan.surface.setOccupied(false);
 
                 ((Item.Plates) onHand).swapImage("onionOnly");
                 return onHand;
+            }
+            else if (onHand instanceof Ingredients.CornedBeef) {
+
+                if (pan.checkCurrentImage("pan", (Pickupable) interactedItem)) {
+
+                    gp.player.setItemOnHandDestroy();
+                    animF.switchState(AnimationState.BASE);
+
+                    ((Item.Pan) interactedItem).swapImage("panCBeef");
+                    return null;
+                }
+                else if (pan.checkCurrentImage("panOnion", (Pickupable) interactedItem)) {
+
+                    gp.player.setItemOnHandDestroy();
+                    animF.switchState(AnimationState.BASE);
+
+                    ((Item.Pan) interactedItem).swapImage("panCBeefOnion");
+                    return null;
+                }
+            }
+            else if (onHand instanceof Ingredients.Egg && pan.checkCurrentImage("pan", (Pickupable) interactedItem)) {
+
+                gp.player.setItemOnHandDestroy();
+                animF.switchState(AnimationState.BASE);
+
+                ((Item.Pan) interactedItem).swapImage("panEgg");
+                return null;
+
+            }
+            else if (onHand instanceof Ingredients.Spam && pan.checkCurrentImage("pan", (Pickupable) interactedItem)) {
+
+                gp.player.setItemOnHandDestroy();
+                animF.switchState(AnimationState.BASE);
+
+                ((Item.Pan) interactedItem).swapImage("panSpam");
+                return null;
+
+            }
+            else if (onHand instanceof Ingredients.Tapa && pan.checkCurrentImage("pan", (Pickupable) interactedItem)) {
+
+                gp.player.setItemOnHandDestroy();
+                animF.switchState(AnimationState.BASE);
+
+                ((Item.Pan) interactedItem).swapImage("panTapa");
+                return null;
+
             }
             else if (onHand == null) { // PICK UP PAN
 

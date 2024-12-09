@@ -92,7 +92,7 @@ public abstract class Item extends SuperObject {
             panVersions.put("panEgg", importImage("/objects/item/pan/egg", gp.tileSize));
             panVersions.put("panOnion", importImage("/objects/item/pan/onion", gp.tileSize));
 
-            panVersions.put("panCBeefEgg", importImage("/objects/item/pan/onionCbeef", gp.tileSize));
+            panVersions.put("panCBeefOnion", importImage("/objects/item/pan/onionCbeef", gp.tileSize));
             panVersions.put("panSpam", importImage("/objects/item/pan/spam", gp.tileSize));
             panVersions.put("panTapa", importImage("/objects/item/pan/tapa", gp.tileSize));
 
@@ -123,9 +123,9 @@ public abstract class Item extends SuperObject {
                         }
                     }
                 }
-                else {
-                    gp.player.setItemOnHandCreate(gp.fBuilder.build(gp.player.getItemOnHand(), this, animF, objIndex));
-                }
+
+                gp.player.setItemOnHandCreate(gp.fBuilder.build(gp.player.getItemOnHand(), this, animF, objIndex));
+
             }
         }
 
