@@ -250,14 +250,6 @@ public class FoodBuilder {
                         ((Item.Pan) interactedItem).swapImage("panCBeef");
                         return null;
                     }
-                    else if (pan.checkCurrentImage("panOnion", (Pickupable) interactedItem)) {
-
-                        gp.player.setItemOnHandDestroy();
-                        animF.switchState(AnimationState.BASE);
-
-                        ((Item.Pan) interactedItem).swapImage("panCBeefOnion");
-                        return null;
-                    }
                 }
                 else if (onHand instanceof Ingredients.Egg) {
 
@@ -464,6 +456,7 @@ public class FoodBuilder {
             }
             else if (pan.checkCurrentImage("panTapa", pan)) {
 
+
                 if (onHand instanceof Item.Plates plate) {
 
                     if (plate.checkCurrentImage("counterPlate", plate)) {
@@ -504,6 +497,16 @@ public class FoodBuilder {
                     }
                 }
             }
+            else if (pan.checkCurrentImage("panOnion", (Pickupable) interactedItem)) {
+
+                if (onHand instanceof Ingredients.CornedBeef cbeef) {
+
+                gp.player.setItemOnHandDestroy();
+                animF.switchState(AnimationState.BASE);
+
+                ((Item.Pan) interactedItem).swapImage("panCBeefOnion");
+                return null;
+            }
 
 
 
@@ -530,6 +533,17 @@ public class FoodBuilder {
                 return new Item.Pan(gp);
             }
         }
+            else if (pan.checkCurrentImage("panCBeef", pan)) {
+
+                if (onHand instanceof Item.Plates plate && plate.checkCurrentImage("onionOnly", onHand)) {
+
+                    animF.switchState(AnimationState.CARRY_PLATE);
+                    plate.swapImage("counterPlate");
+                    ((Item.Pan) interactedItem).swapImage("panCBeefOnion");
+                    return plate;
+                }
+            }
+            }
 
         // SINK - DONE
         if (interactedItem instanceof WorkStation.Sink) {
