@@ -392,4 +392,8 @@ public class Player extends Entity {
         animF = null;
         setDefaultPlayerValues();
     }
+
+    public String getPlayerAvatar() {
+        return playerAvatar;
+    }
 }

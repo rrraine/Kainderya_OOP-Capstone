@@ -147,30 +147,34 @@ public class UIElement implements Importable {
 
         g2.drawImage(image1, x, y, gp.tileSize * 2 - 20, gp.tileSize * 2 - 20, null);
     }
+    public void drawAvatarFrontStatic(Graphics2D g2, int width, int height) {
+
+        g2.drawImage(image1, x, y, width, height, null);
+    }
     public void drawStaminaBar(Graphics2D g2, int phase) {
 
         switch (phase) {
             case 1:
-                g2.drawImage(image1, x, y, gp.tileSize * 2, gp.tileSize * 2, null);
+                g2.drawImage(image1, x, y, gp.tileSize * 3, gp.tileSize * 3, null);
                 break;
             case 2:
-                g2.drawImage(image2, x, y, gp.tileSize * 2, gp.tileSize * 2, null);
+                g2.drawImage(image2, x, y, gp.tileSize * 3, gp.tileSize * 3, null);
                 break;
             case 3:
-                g2.drawImage(image3, x, y, gp.tileSize * 2, gp.tileSize * 2, null);
+                g2.drawImage(image3, x, y, gp.tileSize * 3, gp.tileSize * 3, null);
                 break;
             case 4:
-                g2.drawImage(image4, x, y, gp.tileSize * 2, gp.tileSize * 2, null);
+                g2.drawImage(image4, x, y, gp.tileSize * 3, gp.tileSize * 3, null);
                 break;
             case 5:
-                g2.drawImage(image5, x, y, gp.tileSize * 2, gp.tileSize * 2, null);
+                g2.drawImage(image5, x, y, gp.tileSize * 3, gp.tileSize * 3, null);
                 break;
             case 6:
                 if (Utility.Regulator.flipSwitch(1)) {
-                    g2.drawImage(image5, x, y, gp.tileSize * 2, gp.tileSize * 2, null);
+                    g2.drawImage(image5, x, y, gp.tileSize * 3, gp.tileSize * 3, null);
                 }
                 else {
-                    g2.drawImage(image6, x, y, gp.tileSize * 2, gp.tileSize * 2, null);
+                    g2.drawImage(image6, x, y, gp.tileSize * 3, gp.tileSize * 3, null);
                 }
 
                 break;

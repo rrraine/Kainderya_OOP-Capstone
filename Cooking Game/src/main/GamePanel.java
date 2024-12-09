@@ -207,6 +207,7 @@ public class GamePanel extends JPanel implements Runnable {
                     o.update();
                 }
             }
+
         }
     }
 
