@@ -247,7 +247,7 @@ public abstract class Item extends SuperObject {
                 animF.switchState(AnimationState.CARRY_DIRTYPLATE);
             }
             else if (img == plateVersions.get("noMain")) {
-                animF.switchState(AnimationState.CARRY_COKE); //TODO KANI OY
+                animF.switchState(AnimationState.CARRY_NOMAIN); //TODO KANI OY
             }
             else if (img == plateVersions.get("cookedEggOnly")) {
                 animF.switchState(AnimationState.CARRY_COOKEDEGGONLY);
