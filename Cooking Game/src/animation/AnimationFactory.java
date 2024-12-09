@@ -106,6 +106,8 @@ public class AnimationFactory {
                 return carryTapa.getSprites();
             case CARRY_COKE:
                 return carryCoke.getSprites();
+            case CARRY_WATER:
+                return carryWater.getSprites();
 
             case CARRY_COOKEDRICEONLY:
                 return carryCookedRiceOnly.getSprites();
@@ -133,8 +135,6 @@ public class AnimationFactory {
                 return carryOnionOnly.getSprites();
             case CARRY_NOMAIN:
                 return carryNoMain.getSprites();
-            case CARRY_WATER:
-                return carryWater.getSprites();
 
             // case CARRY_NOMAIN:   DONE
 
