@@ -168,7 +168,7 @@ public abstract class WorkStation extends Station implements Drawable {
 
                     onion.surface = this;
                     itemOnTop = onion;
-
+                    gp.playSFX(7);
                     gp.player.setItemOnHandCreate(gp.fBuilder.build(obj, this, animF, objIndex));
                 }
             }
@@ -402,6 +402,8 @@ public abstract class WorkStation extends Station implements Drawable {
                 gp.player.setItemOnHandDestroy();
                 animF.switchState(AnimationState.BASE);
                 //gp.player.setItemOnHandCreate(gp.fBuilder.build(obj, this, animF, objIndex));
+
+                gp.playSFX(7);
             }
         }
     }

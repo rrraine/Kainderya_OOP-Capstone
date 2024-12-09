@@ -34,9 +34,12 @@ public abstract class Drink extends Food {
             if (en instanceof Player) {
                 if (animF.getCurrentState() == AnimationState.BASE) {
                     animF.switchState(AnimationState.CARRY_WATER);
+                    gp.player.setItemOnHandCreate(this);
+                    gp.getAssetPool().remove(objIndex); // remove from prin
                 }
                 else if (animF.getCurrentState() == AnimationState.CARRY_WATER) {
                     animF.switchState((AnimationState.BASE));
+                    gp.player.setItemOnHandDestroy();
                 }
             }
         }
@@ -54,9 +57,13 @@ public abstract class Drink extends Food {
             if (en instanceof Player) {
                 if (animF.getCurrentState() == AnimationState.BASE) {
                     animF.switchState(AnimationState.CARRY_COKE);
+                    gp.player.setItemOnHandCreate(this);
+                    gp.getAssetPool().remove(objIndex);
+                    //pickUpFx(gp);
                 }
                 else if (animF.getCurrentState() == AnimationState.CARRY_COKE) {
                     animF.switchState((AnimationState.BASE));
+                    gp.player.setItemOnHandDestroy();
                 }
             }
         }
