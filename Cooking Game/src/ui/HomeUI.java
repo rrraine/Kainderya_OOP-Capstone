@@ -12,7 +12,7 @@ import java.awt.image.BufferedImage;
 public class HomeUI extends UI implements Drawable {
 
     public static substate homeState;
-    public enum substate { TITLE, SELECTION, CREDITS, MULTIPLAYER }
+    public enum substate { TITLE, SELECTION, CREDITS, MULTIPLAYER, COMINGSOON }
 
     private BufferedImage wallpaper;
     private BufferedImage wallpaperFront;
@@ -68,6 +68,10 @@ public class HomeUI extends UI implements Drawable {
 
             case MULTIPLAYER:
                 homeMULTIPLAYER(g2);
+                break;
+
+            case COMINGSOON:
+                homeCOMINGSOON(g2);
                 break;
 
 
@@ -490,7 +494,7 @@ public class HomeUI extends UI implements Drawable {
         int gridWidth = gp.tileSize * 5;
         int gridHeight = gp.tileSize * 6;
 
-        cook1.reposition(gridX + gp.tileSize - 18, gridY + gp.tileSize + 20);
+        cook1.reposition(gridX + gp.tileSize + 42, gridY + gp.tileSize + 20);
 
         g2.setFont(g2.getFont().deriveFont(30F));
 
@@ -523,13 +527,16 @@ public class HomeUI extends UI implements Drawable {
         gridX += (gp.tileSize * 5) + 30;
         drawPopUpWindow(g2, gridX, gridY, gridWidth, gridHeight);
         cook2.reposition(gridX + gp.tileSize - 18, gridY + gp.tileSize + 20);
+        cook4.reposition(gridX + gp.tileSize * 2 + 36, gridY + gp.tileSize + 20);
 
         if (command == 1) {
             drawPopUpWindow(g2, gridX, gridY, gridWidth, gridHeight, primaryAccent, primary);
             cook2.drawAvatarFrontMoving(g2);
+            cook4.drawAvatarFrontMoving(g2);
         } else {
             drawPopUpWindow(g2, gridX, gridY, gridWidth, gridHeight, transBlack, Color.WHITE);
             cook2.drawAvatarFrontStatic(g2);
+            cook4.drawAvatarFrontStatic(g2);
         }
 
         // DRAW NAME
@@ -546,6 +553,42 @@ public class HomeUI extends UI implements Drawable {
         g2.drawString(text, x, y);
 
 
+    }
+    private void homeCOMINGSOON(Graphics2D g2) {
+
+        // SUB-WINDOW
+        int frameX = gp.tileSize;
+        int frameY = gp.tileSize;
+        int frameWidth = gp.tileSize * 18;
+        int frameHeight = gp.tileSize * 10;
+        drawPopUpWindow(g2, frameX, frameY, frameWidth, frameHeight);
+
+        g2.setFont(luckiestGuy);
+
+        g2.setColor(Color.white);
+        g2.setFont(g2.getFont().deriveFont(42F));
+
+        String text = "SOMETHING AWESOME IS COOKING— STAY TUNED.";
+        int x = Utility.Aligner.centerTextOnScreen(text, gp, g2);
+        int y = gp.screenHeight /2;
+        // SHADOW TEXT COLOR
+        g2.setColor(Color.BLACK);
+        g2.drawString(text, x + 6, y);
+        // BORDERING
+        drawLetterBorder(g2, text, Color.BLACK, 3, x, y);
+        // MAIN TEXT COLOR
+        g2.setColor(Color.WHITE);
+        g2.drawString(text, x, y);
+
+        // BACK
+        g2.setFont(g2.getFont().deriveFont(30F));
+        text = "Back";
+        x = Utility.Aligner.centerTextOnScreen(text, gp, g2);
+        y += gp.tileSize *2;
+        drawLetterBorder(g2, text, Color.BLACK, 2, x, y);
+        g2.setColor(primary);
+        g2.drawString(text, x, y);
+        drawCursor(g2, text, x, y, false, true);
     }
 
 }
