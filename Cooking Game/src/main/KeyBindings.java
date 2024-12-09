@@ -1,5 +1,6 @@
 package main;
 
+import object.Item;
 import ui.*;
 
 import java.awt.event.KeyEvent;
@@ -30,6 +31,11 @@ public class KeyBindings implements KeyListener {
     private boolean player2ShiftPressed;
     private boolean player2CtrlPressed;
 
+    private String inputText;
+    private String playerAvatar;
+    private boolean isTypingName;
+    private boolean characterSelected;
+    private int characterSelectedNum;
 
     private int lastCommand = 0;
 
@@ -38,6 +44,12 @@ public class KeyBindings implements KeyListener {
         this.gp = gp;
         this.uiM = uiM;
         canMove = true;
+
+        inputText = "";
+        playerAvatar = "";
+        isTypingName = false;
+        characterSelected = false;
+        characterSelectedNum = 0;
     }
     // SINGLETON INSTANTIATE -------------------------------------------------
     public static KeyBindings instantiate(GamePanel gp, UIFactory uiM) {
@@ -52,28 +64,34 @@ public class KeyBindings implements KeyListener {
     public void keyPressed(KeyEvent e) {
         int code = e.getKeyCode();
 
-        switch (gp.gameState) {
+        if (!isTypingName) {
 
-            case HOME:
-                homeBindings(code);
-                break;
+            switch (gp.gameState) {
 
-            case PLAY:
-                playBindings(code);
-                break;
+                case HOME:
+                    homeBindings(code);
+                    break;
 
-            case PAUSE:
-                pauseBindings(code);
-                break;
+                case PLAY:
+                    playBindings(code);
+                    break;
 
-            case OPTIONS:
-                optionsBindings(code);
-                break;
+                case PAUSE:
+                    pauseBindings(code);
+                    break;
 
-            case TERMINAL:
-                terminalBindings(code);
-                break;
+                case OPTIONS:
+                    optionsBindings(code);
+                    break;
+
+                case TERMINAL:
+                    terminalBindings(code);
+                    break;
+            }
+
         }
+
+
     }
     @Override
     public void keyReleased(KeyEvent e) {
@@ -122,7 +140,47 @@ public class KeyBindings implements KeyListener {
 
     }
     @Override
-    public void keyTyped(KeyEvent e) {} // USELESS
+    public void keyTyped(KeyEvent e) {
+
+        if (uiM.getHomeUI().homeState == HomeUI.substate.SELECTION && uiM.getCommand() == 4 && isTypingName) {
+            char keyChar = e.getKeyChar();
+
+            // Add letter, digit, or space to inputText
+            if (Character.isLetterOrDigit(keyChar) || Character.isSpaceChar(keyChar)) {
+                if (inputText.length() < 15) {  // Optional: Limit input to 15 characters
+                    inputText += keyChar;
+                }
+            }
+            // Handle backspace
+            else if (keyChar == KeyEvent.VK_BACK_SPACE && !inputText.isEmpty()) {
+                inputText = inputText.substring(0, inputText.length() - 1);
+            }
+
+            // press enter to start game if all values r filled
+            if (keyChar == KeyEvent.VK_ENTER && !inputText.isBlank() && !playerAvatar.isBlank()) {
+
+                gp.playSFX(2);
+
+                isTypingName = false;
+                gp.selectCharacter(playerAvatar, inputText);
+                PlayUI.generateRandomNum();
+                PlayUI.playState = PlayUI.substate.LOADING;
+                gp.gameState = GamePanel.state.PLAY;
+            }
+
+            if (keyChar == KeyEvent.VK_ESCAPE) {
+                characterSelected = false;
+                characterSelectedNum = 0;
+                playerAvatar = " ";
+                inputText = "";
+                isTypingName = false;
+                gp.playSFX(2);
+
+                uiM.setCommand(0);
+            }
+        }
+
+    } // USELESS
 
 
     // GAME STATE BINDINGS --------------------------------------------------------
@@ -174,87 +232,152 @@ public class KeyBindings implements KeyListener {
         else if (uiM.getHomeUI().homeState == HomeUI.substate.SELECTION) {
 
             // A & D
-            if (uiM.getCommand() != 4) {
-                if (code == KeyEvent.VK_A || code == KeyEvent.VK_LEFT) {
-                    gp.playSFX(2);
-                    uiM.setCommand(uiM.getCommand() -1);
-                    if (uiM.getCommand() < 0) {
-                        uiM.setCommand(3);
+            if (!characterSelected) {
+                if (uiM.getCommand() != 4) {
+                    if (code == KeyEvent.VK_A || code == KeyEvent.VK_LEFT) {
+                        gp.playSFX(2);
+                        uiM.setCommand(uiM.getCommand() -1);
+                        if (uiM.getCommand() < 0) {
+                            uiM.setCommand(3);
+                        }
                     }
-                }
-                if (code == KeyEvent.VK_D || code == KeyEvent.VK_RIGHT) {
-                    gp.playSFX(2);
-                    uiM.setCommand(uiM.getCommand() +1);
-                    if (uiM.getCommand() > 3) {
-                        uiM.setCommand(0);
+                    if (code == KeyEvent.VK_D || code == KeyEvent.VK_RIGHT) {
+                        gp.playSFX(2);
+                        uiM.setCommand(uiM.getCommand() +1);
+                        if (uiM.getCommand() > 3) {
+                            uiM.setCommand(0);
+                        }
                     }
+                    lastCommand = uiM.getCommand();
                 }
-                lastCommand = uiM.getCommand();
             }
+
 
             // W & S
-            if (code == KeyEvent.VK_W || code == KeyEvent.VK_UP) {
-                gp.playSFX(2);
+            if (characterSelected) {
 
-                if (uiM.getCommand() < 4) {
-                    uiM.setCommand(4);
-                } else {
-                    uiM.setCommand(lastCommand);
+                if (code == KeyEvent.VK_W || code == KeyEvent.VK_UP) {
+                    gp.playSFX(2);
+
+                    if (uiM.getCommand() < 4) {
+                        uiM.setCommand(4);
+                    } else {
+                        uiM.setCommand(lastCommand);
+                    }
+                }
+                if (code == KeyEvent.VK_S || code == KeyEvent.VK_DOWN) {
+                    gp.playSFX(2);
+                    if (uiM.getCommand() < 4) {
+                        uiM.setCommand(4);
+                    } else {
+                        uiM.setCommand(lastCommand);
+                    }
                 }
             }
-            if (code == KeyEvent.VK_S || code == KeyEvent.VK_DOWN) {
-                gp.playSFX(2);
-                if (uiM.getCommand() < 4) {
-                    uiM.setCommand(4);
-                } else {
-                    uiM.setCommand(lastCommand);
-                }
-            }
+
 
             // EXECUTE
             if (code == KeyEvent.VK_ENTER || code == KeyEvent.VK_F) {
                 gp.playSFX(2);
 
-                String playerAvatar = "", playerName = "";
-
                 if (uiM.getCommand() == 0) {
-                    playerAvatar = "Cook1";
-                    playerName = "MIGUEL";
-                    gp.playSFX(2);
+
+                    if (code == KeyEvent.VK_ENTER) {
+
+                        if (!characterSelected) {
+
+                            characterSelected = true;
+                            characterSelectedNum = 1;
+                            playerAvatar = "Cook1";
+                            gp.playSFX(2);
+
+                            uiM.setCommand(4);
+                        }
+                        else {
+                            characterSelected = false;
+                            characterSelectedNum = 0;
+                            playerAvatar = " ";
+                            gp.playSFX(2);
+                        }
+                    }
                 }
                 else if (uiM.getCommand() == 1) {
-                    playerAvatar = "Cook2";
-                    playerName = "GINA";
-                    gp.playSFX(2);
+                    if (code == KeyEvent.VK_ENTER) {
+
+                        if (!characterSelected) {
+                            characterSelected = true;
+                            characterSelectedNum = 2;
+                            playerAvatar = "Cook2";
+                            gp.playSFX(2);
+
+                            uiM.setCommand(4);
+                        }
+                        else {
+                            characterSelected = false;
+                            characterSelectedNum = 0;
+                            playerAvatar = " ";
+                            gp.playSFX(2);
+                        }
+                    }
                 }
                 else if (uiM.getCommand() == 2) {
-                    playerAvatar = "Cook3";
-                    playerName = "JAVIER";
-                    gp.playSFX(2);
+                    if (code == KeyEvent.VK_ENTER) {
+
+                        if (!characterSelected) {
+                            characterSelected = true;
+                            characterSelectedNum = 3;
+                            playerAvatar = "Cook3";
+                            gp.playSFX(2);
+
+                            uiM.setCommand(4);
+
+                        }
+                        else {
+                            characterSelected = false;
+                            characterSelectedNum = 0;
+                            playerAvatar = " ";
+                            gp.playSFX(2);
+                        }
+                    }
                 }
                 else if (uiM.getCommand() == 3) {
-                    playerAvatar = "Cook4";
-                    playerName = "SOFIA";
-                    gp.playSFX(2);
+                    if (code == KeyEvent.VK_ENTER) {
+
+                        if (!characterSelected) {
+                            characterSelected = true;
+                            characterSelectedNum = 4;
+                            playerAvatar = "Cook4";
+                            gp.playSFX(2);
+
+                            uiM.setCommand(4);
+                        }
+                        else {
+                            characterSelected = false;
+                            characterSelectedNum = 0;
+                            playerAvatar = " ";
+                            gp.playSFX(2);
+                        }
+                    }
                 }
                 else if (uiM.getCommand() == 4) {
                     // NAME FIELD
-                    playerName = "Aaron";
+                    // GO TO KEYTYPED METHOD
+
                     gp.playSFX(2);
-                }
 
-                try {
-                    if (playerName.isBlank() || playerAvatar.isBlank()) {
-                        throw new Exception("Unexpected Character Selection Error");
+                    if (code == KeyEvent.VK_ENTER) {
+                        isTypingName = true;
                     }
-                    gp.selectCharacter(playerAvatar, playerName);
-                    PlayUI.generateRandomNum();
-                    PlayUI.playState = PlayUI.substate.LOADING;
-                    gp.gameState = GamePanel.state.PLAY;
-                } catch (Exception e) {
-                    throw new RuntimeException(e.getMessage());
                 }
+            }
 
+            if (code == KeyEvent.VK_ESCAPE) {
+                characterSelected = false;
+                characterSelectedNum = 0;
+                playerAvatar = " ";
+                gp.playSFX(2);
+
+                uiM.setCommand(0);
             }
         }
 
@@ -293,13 +416,24 @@ public class KeyBindings implements KeyListener {
                 gp.playSFX(2);
 
                 if (uiM.getCommand() == 0) {
+                    uiM.getHomeUI().homeState = HomeUI.substate.SELECTION;
                     gp.setMultiplayer(false);
                 }
                 else if (uiM.getCommand() == 1) {
-                    gp.setMultiplayer(true);
+                    uiM.getHomeUI().homeState = HomeUI.substate.COMINGSOON;
                 }
 
-                uiM.getHomeUI().homeState = HomeUI.substate.SELECTION;
+
+            }
+        }
+
+        // HOME STATE -> COMING SOON SUB-STATE
+        else if (uiM.getHomeUI().homeState == HomeUI.substate.COMINGSOON) {
+
+            if (code == KeyEvent.VK_ENTER || code == KeyEvent.VK_F) {
+                gp.playSFX(2);
+
+                uiM.getHomeUI().homeState = HomeUI.substate.MULTIPLAYER;
             }
         }
     }
@@ -436,5 +570,29 @@ public class KeyBindings implements KeyListener {
     }
     public void setPlayer1EnterPressed(boolean player1EnterPressed) {
         this.player1EnterPressed = player1EnterPressed;
+    }
+
+    public boolean getCharacterSelected() {
+        return characterSelected;
+    }
+
+    public int getCharacterSelectedNum() {
+        return characterSelectedNum;
+    }
+
+    public boolean isTypingName() {
+        return isTypingName;
+    }
+
+    public String getInputText() {
+        return inputText;
+    }
+
+    public void resetParams() {
+        inputText = "";
+        playerAvatar = "";
+        isTypingName = false;
+        characterSelected = false;
+        characterSelectedNum = 0;
     }
 }

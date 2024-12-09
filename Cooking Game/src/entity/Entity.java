@@ -195,4 +195,5 @@ public abstract class Entity extends Asset implements Drawable, Observable, Impo
     public BufferedImage getRight2() {
         return right2;
     }
+
 }

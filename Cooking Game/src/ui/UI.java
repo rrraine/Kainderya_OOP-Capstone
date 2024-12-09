@@ -48,7 +48,7 @@ public abstract class UI implements Drawable, Importable {
     public static Color primary = new Color( 255, 219, 75);
     public static Color primaryAccent = new Color(65, 52, 18);
     public static Color secondary = new Color(255, 75, 81);
-    public static Color secondaryAccent;
+    public static Color secondaryAccent = new Color(0, 0, 139);
     public static Color blue = new Color(75, 165, 255);
     public static Color orange = new Color(255, 171, 75);
 
