@@ -26,7 +26,7 @@ public abstract class Drink extends Food {
 
         public Water(GamePanel gp) {
             super(gp, "Water");
-            loadFoodImage("TODO pPATHHH OF WATER");
+            loadFoodImage("/food/drinks/water");
         }
 
         @Override

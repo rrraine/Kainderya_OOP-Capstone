@@ -12,7 +12,7 @@ public class AnimationFactory {
     String avatar;
 
     AnimationState currentState;
-    Animation base, carryPlate, carryCornedBeef, carryEgg, carryOnion, carryPan, carryRawRice, carryCookedSpamOnly, carryTapa, carryCoke,
+    Animation base, carryPlate, carryCornedBeef, carryEgg, carryOnion, carryPan, carryRawRice, carryCookedSpamOnly, carryTapa, carryCoke, carryWater,
             carryCookedTapaOnly, carrySpamPlate, carryCookedEggOnly, carryCookedCBeefOnly, carryCookedRiceOnly, carryDirtyPlate, carryOnionOnly,
               carryTapsi, carryCornsilogNoEgg, carrySpamsilogNoEgg, carryTapsilogNoRice, carryCornsilogNoRice, carrySpamsilogNoRice, carryNoMain,
               carryTapsilog, carryCornsilog, carrySpamsilog;
@@ -32,6 +32,7 @@ public class AnimationFactory {
         carryCookedSpamOnly = new Animation(gp, avatar, "/holdingSpam/");
         carryTapa = new Animation(gp, avatar, "/holdingTapa/");
         carryCoke = new Animation(gp, avatar, "/holdingCoke/");
+        carryWater = new Animation(gp, avatar, "/holdingWater/");
 
         //ingredients in a plate
         carryCookedTapaOnly = new Animation(gp, avatar, "/cookedTapa/");
@@ -132,6 +133,8 @@ public class AnimationFactory {
                 return carryOnionOnly.getSprites();
             case CARRY_NOMAIN:
                 return carryNoMain.getSprites();
+            case CARRY_WATER:
+                return carryWater.getSprites();
 
             // case CARRY_NOMAIN:   DONE
 
