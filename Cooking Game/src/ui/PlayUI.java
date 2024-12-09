@@ -80,8 +80,59 @@ public class PlayUI extends UI implements Drawable {
             int frameHeight = gp.tileSize + 26;
             drawPopUpWindow(g2, x, y, frameWidth, frameHeight);
 
-            // CIRCLE FOR MENU ICON
-            drawCircle(g2, gp.tileSize/2, y - gp.tileSize + 12, gp.tileSize + 48 + 6, gp.tileSize + 48, Color.WHITE, Color.BLACK);
+//            // CIRCLE FOR MENU ICON
+//            drawCircle(g2, gp.tileSize/2, y - gp.tileSize + 12, gp.tileSize + 48 + 6, gp.tileSize + 48, Color.WHITE, Color.BLACK);
+
+            // instructions
+            x = gp.tileSize;
+            y = gp.screenHeight - gp.tileSize*2;
+            spamsilog.reposition(x, y);
+            spamsilog.drawFood(g2);
+
+            x += gp.tileSize + 20;
+            spam.reposition(x, y);
+            spam.drawFood(g2);
+            x += gp.tileSize + 20;
+            rice.reposition(x-4, y+12);
+            rice.drawFood(g2);
+            x += gp.tileSize;
+            egg.reposition(x, y);
+            egg.drawFood(g2);
+
+            x+= gp.tileSize *2 + 16;
+            tapsilog.reposition(x, y);
+            tapsilog.drawFood(g2);
+
+            x += gp.tileSize + 20;
+            tapa.reposition(x, y);
+            tapa.drawFood(g2);
+            x += gp.tileSize + 20;
+            rice.reposition(x-4, y +12);
+            rice.drawFood(g2);
+            x += gp.tileSize;
+            egg.reposition(x, y);
+            egg.drawFood(g2);
+
+            x+= gp.tileSize *2 + 16;
+            cornsilog.reposition(x, y);
+            cornsilog.drawFood(g2);
+
+            x += gp.tileSize + 20;
+            cbeef.reposition(x, y);
+            cbeef.drawFood(g2);
+            x += gp.tileSize + 20;
+            rice.reposition(x-4, y+12);
+            rice.drawFood(g2);
+            x += gp.tileSize;
+            egg.reposition(x, y);
+            egg.drawFood(g2);
+            x += gp.tileSize-6;
+            onion.reposition(x, y);
+            onion.drawFood(g2);
+
+
+
+
 
             // STAMINA BAR
             x = gp.screenWidth - gp.tileSize *4 + 20;
