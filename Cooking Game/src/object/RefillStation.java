@@ -43,7 +43,7 @@ public abstract class RefillStation extends Station{
         public VendingMachine(GamePanel gp) {
             super(gp, "Vending Machine");
             image = importImage("/objects/item/ingredients/vendingMachine", gp.tileSize);
-            setDefaultCollisions(true, 0, 0, 50, 40);
+            setDefaultCollisions(true, 0, 0, 68, 68);
         }
 
         public void interact(Entity en, AnimationFactory animF, Pickupable obj, int objIndex) {
