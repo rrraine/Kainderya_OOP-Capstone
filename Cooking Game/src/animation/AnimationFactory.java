@@ -133,8 +133,6 @@ public class AnimationFactory {
                 return carryOnionOnly.getSprites();
             case CARRY_NOMAIN:
                 return carryNoMain.getSprites();
-            case CARRY_WATER:
-                return carryWater.getSprites();
 
             // case CARRY_NOMAIN:   DONE
 
