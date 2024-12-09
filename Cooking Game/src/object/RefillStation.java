@@ -31,7 +31,7 @@ public abstract class RefillStation extends Station{
                     gp.player.setItemOnHandCreate(new Drink.Water(gp));
                     animF.switchState((AnimationState.CARRY_WATER));
                 }
-                else if (obj instanceof Drink.Cola) {
+                else if (obj instanceof Drink.Water) {
                     gp.player.setItemOnHandDestroy();
                     animF.switchState((AnimationState.BASE));
                 }

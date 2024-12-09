@@ -53,36 +53,39 @@ public class FoodBuilder {
             else { // SANDOK
 
                 // INPUTS
-                if (onHand instanceof Item.Plates && cooker.isOccupied() && cooker.isCooked()) {
+                if (cooker.isOccupied() && cooker.isCooked()) {
 
                     // DETERMINE WHAT KIND OF INPUT
-                    if (((Item.Plates) onHand).checkCurrentImage("counterPlate", onHand)) {
+                    if (onHand instanceof Item.Plates) {
 
-                        cooker.consumeServings();
-                        animF.switchState(AnimationState.CARRY_COOKEDRICEONLY);
+                        if (((Item.Plates) onHand).checkCurrentImage("counterPlate", onHand)) {
 
-                        ((Item.Plates) onHand).swapImage("cookedRiceOnly"); // SWAP IMAGE
+                            cooker.consumeServings();
+                            animF.switchState(AnimationState.CARRY_COOKEDRICEONLY);
 
-                        if (cooker.getServings() == 0) {
-                            cooker.setOccupied(false);
+                            ((Item.Plates) onHand).swapImage("cookedRiceOnly"); // SWAP IMAGE
+
+                            if (cooker.getServings() == 0) {
+                                cooker.setOccupied(false);
+                            }
+
+                            return onHand; // OUTPUT
+
                         }
+                        if (((Item.Plates) onHand).checkCurrentImage("cookedEggOnly", onHand)) {
 
-                        return onHand; // OUTPUT
+                            cooker.consumeServings();
+                            animF.switchState(AnimationState.CARRY_NOMAIN);
 
-                    }
-                    if (((Item.Plates) onHand).checkCurrentImage("cookedEggOnly", onHand)) {
+                            ((Item.Plates) onHand).swapImage("noMain"); // SWAP IMAGE
 
-                        cooker.consumeServings();
-                        animF.switchState(AnimationState.CARRY_COOKEDEGGONLY);
+                            if (cooker.getServings() == 0) {
+                                cooker.setOccupied(false);
+                            }
 
-                        ((Item.Plates) onHand).swapImage("noMain"); // SWAP IMAGE
+                            return onHand; // OUTPUT
 
-                        if (cooker.getServings() == 0) {
-                            cooker.setOccupied(false);
                         }
-
-                        return onHand; // OUTPUT
-
                     }
                 }
                 else if (onHand instanceof Dish.Spamsilog && cooker.isOccupied() && cooker.isCooked()) {
@@ -234,12 +237,58 @@ public class FoodBuilder {
         // PAN
         if (interactedItem instanceof Item.Pan pan) {
 
-            // TODO
-            if (onHand instanceof Item.Plates plate) {
 
-                if (plate.checkCurrentImage("onionOnly", plate)) {
+            if (pan.checkCurrentImage("pan", pan)) {
+
+                if (onHand instanceof Ingredients.CornedBeef) {
 
                     if (pan.checkCurrentImage("pan", (Pickupable) interactedItem)) {
+
+                        gp.player.setItemOnHandDestroy();
+                        animF.switchState(AnimationState.BASE);
+
+                        ((Item.Pan) interactedItem).swapImage("panCBeef");
+                        return null;
+                    }
+                    else if (pan.checkCurrentImage("panOnion", (Pickupable) interactedItem)) {
+
+                        gp.player.setItemOnHandDestroy();
+                        animF.switchState(AnimationState.BASE);
+
+                        ((Item.Pan) interactedItem).swapImage("panCBeefOnion");
+                        return null;
+                    }
+                }
+                else if (onHand instanceof Ingredients.Egg) {
+
+                    gp.player.setItemOnHandDestroy();
+                    animF.switchState(AnimationState.BASE);
+
+                    ((Item.Pan) interactedItem).swapImage("panEgg");
+                    return null;
+
+                }
+                else if (onHand instanceof Ingredients.Spam) {
+
+                    gp.player.setItemOnHandDestroy();
+                    animF.switchState(AnimationState.BASE);
+
+                    ((Item.Pan) interactedItem).swapImage("panSpam");
+                    return null;
+
+                }
+                else if (onHand instanceof Ingredients.Tapa) {
+
+                    gp.player.setItemOnHandDestroy();
+                    animF.switchState(AnimationState.BASE);
+
+                    ((Item.Pan) interactedItem).swapImage("panTapa");
+                    return null;
+
+                }
+                else if (onHand instanceof Item.Plates plate) {
+
+                    if (plate.checkCurrentImage("onionOnly", plate)) {
 
                         gp.player.setItemOnHandDestroy();
                         animF.switchState(AnimationState.BASE);
@@ -256,61 +305,218 @@ public class FoodBuilder {
                         return null;
                     }
                 }
-
-                animF.switchState(AnimationState.CARRY_COKE); // TODO
-
-                gp.getAssetPool().remove(onHandIndex);
-                pan.surface.setOccupied(false);
-
-                ((Item.Plates) onHand).swapImage("onionOnly");
-                return onHand;
             }
-            else if (onHand instanceof Ingredients.CornedBeef) {
+            else if (pan.checkCurrentImage("panEgg", pan)) {
 
-                if (pan.checkCurrentImage("pan", (Pickupable) interactedItem)) {
+                if (onHand instanceof Item.Plates plate) {
 
-                    gp.player.setItemOnHandDestroy();
-                    animF.switchState(AnimationState.BASE);
+                    if (plate.checkCurrentImage("counterPlate", plate)) {
 
-                    ((Item.Pan) interactedItem).swapImage("panCBeef");
-                    return null;
+                        plate.swapImage("cookedEggOnly");
+                        animF.switchState(AnimationState.CARRY_COOKEDEGGONLY);
+                        pan.resetState();
+                        return plate;
+                    }
+                    else if (plate.checkCurrentImage("cookedRiceOnly", plate)) {
+
+                        plate.swapImage("noMain");
+                        animF.switchState(AnimationState.CARRY_NOMAIN);
+                        pan.resetState();
+                        return plate;
+                    }
                 }
-                else if (pan.checkCurrentImage("panOnion", (Pickupable) interactedItem)) {
+                else if (onHand instanceof Dish.Tapsilog dish) {
 
-                    gp.player.setItemOnHandDestroy();
-                    animF.switchState(AnimationState.BASE);
+                    if (dish.checkCurrentImage("tapsilogNoEgg", dish)) {
 
-                    ((Item.Pan) interactedItem).swapImage("panCBeefOnion");
-                    return null;
+                        dish.swapImage("tapsilogFinal");
+                        animF.switchState(AnimationState.CARRY_TAPSILOGFINAL);
+                        pan.resetState();
+                        return dish;
+                    }
+                    else if (dish.checkCurrentImage("cookedTapaOnly", dish)) {
+
+                        dish.swapImage("tapsilogNoRice");
+                        animF.switchState(AnimationState.CARRY_TAPSILOGNORICE);
+                        pan.resetState();
+                        return dish;
+                    }
+                }
+                else if (onHand instanceof Dish.Spamsilog dish) {
+
+                    if (dish.checkCurrentImage("spamsilogNoEgg", dish)) {
+
+                        dish.swapImage("spamsilogFinal");
+                        animF.switchState(AnimationState.CARRY_SPAMSILOGFINAL);
+                        pan.resetState();
+                        return dish;
+                    }
+                    else if (dish.checkCurrentImage("cookedSpamOnly", dish)) {
+
+                        dish.swapImage("spamsilogNoRice");
+                        animF.switchState(AnimationState.CARRY_SPAMSILOGNORICE);
+                        pan.resetState();
+                        return dish;
+                    }
+                }
+                else if (onHand instanceof Dish.Cornsilog dish) {
+
+                    if (dish.checkCurrentImage("cornsilogNoEgg", dish)) {
+
+                        dish.swapImage("cornsilogFinal");
+                        animF.switchState(AnimationState.CARRY_CORNSILOGFINAL);
+                        pan.resetState();
+                        return dish;
+                    }
+                    else if (dish.checkCurrentImage("cookedCBeefOnly", dish)) {
+
+                        dish.swapImage("cornsilogNoRice");
+                        animF.switchState(AnimationState.CARRY_CORNSILOGNORICE);
+                        pan.resetState();
+                        return dish;
+                    }
                 }
             }
-            else if (onHand instanceof Ingredients.Egg && pan.checkCurrentImage("pan", (Pickupable) interactedItem)) {
+            else if (pan.checkCurrentImage("panCBeefOnion", pan)) {
 
-                gp.player.setItemOnHandDestroy();
-                animF.switchState(AnimationState.BASE);
+                if (onHand instanceof Item.Plates plate) {
 
-                ((Item.Pan) interactedItem).swapImage("panEgg");
-                return null;
+                    if (plate.checkCurrentImage("counterPlate", plate)) {
 
+                        gp.player.setItemOnHandDestroy();
+                        animF.switchState(AnimationState.CARRY_COOKEDCBEEFONLY);
+                        pan.resetState();
+                        Dish d = new Dish.Cornsilog(gp);
+                        d.swapImage("cookedCBeefOnly");
+                        return d;
+                    }
+                    else if (plate.checkCurrentImage("noMain", plate)) {
+
+                        gp.player.setItemOnHandDestroy();
+                        animF.switchState(AnimationState.CARRY_CORNSILOGFINAL);
+                        pan.resetState();
+                        Dish d = new Dish.Cornsilog(gp);
+                        d.swapImage("cornsilogFinal");
+                        return d;
+
+                    }
+                    else if (plate.checkCurrentImage("cookedEggOnly", plate)) {
+
+                        gp.player.setItemOnHandDestroy();
+                        animF.switchState(AnimationState.CARRY_CORNSILOGNORICE);
+                        pan.resetState();
+                        Dish d = new Dish.Cornsilog(gp);
+                        d.swapImage("cornsilogNoRice");
+                        return d;
+                    }
+                    else if (plate.checkCurrentImage("cookedRiceOnly", plate)) {
+
+                        gp.player.setItemOnHandDestroy();
+                        animF.switchState(AnimationState.CARRY_CORNSILOGNOEGG);
+                        pan.resetState();
+                        Dish d = new Dish.Cornsilog(gp);
+                        d.swapImage("cornsilogNoEgg");
+                        return d;
+                    }
+                }
             }
-            else if (onHand instanceof Ingredients.Spam && pan.checkCurrentImage("pan", (Pickupable) interactedItem)) {
+            else if (pan.checkCurrentImage("panSpam", pan)) {
 
-                gp.player.setItemOnHandDestroy();
-                animF.switchState(AnimationState.BASE);
+                if (onHand instanceof Item.Plates plate) {
 
-                ((Item.Pan) interactedItem).swapImage("panSpam");
-                return null;
+                    if (plate.checkCurrentImage("counterPlate", plate)) {
+                        gp.player.setItemOnHandDestroy();
+                        animF.switchState(AnimationState.CARRY_COOKEDSPAMONLY);
+                        pan.resetState();
+                        Dish d = new Dish.Spamsilog(gp);
+                        d.swapImage("cookedSpamOnly");
+                        return d;
+                    }
+                    else if (plate.checkCurrentImage("noMain", plate)) {
 
+                        gp.player.setItemOnHandDestroy();
+                        animF.switchState(AnimationState.CARRY_SPAMSILOGFINAL);
+                        pan.resetState();
+                        Dish d = new Dish.Spamsilog(gp);
+                        d.swapImage("spamsilogFinal");
+                        return d;
+
+                    }
+                    else if (plate.checkCurrentImage("cookedEggOnly", plate)) {
+
+                        gp.player.setItemOnHandDestroy();
+                        animF.switchState(AnimationState.CARRY_SPAMSILOGNORICE);
+                        pan.resetState();
+                        Dish d = new Dish.Cornsilog(gp);
+                        d.swapImage("spamsilogNoRice");
+                        return d;
+                    }
+                    else if (plate.checkCurrentImage("cookedRiceOnly", plate)) {
+
+                        gp.player.setItemOnHandDestroy();
+                        animF.switchState(AnimationState.CARRY_SPAMSILOGNOEGG);
+                        pan.resetState();
+                        Dish d = new Dish.Cornsilog(gp);
+                        d.swapImage("spamsilogNoEgg");
+                        return d;
+                    }
+                }
             }
-            else if (onHand instanceof Ingredients.Tapa && pan.checkCurrentImage("pan", (Pickupable) interactedItem)) {
+            else if (pan.checkCurrentImage("panTapa", pan)) {
 
-                gp.player.setItemOnHandDestroy();
-                animF.switchState(AnimationState.BASE);
+                if (onHand instanceof Item.Plates plate) {
 
-                ((Item.Pan) interactedItem).swapImage("panTapa");
-                return null;
+                    if (plate.checkCurrentImage("counterPlate", plate)) {
+                        gp.player.setItemOnHandDestroy();
+                        animF.switchState(AnimationState.CARRY_COOKEDTAPAONLY);
+                        pan.resetState();
+                        Dish d = new Dish.Tapsilog(gp);
+                        d.swapImage("cookedTapaOnly");
+                        return d;
+                    }
+                    else if (plate.checkCurrentImage("noMain", plate)) {
 
+                        gp.player.setItemOnHandDestroy();
+                        animF.switchState(AnimationState.CARRY_TAPSILOGFINAL);
+                        pan.resetState();
+                        Dish d = new Dish.Tapsilog(gp);
+                        d.swapImage("tapsilogFinal");
+                        return d;
+
+                    }
+                    else if (plate.checkCurrentImage("cookedEggOnly", plate)) {
+
+                        gp.player.setItemOnHandDestroy();
+                        animF.switchState(AnimationState.CARRY_TAPSILOGNORICE);
+                        pan.resetState();
+                        Dish d = new Dish.Tapsilog(gp);
+                        d.swapImage("tapsilogNoRice");
+                        return d;
+                    }
+                    else if (plate.checkCurrentImage("cookedRiceOnly", plate)) {
+
+                        gp.player.setItemOnHandDestroy();
+                        animF.switchState(AnimationState.CARRY_TAPSILOGNOEGG);
+                        pan.resetState();
+                        Dish d = new Dish.Tapsilog(gp);
+                        d.swapImage("tapsilogNoEgg");
+                        return d;
+                    }
+                }
             }
+
+
+
+
+
+
+
+
+
+
+
+
+
             else if (onHand == null) { // PICK UP PAN
 
                 animF.switchState(AnimationState.CARRY_PAN);
