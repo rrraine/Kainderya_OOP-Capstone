@@ -392,15 +392,17 @@ public abstract class WorkStation extends Station implements Drawable {
         public TrashCan(GamePanel gp) {
             super(gp, "Trashcan");
             image = importImage("/objects/item/kitchenArea/trashcan", gp.tileSize);
-            setDefaultCollisions(true, 20, 0, 46, 44);
+            setDefaultCollisions(true, 20, 20, 45, 44);
         }
 
         @Override
         public void interact(Entity en, AnimationFactory animF, Pickupable obj, int objIndex) {
 
             if(en instanceof Player){
+                gp.player.setItemOnHandDestroy();
+                animF.switchState((AnimationState.BASE));
+                //gp.player.setItemOnHandCreate(gp.fBuilder.build(obj, this, animF, objIndex));
 
-                gp.player.setItemOnHandCreate(gp.fBuilder.build(obj, this, animF, objIndex));
             }
         }
     }

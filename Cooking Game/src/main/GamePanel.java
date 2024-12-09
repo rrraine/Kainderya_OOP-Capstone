@@ -263,6 +263,14 @@ public class GamePanel extends JPanel implements Runnable {
         newGame = true;
         time.reinitialize();
         uiM.getPlayUI().resetLoadTime();
+        if (player != null) {
+            assetPool.remove(player);
+        }
+
+        //npc.clear();
+        //obj.clear();
+        //assetPool.clear();
+
     }
 
 

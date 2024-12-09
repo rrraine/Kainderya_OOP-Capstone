@@ -174,7 +174,7 @@ public abstract class Item extends SuperObject {
 
         public Plates (GamePanel gp) {
             super(gp, "Plates");
-            setDefaultCollisions(false, -8, -8, 80, 80);
+            setDefaultCollisions(false, 0, -8, 60, 80);
 
             plateVersions = new HashMap<>();
 
