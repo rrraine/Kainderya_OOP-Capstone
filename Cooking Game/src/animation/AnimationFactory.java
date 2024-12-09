@@ -15,7 +15,7 @@ public class AnimationFactory {
     Animation base, carryPlate, carryCornedBeef, carryEgg, carryOnion, carryPan, carryRawRice, carryCookedSpamOnly, carryTapa, carryCoke, carryWater,
             carryCookedTapaOnly, carrySpamPlate, carryCookedEggOnly, carryCookedCBeefOnly, carryCookedRiceOnly, carryDirtyPlate, carryOnionOnly,
               carryTapsi, carryCornsilogNoEgg, carrySpamsilogNoEgg, carryTapsilogNoRice, carryCornsilogNoRice, carrySpamsilogNoRice, carryNoMain,
-              carryTapsilog, carryCornsilog, carrySpamsilog, carryWater;
+              carryTapsilog, carryCornsilog, carrySpamsilog;
 
     // 2 METHODS FOR CONSTRUCTOR SINGLETON
     private AnimationFactory(GamePanel gp, String avatar) {
@@ -135,8 +135,6 @@ public class AnimationFactory {
                 return carryOnionOnly.getSprites();
             case CARRY_NOMAIN:
                 return carryNoMain.getSprites();
-            case CARRY_WATER:
-                return carryWater.getSprites();
 
             // case CARRY_NOMAIN:   DONE
 
