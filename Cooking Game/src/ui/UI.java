@@ -54,6 +54,11 @@ public abstract class UI implements Drawable, Importable {
 
     public static Color player1 = new Color(173, 227, 63);
 
+    UIElement cook1, cook2, cook3, cook4;
+    UIElement chosenAvatar;
+
+    private boolean rendered;
+
 
     // CONSTRUCTOR -----------------------------------------------------------------
     public UI(GamePanel gp, Time time) {
@@ -76,13 +81,22 @@ public abstract class UI implements Drawable, Importable {
         // OPTIONS UI
         command = 0;
 
+        rendered = false;
+
         // SHAKE EFFECT
         random = new Random();
+
+        cook1 = new UIElement(gp, "player", "cook1",  12,true);
+        cook2 = new UIElement(gp, "player", "cook2",  12,true);
+        cook3 = new UIElement(gp, "player", "cook3",  12,true);
+        cook4 = new UIElement(gp, "player", "cook4",  12,true);
     }
 
     // FROM INTERFACE: DRAWABLE -----------------------------------------------------
     @Override
-    public void update() {} // USELESS
+    public void update() {
+        renderAvatarOnNameCard();
+    } // USELESS
     @Override
     public void draw(Graphics2D g2) {}
 
@@ -174,6 +188,28 @@ public abstract class UI implements Drawable, Importable {
         }
     }
 
+    public void renderAvatarOnNameCard() {
+
+        if (!rendered) {
+            rendered = true;
+            switch (gp.player.getPlayerAvatar()) {
+                case "Cook1":
+                    chosenAvatar = cook1;
+                    break;
+                case "Cook2":
+                    chosenAvatar = cook2;
+                    break;
+                case "Cook3":
+                    chosenAvatar = cook3;
+                    break;
+                case "Cook4":
+                    chosenAvatar = cook4;
+                    break;
+            }
+        }
+
+    }
+
     // COMMAND GETTERS & SETTERS
     public static int getCommand() { return command; }
     public static void setCommand(int command) { UI.command = command; }
@@ -184,5 +220,9 @@ public abstract class UI implements Drawable, Importable {
     }
     public static Font getStandardFont() {
         return balooBold;
+    }
+
+    public void resetParams() {
+        rendered = false;
     }
 }
