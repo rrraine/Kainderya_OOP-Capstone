@@ -455,5 +455,11 @@ public abstract class WorkStation extends Station implements Drawable {
         return processTime;
     }
 
-
+    public void resetParams() {
+        super.resetParams();
+        isCooked = false;
+        isOccupied = false;
+        playerLocked = false;
+        itemOnTop = null;
+    }
 }

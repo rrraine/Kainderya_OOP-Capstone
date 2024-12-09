@@ -12,6 +12,9 @@ import object.WorkStation;
 
 public abstract class Ingredients extends SuperObject implements Importable, Pickupable {
 
+    public boolean isCooked;
+    public WorkStation surface;
+
     public Ingredients(GamePanel gp, String name) {
         super(gp, name);
     }
@@ -155,9 +158,6 @@ public abstract class Ingredients extends SuperObject implements Importable, Pic
 
     public static class Onion extends Ingredients {
 
-        public boolean isCooked;
-        public WorkStation surface;
-
         public Onion(GamePanel gp) {
             super(gp, "Onion");
             image = importImage("/food/ingredients/onion", gp.tileSize);
@@ -192,6 +192,10 @@ public abstract class Ingredients extends SuperObject implements Importable, Pic
         }
     }
 
-
+    public void resetParams() {
+        super.resetParams();
+        isCooked = false;
+        surface = null;
+    }
 
 }

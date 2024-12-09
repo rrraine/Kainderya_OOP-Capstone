@@ -16,6 +16,7 @@ import java.util.HashMap;
 public abstract class Item extends SuperObject {
 
     // NOTE: DEPLOY THE ITEMS IN THE UTILITY CLASS, ASSETSETTER SUBCLASS!!!
+    public WorkStation surface;
 
     // CONSTRUCTOR --------------------------------------------
     public Item(GamePanel gp, String name) {
@@ -72,7 +73,7 @@ public abstract class Item extends SuperObject {
     public static class Pan extends Item implements Importable, Pickupable, Swappable {
 
         public boolean isCooked;
-        public WorkStation surface;
+
 
         public HashMap<String, BufferedImage> panVersions;
 
@@ -423,4 +424,8 @@ public abstract class Item extends SuperObject {
     }
 */
 
+    public void resetParams() {
+        super.resetParams();
+        surface = null;
+    }
 }

@@ -153,4 +153,46 @@ public class AnimationFactory {
     public AnimationState getCurrentState() {
         return currentState;
     }
+
+    public void resetParams() {
+        avatar = "";
+
+        base = null;
+        carryPlate = null;
+        carryCornedBeef = null;
+        carryEgg = null;
+        carryOnion = null;
+        carryPan = null;
+        carryRawRice = null;
+        carryCookedSpamOnly = null;
+        carryTapa = null;
+        carryCoke = null;
+
+        //ingredients in a plate
+        carryCookedTapaOnly = null;
+        carryCookedCBeefOnly = null;
+        carrySpamPlate = null;
+        carryCookedEggOnly = null;
+        carryDirtyPlate = null;
+        carryCookedRiceOnly = null;
+
+        carryTapsi= null;
+        carryCornsilogNoEgg = null;
+        carrySpamsilogNoEgg = null;
+        carrySpamsilog = null;
+        carryTapsilog= null;
+        carryCornsilog = null;
+
+        carryTapsilogNoRice = null;
+        carryCornsilogNoRice = null;
+        carrySpamsilogNoRice = null;
+
+        carryOnionOnly = null;
+
+        carryNoMain = null;
+
+        currentState = null;
+
+        instance = null;
+    }
 }

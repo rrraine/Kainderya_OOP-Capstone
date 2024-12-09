@@ -83,26 +83,6 @@ public class Time implements Drawable {
         }
         return instance;
     }
-    public void resetParams() {
-
-        try {
-            if (instance == null)
-                throw new NullPointerException("Initialize an instance of (Time) first!");
-        } catch (NullPointerException e) {
-            e.getMessage();
-        }
-
-        timer = defaults.get(0);
-        patience = defaults.get(1);
-        customerEating = defaults.get(2);
-        chopping = defaults.get(3);
-        cooking = defaults.get(4);
-        cooking_burnt = defaults.get(5);
-        riceCooking = defaults.get(6);
-        washing = defaults.get(7);
-        fillingDrink = defaults.get(8);
-
-    }
 
     // FROM INTERFACE: DRAWABLE -------------------------------------------------
     @Override
@@ -139,5 +119,10 @@ public class Time implements Drawable {
         else {
             return String.format("%01d:%02d", min, sec);
         }
+    }
+
+    public void resetParams() {
+
+        instance = null;
     }
 }

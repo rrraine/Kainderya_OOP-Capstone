@@ -145,9 +145,6 @@ public class PlayUI extends UI implements Drawable {
     }
 
 
-    public void resetParams() {
-        loadTime = 60 * 6;
-    }
     public static void generateRandomNum() {
         randomNum = random.nextInt(4) +1;
     }

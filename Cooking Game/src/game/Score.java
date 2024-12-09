@@ -99,4 +99,8 @@ public class Score {
         return highestScore;
     }
 
+    public void resetParams() {
+
+        instance = null;
+    }
 }
