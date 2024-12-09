@@ -568,7 +568,7 @@ public class HomeUI extends UI implements Drawable {
         g2.setColor(Color.white);
         g2.setFont(g2.getFont().deriveFont(42F));
 
-        String text = "SOMETHING AWESOME IS BREWING— STAY TUNED.";
+        String text = "SOMETHING AWESOME IS COOKING— STAY TUNED.";
         int x = Utility.Aligner.centerTextOnScreen(text, gp, g2);
         int y = gp.screenHeight /2;
         // SHADOW TEXT COLOR
