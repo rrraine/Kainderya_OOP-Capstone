@@ -240,7 +240,7 @@ public class Utility {
             int y = point.y;
 
             // Restricted area for the restaurant
-            return (x >= 6 && x <= 16) && (y >= 3 && y <= 11);
+            return (x >= 4 && x <= 16) && (y >= 3 && y <= 11);
         }
 
     }
