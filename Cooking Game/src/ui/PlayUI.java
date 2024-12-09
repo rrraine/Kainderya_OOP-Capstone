@@ -44,6 +44,8 @@ public class PlayUI extends UI implements Drawable {
 
         if (gp.gameState != GamePanel.state.HOME) {
 
+            // hereeeeeeee
+
             // INITIALIZE
             g2.setFont(fredokaSemiBold);
             g2.setFont(g2.getFont().deriveFont(18F));

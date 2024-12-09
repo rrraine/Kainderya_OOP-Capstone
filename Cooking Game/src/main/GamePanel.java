@@ -224,7 +224,7 @@ public class GamePanel extends JPanel implements Runnable {
         }
         else {
             // RID off map glitches
-            g2.setColor(Color.BLACK);
+            g2.setColor(Color.WHITE);
             g2.fillRect(0, 0, screenWidth, screenHeight);
 
             // 1. DRAW TILES
