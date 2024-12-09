@@ -12,8 +12,8 @@ public class AnimationFactory {
     String avatar;
 
     AnimationState currentState;
-    Animation base, carryPlate, carryCornedBeef, carryEgg, carryOnion, carryPan, carryRawRice, carryCookedSpamOnly, carryTapa, carryCoke,
-            carryCookedTapaOnly, carrySpamPlate, carryCookedEggOnly, carryCookedCBeefOnly, carryCookedRiceOnly, carryDirtyPlate, carryOnionOnly,
+    Animation base, carryPlate, carryCornedBeef, carryEgg, carryOnion, carryPan, carryRawRice, carrySpam, carryTapa, carryCoke,
+            carryCookedTapaOnly, carryCookedSpamOnly, carryCookedEggOnly, carryCookedCBeefOnly, carryCookedRiceOnly, carryDirtyPlate, carryOnionOnly,
               carryTapsi, carryCornsilogNoEgg, carrySpamsilogNoEgg, carryTapsilogNoRice, carryCornsilogNoRice, carrySpamsilogNoRice, carryNoMain,
               carryTapsilog, carryCornsilog, carrySpamsilog;
 
@@ -29,14 +29,14 @@ public class AnimationFactory {
         carryOnion = new Animation(gp, avatar, "/holdingOnion/");
         carryPan = new Animation(gp, avatar, "/holdingPan/");
         carryRawRice = new Animation(gp, avatar, "/holdingRawRice/");
-        carryCookedSpamOnly = new Animation(gp, avatar, "/holdingSpam/");
+        carrySpam = new Animation(gp, avatar, "/holdingSpam/");
         carryTapa = new Animation(gp, avatar, "/holdingTapa/");
         carryCoke = new Animation(gp, avatar, "/holdingCoke/");
 
         //ingredients in a plate
         carryCookedTapaOnly = new Animation(gp, avatar, "/cookedTapa/");
         carryCookedCBeefOnly = new Animation(gp, avatar, "/cookedCornedBeef/");
-        carrySpamPlate = new Animation(gp, avatar, "/cookedSpam/");
+        carryCookedSpamOnly = new Animation(gp, avatar, "/cookedSpam/");
         carryCookedEggOnly = new Animation(gp, avatar, "/cookedEgg/");
         carryDirtyPlate = new Animation(gp, avatar, "/holdingDirtyPlate/");
         carryCookedRiceOnly = new Animation(gp, avatar, "/cookedRice/");
@@ -100,7 +100,7 @@ public class AnimationFactory {
            case CARRY_RAWRICE:
                 return carryRawRice.getSprites();
            case CARRY_SPAM:
-                 return carryCookedSpamOnly.getSprites();
+                 return carrySpam.getSprites();
            case CARRY_TAPA:
                 return carryTapa.getSprites();
             case CARRY_COKE:
@@ -114,8 +114,8 @@ public class AnimationFactory {
                 return carryCookedTapaOnly.getSprites();
             case CARRY_COOKEDCBEEFONLY:
                 return carryCookedCBeefOnly.getSprites();
-           // case CARRY_COOKEDSPAMONLY:
-               // return carryCookedSpamOnly.getSprites();
+            case CARRY_COOKEDSPAMONLY:
+                return carryCookedSpamOnly.getSprites();
             case CARRY_SPAMSILOGNOEGG:
                 return carrySpamsilogNoEgg.getSprites();
             case CARRY_SPAMSILOGNORICE:
