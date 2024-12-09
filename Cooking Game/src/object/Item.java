@@ -215,7 +215,7 @@ public abstract class Item extends SuperObject {
 
                     gp.getAssetPool().remove(objIndex); // remove from printing
                     gp.player.setItemOnHandCreate(this); // add item on player's hand
-
+                    gp.playSFX(8);
                     // update animation sprite
                     updateSpriteAnimation(animF);
                 }

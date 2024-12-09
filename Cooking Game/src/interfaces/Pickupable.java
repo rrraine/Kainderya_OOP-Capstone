@@ -1,6 +1,7 @@
 package interfaces;
 
 import animation.AnimationState;
+import main.GamePanel;
 import object.SuperObject;
 
 public interface Pickupable {
@@ -20,6 +21,10 @@ public interface Pickupable {
     default void reposition(Pickupable obj, int surfaceX, int surfaceY) {
         ((SuperObject) obj).setWorldX(surfaceX);
         ((SuperObject) obj).setWorldY(surfaceY);
+    }
+
+    default void pickUpFx(GamePanel gp){
+        gp.playSFX(7);
     }
 
 }
