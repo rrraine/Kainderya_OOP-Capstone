@@ -97,7 +97,7 @@ public class GamePanel extends JPanel implements Runnable {
         this.setFocusable(true);
 
         shopManager = new ShopManager(this);
-        newGame = false;
+        newGame = true;
     }
     // SINGLETON INITIALIZE
     public static GamePanel initialize() {
@@ -264,8 +264,11 @@ public class GamePanel extends JPanel implements Runnable {
         uiM.getPlayUI().resetParams();
         keyB.resetParams();
 
-        if (player != null)
+        if (player != null) {
             player.resetParams();
+            player = null;
+        }
+
     }
 
 

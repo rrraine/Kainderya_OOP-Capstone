@@ -34,7 +34,7 @@ public class Player extends Entity {
     private int maxStamina;
 
     // PLAYER PREFERENCES
-    private final String playerAvatar;
+    private String playerAvatar;
     public String playerName;
 
 
@@ -270,7 +270,6 @@ public class Player extends Entity {
 
     @Override
     void getAvatar() {
-
         idle1 = setAvatar("player", playerAvatar, "idle");
         idle2 = setAvatar("player", playerAvatar, "idleUp");
         up1 = setAvatar("player", playerAvatar, "up1");
@@ -385,7 +384,10 @@ public class Player extends Entity {
     }
 
     public void resetParams() {
+        super.resetParams();
         idle1 = idle2 = up1 = up2 = down1 = down2 = left1 = left2 = right1 = right2 = null;
+        playerAvatar = "";
+        playerName = "";
         setDefaultPlayerValues();
     }
 }
