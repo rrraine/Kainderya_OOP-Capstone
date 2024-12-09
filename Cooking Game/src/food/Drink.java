@@ -26,18 +26,14 @@ public abstract class Drink extends Food {
 
         public Water(GamePanel gp) {
             super(gp, "Water");
-            loadFoodImage("TODO pPATHHH OF WATER");
+            loadFoodImage("/food/drinks/water");
         }
 
         @Override
         public void interact(Entity en, AnimationFactory animF, Pickupable obj, int objIndex) {
             if (en instanceof Player) {
-                if (animF.getCurrentState() == AnimationState.BASE) {
-                    animF.switchState(AnimationState.CARRY_WATER);
-                }
-                else if (animF.getCurrentState() == AnimationState.CARRY_WATER) {
-                    animF.switchState((AnimationState.BASE));
-                }
+                super.interact(en, animF, obj, objIndex);
+                animF.switchState(AnimationState.CARRY_WATER);
             }
         }
     }
@@ -52,12 +48,8 @@ public abstract class Drink extends Food {
         @Override
         public void interact(Entity en, AnimationFactory animF, Pickupable obj, int objIndex) {
             if (en instanceof Player) {
-                if (animF.getCurrentState() == AnimationState.BASE) {
-                    animF.switchState(AnimationState.CARRY_COKE);
-                }
-                else if (animF.getCurrentState() == AnimationState.CARRY_COKE) {
-                    animF.switchState((AnimationState.BASE));
-                }
+                super.interact(en, animF, obj, objIndex);
+                animF.switchState(AnimationState.CARRY_COKE);
             }
         }
     }

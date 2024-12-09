@@ -61,12 +61,8 @@ public abstract class Dish extends Food implements Swappable {
         @Override
         public void interact(Entity en, AnimationFactory animF, Pickupable obj, int objIndex) {
             if (en instanceof Player) {
-                if (animF.getCurrentState() == AnimationState.BASE) {
-                    animF.switchState(AnimationState.CARRY_TAPSILOGFINAL);
-                }
-                else if (animF.getCurrentState() == AnimationState.CARRY_TAPSILOGFINAL) {
-                    animF.switchState((AnimationState.BASE));
-                }
+                super.interact(en, animF, obj, objIndex);
+                animF.switchState(AnimationState.CARRY_TAPSILOGFINAL);
             }
         }
     }
@@ -89,12 +85,8 @@ public abstract class Dish extends Food implements Swappable {
         @Override
         public void interact(Entity en, AnimationFactory animF, Pickupable obj, int objIndex) {
             if (en instanceof Player) {
-                if (animF.getCurrentState() == AnimationState.BASE) {
-                    animF.switchState(AnimationState.CARRY_SPAMSILOGFINAL);
-                }
-                else if (animF.getCurrentState() == AnimationState.CARRY_SPAMSILOGFINAL) {
-                    animF.switchState((AnimationState.BASE));
-                }
+                super.interact(en, animF, obj, objIndex);
+                animF.switchState(AnimationState.CARRY_WATER);
             }
         }
     }
@@ -117,12 +109,8 @@ public abstract class Dish extends Food implements Swappable {
         @Override
         public void interact(Entity en, AnimationFactory animF, Pickupable obj, int objIndex) {
             if (en instanceof Player) {
-                if (animF.getCurrentState() == AnimationState.BASE) {
-                    animF.switchState(AnimationState.CARRY_CORNSILOGFINAL);
-                }
-                else if (animF.getCurrentState() == AnimationState.CARRY_CORNSILOGFINAL) {
-                    animF.switchState((AnimationState.BASE));
-                }
+                super.interact(en, animF, obj, objIndex);
+                animF.switchState(AnimationState.CARRY_WATER);
             }
         }
     }

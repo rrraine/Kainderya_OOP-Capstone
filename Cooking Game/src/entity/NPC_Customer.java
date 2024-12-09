@@ -60,7 +60,7 @@ public class NPC_Customer extends NPC implements Interactable {
         tapsilog = importImage("/food/meals/tapsilog/tapsilogFinal", gp.tileSize);
         spamsilog = importImage("/food/meals/spamsilog/spamsilogFinal", gp.tileSize);
         cornedsilog = importImage("/food/meals/cornsilog/cornsilogFinal", gp.tileSize);
-        water = importImage("/food/meals/center/burnt", gp.tileSize); // TODO WALA PA WATER IMAGE
+        water = importImage("/food/drinks/water", gp.tileSize);
         cola = importImage("/food/drinks/cola", gp.tileSize);
     }
 
