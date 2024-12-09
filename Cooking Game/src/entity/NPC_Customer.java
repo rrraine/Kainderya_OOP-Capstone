@@ -291,7 +291,8 @@ public class NPC_Customer extends NPC implements Interactable {
 
         if (!hasPlacedOrder) {
             generateOrder();
-            patienceTimer = 30 * GamePanel.FPS;
+            // patienceTimer = 30 * GamePanel.FPS;
+            startPatienceTimer();
             System.out.println("Customer at (" + seatLocation.x + "," + seatLocation.y + "): reordered " + order +"| Patience: " + patienceTimer /60);
             orderReceived = false;
         }
@@ -338,6 +339,9 @@ public class NPC_Customer extends NPC implements Interactable {
                 }
                 System.out.println("Customer at (" + seatLocation.x + "," + seatLocation.y + "): " + " is seated and waiting for their order. Patience Timer: " + patienceTimer /60);
                 System.out.println("Customer at (" + seatLocation.x + "," + seatLocation.y + "): " + "ordered " + order);
+            } else {
+                reorder();
+                isReordered = true;
             }
             System.out.println( gp.score.getTotalScore());
             checkPatience();
