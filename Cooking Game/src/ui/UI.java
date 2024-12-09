@@ -57,6 +57,8 @@ public abstract class UI implements Drawable, Importable {
     UIElement cook1, cook2, cook3, cook4;
     UIElement chosenAvatar;
 
+    UIElement tapsilog, spamsilog, cornsilog, egg, rice, tapa, spam, cbeef, onion;
+
     private boolean rendered;
 
 
@@ -90,6 +92,16 @@ public abstract class UI implements Drawable, Importable {
         cook2 = new UIElement(gp, "player", "cook2",  12,true);
         cook3 = new UIElement(gp, "player", "cook3",  12,true);
         cook4 = new UIElement(gp, "player", "cook4",  12,true);
+
+        tapsilog = new UIElement(gp, "food", "tapsilog", 0, false);
+        spamsilog = new UIElement(gp, "food", "spamsilog", 0, false);
+        cornsilog = new UIElement(gp, "food", "cornsilog", 0, false);
+        egg = new UIElement(gp, "food", "egg", 0, false);
+        rice = new UIElement(gp, "food", "rice", 0, false);
+        tapa = new UIElement(gp, "food", "tapa", 0, false);
+        spam = new UIElement(gp, "food", "spam", 0, false);
+        cbeef = new UIElement(gp, "food", "cbeef", 0, false);
+        onion = new UIElement(gp, "food", "onion", 0, false);
     }
 
     // FROM INTERFACE: DRAWABLE -----------------------------------------------------

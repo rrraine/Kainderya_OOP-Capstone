@@ -40,6 +40,9 @@ public class UIElement implements Importable {
             case "loadingBar":
                 renderProcessBar();
                 break;
+            case "food":
+                renderFood(specific);
+                break;
         }
     }
 
@@ -67,6 +70,38 @@ public class UIElement implements Importable {
         image3 = importImage("/ui/loadingBar/loadingBar_50", gp.tileSize);
         image4 = importImage("/ui/loadingBar/loadingBar_75", gp.tileSize);
         image5 = importImage("/ui/loadingBar/loadingBar_100", gp.tileSize);
+    }
+    private void renderFood(String specific) {
+
+        switch (specific) {
+            case "tapsilog":
+                image1 = importImage("/food/meals/tapsilog/tapsilogFinal", gp.tileSize);
+                break;
+            case "spamsilog":
+                image1 = importImage("/food/meals/spamsilog/spamsilogFinal", gp.tileSize);
+                break;
+            case "cornsilog":
+                image1 = importImage("/food/meals/cornsilog/cornsilogFinal", gp.tileSize);
+                break;
+            case "egg":
+                image1 = importImage("/food/ingredients/egg", gp.tileSize);
+                break;
+            case "rice":
+                image1 = importImage("/objects/item/plate/cookedRiceOnly", gp.tileSize);
+                break;
+            case "tapa":
+                image1 = importImage("/food/ingredients/tapa_item", gp.tileSize);
+                break;
+            case "spam":
+                image1 = importImage("/food/ingredients/spam", gp.tileSize);
+                break;
+            case "cbeef":
+                image1 = importImage("/food/ingredients/cBeef", gp.tileSize);
+                break;
+            case "onion":
+                image1 = importImage("/food/ingredients/onion", gp.tileSize);
+                break;
+        }
     }
 
 
@@ -219,5 +254,11 @@ public class UIElement implements Importable {
         }
 
         g2.drawImage(image, x, y, gp.tileSize +20, gp.tileSize, null);
+    }
+    public void drawFood(Graphics2D g2) {
+        g2.drawImage(image1, x, y, gp.tileSize *2, gp.tileSize *2, null);
+    }
+    public void drawTinyFood(Graphics2D g2) {
+        g2.drawImage(image1, x, y, gp.tileSize *4, gp.tileSize *4, null);
     }
 }
