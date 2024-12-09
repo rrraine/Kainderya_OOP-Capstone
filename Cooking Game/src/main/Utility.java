@@ -46,11 +46,11 @@ public class Utility {
         public static void deploySuperObjectInMap(GamePanel gp, int tileSize, List<SuperObject> obj) {
 
             try {
-                addItem(0, obj, new Item.Stool(gp), tileSize, 10, 11);
-                addItem(1, obj, new Item.Stool(gp), tileSize, 11, 11);
-                addItem(2, obj, new Item.Stool(gp), tileSize, 12, 11);
-                addItem(3, obj, new Item.Stool(gp), tileSize, 13, 11);
-                addItem(4, obj, new Item.Stool(gp), tileSize, 14, 11);
+                addItem(0, obj, new Item.Stool(gp), 0, 10, 11);
+                addItem(1, obj, new Item.Stool(gp), 0, 11, 11);
+                addItem(2, obj, new Item.Stool(gp), 0, 12, 11);
+                addItem(3, obj, new Item.Stool(gp), 0, 13, 11);
+                addItem(4, obj, new Item.Stool(gp), 0, 14, 11);
                 addItem(5, obj, new Item.Door(gp), tileSize, 7, 11);
                 addItem(6, obj, new WorkStation.Tables.leftTable(gp), tileSize, 10, 10);
                 addItem(7, obj, new WorkStation.Tables.middleTable(gp), tileSize, 11, 10);
@@ -63,10 +63,10 @@ public class Utility {
                 addItem(13, obj, new WorkStation.Tables.outsideLowerTable(gp), tileSize, 5, 6);
                 addItem(14, obj, new WorkStation.Tables.outsideUpperTable(gp), tileSize, 5, 5);
 
-                addItem(15, obj, new Item.Stool1(gp), tileSize, 4, 9);
-                addItem(16, obj, new Item.Stool1(gp), tileSize, 4, 8);
-                addItem(17, obj, new Item.Stool1(gp), tileSize, 4, 6);
-                addItem(18, obj, new Item.Stool1(gp), tileSize, 4, 5);
+                addItem(15, obj, new Item.Stool1(gp), 0, 4, 9);
+                addItem(16, obj, new Item.Stool1(gp), 0, 4, 8);
+                addItem(17, obj, new Item.Stool1(gp), 0, 4, 6);
+                addItem(18, obj, new Item.Stool1(gp), 0, 4, 5);
 
                 addItem(19, obj, new WorkStation.ChoppingBoard(gp), tileSize, 9, 7);
                 addItem(20, obj, new WorkStation.KitchenIsland.middleKitchenIsland(gp), tileSize, 10, 7);

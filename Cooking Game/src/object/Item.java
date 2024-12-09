@@ -169,8 +169,12 @@ public abstract class Item extends SuperObject {
         public void resetState() {
             swapImage("pan");
             isCooked = false;
-            surface.isCooked = false;
-            surface.isOccupied = false;
+
+            if (surface != null) {
+                surface.isCooked = false;
+                surface.isOccupied = false;
+            }
+
         }
 
 
