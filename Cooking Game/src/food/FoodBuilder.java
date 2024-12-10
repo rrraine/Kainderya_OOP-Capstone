@@ -56,7 +56,7 @@ public class FoodBuilder {
                 if (cooker.isOccupied() && cooker.isCooked()) {
 
                     // DETERMINE WHAT KIND OF INPUT
-                    if (onHand instanceof Item.Plates) {
+                    if (onHand instanceof Item.Plates plate) {
 
                         if (((Item.Plates) onHand).checkCurrentImage("counterPlate", onHand)) {
 
@@ -87,103 +87,104 @@ public class FoodBuilder {
 
                         }
                     }
+                    else if (onHand instanceof Dish.Spamsilog) {
+
+                        // DETERMINE WHAT KIND OF INPUT
+                        if (((Dish.Spamsilog) onHand).checkCurrentImage("spamsilogNoRice", onHand)) {
+
+                            cooker.consumeServings();
+                            animF.switchState(AnimationState.CARRY_SPAMSILOGFINAL);
+
+                            ((Dish) onHand).swapImage("spamsilogFinal");
+
+                            if (cooker.getServings() == 0) {
+                                cooker.setOccupied(false);
+                            }
+
+                            return onHand;
+
+
+                        }
+                        else if (((Dish.Spamsilog) onHand).checkCurrentImage("cookedSpamOnly", onHand)) {
+
+                            cooker.consumeServings();
+                            animF.switchState(AnimationState.CARRY_SPAMSILOGNOEGG);
+
+                            ((Dish) onHand).swapImage("spamsilogNoEgg");
+
+                            if (cooker.getServings() == 0) {
+                                cooker.setOccupied(false);
+                            }
+
+                            return onHand;
+
+                        }
+
+                    }
+                    else if (onHand instanceof Dish.Cornsilog) {
+
+                        // DETERMINE WHAT KIND OF INPUT
+                        if (((Dish.Cornsilog) onHand).checkCurrentImage("cornsilogNoRice", onHand)) {
+
+                            cooker.consumeServings();
+                            animF.switchState(AnimationState.CARRY_CORNSILOGFINAL);
+
+                            ((Dish) onHand).swapImage("cornsilogFinal");
+
+                            if (cooker.getServings() == 0) {
+                                cooker.setOccupied(false);
+                            }
+
+                            return onHand;
+
+
+                        }
+                        else if (((Dish.Cornsilog) onHand).checkCurrentImage("cookedCBeefOnly", onHand)) {
+
+                            cooker.consumeServings();
+                            animF.switchState(AnimationState.CARRY_CORNSILOGNOEGG);
+
+                            ((Dish) onHand).swapImage("cornsilogNoEgg");
+
+                            if (cooker.getServings() == 0) {
+                                cooker.setOccupied(false);
+                            }
+
+                            return onHand;
+                        }
+                    }
+                    else if (onHand instanceof Dish.Tapsilog) {
+
+                        // DETERMINE WHAT KIND OF INPUT
+                        if (((Dish)onHand).checkCurrentImage("tapsilogNoRice", onHand)) {
+
+                            cooker.consumeServings();
+                            animF.switchState(AnimationState.CARRY_TAPSILOGFINAL);
+
+                            ((Dish) onHand).swapImage("tapsilogFinal");
+
+                            if (cooker.getServings() == 0) {
+                                cooker.setOccupied(false);
+                            }
+
+                            return onHand;
+                        }
+                        else if (((Dish.Tapsilog) onHand).checkCurrentImage("cookedTapaOnly", onHand)) {
+
+                            cooker.consumeServings();
+                            animF.switchState(AnimationState.CARRY_TAPSILOGNOEGG);
+
+                            ((Dish) onHand).swapImage("tapsilogNoEgg");
+
+                            if (cooker.getServings() == 0) {
+                                cooker.setOccupied(false);
+                            }
+
+                            return onHand;
+                        }
+                    }
                 }
-                else if (onHand instanceof Dish.Spamsilog && cooker.isOccupied() && cooker.isCooked()) {
 
-                    // DETERMINE WHAT KIND OF INPUT
-                    if (((Dish.Spamsilog) onHand).checkCurrentImage("spamsilogNoRice", onHand)) {
-
-                        cooker.consumeServings();
-                        animF.switchState(AnimationState.CARRY_SPAMSILOGFINAL);
-
-                        ((Dish) onHand).swapImage("spamsilogFinal");
-
-                        if (cooker.getServings() == 0) {
-                            cooker.setOccupied(false);
-                        }
-
-                        return onHand;
-
-
-                    }
-                    else if (((Dish.Spamsilog) onHand).checkCurrentImage("cookedSpamOnly", onHand)) {
-
-                        cooker.consumeServings();
-                        animF.switchState(AnimationState.CARRY_SPAMSILOGNOEGG);
-
-                        ((Dish) onHand).swapImage("spamsilogNoEgg");
-
-                        if (cooker.getServings() == 0) {
-                            cooker.setOccupied(false);
-                        }
-
-                        return onHand;
-
-                    }
-
-                }
-                else if (onHand instanceof Dish.Cornsilog && cooker.isOccupied() && cooker.isCooked()) {
-
-                    // DETERMINE WHAT KIND OF INPUT
-                    if (((Dish.Cornsilog) onHand).checkCurrentImage("cornsilogNoRice", onHand)) {
-
-                        cooker.consumeServings();
-                        animF.switchState(AnimationState.CARRY_CORNSILOGFINAL);
-
-                        ((Dish) onHand).swapImage("cornsilogFinal");
-
-                        if (cooker.getServings() == 0) {
-                            cooker.setOccupied(false);
-                        }
-
-                        return onHand;
-
-
-                    }
-                    else if (((Dish.Cornsilog) onHand).checkCurrentImage("cookedCBeefOnly", onHand)) {
-
-                        cooker.consumeServings();
-                        animF.switchState(AnimationState.CARRY_CORNSILOGNOEGG);
-
-                        ((Dish) onHand).swapImage("cornsilogNoEgg");
-
-                        if (cooker.getServings() == 0) {
-                            cooker.setOccupied(false);
-                        }
-
-                        return onHand;
-                    }
-                }
-                else if (onHand instanceof Dish.Tapsilog && cooker.isOccupied() && cooker.isCooked()) {
-
-                    // DETERMINE WHAT KIND OF INPUT
-                    if (((Dish)onHand).checkCurrentImage("tapsilogNoRice", onHand)) {
-
-                        cooker.consumeServings();
-                        animF.switchState(AnimationState.CARRY_TAPSILOGFINAL);
-
-                        ((Dish) onHand).swapImage("tapsilogFinal");
-
-                        if (cooker.getServings() == 0) {
-                            cooker.setOccupied(false);
-                        }
-
-                        return onHand;
-                    }
-                    else if (((Dish.Tapsilog) onHand).checkCurrentImage("cookedTapaOnly", onHand)) {
-
-                        cooker.consumeServings();
-                        animF.switchState(AnimationState.CARRY_TAPSILOGNOEGG);
-
-                        ((Dish) onHand).swapImage("tapsilogNoEgg");
-
-                        if (cooker.getServings() == 0) {
-                            cooker.setOccupied(false);
-                        }
-
-                        return onHand;
-                    }
-                }
             }
         }
 

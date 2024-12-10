@@ -61,6 +61,8 @@ public class GamePanel extends JPanel implements Runnable {
     Thread gameThread;
     public Score score = Score.instantiate(this);
 
+
+
     // OBJECTS AND ENTITY
     public Player player;
     final List<NPC> npc = new ArrayList<>();
@@ -151,11 +153,11 @@ public class GamePanel extends JPanel implements Runnable {
 
         // LOAD OBJECTS AND NPC
         Utility.AssetSetter.deploySuperObjectInMap(this, tileSize, obj);
-        System.out.println(debug + "Deploying Objects. Count: " + obj.size() + reset);
+        //System.out.println(debug + "Deploying Objects. Count: " + obj.size() + reset);
         setupNPCDeployment(tileSize);
         //Utility.AssetSetter.deployNPCInMap(this, tileSize, npc, shopManager);
         // Utility.AssetSetter.deployNPCInMap(this, tileSize, npc);
-         System.out.println(debug + "Deploying NPCs. GAME PANEL Count: " + npc.size() + reset);
+        // System.out.println(debug + "Deploying NPCs. GAME PANEL Count: " + npc.size() + reset);
 
         assetPool.addAll(npc);
         assetPool.addAll(obj);

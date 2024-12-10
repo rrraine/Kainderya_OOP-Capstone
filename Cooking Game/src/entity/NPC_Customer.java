@@ -154,15 +154,6 @@ public class NPC_Customer extends NPC implements Interactable {
     // TODO HELP WHY
     private String deduceSeatOrientation() {
 
-        // debugging purposes
-        System.out.println("SEAT X: " + seatLocation.x + " SEAT Y: " + seatLocation.y);
-        if (seatLocation.x == 4) {
-            System.out.println("SitSide");
-        }
-        else if (seatLocation.y == 11) {
-            System.out.println("SitUp");
-        }
-
         // -------
         if (seatLocation.x == 4 && seatLocation.y != 11) return "sitSide";
         else if (seatLocation.y == 11 && seatLocation.x != 4) return "sitUp";
@@ -179,7 +170,7 @@ public class NPC_Customer extends NPC implements Interactable {
 
                 if (a.textMapX == seatLocation.x && a.textMapY == seatLocation.y) {
 
-                    System.out.println("Customer now seated, deleting chair: x=" + a.textMapX + ", y=" + a.textMapY + " | Seat Location: " + seatLocation);
+//                    System.out.println("Customer now seated, deleting chair: x=" + a.textMapX + ", y=" + a.textMapY + " | Seat Location: " + seatLocation);
                     gp.getAssetPool().remove(a);
                 }
             }
@@ -193,7 +184,7 @@ public class NPC_Customer extends NPC implements Interactable {
             generateOrder();
             // patienceTimer = 30 * GamePanel.FPS;
             // startPatienceTimer();
-            System.out.println("Customer at (" + seatLocation.x + "," + seatLocation.y + "): reordered " + order);
+//            System.out.println("Customer at (" + seatLocation.x + "," + seatLocation.y + "): reordered " + order);
             //System.out.println("Customer at (" + seatLocation.x + "," + seatLocation.y + "): reordered " + order +"| Patience: " + patienceTimer /60);
             orderReceived = false;
         }
@@ -204,17 +195,20 @@ public class NPC_Customer extends NPC implements Interactable {
         if (onHand.serve(onHand, order)) { // checks if order name and onHand name matches
 
             player.setItemOnHandDestroy();
-            animF.switchState(AnimationState.BASE);
+            Item.Plates plate = new Item.Plates(gp);
+            plate.swapImage("counterPlate");
+            player.setItemOnHandCreate(plate);
+            animF.switchState(AnimationState.CARRY_PLATE);
 
             orderReceived = true;
             hasPlacedOrder = false;
-            System.out.println("Customer at (" + seatLocation.x + "," + seatLocation.y + "): " + " received order: " + order);
+           // System.out.println("Customer at (" + seatLocation.x + "," + seatLocation.y + "): " + " received order: " + order);
             if (order.contains("Tapsilog") || order.contains("CornedSilog") || order.contains("Spamsilog")) {
                gp.score.addScore(20);
             } else if (order.contains("Water") || order.contains("Cola")) {
                 gp.score.addScore(15);
             }
-            System.out.println("CUSTOMER RECEIVED ORDER");
+          //  System.out.println("CUSTOMER RECEIVED ORDER");
             resetOrderParameters();
             //gp.score.addScore((patienceTimer > 0 && patienceTimer < 15) ? 5 : 10);
         }
@@ -233,7 +227,7 @@ public class NPC_Customer extends NPC implements Interactable {
     @Override
     public void setNPCAction() {
         if (isMovingToSeat) {
-            System.out.println("Customer is moving to their seat.");
+//            System.out.println("Customer is moving to their seat.");
             moveToSeat();
         } else if (isSeated) {
 
@@ -241,8 +235,8 @@ public class NPC_Customer extends NPC implements Interactable {
                  // Only generate a new order if there's none or it's a reorder
                 generateOrder();
                 //System.out.println("Customer at (" + seatLocation.x + "," + seatLocation.y + "): " + " is seated and waiting for their order. Patience Timer: " + patienceTimer /60);
-                System.out.println("Customer at (" + seatLocation.x + "," + seatLocation.y + "): " + " is seated and waiting for their order.");
-                System.out.println("Customer at (" + seatLocation.x + "," + seatLocation.y + "): " + "ordered " + order);
+//                System.out.println("Customer at (" + seatLocation.x + "," + seatLocation.y + "): " + " is seated and waiting for their order.");
+//                System.out.println("Customer at (" + seatLocation.x + "," + seatLocation.y + "): " + "ordered " + order);
             } else if (orderReceived) {
                 reorder();
 
@@ -250,7 +244,7 @@ public class NPC_Customer extends NPC implements Interactable {
 
            // checkPatience();
         } else {
-            System.out.println("Customer is idle, waiting for seat assignment.");
+//            System.out.println("Customer is idle, waiting for seat assignment.");
             direction = "idle";
         }
     }
@@ -380,7 +374,7 @@ public class NPC_Customer extends NPC implements Interactable {
 
          */
         if (seatLocation == null) {
-            System.out.println("No seat assigned.");
+//            System.out.println("No seat assigned.");
             return;
         }
 
@@ -390,10 +384,10 @@ public class NPC_Customer extends NPC implements Interactable {
             path = findPath(start, target);
 
             if (path == null || path.isEmpty()) {
-                System.out.println("Path not found from " + start + " to " + target);
+//                System.out.println("Path not found from " + start + " to " + target);
                 return;
             } else {
-                System.out.println("Path generated: " + path);
+//                System.out.println("Path generated: " + path);
             }
         }
 
@@ -402,7 +396,7 @@ public class NPC_Customer extends NPC implements Interactable {
             int targetX = nextStep.x * gp.tileSize;
             int targetY = nextStep.y * gp.tileSize;
 
-            System.out.println("Moving to: (" + worldX + ", " + worldY + "), Target: (" + targetX + ", " + targetY + ")");
+//            System.out.println("Moving to: (" + worldX + ", " + worldY + "), Target: (" + targetX + ", " + targetY + ")");
 
             if (Math.abs(worldX - targetX) > speed) {
                 direction = (worldX < targetX) ? "right" : "left";
@@ -418,7 +412,7 @@ public class NPC_Customer extends NPC implements Interactable {
             }
 
             if (path.isEmpty()) {
-                System.out.println("Customer has reached seat at: " + seatLocation);
+//                System.out.println("Customer has reached seat at: " + seatLocation);
                 isMovingToSeat = false;
                 isSeated = true;
                 direction = deduceSeatOrientation();
