@@ -17,6 +17,12 @@ KAINDERYA is a 2D pixel cooking game where players run and manage a fast-paced F
 
 (Multiplayer feature coming soon.)
 
+# MECHANICS
+SINGLE PLAYER:
+     1. Acknowledge the customers' orders
+     2. Get and complete their orders repeatedly
+     3. Customers eat a lot so watch out for their consecutive orders!
+
 # GAME OBJECTIVE
 Complete orders quickly within a fixed duration to achieve high scores.
 
