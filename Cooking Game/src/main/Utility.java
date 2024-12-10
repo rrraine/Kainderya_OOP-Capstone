@@ -215,7 +215,7 @@ public class Utility {
 
             }
             catch (NullPointerException e) {
-                System.err.println("Accessing null element in (List<NPC> npc): " + e.getMessage());
+//                System.err.println("Accessing null element in (List<NPC> npc): " + e.getMessage());
             }
         }
 
