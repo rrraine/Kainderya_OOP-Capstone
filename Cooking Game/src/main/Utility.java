@@ -136,7 +136,7 @@ public class Utility {
                 addItem(68, obj, new RefillStation.VendingMachine(gp), tileSize, 2,4);
 
             } catch (NullPointerException e) {
-                System.err.println("Accessing null element in (List<SuperObject> obj): " + e.getMessage());
+//                System.err.println("Accessing null element in (List<SuperObject> obj): " + e.getMessage());
             }
         }
         public static void deployNPCInMap(GamePanel gp, int tileSize, List<NPC> npc, ShopManager shopManager) {
@@ -315,7 +315,7 @@ public class Utility {
 
             }
             catch (ArrayIndexOutOfBoundsException e) {
-                System.err.println("Attempting to cross beyond the map matrix: [" + en.getClass() + "]");
+//                System.err.println("Attempting to cross beyond the map matrix: [" + en.getClass() + "]");
             }
 
         }
